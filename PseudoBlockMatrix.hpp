@@ -240,6 +240,52 @@ namespace PSEUDOBLOCKMATRIX
             return addOverBlocks(i,j,val);
         }
 
+        void PseudoBlockMatrix::fill( double val )
+        {
+            for(int b=0;b<Nblocks;b++){
+                for(int i=0;i<blockN[b];i++){
+                    for(int j=0;j<blockM[b];j++){
+                        blocks[b][i][j] = val;
+                    }
+                }
+            }
+            for(int i=0;i<N-1;i++)
+                denseCol[i] = val;
+            for(int j=0;j<M-1;j++)
+                denseRow[j] = val;
+            denseCorner = val;
+        }
+        PseudoBlockMatrix PseudoBlockMatrix::shallowCopy( PseudoBlockMatrix )
+        {
+            return PseudoBlockMatrix(Nblocks,blockN,blockM);
+        }
+
+        void PseudoBlockMatrix::PBMVM( const double *x, double *B )
+        {
+            int rs,cs,b,i,j;
+            for(j=0;j<N-1;j++)
+                B[N-1] = 0;
+            for(b=0;b<Nblocks;b++){
+                rs = rowStart[b];
+                cs = colStart[b];
+                for(i=0;i<blockN[b];i++){
+                    for(j=0;j<blockM[b];j++){
+                        B[i+rs] += blocks[b][i][j]*x[j+cs];
+                    }
+                }
+            }
+            for(i=0;i<N-1;i++)
+                B[i] += denseCol[i]*x[M-1];
+            for(j=0;j<N-1;j++)
+                B[N-1] += denseRow[j]*x[j];
+            B[N-1] += denseCorner*x[M-1];
+        }
+        // bool GaussElim( const double *rhs, double *x, PseudoBlockMatrix tmp );
+        bool PseudoBlockMatrix::GaussSeidel( const double *rhs, const double *x0, double resTol, double convTol, double *x )
+        {
+            
+        }
+
 }
 
 #endif
