@@ -1,58 +1,72 @@
-#ifndef _ELEMENT_
-#define _ELEMENT_
+#ifndef _BODYMODEL_
+#define _BODYMODEL_
 
 #include <iostream>
 #include <cstddef>
 #include <math.h>
 #include <assert.h>
-#include "washer.hpp"
-#include "sector.hpp"
+#include "element.hpp"
+#include "PseudoBlockMatrix.hpp"
 
 using namespace std;
 
-namespace ELEMENT
+namespace BODYMODEL
 {
-    enum ElementState { undefined, initialized, allocated, wsAdded, computed};
+    enum BodyState { undefined, initialized, elementsAdded, elementsComputed, staticPBMAssembled};
 
-    class Element
+
+    class BodyModel
     {
     private:
-        ElementState _state = undefined;
+        BodyState _state = undefined;
     public:
-        bool isCylinder;
-        int N; // Number of distinct T nodes
-        int nWashers; // Number of washers
-        int washerIdx=0; // index of free washer
-        int nSectors; // Number of sectors
-        double length = -2; // m, length of element iff cylinder
-        double hx; // W/K, countercurrent heat transfer coefficient
-        int n_j; // -, number of equivalent clothing layers
-        double omega=-1; // -, 1 for cylinder / 2 for sphere
-        double sumPhi; // rad, sum of sector angles
+        // Model attributes
+        int nElements; // Number of body elements
+        ELEMENT::Element* elements; // Body elements
+        int N; // Number of nodes in whole-body model
+        PSEUDOBLOCKMATRIX::PseudoBlockMatrix staticPBM; // Constant entries in PBM
 
-        SECTOR::Sector *sectors; // Array of sectors
-        WASHER::Washer *washers; // Array of washers
+        // Basal constants and attributes
+        double Mbas0; // W, Whole body basal metabolism
+        double actBas; // MET, basal activity fraction of effort
+        const double b0; // 1/MET, linear slope of actBas
+        const double b1; // MET/MET, y intercept of actBas
+        double etaWork; // J/J, work efficiency
 
-        Element()
+        // Skin constants and attributes
+        const double StefanBoltzmann = 5.670374419e-8; // W/m^2/K^4
+        double Icl; // W/m^2/K, clothing thermal resistance
+        double icl; // -, effective clothing resistance
+        const double Rinverse; // W*Pa/m^2, vapor resistivity
+        const double LambdaH20; // J/kg, latent heat of water
+        const double LewisConstant; // K/Pa
+        
+        // Blood constants and attributes
+        const double p; // -, RBC fraction of blood
+        double Viv0; // m^3, initial blood plasma volume
+        double Vrbc0; // m^3, initial RBC volume
+        const double rhoBlood; // kg/m^3, nominal blood density
+        const double cpBlood; // J/kg/K, blood constant pressure specific heat capacity
+
+        BodyModel( int tnElements )
         {
-            assert(_state==undefined);
-
+            nElements = tnElements;
+            _state = initialized;
         }
-        Element(int nWash, int nSect)
+        ~BodyModel()
         {
-            nWashers = nWash;
-            nSectors = nSect;
-            washers = new WASHER::Washer[nWashers];
-            sectors = new SECTOR::Sector[nSectors];
-        }
-        ~Element()
-        {
-            delete [] washers;
-            delete [] sectors;
+            delete [] elements;
         }
         void computeN()
         {
-            N = 1 + (nWashers-1)*nSectors;
+            N = 1;
+            for(int i=0;i<nElements;i++){
+                elements[i].computeN();
+                N += elements[i].N;
+            }
+        }
+        void buildStaticPBM(){
+
         }
         void addWashers(
             int nAdd,   // Number of washers to add
