@@ -12,13 +12,15 @@ using namespace std;
 
 namespace BODYMODEL
 {
-    enum BodyState { undefined, initialized, elementsAdded, elementsComputed, staticPBMAssembled};
-
+    enum BodyState { undefined, initialized, allocated, elementsAdded, computed, staticPBMAssembled};
 
     class BodyModel
     {
     private:
         BodyState _state = undefined;
+
+        void computeN();
+
     public:
         // Model attributes
         int nElements; // Number of body elements
@@ -48,79 +50,44 @@ namespace BODYMODEL
         const double rhoBlood; // kg/m^3, nominal blood density
         const double cpBlood; // J/kg/K, blood constant pressure specific heat capacity
 
-        BodyModel( int tnElements )
+        void compute();
+        
+
+        BodyModel()
+        {
+            _state = initialized;
+        }
+        BodyModel( int tnElements ) : BodyModel()
         {
             nElements = tnElements;
-            _state = initialized;
         }
         ~BodyModel()
         {
             delete [] elements;
         }
-        void computeN()
-        {
-            N = 1;
-            for(int i=0;i<nElements;i++){
-                elements[i].computeN();
-                N += elements[i].N;
-            }
-        }
-        void buildStaticPBM(){
 
-        }
-        void addWashers(
-            int nAdd,   // Number of washers to add
-            double r0,  // m, inner radius
-            double rf,  // m, outer radius
-            double k,   // W/m^2, conductivity
-            double rho, // kg/m^3, density
-            double c,   // J/kg/K, specific heat capacity
-            double w_bl,// 1/s, tissue permeability
-            double q_m) // W/m^3, specific basal metabolism
-        {
-            // Must have core already loaded!
-            assert(washerIdx>0);
-            // Must have length configured!
-            assert(length>-2);
-            // Must have space remaining!
-            assert(nAdd+washerIdx<=nWashers);
-            // Must have defined omega!
-            assert(omega>0);
-
-            double drr = (rf-r0)/nAdd;
-            for(int i=0;i<nAdd;i++){
-                double r = r0+(i+.5)*drr;
-                if(isCylinder){
-                    WASHER::CylinderWasher tmp;
-                    tmp.r = r;
-                    tmp.k = k;
-                    tmp.rho = rho;
-                    tmp.c = c;
-                    tmp.w_bl = w_bl;
-                    tmp.q_m = q_m;
-                    tmp.deltaR = drr;
-                    tmp.computeGamma(omega);
-                    tmp.computeVolume(length);
-                    washers[washerIdx++] = tmp;
-                }
-                else{
-                    WASHER::SphereWasher tmp;
-                    tmp.r = r;
-                    tmp.k = k;
-                    tmp.rho = rho;
-                    tmp.c = c;
-                    tmp.w_bl = w_bl;
-                    tmp.q_m = q_m;
-                    tmp.deltaR = drr;
-                    tmp.computeGamma(omega);
-                    tmp.computeVolume();
-                    washers[washerIdx++] = tmp;
-                }
-            }
-        }
-
+        
 
     };
+
+    void BodyModel::computeN()
+    {
+        assert(_state==computed);
+
+        N = 1;
+        for(int i=0;i<nElements;i++){
+            N += elements[i].N;
+        }
+    }
+
+    void BodyModel::compute()
+    {
+        for(int i=0;i<nElements;i++)
+            elements[i].compute();
+        
+        computeN();
+    }
+
 
 
 }

@@ -10,9 +10,12 @@ using namespace std;
 
 namespace PSEUDOBLOCKMATRIX
 {
+    enum PBMState { undefined, initialized, allocated };
+
     class PseudoBlockMatrix
     {
     private:
+        PBMState _state = undefined;
         double ***blocks; // 2D dense blocks
         double *denseRow; // 1D dense final row
         double *denseCol; // 1D dense final column
@@ -24,6 +27,7 @@ namespace PSEUDOBLOCKMATRIX
         int *blockN, *blockM; // Number of rows and cols per block
         int Nblocks; // Number of blocks
 
+        void allocate(int tNblocks, int* tblockN, int* tblockM);
         int binSearchBlock( int rowIdx );
         double getOverBlocks( int i, int j );
         double getFromBlock( int b, int i, int j );
@@ -43,46 +47,22 @@ namespace PSEUDOBLOCKMATRIX
         // bool GaussElim( const double *rhs, double *x, PseudoBlockMatrix tmp );
         bool GaussSeidel( const double *rhs, const double *x0, double resTol, double convTol, double *x );
 
+        PseudoBlockMatrix()
+        {
+            _state = initialized;
+        }
 
         PseudoBlockMatrix(
             int tNblocks,
             int* tblockN,
-            int* tblockM)
+            int* tblockM) : PseudoBlockMatrix()
         {
-            Nblocks = tNblocks;
-            blockN = tblockN;
-            blockM = tblockM;
-
-            N = 0;
-            M = 0;
-
-            // Allocate blocks, compute rowstart / colStart
-            blocks = new double**[Nblocks];
-            rowStart = new double[Nblocks];
-            colStart = new double[Nblocks];
-            for(int b=0;b<Nblocks;b++){
-                blocks[b] = new double*[blockN[b]];
-                for(int i=0;i<blockN[b];i++){
-                    blocks[b][i] = new double[blockM[b]];
-                }
-                rowStart[b] = N;
-                N = N + blockN[b];
-                colStart[b] = M;
-                M = M + blockM[b];
-            }
-            // Allocate dense col, row, corner
-            denseCol = new double[N-1];
-            denseRow = new double[M-1];
-            denseCorner = 0;
-
-            // Adjust for dense row/col!
-            N = N+1;
-            M = M+1;
-
+            allocate( tNblocks, tblockN, tblockM);
         }
 
         ~PseudoBlockMatrix()
         {
+            if(_state==allocated){
             for(int b=0;b<Nblocks;b++){
                 for(int i=0;i<blockN[b];i++){
                     delete [] blocks[b][i];
@@ -99,12 +79,51 @@ namespace PSEUDOBLOCKMATRIX
             delete [] colStart;
             delete [] blockN;
             delete [] blockM;
+            }
         }
 
         
 
 
     };
+
+    void PseudoBlockMatrix::allocate(
+        int tNblocks,
+        int* tblockN,
+        int* tblockM)
+    {
+        Nblocks = tNblocks;
+        blockN = tblockN;
+        blockM = tblockM;
+
+        N = 0;
+        M = 0;
+
+        // Allocate blocks, compute rowstart / colStart
+        blocks = new double**[Nblocks];
+        rowStart = new double[Nblocks];
+        colStart = new double[Nblocks];
+        for(int b=0;b<Nblocks;b++){
+            blocks[b] = new double*[blockN[b]];
+            for(int i=0;i<blockN[b];i++){
+                blocks[b][i] = new double[blockM[b]];
+            }
+            rowStart[b] = N;
+            N = N + blockN[b];
+            colStart[b] = M;
+            M = M + blockM[b];
+        }
+        // Allocate dense col, row, corner
+        denseCol = new double[N-1];
+        denseRow = new double[M-1];
+        denseCorner = 0;
+
+        // Adjust for dense row/col!
+        N = N+1;
+        M = M+1;
+        
+        _state= allocated;
+    }
 
     int PseudoBlockMatrix::binSearchBlock( int rowIdx ){
         int lo = 0, hi = Nblocks-1,mid=-1;
