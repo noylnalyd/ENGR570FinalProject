@@ -42,10 +42,13 @@ namespace SIMMODEL
         double TsrmIndoors; // K, mean surroundings temperature inside
         double TsrmOutdoors; // K, mean surroundings temperature outside
 
-        virtual void BC( int element, int sector, int washer, double time, double* T, double* Trhs)=0;
+        virtual void skinBC( int element, int sector, double time, double* T, double* Amatrixii, double* Trhs)=0;
     };
 
-    
+    class KonstasCase : SimModel
+    {
+
+    };
 
 
 }
