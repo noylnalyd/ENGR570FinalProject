@@ -12,7 +12,7 @@ using namespace std;
 
 namespace SIMULATOR
 {
-    enum SimulatorState { undefined, initialized, bodyLoaded, simLoaded, precomputed, simrunning, simrun, output };
+    enum SimulatorState { undefined, initialized, allocated, bodyLoaded, simLoaded, precomputed, simrunning, simrun, output };
 
 
     class Simulator
@@ -44,6 +44,24 @@ namespace SIMULATOR
         double* Cs; // -, Vasoconstriction ratio
         double* Dl; // W/K, Vasodilation capacitance
         double* Sw; // g/min, Sweat output
+
+        Simulator(){
+            _state = initialized;
+            nSteps = (int)ceil((tFinal-tInitial)/dt);
+
+            times = new double[nSteps];
+            Tskm = new double[nSteps];
+            Thy = new double[nSteps];
+            Tblp = new double[nSteps];
+            H = new double[nSteps];
+            Sh = new double[nSteps];
+            Cs = new double[nSteps];
+            Dl = new double[nSteps];
+            Sw = new double[nSteps];
+
+            
+
+        }
     };
 
 }
