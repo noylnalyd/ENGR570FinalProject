@@ -44,8 +44,8 @@ namespace ELEMENT
         void compute();
         
 
-        SECTOR::Sector *sectors; // Array of sectors
-        WASHER::Washer *washers; // Array of washers
+        SECTOR::Sector **sectors; // Array of sectors
+        WASHER::Washer **washers; // Array of washers
 
         Element()
         {
@@ -56,8 +56,8 @@ namespace ELEMENT
         {
             nWashers = nWash;
             nSectors = nSect;
-            washers = new WASHER::Washer[nWashers];
-            sectors = new SECTOR::Sector[nSectors];
+            washers = new WASHER::Washer*[nWashers];
+            sectors = new SECTOR::Sector*[nSectors];
         }
         ~Element()
         {
