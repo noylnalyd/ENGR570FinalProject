@@ -29,7 +29,7 @@ namespace SIMULATOR
 
         // SimModel attributes
         int ICconfigMode; // How to initialize (0=scratch, 1=T from file, 2=T and PBM from file)
-        BODYMODEL::BodyModel body; // Body object
+        BODYMODEL::BodyModel* body; // Body object
         SIMMODEL::SimModel* sim; // Simulator options object
 
 
@@ -45,7 +45,7 @@ namespace SIMULATOR
         double* Dl; // W/K, Vasodilation capacitance
         double* Sw; // g/min, Sweat output
 
-        Simulator(){
+        Simulator(int simCase){
             _state = initialized;
             nSteps = (int)ceil((tFinal-tInitial)/dt);
 
@@ -59,8 +59,26 @@ namespace SIMULATOR
             Dl = new double[nSteps];
             Sw = new double[nSteps];
 
+            body = new BODYMODEL::BodyModel();
             
+            switch(simCase){
+                case 1:{ // Steady
+                    sim = new SIMMODEL::SteadyCase();
+                }
+                case 2:{ // Transient, static
+                    sim = new SIMMODEL::TransientCase();
+                }
+                case 3:{ // Injury
+                    sim = new SIMMODEL::InjuryCase();
+                }
+                case 4:{ // Konstas
+                    sim = new SIMMODEL::KonstasCase();
+                }
+                case 5:{ // Diao
+                    sim = new SIMMODEL::DiaoCase();
+                }
 
+            }
         }
     };
 
