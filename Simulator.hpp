@@ -45,7 +45,10 @@ namespace SIMULATOR
         double* Dl; // W/K, Vasodilation capacitance
         double* Sw; // g/min, Sweat output
 
-        Simulator(int simCase){
+        void runSim();
+
+
+        Simulator(int simCase, BODYMODEL::BodyModel* bodyPtr, SIMMODEL::SimModel* simPtr){
             _state = initialized;
             nSteps = (int)ceil((tFinal-tInitial)/dt);
 
@@ -59,26 +62,8 @@ namespace SIMULATOR
             Dl = new double[nSteps];
             Sw = new double[nSteps];
 
-            body = new BODYMODEL::BodyModel();
-            
-            switch(simCase){
-                case 1:{ // Steady
-                    sim = new SIMMODEL::SteadyCase();
-                }
-                case 2:{ // Transient, static
-                    sim = new SIMMODEL::TransientCase();
-                }
-                case 3:{ // Injury
-                    sim = new SIMMODEL::InjuryCase();
-                }
-                case 4:{ // Konstas
-                    sim = new SIMMODEL::KonstasCase();
-                }
-                case 5:{ // Diao
-                    sim = new SIMMODEL::DiaoCase();
-                }
-
-            }
+            body = bodyPtr;
+            sim = simPtr;
         }
     };
 
