@@ -5,16 +5,15 @@
 #include <cstddef>
 #include <math.h>
 
-using namespace std;
 
 namespace WASHER
 {
-    enum ElementState { undefined, initialized, computed };
+    enum WasherState { undefined, initialized, computed };
 
     class Washer
     {
     private:
-        ElementState _state = undefined;
+        WasherState _state = undefined;
         void computeZeta();
         void computeGamma();
         void computeDel();
@@ -46,7 +45,7 @@ namespace WASHER
             _state = initialized;
         };
         ~Washer();
-
+        void sharedCompute();
         void compute();
 
     };
@@ -63,13 +62,17 @@ namespace WASHER
     {
         del = deltaR*deltaR/k;
     }
-    void Washer::compute()
+    void Washer::sharedCompute()
     {
         computeDel();
         computeGamma();
         computeZeta();
         computeVolume();
         _state = computed;
+    }
+    void Washer::compute()
+    {
+        sharedCompute();
     }
 
     class CylinderWasher : public Washer
@@ -124,7 +127,7 @@ namespace WASHER
             
             void compute(){
                 computeTheta();
-                Washer::compute();
+                sharedCompute();
             }
     };
 
@@ -168,7 +171,7 @@ namespace WASHER
             
             void compute(){
                 computeTheta();
-                Washer::compute();
+                sharedCompute();
             }
     };
 
