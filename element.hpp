@@ -5,6 +5,8 @@
 #include <cstddef>
 #include <math.h>
 #include <assert.h>
+#include <vector>
+#include <memory>
 #include "washer.hpp"
 #include "sector.hpp"
 
@@ -43,7 +45,6 @@ namespace ELEMENT
 
         void compute();
         
-
         SECTOR::Sector **sectors; // Array of sectors
         WASHER::Washer **washers; // Array of washers
 
@@ -64,27 +65,31 @@ namespace ELEMENT
             delete [] washers;
             delete [] sectors;
         }
-        
-        
-
-
     };
 
     void Element::compute(){
         // Set core sumphi
-        washers[0].
-
+        double tSumPhi = 0;
+        for(int i=0;i<nSectors;i++)
+            tSumPhi += sectors[i]->phi;
+        if(isCylinder){
+            static_cast<WASHER::CylinderCoreWasher*>((washers[0]))->sumPhi = tSumPhi;
+        }
+        else{
+            static_cast<WASHER::SphereCoreWasher*>((washers[0]))->sumPhi = tSumPhi;
+        }
+        
         // Compute basic attributes
         for(int i=0;i<nWashers;i++){
-            washers[i].compute();
+            washers[i]->compute();
         }
 
         // Compute relational attributes
         for(int i=0;i<nWashers-1;i++){
-            washers[i].computeAForward(&(washers[i+1]));
+            washers[i]->computeAForward((washers[i+1]));
         }
         for(int i=1;i<nWashers;i++){
-            washers[i].computeABackward(&(washers[i-1]));
+            washers[i]->computeABackward((washers[i-1]));
         }
 
         computeN();
@@ -138,7 +143,7 @@ namespace ELEMENT
                 tmp->w_bl = w_bl;
                 tmp->q_m = q_m;
                 tmp->deltaR = drr;
-                washers[washerIdx++] = tmp;
+                washers[washerIdx++] = *tmp;
             }
         }
     }
