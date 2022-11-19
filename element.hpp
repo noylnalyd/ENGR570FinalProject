@@ -119,29 +119,25 @@ namespace ELEMENT
         for(int i=0;i<nAdd;i++){
             double r = r0+(i+.5)*drr;
             if(isCylinder){
-                WASHER::CylinderWasher tmp;
-                tmp.r = r;
-                tmp.k = k;
-                tmp.rho = rho;
-                tmp.c = c;
-                tmp.w_bl = w_bl;
-                tmp.q_m = q_m;
-                tmp.deltaR = drr;
-                tmp.computeGamma(omega);
-                tmp.computeVolume(length);
+                WASHER::CylinderWasher* tmp = new WASHER::CylinderWasher();
+                tmp->r = r;
+                tmp->k = k;
+                tmp->rho = rho;
+                tmp->c = c;
+                tmp->w_bl = w_bl;
+                tmp->q_m = q_m;
+                tmp->deltaR = drr;
                 washers[washerIdx++] = tmp;
             }
             else{
-                WASHER::SphereWasher tmp;
-                tmp.r = r;
-                tmp.k = k;
-                tmp.rho = rho;
-                tmp.c = c;
-                tmp.w_bl = w_bl;
-                tmp.q_m = q_m;
-                tmp.deltaR = drr;
-                tmp.computeGamma(omega);
-                tmp.computeVolume();
+                WASHER::SphereWasher* tmp = new WASHER::SphereWasher();
+                tmp->r = r;
+                tmp->k = k;
+                tmp->rho = rho;
+                tmp->c = c;
+                tmp->w_bl = w_bl;
+                tmp->q_m = q_m;
+                tmp->deltaR = drr;
                 washers[washerIdx++] = tmp;
             }
         }
