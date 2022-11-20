@@ -10,7 +10,7 @@
 
 namespace SIMULATOR
 {
-    enum SimulatorState { undefined, initialized, allocated, bodyLoaded, simLoaded, precomputed, simrunning, simrun, output };
+    enum SimulatorState { undefined, initialized, bodyLoaded, simLoaded, allocated, precomputed, simrunning, simrun, output };
 
 
     class Simulator
@@ -43,6 +43,20 @@ namespace SIMULATOR
         double* Dl; // W/K, Vasodilation capacitance
         double* Sw; // g/min, Sweat output
 
+        void preallocate(
+            double* Tprv, // K
+            double* Mprv, // W
+            double* QRespprv, // W
+            double* Tskprv, // K
+            double* qprv, // W/m^3
+            double* betaprv, // K
+            double* Tppprv, // K
+            double* Tprv, // K
+            double* Tprv, // K
+            double* Tprv, // K
+            double* Tprv, // K
+            double* Tprv, // K
+        );
         void runSim();
 
         Simulator(int simCase, BODYMODEL::BodyModel* bodyPtr, SIMMODEL::SimModel* simPtr){
@@ -64,6 +78,8 @@ namespace SIMULATOR
             
             _state = allocated;
         }
+
+
     };
 
 }
