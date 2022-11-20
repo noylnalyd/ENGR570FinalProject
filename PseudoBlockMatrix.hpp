@@ -6,8 +6,6 @@
 #include <assert.h>
 #include <math.h>
 
-using namespace std;
-
 namespace PSEUDOBLOCKMATRIX
 {
     enum PBMState { undefined, initialized, allocated };
