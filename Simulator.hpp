@@ -8,8 +8,6 @@
 #include "BodyModel.hpp"
 #include "SimModel.hpp"
 
-using namespace std;
-
 namespace SIMULATOR
 {
     enum SimulatorState { undefined, initialized, allocated, bodyLoaded, simLoaded, precomputed, simrunning, simrun, output };
@@ -47,7 +45,6 @@ namespace SIMULATOR
 
         void runSim();
 
-
         Simulator(int simCase, BODYMODEL::BodyModel* bodyPtr, SIMMODEL::SimModel* simPtr){
             _state = initialized;
             nSteps = (int)ceil((tFinal-tInitial)/dt);
@@ -64,6 +61,8 @@ namespace SIMULATOR
 
             body = bodyPtr;
             sim = simPtr;
+            
+            _state = allocated;
         }
     };
 
