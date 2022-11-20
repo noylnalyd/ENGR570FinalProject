@@ -73,6 +73,12 @@ namespace BODYMODEL
         }
     };
 
+    void controlSignals(
+        double TskError,
+        double ThyError,
+        double TskErrorGradient
+    );
+
     BodyState BodyModel::getState()
     {
         return _state;
