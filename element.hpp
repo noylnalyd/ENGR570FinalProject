@@ -1,5 +1,5 @@
-#ifndef _ELEMENT_
-#define _ELEMENT_
+#ifndef _ELEMENT_HPP_
+#define _ELEMENT_HPP_
 
 #include <iostream>
 #include <cstddef>
@@ -14,13 +14,61 @@ using namespace std;
 
 namespace ELEMENT
 {
-    enum ElementState { undefined, initialized, allocated, wsAdded, computed};
+    enum ElementState { undefined, initialized, allocated, wsAdded, subcomputed, computed};
 
     class Element
     {
     private:
         ElementState _state = undefined;
         void computeN();
+        
+
+    public:
+        // Class attributes
+        bool isCylinder;
+        int N; // Number of distinct T nodes
+        int nWashers; // Number of washers
+        int washerIdx=0; // index of free washer
+        int nSectors; // Number of sectors
+        int sectorIdx=0; // index of free sector
+
+        // Body level attributes
+        double length = -2; // m, length of element iff cylinder
+        double hx; // W/K, countercurrent heat transfer coefficient
+        int n_j; // -, number of equivalent clothing layers
+        double omega = -1; // - , shape parameter (-1 for undefined)
+        double sumPhi = 0; // rad, sum of sector angles
+        double theta = 0; // 1/rad, geometry parameter
+
+        // Fractional coefficients
+        double a_nat; // Share of natural convection
+        double a_frc; // Share of forced convection
+        double a_mix; // Share of mixed convection
+        double a_sk; // Share of skin area
+        double a_sed; // Share of sedentary load
+        double a_stnd; // Share of standard load
+        double a_sw; // Share of sweat
+        double a_dl; // Share of vasodilation
+        double a_cs; // Share of vasoconstriction
+        double a_sh; // Share of shivering
+
+        // Precomputation methods
+        void subCompute( double* totalSkinArea );
+        void compute( double totalSkinArea );
+        virtual void computeVolume( WASHER::Washer* cur ) = 0;
+        virtual void computeAForward( WASHER::Washer* cur, WASHER::Washer* nxt) = 0;
+        virtual void computeABackward( WASHER::Washer* cur, WASHER::Washer* prv) = 0;
+        void computeGamma( WASHER::Washer* cur );
+        virtual void computeTheta() = 0;
+
+        void allocate(int nWash, int nSect){
+            nWashers = nWash;
+            nSectors = nSect;
+            washers = new WASHER::Washer*[nWashers];
+            sectors = new SECTOR::Sector*[nSectors];
+            _state = allocated;
+        }
+        ElementState getState();
         void addWashers(
             int nAdd,   // Number of washers to add
             double r0,  // m, inner radius
@@ -30,35 +78,22 @@ namespace ELEMENT
             double c,   // J/kg/K, specific heat capacity
             double w_bl,// 1/s, tissue permeability
             double q_m); // W/m^3, specific basal metabolism
+        void addSector(SECTOR::Sector* sec);
 
-    public:
-        bool isCylinder;
-        int N; // Number of distinct T nodes
-        int nWashers; // Number of washers
-        int washerIdx=0; // index of free washer
-        int nSectors; // Number of sectors
-        double length = -2; // m, length of element iff cylinder
-        double hx; // W/K, countercurrent heat transfer coefficient
-        int n_j; // -, number of equivalent clothing layers
-        double omega=-1; // -, 1 for cylinder / 2 for sphere
-        double sumPhi; // rad, sum of sector angles
-
-        void compute();
-        
         SECTOR::Sector **sectors; // Array of sectors
         WASHER::Washer **washers; // Array of washers
 
         Element()
         {
             assert(_state==undefined);
-
+            _state = initialized;
         }
+        
         Element(int nWash, int nSect)
         {
-            nWashers = nWash;
-            nSectors = nSect;
-            washers = new WASHER::Washer*[nWashers];
-            sectors = new SECTOR::Sector*[nSectors];
+            assert(_state==undefined);
+            _state = initialized;
+            allocate(nWash, nSect);
         }
         ~Element()
         {
@@ -66,88 +101,38 @@ namespace ELEMENT
             delete [] sectors;
         }
     };
-
-    void Element::compute(){
-        // Set core sumphi
-        double tSumPhi = 0;
-        for(int i=0;i<nSectors;i++)
-            tSumPhi += sectors[i]->phi;
-        if(isCylinder){
-            static_cast<WASHER::CylinderCoreWasher*>((washers[0]))->sumPhi = tSumPhi;
-        }
-        else{
-            static_cast<WASHER::SphereCoreWasher*>((washers[0]))->sumPhi = tSumPhi;
-        }
-        
-        // Compute basic attributes
-        for(int i=0;i<nWashers;i++){
-            washers[i]->compute();
-        }
-
-        // Compute relational attributes
-        for(int i=0;i<nWashers-1;i++){
-            washers[i]->computeAForward((washers[i+1]));
-        }
-        for(int i=1;i<nWashers;i++){
-            washers[i]->computeABackward((washers[i-1]));
-        }
-
-        computeN();
-        _state = computed;
-    }
-
-    void Element::computeN()
-    {
-        N = 1 + (nWashers-1)*nSectors;
-    }
-
-    void Element::addWashers(
-        int nAdd,   // Number of washers to add
-        double r0,  // m, inner radius
-        double rf,  // m, outer radius
-        double k,   // W/m^2, conductivity
-        double rho, // kg/m^3, density
-        double c,   // J/kg/K, specific heat capacity
-        double w_bl,// 1/s, tissue permeability
-        double q_m) // W/m^3, specific basal metabolism
-    {
-        // Must have core already loaded!
-        assert(washerIdx>0);
-        // Must have length configured!
-        assert(length>-2);
-        // Must have space remaining!
-        assert(nAdd+washerIdx<=nWashers);
-        // Must have defined omega!
-        assert(omega>0);
-
-        double drr = (rf-r0)/nAdd;
-        for(int i=0;i<nAdd;i++){
-            double r = r0+(i+.5)*drr;
-            if(isCylinder){
-                WASHER::CylinderWasher* tmp = new WASHER::CylinderWasher();
-                tmp->r = r;
-                tmp->k = k;
-                tmp->rho = rho;
-                tmp->c = c;
-                tmp->w_bl = w_bl;
-                tmp->q_m = q_m;
-                tmp->deltaR = drr;
-                washers[washerIdx++] = tmp;
+    class CylinderElement : public Element{
+        public:
+            CylinderElement() : Element()
+            {
+                isCylinder = true;
+                omega = 1;
             }
-            else{
-                WASHER::SphereWasher* tmp = new WASHER::SphereWasher();
-                tmp->r = r;
-                tmp->k = k;
-                tmp->rho = rho;
-                tmp->c = c;
-                tmp->w_bl = w_bl;
-                tmp->q_m = q_m;
-                tmp->deltaR = drr;
-                washers[washerIdx++] = *tmp;
+            CylinderElement( int nWash, int nSect ) : CylinderElement()
+            {
+                allocate(nWash,nSect);
             }
-        }
-    }
-
+            void computeVolume( WASHER::Washer* cur ) override;
+            void computeAForward( WASHER::Washer* cur, WASHER::Washer* nxt) override;
+            void computeABackward( WASHER::Washer* cur, WASHER::Washer* prv) override;
+            void computeTheta() override;
+    };
+    class SphereElement : public Element{
+        public:
+            SphereElement() : Element()
+            {
+                isCylinder = false;
+                omega = 2;
+            }
+            SphereElement( int nWash, int nSect ) : SphereElement()
+            {
+                allocate(nWash,nSect);
+            }
+            void computeVolume( WASHER::Washer* cur ) override;
+            void computeAForward( WASHER::Washer* cur, WASHER::Washer* nxt) override;
+            void computeABackward( WASHER::Washer* cur, WASHER::Washer* prv) override;
+            void computeTheta() override;
+    };
 }
 
 #endif
