@@ -78,8 +78,7 @@ namespace SIMULATOR
             
             _state = allocated;
         }
-
-
+        void computeThermalLoadParameters(double* M, double* H, double*Q);
     };
 
 }

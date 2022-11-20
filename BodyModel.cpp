@@ -35,6 +35,36 @@ namespace BODYMODEL
 
         
     }
+    
+    void controlSignals(
+        double* Sh,
+        double* Cs,
+        double* Dl,
+        double* Sw,
+        double TskError,
+        double ThyError,
+        double TskErrorGradient,
+        double bvr,
+        double svr)
+        {
+            double TskErrorDot = 0;
+            if(TskError <=0 && TskErrorGradient <=0){
+                TskErrorDot = TskError*TskErrorGradient;
+            }
+            *Sh = 10*(tanh(.48*TskError+3.62)-1)*TskError
+                -27.9*ThyError
+                +1.7*TskErrorDot
+                -28.6; // W
+            *Cs = 35*(tanh(.34*TskError+1.07)-1)*TskError
+                +3.9*TskErrorDot; // -
+            *Dl = 21*(tanh(.79*TskError-.70)+1)*TskError
+                +32*(tanh(3.29*ThyError-1.46)+1)*ThyError; // W/K
+            *Sw = (.8*tanh(.59*TskError-.19)+1.2)*TskError
+                +(5.7*tanh(1.98*ThyError-1.03)+6.3)*ThyError; // g/min
+            *Sh = min(350.0*(svr+bvr),max(0.0,*Sh)); // W      
+            *Sw = min(30.0,max(*Sw,0.0)); // g/min
+        }
+
     ELEMENT::Element* head(){
         ELEMENT::Element* head = new ELEMENT::SphereElement(13,2);
 

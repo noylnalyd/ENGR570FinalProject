@@ -75,6 +75,18 @@ namespace BODYMODEL
 
     BodyModel* defaultBody();
 
+    void controlSignals(
+        double* Sh,
+        double* Cs,
+        double* Dl,
+        double* Sw,
+        double TskError,
+        double ThyError,
+        double TskErrorGradient,
+        double bvr,
+        double svr
+    );
+
     BodyState BodyModel::getState()
     {
         return _state;
