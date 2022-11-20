@@ -1,5 +1,5 @@
-#ifndef _BODYMODEL_
-#define _BODYMODEL_
+#ifndef _BODYMODEL_HPP_
+#define _BODYMODEL_HPP_
 
 #include <iostream>
 #include <cstddef>
@@ -24,35 +24,38 @@ namespace BODYMODEL
     public:
         // Model attributes
         int nElements; // Number of body elements
-        ELEMENT::Element* elements; // Body elements
+        ELEMENT::Element** elements; // Body elements
         int N; // Number of nodes in whole-body model
+        int elementIdx=0; // Index of first free element
         PSEUDOBLOCKMATRIX::PseudoBlockMatrix staticPBM; // Constant entries in PBM
 
         // Basal constants and attributes
-        double Mbas0; // W, Whole body basal metabolism
-        double actBas; // MET, basal activity fraction of effort
-        const double b0; // 1/MET, linear slope of actBas
-        const double b1; // MET/MET, y intercept of actBas
-        double etaWork; // J/J, work efficiency
+        double Mbas0; // W, Whole body basal metabolism. 58.2 by default.
+        const double actBas = 0.8; // MET, basal activity fraction of effort
+        const double b0 = -0.60; // 1/MET, linear slope of actBas
+        const double b1 = 0.39; // MET/MET, y intercept of actBas
+        double etaWork = 0.05; // J/J, work efficiency
 
         // Skin constants and attributes
         const double StefanBoltzmann = 5.670374419e-8; // W/m^2/K^4
-        double Icl; // W/m^2/K, clothing thermal resistance
-        double icl; // -, effective clothing resistance
-        const double Rinverse; // W*Pa/m^2, vapor resistivity
-        const double LambdaH20; // J/kg, latent heat of water
-        const double LewisConstant; // K/Pa
+        const double Icl = 0.093; // W/m^2/K, clothing thermal resistance
+        const double icl = 0.34; // -, effective clothing resistance
+        const double Rinverse = 0.003; // W*Pa/m^2, vapor resistivity
+        const double LambdaH20 = 2256e3; // J/kg, latent heat of water
+        const double LewisConstant = 0.0165; // K/Pa
         
         // Blood constants and attributes
-        const double p; // -, RBC fraction of blood
-        double Viv0; // m^3, initial blood plasma volume
-        double Vrbc0; // m^3, initial RBC volume
-        const double rhoBlood; // kg/m^3, nominal blood density
-        const double cpBlood; // J/kg/K, blood constant pressure specific heat capacity
+        const double p = 0.33; // -, RBC fraction of blood
+        const double Viv0 = 5.0e-3; // m^3, initial blood plasma volume
+        const double Vrbc0 = 2.1e-3; // m^3, initial RBC volume
+        const double rhoBlood = 1069; // kg/m^3, nominal blood density
+        const double cpBlood = 3650; // J/kg/K, blood constant pressure specific heat capacity
+
+        BodyState getState();
+        void addElement( ELEMENT::Element* element );
 
         void compute();
         
-
         BodyModel()
         {
             _state = initialized;
@@ -60,15 +63,31 @@ namespace BODYMODEL
         BodyModel( int tnElements ) : BodyModel()
         {
             nElements = tnElements;
+            elements = new ELEMENT::Element*[nElements];
+            _state = allocated;
         }
         ~BodyModel()
         {
             delete [] elements;
         }
-
-        
-
     };
+
+    BodyState BodyModel::getState()
+    {
+        return _state;
+    }
+
+    void BodyModel::addElement( ELEMENT::Element* element )
+    {
+        // Must have been allocated!
+        assert(_state==allocated);
+        // Must have space remaining!
+        assert(elementIdx<nElements);
+
+        elements[elementIdx++] = element;
+        if(elementIdx == nElements)
+            _state = elementsAdded;
+    }
 
     void BodyModel::computeN()
     {
@@ -76,19 +95,18 @@ namespace BODYMODEL
 
         N = 1;
         for(int i=0;i<nElements;i++){
-            N += elements[i].N;
+            N += elements[i]->N;
         }
     }
 
     void BodyModel::compute()
     {
         for(int i=0;i<nElements;i++)
-            elements[i].compute();
+            elements[i]->compute();
         
         computeN();
+        _state = computed;
     }
-
-
 
 }
 
