@@ -36,10 +36,7 @@ namespace BODYMODEL
         
     }
     ELEMENT::Element* head(){
-        ELEMENT::Element* head = new ELEMENT::Element(13,2);
-        // Class attributes
-        head->isCylinder = false;
-        head->omega = 2;
+        ELEMENT::Element* head = new ELEMENT::SphereElement(13,2);
 
         // Other attributes
         head->length = -1;
@@ -111,10 +108,7 @@ namespace BODYMODEL
         return head;
     }
     ELEMENT::Element* face(){
-        ELEMENT::Element* face = new ELEMENT::Element(7,1);
-        // Class attributes
-        face->isCylinder = true;
-        face->omega = 1;
+        ELEMENT::Element* face = new ELEMENT::CylinderElement(7,1);
 
         // Other attributes
         face->length = 0.0984;
@@ -189,10 +183,7 @@ namespace BODYMODEL
         return face;
     }
     ELEMENT::Element* neck(){
-        ELEMENT::Element* neck = new ELEMENT::Element(11,2);
-        // Class attributes
-        neck->isCylinder = true;
-        neck->omega = 1;
+        ELEMENT::Element* neck = new ELEMENT::CylinderElement(11,2);
 
         // Other attributes
         neck->length = 0.0842;
@@ -264,10 +255,7 @@ namespace BODYMODEL
         return neck;
     }
     ELEMENT::Element* shoulders(){
-        ELEMENT::Element* shoulders = new ELEMENT::Element(7,1);
-        // Class attributes
-        shoulders->isCylinder = true;
-        shoulders->omega = 1;
+        ELEMENT::Element* shoulders = new ELEMENT::CylinderElement(7,1);
 
         // Other attributes
         shoulders->length = 0.3200;
@@ -333,10 +321,7 @@ namespace BODYMODEL
         return shoulders;
     }
     ELEMENT::Element* thorax(){
-        ELEMENT::Element* thorax = new ELEMENT::Element(19,3);
-        // Class attributes
-        thorax->isCylinder = true;
-        thorax->omega = 1;
+        ELEMENT::Element* thorax = new ELEMENT::CylinderElement(19,3);
 
         // Other attributes
         thorax->length = 0.3060;
@@ -424,10 +409,7 @@ namespace BODYMODEL
         return thorax;
     }
     ELEMENT::Element* abdomen(){
-        ELEMENT::Element* abdomen = new ELEMENT::Element(19,3);
-        // Class attributes
-        abdomen->isCylinder = true;
-        abdomen->omega = 1;
+        ELEMENT::Element* abdomen = new ELEMENT::CylinderElement(19,3);
 
         // Other attributes
         abdomen->length = 0.5520;
@@ -515,10 +497,7 @@ namespace BODYMODEL
         return abdomen;
     }
     ELEMENT::Element* arms(){
-        ELEMENT::Element* arms = new ELEMENT::Element(16,3);
-        // Class attributes
-        arms->isCylinder = true;
-        arms->omega = 1;
+        ELEMENT::Element* arms = new ELEMENT::CylinderElement(16,3);
 
         // Other attributes
         arms->length = 1.274;
@@ -597,10 +576,7 @@ namespace BODYMODEL
         return arms;
     }
     ELEMENT::Element* hands(){
-        ELEMENT::Element* hands = new ELEMENT::Element(9,2);
-        // Class attributes
-        hands->isCylinder = true;
-        hands->omega = 1;
+        ELEMENT::Element* hands = new ELEMENT::CylinderElement(9,2);
 
         // Other attributes
         hands->length = .62;
@@ -672,10 +648,7 @@ namespace BODYMODEL
         return hands;
     }
     ELEMENT::Element* legs(){
-        ELEMENT::Element* legs = new ELEMENT::Element(19,3);
-        // Class attributes
-        legs->isCylinder = true;
-        legs->omega = 1;
+        ELEMENT::Element* legs = new ELEMENT::CylinderElement(19,3);
 
         // Other attributes
         legs->length = 1.39;
@@ -753,10 +726,7 @@ namespace BODYMODEL
         return legs;
     }
     ELEMENT::Element* feet(){
-        ELEMENT::Element* feet = new ELEMENT::Element(11,2);
-        // Class attributes
-        feet->isCylinder = true;
-        feet->omega = 1;
+        ELEMENT::Element* feet = new ELEMENT::CylinderElement(11,2);
 
         // Other attributes
         feet->length = 1.39;
