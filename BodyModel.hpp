@@ -37,6 +37,7 @@ namespace BODYMODEL
         double etaWork = 0.05; // J/J, work efficiency
 
         // Skin constants and attributes
+        double skinSurfaceArea = 0; // m^2, total skin surface area
         const double StefanBoltzmann = 5.670374419e-8; // W/m^2/K^4
         const double Icl = 0.093; // W/m^2/K, clothing thermal resistance
         const double icl = 0.34; // -, effective clothing resistance
@@ -101,6 +102,7 @@ namespace BODYMODEL
 
     void BodyModel::compute()
     {
+
         for(int i=0;i<nElements;i++)
             elements[i]->compute();
         
