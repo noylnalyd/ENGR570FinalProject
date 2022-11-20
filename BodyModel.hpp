@@ -50,7 +50,7 @@ namespace BODYMODEL
         const double Viv0 = 5.0e-3; // m^3, initial blood plasma volume
         const double Vrbc0 = 2.1e-3; // m^3, initial RBC volume
         const double rhoBlood = 1069; // kg/m^3, nominal blood density
-        const double cpBlood = 3650; // J/kg/K, blood constant pressure specific heat capacity
+        const double cpBlood = 3650; // J/kg/K, nominal blood constant pressure specific heat capacity
 
         BodyState getState();
         void addElement( ELEMENT::Element* element );
@@ -72,6 +72,8 @@ namespace BODYMODEL
             delete [] elements;
         }
     };
+
+    BodyModel* defaultBody();
 
     BodyState BodyModel::getState()
     {
@@ -102,10 +104,16 @@ namespace BODYMODEL
 
     void BodyModel::compute()
     {
-
+        assert(_state==elementsAdded);
+        // Subcompute (left DFS)
         for(int i=0;i<nElements;i++)
-            elements[i]->compute();
+            elements[i]->subCompute( &skinSurfaceArea );
         
+        // Compute sub attributes (right DFS)
+        for(int i=0;i<nElements;i++)
+            elements[i]->compute( skinSurfaceArea );
+
+        // Compute node attributes
         computeN();
         _state = computed;
     }
