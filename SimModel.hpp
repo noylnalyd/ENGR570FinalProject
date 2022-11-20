@@ -10,13 +10,13 @@ using namespace std;
 
 namespace SIMMODEL
 {
-    enum SimState { undefined, initialized, elementsAdded, elementsComputed, staticPBMAssembled};
+    enum SimModelState { undefined, initialized, allValuesAssigned};
 
 
     class SimModel
     {
     private:
-        SimState _state = undefined;
+        SimModelState _state = undefined;
     public:
         // Model attributes
         int modelCase; // Number of case (if automating)
@@ -42,9 +42,14 @@ namespace SIMMODEL
         double TsrmIndoors; // K, mean surroundings temperature inside
         double TsrmOutdoors; // K, mean surroundings temperature outside
 
+        SimModelState getState();
         virtual void skinBC( int element, int sector, double time, double* T, double* Amatrixii, double* Trhs)=0;
     };
 
+    SimModelState SimModel::getState()
+    {
+        return _state;
+    }
     class KonstasCase : SimModel
     {
 
