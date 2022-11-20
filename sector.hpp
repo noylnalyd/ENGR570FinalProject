@@ -5,8 +5,6 @@
 #include <cstddef>
 #include <math.h>
 
-using namespace std;
-
 namespace SECTOR
 {
     class Sector
