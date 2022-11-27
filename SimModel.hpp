@@ -20,6 +20,9 @@ namespace SIMMODEL
     public:
         // Model attributes
         int modelCase; // Number of case (if automating)
+        double thermovariant; // 0 for thermoneutral, 1 for variant
+        double transient; // 0 for steady, 1 for transient
+        double Q10; // Q10 constant. Often 2, sometimes 3
 
         // Saline constants
         const double salineRho; // kg/m^3, saline density
