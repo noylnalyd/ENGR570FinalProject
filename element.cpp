@@ -29,6 +29,7 @@ namespace ELEMENT{
             computeGamma( washers[i] );
             computeVolume( washers[i] );
             washers[i]->compute();
+            Vmuscle += washers[i]->volume*washers[i]->muscle*sumPhi;
         }
 
         // Compute relational attributes
