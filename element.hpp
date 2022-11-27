@@ -59,6 +59,7 @@ namespace ELEMENT
         virtual void computeVolume( WASHER::Washer* cur ) = 0;
         virtual void computeAForward( WASHER::Washer* cur, WASHER::Washer* nxt) = 0;
         virtual void computeABackward( WASHER::Washer* cur, WASHER::Washer* prv) = 0;
+        virtual double handlearesp(double tresp, double ricur, double rocur, double ri, double ro) = 0;
         void computeGamma( WASHER::Washer* cur );
         virtual void computeTheta() = 0;
 
@@ -79,7 +80,8 @@ namespace ELEMENT
             double c,   // J/kg/K, specific heat capacity
             double w_bl,// 1/s, tissue permeability
             double q_m, // W/m^3, specific basal metabolism
-            double muscle);
+            double muscle, // -, ratio of muscle (usually 0 or 1)
+            double resp); // -, ratio of respiratory exposure
         void addSector(SECTOR::Sector* sec);
 
         SECTOR::Sector **sectors; // Array of sectors
@@ -114,6 +116,7 @@ namespace ELEMENT
             {
                 allocate(nWash,nSect);
             }
+            double handlearesp(double tresp, double ricur, double rocur, double ri, double ro) override;
             void computeVolume( WASHER::Washer* cur ) override;
             void computeAForward( WASHER::Washer* cur, WASHER::Washer* nxt) override;
             void computeABackward( WASHER::Washer* cur, WASHER::Washer* prv) override;
@@ -130,6 +133,7 @@ namespace ELEMENT
             {
                 allocate(nWash,nSect);
             }
+            double handlearesp(double tresp, double ricur, double rocur, double ri, double ro) override;
             void computeVolume( WASHER::Washer* cur ) override;
             void computeAForward( WASHER::Washer* cur, WASHER::Washer* nxt) override;
             void computeABackward( WASHER::Washer* cur, WASHER::Washer* prv) override;

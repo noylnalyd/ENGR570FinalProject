@@ -29,7 +29,7 @@ namespace ELEMENT{
             computeGamma( washers[i] );
             computeVolume( washers[i] );
             washers[i]->compute();
-            Vmuscle += washers[i]->volume*washers[i]->muscle*sumPhi;
+            Vmuscle += washers[i]->volume*washers[i]->muscle*sumPhi/(2*M_PI);
         }
 
         // Compute relational attributes
@@ -63,7 +63,8 @@ namespace ELEMENT{
         double c,   // J/kg/K, specific heat capacity
         double w_bl,// 1/s, tissue permeability
         double q_m, // W/m^3, specific basal metabolism
-        double muscle) // -, ratio of muscle (usually 0 or 1)
+        double muscle, // -, ratio of muscle (usually 0 or 1)
+        double resp) // -, ratio of respiratory exposure
     {
         // Must have been allocated!
         assert(_state==allocated);
@@ -86,6 +87,8 @@ namespace ELEMENT{
             tmp->q_m = q_m;
             tmp->deltaR = drr;
             tmp->muscle = muscle;
+            tmp->resp = resp;
+            tmp->a_resp = handlearesp(resp,r-.5*drr,r+.5*drr,r0,rf);
             washers[washerIdx++] = tmp;
         }
         if(sectorIdx==nSectors && washerIdx==nWashers)
@@ -132,6 +135,10 @@ namespace ELEMENT{
         cur->ABackwardCur = (Dprv*L-Ds*Lprv)/(Dprv*L-D*Lprv);
         cur->ABackwardPrv = Lprv/(Dprv*L-D*Lprv);
     }
+    double CylinderElement::handlearesp(double resp, double ricur, double rocur, double ri, double ro)
+    {
+        return resp*(rocur*rocur-ricur*ricur)/(ro*ro-ri*ri);
+    }
     void CylinderElement::computeVolume( WASHER::Washer* cur ){
         double r_i = cur->r-cur->deltaR/2.0;
         double r_o = cur->r+cur->deltaR/2.0;
@@ -155,6 +162,9 @@ namespace ELEMENT{
 
         cur->ABackwardCur = (L-Lprv*(cur->r/(prv->r+prv->deltaR)))/(L+Lprv*((cur->r-cur->deltaR)/prv->r+prv->deltaR));
         cur->ABackwardPrv = (Lprv*(1+prv->r/(prv->r+prv->deltaR)))/(L+Lprv*((cur->r-cur->deltaR)/(prv->r+prv->deltaR)));
+    }
+    double SphereElement::handlearesp(double resp, double ricur, double rocur, double ri, double ro){
+        return resp*(rocur*rocur*rocur-ricur*ricur*ricur)/(ro*ro*ro-ri*ri*ri);
     }
     void SphereElement::computeVolume( WASHER::Washer* cur ){
         double r_i = cur->r-cur->deltaR/2.0;
