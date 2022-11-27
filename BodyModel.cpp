@@ -173,7 +173,7 @@ namespace BODYMODEL
             0.538e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
             1, // muscle
-            0); // not respiratory
+            .2); // respiratory
         face->addWashers(
             1,   // Number of washers to add
             0.0268,  // m, inner radius
@@ -195,7 +195,7 @@ namespace BODYMODEL
             0.538e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
             1, // muscle
-            0); // not respiratory
+            .25); // respiratory
         face->addWashers(
             2,   // Number of washers to add
             0.0680,  // m, inner radius
@@ -269,7 +269,7 @@ namespace BODYMODEL
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
             1, // muscle
-            0); // not respiratory
+            .25); // not respiratory
         neck->addWashers(
             2,   // Number of washers to add
             0.0546,  // m, inner radius
@@ -412,7 +412,7 @@ namespace BODYMODEL
             (4.9e-3)/60/5.744209713,// 1/s, tissue permeability. Note: Respiratory!
             600, // W/m^3, specific basal metabolism
             0, // not muscle
-            0); // not respiratory
+            .3); // respiratory
         thorax->addWashers(
             3,   // Number of washers to add
             0.0773,  // m, inner radius
