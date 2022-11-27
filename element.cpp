@@ -61,7 +61,8 @@ namespace ELEMENT{
         double rho, // kg/m^3, density
         double c,   // J/kg/K, specific heat capacity
         double w_bl,// 1/s, tissue permeability
-        double q_m) // W/m^3, specific basal metabolism
+        double q_m, // W/m^3, specific basal metabolism
+        double muscle) // -, ratio of muscle (usually 0 or 1)
     {
         // Must have been allocated!
         assert(_state==allocated);
@@ -83,6 +84,7 @@ namespace ELEMENT{
             tmp->w_bl = w_bl;
             tmp->q_m = q_m;
             tmp->deltaR = drr;
+            tmp->muscle = muscle;
             washers[washerIdx++] = tmp;
         }
         if(sectorIdx==nSectors && washerIdx==nWashers)

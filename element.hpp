@@ -39,6 +39,7 @@ namespace ELEMENT
         double omega = -1; // - , shape parameter (-1 for undefined)
         double sumPhi = 0; // rad, sum of sector angles
         double theta = 0; // 1/rad, geometry parameter
+        double Vmuscle = 0; // m^3, volume of muscle
 
         // Fractional coefficients
         double a_nat; // Share of natural convection
@@ -77,7 +78,8 @@ namespace ELEMENT
             double rho, // kg/m^3, density
             double c,   // J/kg/K, specific heat capacity
             double w_bl,// 1/s, tissue permeability
-            double q_m); // W/m^3, specific basal metabolism
+            double q_m, // W/m^3, specific basal metabolism
+            double muscle);
         void addSector(SECTOR::Sector* sec);
 
         SECTOR::Sector **sectors; // Array of sectors
