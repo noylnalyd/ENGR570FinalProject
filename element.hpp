@@ -40,6 +40,7 @@ namespace ELEMENT
         double sumPhi = 0; // rad, sum of sector angles
         double theta = 0; // 1/rad, geometry parameter
         double Vmuscle = 0; // m^3, volume of muscle
+        double Vresp = 0; // m^3, volume of respiratory exposure
 
         // Fractional coefficients
         double a_nat; // Share of natural convection

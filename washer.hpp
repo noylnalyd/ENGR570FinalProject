@@ -31,6 +31,7 @@ namespace WASHER
         double deltaR; // m
         double volume; // m^3
         double muscle; // -
+        double resp; // -
         double AForwardCur=0; // -
         double AForwardNxt=0; // -
         double ABackwardCur=0; // -
