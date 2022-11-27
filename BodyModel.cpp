@@ -92,7 +92,8 @@ namespace BODYMODEL
             3850,   // J/kg/K, specific heat capacity
             10.1320e-3,// 1/s, tissue permeability
             13400, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         head->addWashers(
             2,   // Number of washers to add
             0.0860,  // m, inner radius
@@ -102,7 +103,8 @@ namespace BODYMODEL
             1591,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         head->addWashers(
             2,   // Number of washers to add
             0.1005,  // m, inner radius
@@ -112,7 +114,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             .0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         head->addWashers(
             4,   // Number of washers to add
             0.1020,  // m, inner radius
@@ -122,7 +125,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             5.4800e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *forehead = new SECTOR::Sector();
         forehead->phi = 10*M_PI/180.0; // rad, interior angle of sector
@@ -168,7 +172,8 @@ namespace BODYMODEL
             3768,   // J/kg/K, specific heat capacity
             0.538e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         face->addWashers(
             1,   // Number of washers to add
             0.0268,  // m, inner radius
@@ -178,7 +183,8 @@ namespace BODYMODEL
             1591,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         face->addWashers(
             1,   // Number of washers to add
             0.0542,  // m, inner radius
@@ -188,7 +194,8 @@ namespace BODYMODEL
             3768,   // J/kg/K, specific heat capacity
             0.538e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         face->addWashers(
             2,   // Number of washers to add
             0.0680,  // m, inner radius
@@ -198,7 +205,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             588, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         face->addWashers(
             2,   // Number of washers to add
             0.0760,  // m, inner radius
@@ -208,7 +216,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             11.17e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *faceFront = new SECTOR::Sector();
         faceFront->phi = 210*M_PI/180.0; // rad, interior angle of sector
@@ -248,7 +257,8 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         neck->addWashers(
             4,   // Number of washers to add
             0.0190,  // m, inner radius
@@ -258,7 +268,8 @@ namespace BODYMODEL
             3768,   // J/kg/K, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         neck->addWashers(
             2,   // Number of washers to add
             0.0546,  // m, inner radius
@@ -268,7 +279,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         neck->addWashers(
             4,   // Number of washers to add
             0.0556,  // m, inner radius
@@ -278,7 +290,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             6.8e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *neckAnterior = new SECTOR::Sector();
         neckAnterior->phi = 180*M_PI/180.0; // rad, interior angle of sector
@@ -324,7 +337,8 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         shoulders->addWashers(
             2,   // Number of washers to add
             0.0370,  // m, inner radius
@@ -334,7 +348,8 @@ namespace BODYMODEL
             3768,   // J/kg/K, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         shoulders->addWashers(
             2,   // Number of washers to add
             0.0390,  // m, inner radius
@@ -344,7 +359,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         shoulders->addWashers(
             2,   // Number of washers to add
             0.0440,  // m, inner radius
@@ -354,7 +370,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             1.01e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *shouldersTop = new SECTOR::Sector();
         shouldersTop->phi = 130*M_PI/180.0; // rad, interior angle of sector
@@ -394,7 +411,8 @@ namespace BODYMODEL
             3718,   // J/kg/K, specific heat capacity
             (4.9e-3)/60/5.744209713,// 1/s, tissue permeability. Note: Respiratory!
             600, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         thorax->addWashers(
             3,   // Number of washers to add
             0.0773,  // m, inner radius
@@ -404,7 +422,8 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         thorax->addWashers(
             3,   // Number of washers to add
             0.0891,  // m, inner radius
@@ -414,7 +433,8 @@ namespace BODYMODEL
             3768,   // J/kg/K, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         thorax->addWashers(
             6,   // Number of washers to add
             0.1234,  // m, inner radius
@@ -424,7 +444,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         thorax->addWashers(
             6,   // Number of washers to add
             0.1268,  // m, inner radius
@@ -434,7 +455,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             1.58e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *thoraxAnterior = new SECTOR::Sector();
         thoraxAnterior->phi = 150*M_PI/180.0; // rad, interior angle of sector
@@ -487,7 +509,8 @@ namespace BODYMODEL
             3697,   // J/kg/K, specific heat capacity
             4.31e-3,// 1/s, tissue permeability. Note: Respiratory!
             4100, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         abdomen->addWashers(
             3,   // Number of washers to add
             0.0785,  // m, inner radius
@@ -497,7 +520,8 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         abdomen->addWashers(
             3,   // Number of washers to add
             0.0834,  // m, inner radius
@@ -507,7 +531,8 @@ namespace BODYMODEL
             3768,   // J/kg/PosteriorK, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         abdomen->addWashers(
             6,   // Number of washers to add
             0.1090,  // m, inner radius
@@ -517,7 +542,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         abdomen->addWashers(
             6,   // Number of washers to add
             0.1244,  // m, inner radius
@@ -527,7 +553,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             1.44e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *abdomenAnterior = new SECTOR::Sector();
         abdomenAnterior->phi = 150*M_PI/180.0; // rad, interior angle of sector
@@ -580,7 +607,8 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         arms->addWashers(
             3,   // Number of washers to add
             0.0153,  // m, inner radius
@@ -590,7 +618,8 @@ namespace BODYMODEL
             3768,   // J/kg/PosteriorK, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         arms->addWashers(
             6,   // Number of washers to add
             0.0343,  // m, inner radius
@@ -600,7 +629,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         arms->addWashers(
             6,   // Number of washers to add
             0.0401,  // m, inner radius
@@ -610,7 +640,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             1.1e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *armsAnterior = new SECTOR::Sector();
         armsAnterior->phi = 135*M_PI/180.0; // rad, interior angle of sector
@@ -663,7 +694,8 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         hands->addWashers(
             2,   // Number of washers to add
             0.0070,  // m, inner radius
@@ -673,7 +705,8 @@ namespace BODYMODEL
             3768,   // J/kg/PosteriorK, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         hands->addWashers(
             2,   // Number of washers to add
             0.0174,  // m, inner radius
@@ -683,7 +716,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         hands->addWashers(
             4,   // Number of washers to add
             0.0204,  // m, inner radius
@@ -693,7 +727,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             4.54e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *handsHandback = new SECTOR::Sector();
         handsHandback->phi = 180*M_PI/180.0; // rad, interior angle of sector
@@ -739,7 +774,8 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         legs->addWashers(
             6,   // Number of washers to add
             0.0220,  // m, inner radius
@@ -749,7 +785,8 @@ namespace BODYMODEL
             3768,   // J/kg/PosteriorK, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         legs->addWashers(
             6,   // Number of washers to add
             0.0480,  // m, inner radius
@@ -759,7 +796,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         legs->addWashers(
             6,   // Number of washers to add
             0.0533,  // m, inner radius
@@ -769,7 +807,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             1.05e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *legsAnterior = new SECTOR::Sector();
         legsAnterior->phi = 150*M_PI/180.0; // rad, interior angle of sector
@@ -821,7 +860,8 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         feet->addWashers(
             2,   // Number of washers to add
             0.0200,  // m, inner radius
@@ -831,7 +871,8 @@ namespace BODYMODEL
             3768,   // J/kg/PosteriorK, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         feet->addWashers(
             4,   // Number of washers to add
             0.0250,  // m, inner radius
@@ -841,7 +882,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         feet->addWashers(
             4,   // Number of washers to add
             0.0326,  // m, inner radius
@@ -851,7 +893,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             1.5e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *feetInstep = new SECTOR::Sector();
         feetInstep->phi = 180*M_PI/180.0; // rad, interior angle of sector
