@@ -76,7 +76,14 @@ namespace SIMULATOR
         qDm = deltaQMetabolic()*sim->thermovariant;
         qW = 0;
         qSh = 0;
-        if()
+        if(element->Vmuscle > 0){
+            qW = element->a_sed*H/element->Vmuscle*washer->volume/element->Vmuscle*sim->thermovariant;;
+            qSh = element->a_sh*Sh/element->Vmuscle*washer->volume/element->Vmuscle*sim->thermovariant;
+        }
+        if(element->Vresp > 0){
+            
+        }
+
     }
     void SimulationInstance::BVR(){
         sim->BVR(&bvr, &svr, time);
@@ -114,6 +121,8 @@ namespace SIMULATOR
         flowECMOSaline();
         // Recirculated blood flow
         flowECMOBlood();
+        // Environment values
+        environmentParams();
     }
     double SimulationInstance::computeMeanSkinTemp(){
         double Tskcur = 0;

@@ -187,8 +187,12 @@ namespace SIMULATOR
             // Linear projection
             double project( double cur, double prv );
             void projectValues();
+            
             // Matrix construction
+            // Element level
             void elemBloodProps( int eleIdx );
+            // Node level
+            void heat();
     };
 
 }
