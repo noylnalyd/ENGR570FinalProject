@@ -17,9 +17,16 @@ namespace SIMULATOR
     {
     private:
         SimulatorState _state = undefined;
+
+        // Body and sim
+        BODYMODEL::BodyModel* body; // Body object
+        SIMMODEL::SimModel* sim; // Simulator options object
+        PSEUDOBLOCKMATRIX::PseudoBlockMatrix* pbm; // Linear matrix
+
         // Initial values
         double* T0,beta0,q0,Tpp0;
         double M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0;
+
 
 
     public:
@@ -27,13 +34,13 @@ namespace SIMULATOR
         Simulator(BODYMODEL::BodyModel* bodyPtr, SIMMODEL::SimModel* simPtr);
         ~Simulator();
 
-        // Runs a simple sim case to create initial T vector, TPrv vector, etc.
+        // Runs a simple sim case to create initial values and pbm
         void initializer();
 
         // Run the sim with a given args and write to given outs addresses
         void runSim( double args[], double* outs[] );
 
-        
+
     };
 
     class SimulationInstance
