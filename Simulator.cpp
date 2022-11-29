@@ -80,7 +80,7 @@ namespace SIMULATOR
     double SimulationInstance::project( double cur, double prv ){
         return cur+(cur-prv)*sim->thermovariant*sim->transient;
     }
-    void SimulationInstance::projectValues(){
+    void SimulationInstance::projectBodyValues(){
         MNxt = project(M,MPrv);
         HNxt = project(H,HPrv);
         QrespNxt = project(Qresp,QrespPrv);
@@ -98,18 +98,39 @@ namespace SIMULATOR
     void SimulationInstance::bloodHeatParams(int eleIdx){
 
     }
-    void SimulationInstance::heat(){
-        qDm = deltaQMetabolic()*sim->thermovariant;
-        qW = 0;
-        qSh = 0;
-        if(element->Vmuscle > 0){
-            qW = element->a_sed*H/element->Vmuscle*washer->volume/element->Vmuscle*sim->thermovariant;;
-            qSh = element->a_sh*Sh/element->Vmuscle*washer->volume/element->Vmuscle*sim->thermovariant;
-        }
-        if(element->Vresp > 0){
-            
-        }
+    void SimulationInstance::nodeValues(){
+        qAndBeta(&q,&beta,Cp.Rho,T);
+        qAndBeta(&qNxt,&betaNxt,CpNxt.RhoNxt,TNxt);
 
+    }
+    void SimulationInstance::qAndBeta( double **qs, double **betas, double Cp, double Rho, double* T){
+        // T index
+        idx = 0;
+        // Loop thru elements
+        for(int eleIdx = 0; eleIdx < body->nElements; ++eleIdx){
+            element = body->elements[eleIdx];
+            washer = element->washers[0];
+            qDm = deltaQMetabolic(washer->q_m,T[idx],T0[idx])*sim->thermovariant;
+            qW = 0;
+            qSh = 0;
+            qResp = 0;
+            if(element->Vmuscle > 0){
+                qW = element->a_sed*H/element->Vmuscle*washer->volume/element->Vmuscle*sim->thermovariant;
+                qSh = element->a_sh*Sh/element->Vmuscle*washer->volume/element->Vmuscle*sim->thermovariant;
+            }
+            if(element->Vresp > 0){
+                qResp = Qresp*washer->a_resp/(washer->volume*element->sumPhi/(2*M_PI))*sim->thermovariant;
+            }
+            *qs[idx] = washer->q_m+qDm+qW+qSh+qResp;
+            // Loop thru washers
+            for(int washIdx = 0; washIdx < element->nWashers; ++washIdx){
+                
+            }
+        
+            // Update body-level blood props
+
+
+        }
     }
     void SimulationInstance::BVR(){
         sim->BVR(&bvr, &svr, time);
@@ -228,19 +249,27 @@ namespace SIMULATOR
             // Compute active controls
             computeActiveControls();
 
-            // Project to get future values
-            projectValues();
+            // Project to get future body values
+            projectBodyValues();
+
+            // Compute node thermal load parameters
+            qAndBeta();
+            skinT();
+
+            // Project to get future node values
+            projectNodeValues();
 
             // Empty PBM and RHS
             clearSystem();
+
+            
 
             // Loop thru elements
             for(int eleIdx = 0; eleIdx < body->nElements; ++eleIdx){
                 element = body->elements[eleIdx];
                 // Compute element-level blood pool properties
                 elemBloodProps(eleIdx);
-                // Initialize core node values, including cusp-less projection
-
+                
                 // Loop thru sectors
                 for(int sectIdx = 0; sectIdx < element->nSectors; ++eleIdx){
                     sector = element->sectors[sectIdx];
