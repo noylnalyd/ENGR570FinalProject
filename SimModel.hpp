@@ -23,7 +23,10 @@ namespace SIMMODEL
         double thermovariant; // 0 for thermoneutral, 1 for variant
         double transient; // 0 for steady, 1 for transient
         double Q10; // Q10 constant. Often 2, sometimes 3
-
+        const double KonstasBeta = 0.08401; // K^-1
+        const double KonstasGamma =  2.245; // -
+        const double KonstasAlpha = 2.961; // -
+        
         // Saline constants
         const double salineRho; // kg/m^3, saline density
         const double salineCp; // J/kg/K, saline specific heat capacity
