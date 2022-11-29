@@ -147,7 +147,7 @@ namespace SIMULATOR
         DvivNxt = body->Viv0*svrNxt;
     }
     void SimulationInstance::deltaHCT(){
-        deltaHCT = (body->p*Vrbc*Dviv)/(Viv*(Viv+body->p*Dviv));
+        deltaHCT = (body->p*Vrbc*DViv)/(Viv*(Viv+body->p*DViv));
     }
     void SimulationInstance::flowECMOSaline(){
         sim->ecmoSaline(&flowECMOSaline,time);
@@ -253,8 +253,7 @@ namespace SIMULATOR
             projectBodyValues();
 
             // Compute node thermal load parameters
-            qAndBeta();
-            skinT();
+            nodeValues();
 
             // Project to get future node values
             projectNodeValues();
@@ -283,10 +282,5 @@ namespace SIMULATOR
         }
 
     }
-}
-
-int main(){
-    BODYMODEL::BodyModel* body = BODYMODEL::defaultBody();
-    return 0;
 }
 #endif

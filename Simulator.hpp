@@ -59,7 +59,6 @@ namespace SIMULATOR
             BODYMODEL::BodyModel* body; // Body object
             SIMMODEL::SimModel* sim; // Simulator options object
             PSEUDOBLOCKMATRIX::PseudoBlockMatrix* pbm; // Linear matrix
-
             
             // Local temporary pointers
             ELEMENT::Element* element;
@@ -144,7 +143,8 @@ namespace SIMULATOR
             double computeQresp();
             double deltaQMetabolic(double q, double T, double TNxt);
             // Node parameters
-            void qAndBeta();
+            void nodeValues();
+            void qAndBeta( double **qs, double **betas, double Cp, double Rho, double* T);
             void skinT();
             // Active system
             double computeMeanSkinTemp();
