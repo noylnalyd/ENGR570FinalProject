@@ -55,6 +55,7 @@ namespace SIMULATOR
 
             // Sim attributes
             int ICconfigMode; // How to initialize (0=scratch, 1=T from file, 2=T and PBM from file)
+            int idx = -1; // Used to loop thru temperatures
             BODYMODEL::BodyModel* body; // Body object
             SIMMODEL::SimModel* sim; // Simulator options object
             PSEUDOBLOCKMATRIX::PseudoBlockMatrix* pbm; // Linear matrix
@@ -70,6 +71,8 @@ namespace SIMULATOR
             double Thy0=NAN; // K, initial hypothalamic temperature
             double Viv0=NAN; // m^3, initial blood volume
             double Vrbc0=NAN; // m^3, initial red blood cell volume
+            double *T0,*beta0,*q0,*Tpp0;
+            double M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0;
 
             // Sim values per timestep
             // Sim values
@@ -102,53 +105,47 @@ namespace SIMULATOR
             double qDm; // W/m^3, change in metabolism
             double qW; // W/m^3, heat gen due to workload
             double qSh; // W/m^3, heat gen due to shivering
-            
-            
+            double qResp; // W/m^3, heat gen due to breathing
 
-            // Holdover past values
-            double TskmPrv; // K, Mean skin temperature
-            double ThyPrv; // K, Hypothalamic temperature
-            double TblpPrv; // K, Blood pool temperature
-            double MPrv; // W, Total metabolism
-            double HPrv; // W, Heat load
-            double QrespPrv; // W, Respiratory cooling intake
+            // Sim values, previous timestep
+            // Body values
+            double Tskm; // K, Mean skin temperature
+            double Thy; // K, Hypothalamic temperature
+            double Tblp; // K, Blood pool temperature
+            double M; // W, Total metabolism
+            double H; // W, Heat load
+            double Qresp; // W, Respiratory cooling intake
             // Active controls:
-            double ShPrv; // W, Shivering power
-            double CsPrv; // -, Vasoconstriction ratio
-            double DlPrv; // W/K, Vasodilation capacitance
-            double SwPrv; // g/min, Sweat output
+            double Sh; // W, Shivering power
+            double Cs; // -, Vasoconstriction ratio
+            double Dl; // W/K, Vasodilation capacitance
+            double Sw; // g/min, Sweat output
 
-            // Projected future values
-            double TskmNxt; // K, Mean skin temperature
-            double ThyNxt; // K, Hypothalamic temperature
-            double TblpNxt; // K, Blood pool temperature
-            double MNxt; // W, Total metabolism
-            double HNxt; // W, Heat load
-            double QrespNxt; // W, Respiratory cooling intake
+            // Sim values, next timestep
+            double timeNxt; // s, simulation time
+            // Body values
+            double Tskm; // K, Mean skin temperature
+            double Thy; // K, Hypothalamic temperature
+            double Tblp; // K, Blood pool temperature
+            double M; // W, Total metabolism
+            double H; // W, Heat load
+            double Qresp; // W, Respiratory cooling intake
             // Active controls:
-            double ShNxt; // W, Shivering power
-            double CsNxt; // -, Vasoconstriction ratio
-            double DlNxt; // W/K, Vasodilation capacitance
-            double SwNxt; // g/min, Sweat output
-
-            // Useful values, past and present
-            double* T; // K
-            double* T0; // K
-            double* Tprv; // K
-            double Mprv; // W
-            double* QRespprv; // W
-            double* Tskprv; // K
-            double* qprv; // W/m^3
-            double* betaprv; // K
-            double* Tppprv; // K
+            double Sh; // W, Shivering power
+            double Cs; // -, Vasoconstriction ratio
+            double Dl; // W/K, Vasodilation capacitance
+            double Sw; // g/min, Sweat output
 
             void runSim();
             // Linear system maintenance
             void clearSystem();
-            // Thermal body loads
+            // Whole body parameters
             void computeThermalLoadParameters();
             double computeQresp();
-            double deltaQMetabolic();
+            double deltaQMetabolic(double q, double T, double TNxt);
+            // Node parameters
+            void qAndBeta();
+            void skinT();
             // Active system
             double computeMeanSkinTemp();
             double computeHypothalamicTemp();
@@ -163,13 +160,12 @@ namespace SIMULATOR
             void flowECMOBlood();
             // Linear projection
             double project( double cur, double prv );
-            void projectValues();
+            void projectBodyValues();
+            void projectNodeValues();
             
             // Matrix construction
             // Element level
             void elemBloodProps( int eleIdx );
-            // Node level
-            void heat();
     };
 
 }
