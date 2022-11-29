@@ -24,15 +24,15 @@ namespace SIMULATOR
         PSEUDOBLOCKMATRIX::PseudoBlockMatrix* pbm; // Linear matrix
 
         // Initial values
-        double* T0,beta0,q0,Tpp0;
+        double *T0,*beta0,*q0,*Tpp0;
         double M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0;
-
-
 
     public:
         Simulator();
         Simulator(BODYMODEL::BodyModel* bodyPtr, SIMMODEL::SimModel* simPtr);
         ~Simulator();
+        void setBody(BODYMODEL::BodyModel* bodyPtr);
+        void setSim(SIMMODEL::SimModel* simPtr);
 
         // Runs a simple sim case to create initial values and pbm
         void initializer();

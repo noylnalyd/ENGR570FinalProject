@@ -6,10 +6,36 @@
 namespace SIMULATOR
 {
 
-    void Simulator::preallocate(){
-        assert(_state == SIMULATOR::simLoaded);
-
+    Simulator::Simulator(){
+        _state = initialized;
     }
+    Simulator::Simulator(BODYMODEL::BodyModel* bodyPtr, SIMMODEL::SimModel* simPtr) : Simulator() {
+        setBody(bodyPtr);
+        setSim(simPtr);
+    }
+    Simulator::~Simulator(){
+        pbm->~PseudoBlockMatrix();
+        delete [] T0;
+        delete [] beta0;
+        delete [] q0;
+        delete [] Tpp0;
+    }
+    void Simulator::setBody(BODYMODEL::BodyModel* bodyPtr){
+        assert(_state==initialized);
+        body = bodyPtr;
+        _state = bodyLoaded;
+    }
+    void Simulator::setSim(SIMMODEL::SimModel* simPtr){
+        assert(_state==bodyLoaded);
+        sim = simPtr;
+        _state = simLoaded;
+    }
+
+    // Runs a simple sim case to create initial T vector, TPrv vector, etc.
+    void initializer();
+
+    // Run the sim with a given args and write to given outs addresses
+    void runSim( double args[], double* outs[] );
     void SimulationInstance::computeThermalLoadParameters()
     {
         double Mbas0 = 0; // W
