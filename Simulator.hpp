@@ -91,13 +91,18 @@ namespace SIMULATOR
             double Cs; // -, Vasoconstriction ratio
             double Dl; // W/K, Vasodilation capacitance
             double Sw; // g/min, Sweat output
-            // Misc
+            // Whole body blood content
             double Viv; // Intravenous blood volume
             double Vrbc; // Red blood cell volume
             double DViv; // Added non-blood volume
             double bvr; // Blood volume / initial blood volume
             double svr; // Saline volume / initial blood volume
             double deltaHCT; // Ratio of hematocrit, ability to carry oxygen
+            // Heats
+            double qDm; // W/m^3, change in metabolism
+            double qW; // W/m^3, heat gen due to workload
+            double qSh; // W/m^3, heat gen due to shivering
+            
             
 
             // Holdover past values
