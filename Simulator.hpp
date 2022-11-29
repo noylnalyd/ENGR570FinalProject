@@ -10,64 +10,29 @@
 
 namespace SIMULATOR
 {
-    enum SimulatorState { undefined, initialized, bodyLoaded, simLoaded, allocated, precomputed, simrunning, simrun, output };
+    enum SimulatorState { undefined, initialized, bodyLoaded, simLoaded, computed, allocated, initializerRun};
 
 
     class Simulator
     {
     private:
         SimulatorState _state = undefined;
+        // Initial values
+        double* T0,beta0,q0,Tpp0;
+        double M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0;
+
+
     public:
+        Simulator();
+        Simulator(BODYMODEL::BodyModel* bodyPtr, SIMMODEL::SimModel* simPtr);
+        ~Simulator();
 
-        
+        // Runs a simple sim case to create initial T vector, TPrv vector, etc.
+        void initializer();
 
-        
+        // Run the sim with a given args and write to given outs addresses
+        void runSim( double args[], double* outs[] );
 
-        // Values to record over sim
-        double* HistTskm; // K, Mean skin temperature
-        double* HistThy; // K, Hypothalamic temperature
-        double* HistTblp; // K, Blood pool temperature
-        double* HistH; // W, Heat load
-        double* HistSh; // W, Shivering power
-        double* HistCs; // -, Vasoconstriction ratio
-        double* HistDl; // W/K, Vasodilation capacitance
-        double* HistSw; // g/min, Sweat output
-
-        void preallocate(
-            double* Tprv, // K
-            double* Mprv, // W
-            double* QRespprv, // W
-            double* Tskprv, // K
-            double* qprv, // W/m^3
-            double* betaprv, // K
-            double* Tppprv, // K
-            double* Tprv, // K
-            double* Tprv, // K
-            double* Tprv, // K
-            double* Tprv, // K
-            double* Tprv, // K
-        );
-        
-
-        Simulator(int simCase, BODYMODEL::BodyModel* bodyPtr, SIMMODEL::SimModel* simPtr){
-            _state = initialized;
-            nSteps = (int)ceil((tFinal-tInitial)/dt);
-
-            times = new double[nSteps];
-            Tskm = new double[nSteps];
-            Thy = new double[nSteps];
-            Tblp = new double[nSteps];
-            H = new double[nSteps];
-            Sh = new double[nSteps];
-            Cs = new double[nSteps];
-            Dl = new double[nSteps];
-            Sw = new double[nSteps];
-
-            body = bodyPtr;
-            sim = simPtr;
-            
-            _state = allocated;
-        }
         
     };
 
@@ -78,7 +43,7 @@ namespace SIMULATOR
             const double tInitial = 0.0; // s
             double tFinal = 3600.0; // s
             double dt = 1e-2; // s
-            int nSteps; // -
+            int nSteps = (int)ceil((tFinal-tInitial)/dt); // -
             double* times; // -
 
             // Sim attributes
