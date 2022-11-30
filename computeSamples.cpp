@@ -20,6 +20,8 @@ int main(int argc, char *argv[]){
     char *fileoutB = argv[4];
     // UQ variables
     int d=4; // dimension of parameter space
+    // parallelization variables
+    int pID = atoi(argv[5]);
     // variables for reading and writing
     FILE * fp, * fpB;
     size_t len = 0;
@@ -110,14 +112,51 @@ int main(int argc, char *argv[]){
         linenum++;
     }
 
+    // creating A_B matrices, d sets of A_B[nrows][d] (3rd dimension is i index per A_B^i notation)
+    double *** AB = new double**[nrows];
+    for (int in = 0; in < nrows; in++) {
+        AB[in] = new double*[d];
+        for (int id = 0; id < d; id++) {
+            AB[in][id] = new double[d];
+        }
+    }
+    // setting all columns but column=kd to same as A
+    for (int kd=0; kd<d; kd++) {
+        for (int id=0; id<d; id++) {
+            for (int in=0; in<nrows; in++) {
+                if (id==kd) {
+                    AB[in][id][kd]=B[in][id];
+                }
+                else {
+                    AB[in][id][kd]=A[in][id];
+                }
+            }
+        }
+    }
+    for (int kd=0; kd<d; kd++) {
+        std::cout << "AB_" << kd <<std::endl;
+        for (int in=0; in<nrows; in++) {
+            std::cout << AB[in][0][kd] << ", ";
+            std::cout << AB[in][1][kd] << ", ";
+            std::cout << AB[in][2][kd] << ", ";
+            std::cout << AB[in][3][kd] << std::endl;
+        }
+    }
+
+
     // initialize Simulator, BodyModel, and SimModel structures
     //Simulator* mySim = new Simulator();
     //BodyModel* myBody = defaultBody();
     //SimModel* mySimModel = new SimModel();
     //mySim->initializer();
 
+    // run each case
+
     for (int i=0; i<nrows; i++) {
         free(A[i]); 
         free(B[i]);
+        for (int id=0; id<d; id++) {
+            free(AB[i][id]);
+        }
     }
 }
