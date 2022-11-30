@@ -70,7 +70,7 @@ namespace SIMULATOR
             double Thy0=NAN; // K, initial hypothalamic temperature
             double Viv0=NAN; // m^3, initial blood volume
             double Vrbc0=NAN; // m^3, initial red blood cell volume
-            double *T0,*beta0,*q0,*Tpp0;
+            double *T0,*beta0,*w0,*q0,*Tpp0;
             double M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0;
 
             // Sim values per timestep
@@ -84,6 +84,24 @@ namespace SIMULATOR
             double M; // W, Total metabolism
             double H; // W, Heat load
             double Qresp; // W, Respiratory cooling intake
+            // Element values
+            double *flowECMOBlood; // m^3/s, Recirculated blood injection rate
+            double *flowECMOSaline; // m^3/s, Saline injection rate
+            double *Cp; // J/kg/K, Blood specific heat capacity
+            double *Rho; // kg/m^3, Blood density
+            // Node values
+            double *T; // Temperature (K), to be solved for
+            double *q; // W/m^3, Heat generation in tissue
+            double *w; // -, Blood perfusion rate
+            double *beta; // W/m^3/K, Blood perfusion rate factor (rho*c*w)
+            // Agglomerated element values
+            double *BV; // -, beta*volume over all nodes
+            double *BVT; // -, beta*volume*T over all nodes
+            double *BVTfactor; // -, Countercurrent heat exchange component of TblA
+            double *BPRBPCfactor; // -, Complement of BVT factor, body component of TblA
+            double *TblA; // K, Arterial blood temperature
+            // Agglomerated body values
+            double CplC; // -, Blood pool timestep coupling coefficient (Bottom rightmost matrix entry)
             // Active error signals
             double TskError;
             double ThyError;
@@ -134,6 +152,7 @@ namespace SIMULATOR
             double Cs; // -, Vasoconstriction ratio
             double Dl; // W/K, Vasodilation capacitance
             double Sw; // g/min, Sweat output
+
 
             void runSim();
             // Linear system maintenance
