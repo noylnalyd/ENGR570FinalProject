@@ -4,8 +4,6 @@
 #include <cstdlib>
 #include <stdio.h>
 #include <random>
-#include <iomanip>
-#include <map>
 
 using namespace std;
 
