@@ -31,30 +31,25 @@ namespace SIMULATOR
         _state = simLoaded;
     }
 
-    // Runs a simple sim case to create initial T vector, TPrv vector, etc.
-    void initializer();
-
-    // Run the sim with a given args and write to given outs addresses
-    void runSim( double args[], double* outs[] );
     void SimulationInstance::computeThermalLoadParameters()
     {
         double Mbas0 = 0; // W
         double MbasDelta = 0; // W
         double MperWork = 0.2; // W/W
-        int Tidx = 0;
-        for(int eleIdx = 0; eleIdx < body->nElements; ++eleIdx){
-            ELEMENT::Element* elem = body->elements[eleIdx];
+        idx = 0;
+        for(elemIdx = 0; elemIdx < body->nElements; ++elemIdx){
+            ELEMENT::Element* elem = body->elements[elemIdx];
             WASHER::Washer* cur = elem->washers[0];
             Mbas0 += cur->volume*elem->sumPhi/(2*M_PI)*cur->q_m;
-            MbasDelta += cur->volume*elem->sumPhi/(2*M_PI)*sim->thermovariant*deltaQMetabolic(cur->q_m,T[Tidx],Tn[Tidx],sim->Q10);
-            Tidx++;
-            for(int secIdx = 0; secIdx<elem->nSectors; ++secIdx){
-                SECTOR::Sector* sect = elem->sectors[secIdx];
-                for(int washIdx = 1; washIdx<elem->nWashers; ++washIdx){
+            MbasDelta += cur->volume*elem->sumPhi/(2*M_PI)*sim->thermovariant*deltaQMetabolic(cur->q_m,T[idx],Tn[idx],sim->Q10);
+            idx++;
+            for(sectIdx = 0; sectIdx<elem->nSectors; ++sectIdx){
+                SECTOR::Sector* sect = elem->sectors[sectIdx];
+                for(washIdx = 1; washIdx<elem->nWashers; ++washIdx){
                     cur = elem->washers[washIdx];
                     Mbas0 += cur->volume*sect->phi/(2*M_PI)*cur->q_m;
-                    MbasDelta += cur->volume*sect->phi/(2*M_PI)*sim->thermovariant*deltaQMetabolic(cur->q_m,T[Tidx],Tn[Tidx],sim->Q10);
-                    Tidx++;
+                    MbasDelta += cur->volume*sect->phi/(2*M_PI)*sim->thermovariant*deltaQMetabolic(cur->q_m,T[idx],Tn[idx],sim->Q10);
+                    idx++;
                 }
             }
         }
@@ -64,7 +59,7 @@ namespace SIMULATOR
             etaW = 0.05; // W/W
         else
             etaW = 0.2*tanh(body->b1*act+body->b0); // W/W
-        M = act*Mbas0/actBas; // W
+        M = act*Mbas0/body->actBas; // W
         H = M*(1-etaW)-Mbas0; // W
         Qresp = computeQresp(); // W
 
@@ -90,46 +85,137 @@ namespace SIMULATOR
         SwNxt = project(Sw,SwPrv);
     }
 
-    void SimulationInstance::elemBloodProps(int eleIdx){
-        double Tblptmp = sim->caseBloodProps(eleIdx, TblpElem, time, Viv,DViv,Viv0);
-        TblpNxtRatio = Tblptmp/TblpElem;
+    void SimulationInstance::elementValues(){
+        for(elemIdx = 0; elemIdx < body->nElements; ++elemIdx){
+            element = body->elements[elemIdx];
+
+            flowECMOBlood(elemIdx);
+            flowECMOSaline(elemIdx);
+            cp(elemIdx);
+            rho(elemIdx);
+            tblp(elemIdx);
+        }
     }
 
-    void SimulationInstance::bloodHeatParams(int eleIdx){
-
-    }
     void SimulationInstance::nodeValues(){
-        qAndBeta(&q,&beta,Cp.Rho,T);
-        qAndBeta(&qNxt,&betaNxt,CpNxt.RhoNxt,TNxt);
+        for(idx=0;idx<body->N;idx++){
+            q[idx] = 0; // W/m^3, Heat generation in tissue
+            w[idx] = 0; // -, Blood perfusion rate
+            beta[idx] = 0; // W/m^3/K, Blood perfusion rate factor (rho*c*w)
+        }
+        
+        // Heat generation, blood perfusion, heats
+        qwbeta(q,w,beta,Cp,Rho,T);
+        qwbeta(qNxt,wNxt,betaNxt,CpNxt,RhoNxt,TNxt);
+
 
     }
-    void SimulationInstance::qAndBeta( double **qs, double **betas, double Cp, double Rho, double* T){
+    void SimulationInstance::agglomeratedElementValues(){
+        idx = 0;
+        for(elemIdx = 0; elemIdx < body->nElements; ++elemIdx){
+            BV[elemIdx] = 0; // -, beta*volume over all nodes
+            BVT[elemIdx] = 0; // -, beta*volume*T over all nodes
+            BVTfactor[elemIdx] = 0; // K, Countercurrent heat exchange component of TblA
+            BPRBPCfactor[elemIdx] = 0; // -, Complement of BVT factor, body component of TblA
+            TblA[elemIdx] = 0; // K, Arterial blood temperature
+
+            element = body->elements[elemIdx];
+
+            // Core washer
+            washer = element->washers[0];
+            BV[elemIdx] += beta[idx]*washer->volume*element->sumPhi/(2*M_PI);
+            BVNxt[elemIdx] += betaNxt[idx]*washer->volume*element->sumPhi/(2*M_PI);
+            BVT[elemIdx] += BV[elemIdx]*T[idx];
+            idx++;
+            
+            // Interior/skin washers
+            for(sectIdx=0;sectIdx<element->nSectors;sectIdx++){
+                sector = element->sectors[sectIdx];
+                for(washIdx = 1; washIdx<element->nWashers; ++washIdx){
+                    washer = element->washers[washIdx];
+                    
+                    BV[elemIdx] += beta[idx]*washer->volume*sector->phi/(2*M_PI);
+                    BVNxt[elemIdx] += betaNxt[idx]*washer->volume*sector->phi/(2*M_PI);
+                    BVT[elemIdx] += BV[elemIdx]*T[idx];
+                    idx++;
+                }
+            }
+            
+            // Derived values
+            BVTfactor[elemIdx] = element->hx*(BVT[elemIdx]/BV[elemIdx])/(element->hx+BV[elemIdx]); // K
+            BPRBPCfactor[elemIdx] = BVNxt[elemIdx]/(element->hx+BVNxt[elemIdx])*TblPNxtRatio[elemIdx]; // -
+            TblA[elemIdx] = TblP[elemIdx]*BV[elemIdx]/(element->hx+BV[elemIdx])+BVTfactor[elemIdx]; // K
+        }
+    }
+
+    void SimulationInstance::agglomeratedBodyValues(){
+        CplC = 0;
+        for(elemIdx = 0; elemIdx < body->nElements; ++elemIdx){
+            element = body->elements[elemIdx];
+            CplC += -(BVNxt[elemIdx]*BVNxt[elemIdx])/(element->hx+BVnxt[elemIdx])*TblPNxtRatio;
+        }
+    }
+
+    void SimulationInstance::qwbeta( double *qs, double *ws, double *betas, double *cps, double *rhos, double* Ts){
         // T index
         idx = 0;
         // Loop thru elements
-        for(int eleIdx = 0; eleIdx < body->nElements; ++eleIdx){
-            element = body->elements[eleIdx];
+        for(elemIdx = 0; elemIdx < body->nElements; ++elemIdx){
+            element = body->elements[elemIdx];
+
+            // Core washer
             washer = element->washers[0];
-            qDm = deltaQMetabolic(washer->q_m,T[idx],T0[idx])*sim->thermovariant;
+            qDm = deltaQMetabolic(washer->q_m,Ts[idx],T0[idx])*sim->thermovariant;
             qW = 0;
             qSh = 0;
             qResp = 0;
             if(element->Vmuscle > 0){
-                qW = element->a_sed*H/element->Vmuscle*washer->volume/element->Vmuscle*sim->thermovariant;
-                qSh = element->a_sh*Sh/element->Vmuscle*washer->volume/element->Vmuscle*sim->thermovariant;
+                qW = element->a_sed*H/element->Vmuscle*sim->thermovariant;
+                qSh = element->a_sh*Sh/element->Vmuscle*sim->thermovariant;
             }
             if(element->Vresp > 0){
-                qResp = Qresp*washer->a_resp/(washer->volume*element->sumPhi/(2*M_PI))*sim->thermovariant;
+                qResp = -Qresp*washer->a_resp/(washer->volume*element->sumPhi/(2*M_PI))*sim->thermovariant;
             }
-            *qs[idx] = washer->q_m+qDm+qW+qSh+qResp;
+            qs[idx] = washer->q_m+qDm+qW+qSh+qResp;
+            ws[idx] = max(w0[idx]*pow(sim->KonstasAlpha,sim->KonstasBeta*(Ts[idx]-T0[idx])*sim->thermovariant)*(1-sim->KonstasGamma*DeltaHCT),0.0);
+            betas[idx] = (beta0[idx]+0.932*(qDm+qSh+qW))
+                    *ws[idx]/w0[idx]
+                    *rhos[idx]/body->rhoBlood
+                    *cps[idx]/body->cpBlood;
+            idx++;
+            
             // Loop thru washers
-            for(int washIdx = 0; washIdx < element->nWashers; ++washIdx){
-                
+            for(sectIdx=0;sectIdx<element->nSectors;sectIdx++){
+                sector = element->sectors[sectIdx];
+                for(washIdx = 1; washIdx < element->nWashers; ++washIdx){
+                    washer = element->washers[washIdx];
+                    qDm = deltaQMetabolic(washer->q_m,Ts[idx],T0[idx])*sim->thermovariant;
+                    qW = 0;
+                    qSh = 0;
+                    qResp = 0;
+                    if(element->Vmuscle > 0){
+                        qW = element->a_sed*H/element->Vmuscle*sim->thermovariant;
+                        qSh = element->a_sh*Sh/element->Vmuscle*sim->thermovariant;
+                    }
+                    if(element->Vresp > 0){
+                        qResp = -Qresp*washer->a_resp/(washer->volume*sector->phi/(2*M_PI))*sim->thermovariant;
+                    }
+                    qs[idx] = washer->q_m+qDm+qW+qSh+qResp;
+                    ws[idx] = max(w0[idx]*pow(sim->KonstasAlpha,sim->KonstasBeta*(Ts[idx]-T0[idx])*sim->thermovariant)*(1-sim->KonstasGamma*DeltaHCT),0.0);
+                    betas[idx] = (beta0[idx]+0.932*(qDm+qSh+qW))
+                            *ws[idx]/w0[idx]
+                            *rhos[idx]/body->rhoBlood
+                            *cps[idx]/body->cpBlood;
+                    // Add vasodilation, vasoconstriction for outermost skin
+                    if(washIdx == element->nWashers-1){
+                        // Westin eqn 84
+                        betas[idx] = (betas[idx]+element->a_dl*Dl)/(1+element->a_cs*Cs*exp(-Dl/80));
+                        // Westin eqn 85
+                        betas[idx] = min((386.9-.32*.932*H)*(Viv+DViv)/Viv0,betas[idx]);
+                    }
+                    idx++;
+                }
             }
-        
-            // Update body-level blood props
-
-
         }
     }
     void SimulationInstance::BVR(){
@@ -149,13 +235,13 @@ namespace SIMULATOR
     void SimulationInstance::deltaHCT(){
         deltaHCT = (body->p*Vrbc*DViv)/(Viv*(Viv+body->p*DViv));
     }
-    void SimulationInstance::flowECMOSaline(){
-        sim->ecmoSaline(&flowECMOSaline,time);
-        sim->ecmoSaline(&flowECMOSalineNxt,timeNxt);
+    void SimulationInstance::flowECMOSaline(elemIdx){
+        sim->ecmoSaline(&(flowECMOSaline[elemIdx]), elemIdx, time);
+        sim->ecmoSaline(&(flowECMOSalineNxt[elemIdx]), elemIdx, timeNxt);
     }
-    void SimulationInstance::flowECMOBlood(){
-        sim->ecmoBlood(&flowECMOBlood,time);
-        sim->ecmoBlood(&flowECMOBloodNxt,timeNxt);
+    void SimulationInstance::flowECMOBlood(elemIdx){
+        sim->ecmoBlood(&(flowECMOBlood[elemIdx]), elemIdx, time);
+        sim->ecmoBlood(&(flowECMOBloodNxt[elemIdx]), elemIdx, timeNxt);
     }
     void SimulationInstance::BCvalues(){
         // Shock
@@ -164,20 +250,16 @@ namespace SIMULATOR
         bloodParams();
         // Change in hematocrit
         deltaHCT();
-        // Saline flows
-        flowECMOSaline();
-        // Recirculated blood flow
-        flowECMOBlood();
         // Environment values
         environmentParams();
     }
-    double SimulationInstance::computeMeanSkinTemp(){
+    double SimulationInstance::computeMeanSkinTemp( double* T ){
         double Tskcur = 0;
         int idx=1;
-        for(int eleIdx = 0;eleIdx<body->nElements;eleIdx++){
-            element = body->elements[eleIdx];
-            for(int secIdx=0;secIdx<element->nSectors;secIdx++){
-                sector = element->sectors[secIdx];
+        for(elemIdx = 0;elemIdx<body->nElements;elemIdx++){
+            element = body->elements[elemIdx];
+            for(sectIdx=0;sectIdx<element->nSectors;sectIdx++){
+                sector = element->sectors[sectIdx];
                 idx+=element->nWashers-2;
                 Tskcur += element->a_sk*sector->phi/element->sumPhi*
                         T[idx];
@@ -223,6 +305,44 @@ namespace SIMULATOR
             rhs[i] = 0;
     }
 
+    void SimulationInstance::buildSystem(){
+        idx = 0;
+        // Loop thru elements
+        for(elemIdx = 0; elemIdx < body->nElements; ++elemIdx){
+            element = body->elements[elemIdx];
+            
+            // Handle core
+            coreIdx = idx;
+            coreWasher = element->washers[0];
+            idx++;
+
+            // Loop thru sectors
+            for(sectIdx = 0; sectIdx < element->nSectors; ++elemIdx){
+                sector = element->sectors[sectIdx];
+                // Loop thru washers
+                for(washIdx = 1; washIdx < element->nWashers; ++washIdx){
+                    washer = element->washers[washIdx];
+
+                    // Core adjacent nodes have the same previous node, the core
+                    if(washIdx == 2){
+                        // Westin eqn 57 term 2
+                        pbm->add(coreIdx,idx,-element->theta*coreWasher->AForwardNxt*element->sumPhi);
+                    }
+                    // Other nodes have an interior node as a previous node
+                    else{
+                        // Westin eqn 55 term 1
+                        rhs[idx] += (1-washer->gamma)*washer->ABackwardPrv*TPrv[idx-1];
+                    }
+                    // Forwards
+
+
+            }
+            // Update body-level blood props
+
+
+        }
+    }
+
     void SimulationInstance::runSim(){
         
         // Check status of body and simmodel. Make sure both completed.
@@ -230,7 +350,6 @@ namespace SIMULATOR
         assert(sim->getState() == SIMMODEL::allValuesAssigned);
 
         // Provide initial values
-
         time = 0;
 
         // Iterate
@@ -240,44 +359,43 @@ namespace SIMULATOR
             timeNxt = time + dt;
             BCvalues();
 
+            // Compute body values
             // Compute whole-body thermal load parameters
             computeThermalLoadParameters();
-
             // Compute error inputs
             computeErrorSignals();
-
             // Compute active controls
             computeActiveControls();
-
-            // Project to get future body values
             projectBodyValues();
+
+            // Compute element values
+            elementValues();
+            projectElementValues();
 
             // Compute node thermal load parameters
             nodeValues();
-
-            // Project to get future node values
             projectNodeValues();
+
+            // Compute agglomerated element values
+            agglomeratedElementValues();
+            projectAgglomeratedElementValues();
+
+            // Compute agglomerated body values
+            agglomeratedBodyValues();
+            projectAgglomeratedBodyValues();
 
             // Empty PBM and RHS
             clearSystem();
 
-            
+            // Build system
+            buildSystem();
 
-            // Loop thru elements
-            for(int eleIdx = 0; eleIdx < body->nElements; ++eleIdx){
-                element = body->elements[eleIdx];
-                // Compute element-level blood pool properties
-                elemBloodProps(eleIdx);
-                
-                // Loop thru sectors
-                for(int sectIdx = 0; sectIdx < element->nSectors; ++eleIdx){
-                    sector = element->sectors[sectIdx];
-                    // Loop thru washers
-                }
-                // Update body-level blood props
+            // Solve system
+
+            // Overwrite values with "Prv"
 
 
-            }
+           
 
         }
 

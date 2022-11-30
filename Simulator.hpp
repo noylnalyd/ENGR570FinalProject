@@ -54,8 +54,8 @@ namespace SIMULATOR
             double* times; // -
 
             // Sim attributes
-            int ICconfigMode; // How to initialize (0=scratch, 1=T from file, 2=T and PBM from file)
-            int idx = -1; // Used to loop thru temperatures
+            int ICconfigMode=0; // How to initialize (0=scratch, 1=T from file, 2=T and PBM from file)
+            
             BODYMODEL::BodyModel* body; // Body object
             SIMMODEL::SimModel* sim; // Simulator options object
             PSEUDOBLOCKMATRIX::PseudoBlockMatrix* pbm; // Linear matrix
@@ -64,6 +64,13 @@ namespace SIMULATOR
             ELEMENT::Element* element;
             SECTOR::Sector* sector;
             WASHER::Washer* washer;
+            WASHER::Washer* coreWasher;
+            // Temporary indices
+            int idx = NAN; // Used to loop thru temperatures
+            int coreIdx = NAN; // Used to retain index of core node
+            int elemIdx = NAN;
+            int sectIdx = NAN;
+            int washIdx = NAN;
 
             // Sim initial values
             double Tskm0=NAN; // K, initial average skin temperature
@@ -77,31 +84,15 @@ namespace SIMULATOR
             // Sim values
             double time; // s, simulation time
             double* rhs; // K, right hand of system
+
             // Body values
+            // Thermal loads
             double Tskm; // K, Mean skin temperature
             double Thy; // K, Hypothalamic temperature
             double Tblp; // K, Blood pool temperature
             double M; // W, Total metabolism
             double H; // W, Heat load
             double Qresp; // W, Respiratory cooling intake
-            // Element values
-            double *flowECMOBlood; // m^3/s, Recirculated blood injection rate
-            double *flowECMOSaline; // m^3/s, Saline injection rate
-            double *Cp; // J/kg/K, Blood specific heat capacity
-            double *Rho; // kg/m^3, Blood density
-            // Node values
-            double *T; // Temperature (K), to be solved for
-            double *q; // W/m^3, Heat generation in tissue
-            double *w; // -, Blood perfusion rate
-            double *beta; // W/m^3/K, Blood perfusion rate factor (rho*c*w)
-            // Agglomerated element values
-            double *BV; // -, beta*volume over all nodes
-            double *BVT; // -, beta*volume*T over all nodes
-            double *BVTfactor; // -, Countercurrent heat exchange component of TblA
-            double *BPRBPCfactor; // -, Complement of BVT factor, body component of TblA
-            double *TblA; // K, Arterial blood temperature
-            // Agglomerated body values
-            double CplC; // -, Blood pool timestep coupling coefficient (Bottom rightmost matrix entry)
             // Active error signals
             double TskError;
             double ThyError;
@@ -117,54 +108,65 @@ namespace SIMULATOR
             double DViv; // Added non-blood volume
             double bvr; // Blood volume / initial blood volume
             double svr; // Saline volume / initial blood volume
-            double deltaHCT; // Ratio of hematocrit, ability to carry oxygen
+            double DeltaHCT; // Ratio of hematocrit, ability to carry oxygen
+
+            // Element values
+            // Blood values
+            double *FlowECMOBlood; // m^3/s, Recirculated blood injection rate
+            double *FlowECMOSaline; // m^3/s, Saline injection rate
+            double *Cp; // J/kg/K, Blood specific heat capacity
+            double *Rho; // kg/m^3, Blood density
+            double *TblP; // K, experienced blood pool temperature
+            double *TblPNxtRatio; // K/K, future experienced blood pool temperature ratio
+
+            // Node values
+            double *T; // Temperature (K), to be solved for
+            double *q; // W/m^3, Heat generation in tissue
+            double *w; // -, Blood perfusion rate
+            double *beta; // W/m^3/K, Blood perfusion rate factor (rho*c*w)
+
+            // Agglomerated element values
+            double *BV; // -, beta*volume over all nodes
+            double *BVT; // -, beta*volume*T over all nodes
+            double *BVTfactor; // -, Countercurrent heat exchange component of TblA
+            double *BPRBPCfactor; // -, Complement of BVT factor, body component of TblA
+            double *TblA; // K, Arterial blood temperature
+
+            // Agglomerated body values
+            double CplC; // -, Blood pool timestep coupling coefficient (Bottom rightmost matrix entry)
+            
             // Heats
             double qDm; // W/m^3, change in metabolism
             double qW; // W/m^3, heat gen due to workload
             double qSh; // W/m^3, heat gen due to shivering
             double qResp; // W/m^3, heat gen due to breathing
 
-            // Sim values, previous timestep
-            // Body values
-            double Tskm; // K, Mean skin temperature
-            double Thy; // K, Hypothalamic temperature
-            double Tblp; // K, Blood pool temperature
-            double M; // W, Total metabolism
-            double H; // W, Heat load
-            double Qresp; // W, Respiratory cooling intake
-            // Active controls:
-            double Sh; // W, Shivering power
-            double Cs; // -, Vasoconstriction ratio
-            double Dl; // W/K, Vasodilation capacitance
-            double Sw; // g/min, Sweat output
-
-            // Sim values, next timestep
-            double timeNxt; // s, simulation time
-            // Body values
-            double Tskm; // K, Mean skin temperature
-            double Thy; // K, Hypothalamic temperature
-            double Tblp; // K, Blood pool temperature
-            double M; // W, Total metabolism
-            double H; // W, Heat load
-            double Qresp; // W, Respiratory cooling intake
-            // Active controls:
-            double Sh; // W, Shivering power
-            double Cs; // -, Vasoconstriction ratio
-            double Dl; // W/K, Vasodilation capacitance
-            double Sw; // g/min, Sweat output
 
 
             void runSim();
             // Linear system maintenance
             void clearSystem();
+            void buildSystem();
             // Whole body parameters
             void computeThermalLoadParameters();
             double computeQresp();
             double deltaQMetabolic(double q, double T, double TNxt);
+            // Element parameters
+            void elementValues();
+            void flowECMOSaline(int eleIdx);
+            void flowECMOBlood(int eleIdx);
+            void cp(int eleIdx);
+            void rho(int eleIdx);
+
             // Node parameters
             void nodeValues();
-            void qAndBeta( double **qs, double **betas, double Cp, double Rho, double* T);
+            void qwbeta( double *qs, double *ws, double *betas, double *cps, double *rhos, double* Ts);
             void skinT();
+
+            // Agglomerated element parameters
+            void agglomeratedElementValues();
+            // Agglomerated body parameters
+            void agglomeratedBodyValues();
             // Active system
             double computeMeanSkinTemp();
             double computeHypothalamicTemp();
@@ -175,16 +177,16 @@ namespace SIMULATOR
             void BVR();
             void bloodParams();
             void deltaHCT();
-            void flowECMOSaline();
-            void flowECMOBlood();
+            
             // Linear projection
             double project( double cur, double prv );
             void projectBodyValues();
+            void projectElementValues();
             void projectNodeValues();
+            void projectAgglomeratedElementValues();
+            void projectAgglomeratedBodyValues();
             
             // Matrix construction
-            // Element level
-            void elemBloodProps( int eleIdx );
     };
 
 }
