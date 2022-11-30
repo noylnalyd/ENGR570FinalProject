@@ -37,10 +37,10 @@ namespace SIMMODEL
         const double Tmelt = 273.15; // K, melting point of water
 
         // UQ attributes worth exploring for all cases
-        double TairIndoors; // K, inside / treatment air temperature
-        double TairOutdoors; // K, outside / pretreatment air temperature
-        double TsrmIndoors; // K, mean surroundings temperature inside
-        double TsrmOutdoors; // K, mean surroundings temperature outside
+        double TairIndoors; // K, inside / treatment air temperature ~ U[68F,78F]
+        double TairOutdoors; // K, outside / pretreatment air temperature ~ N[55F,18F]
+        double TsrmIndoors; // K, mean surroundings temperature inside ~ U[68F,78F]
+        double TsrmOutdoors; // K, mean surroundings temperature outside ~ N[55F,18F]
 
         SimModelState getState();
         virtual void skinBC( int element, int sector, double time, double* T, double* Amatrixii, double* Trhs)=0;
