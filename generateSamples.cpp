@@ -16,6 +16,7 @@ int main(int argc, char *argv[]){
     // fileout filenames for A and B matrices
     char *fileoutA = argv[2];
     char *fileoutB = argv[3];
+    char *fileoutC = argv[4];
     FILE * fout;
     // number of uncertain parameters (dimension of parameter space)
     static const int d=4;
@@ -35,6 +36,8 @@ int main(int argc, char *argv[]){
 
     // creating second experiment matrix B
     double B[d][n];
+
+    // initializing to 0 to be safe
     for (int id=0; id<d; id++) {
         for (int in=0; in<n; in++) {
             A[id][in]=0;
@@ -46,7 +49,7 @@ int main(int argc, char *argv[]){
     std::random_device rd; // Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd());  // Standard mersenne_twister_engine seeded with rd()
 
-    // drawing uniform random samples for indoor temperatures
+    // drawing uniform random samples for temperatures and saving to arrays
     std::uniform_real_distribution<double> unif(lbTairIndoors, ubTairIndoors);
     std::normal_distribution<double> normal(meanTairOutdoors,sqrt(varTairOutdoors));
     for (int in=0; in<n; in++) {
@@ -56,7 +59,7 @@ int main(int argc, char *argv[]){
         A[3][in] = normal(gen); B[3][in] = normal(gen);
     }
 
-    // writing matrix A to vecfileoutA
+    // writing matrix A to fileoutA
     fout = fopen(fileoutA, "w");
     if (fout == NULL) {
         printf("Error opening output file !");
@@ -68,11 +71,30 @@ int main(int argc, char *argv[]){
         fprintf(fout,"%.17g,",A[2][in]);
         fprintf(fout,"%.17g\n",A[3][in]);
     }
-    // writing matrix B to vecfileoutB   
+    // writing matrix B to fileoutB   
     fout = fopen(fileoutB, "w");
     if (fout == NULL) {
         printf("Error opening output file !");
         exit(EXIT_FAILURE);
+    }
+    for (int in=0; in<n; in++) {
+        fprintf(fout,"%.17g,",B[0][in]);
+        fprintf(fout,"%.17g,",B[1][in]);
+        fprintf(fout,"%.17g,",B[2][in]);
+        fprintf(fout,"%.17g\n",B[3][in]);
+    }
+
+    // writing matrix C to fileoutC
+    fout = fopen(fileoutC, "w");
+    if (fout == NULL) {
+        printf("Error opening output file !");
+        exit(EXIT_FAILURE);
+    }
+    for (int in=0; in<n; in++) {
+        fprintf(fout,"%.17g,",A[0][in]);
+        fprintf(fout,"%.17g,",A[1][in]);
+        fprintf(fout,"%.17g,",A[2][in]);
+        fprintf(fout,"%.17g\n",A[3][in]);
     }
     for (int in=0; in<n; in++) {
         fprintf(fout,"%.17g,",B[0][in]);
