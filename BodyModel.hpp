@@ -26,7 +26,8 @@ namespace BODYMODEL
         int nElements; // Number of body elements
         ELEMENT::Element** elements; // Body elements
         int N; // Number of nodes in whole-body model
-        int elementIdx=0; // Index of first free element
+        double *V; // m^3, volume of each node (N entries)
+        int elemIdx=0; // Index of first free element
         PSEUDOBLOCKMATRIX::PseudoBlockMatrix staticPBM; // Constant entries in PBM
 
         // Basal constants and attributes
@@ -97,10 +98,10 @@ namespace BODYMODEL
         // Must have been allocated!
         assert(_state==allocated);
         // Must have space remaining!
-        assert(elementIdx<nElements);
+        assert(elemIdx<nElements);
 
-        elements[elementIdx++] = element;
-        if(elementIdx == nElements)
+        elements[elemIdx++] = element;
+        if(elemIdx == nElements)
             _state = elementsAdded;
     }
 
@@ -127,6 +128,21 @@ namespace BODYMODEL
 
         // Compute node attributes
         computeN();
+        V = new double[N];
+        V[N-1] = NAN; // Blood has no tangible volume
+        int idx = 0;
+        for(int elementIdx = 0; elementIdx < nElements; ++elementIdx){
+            V[idx] = elements[elementIdx]->washers[0]->volume*elements[elementIdx]->sumPhi/(2*M_PI);
+            idx++;
+            for(int sectIdx = 0; sectIdx < elements[elementIdx]->nSectors; ++elementIdx){
+                // Loop thru washers
+                for(int washIdx = 1; washIdx < elements[elementIdx]->nWashers; ++washIdx){
+                    V[idx] = elements[elementIdx]->washers[washIdx]->volume
+                            *elements[elementIdx]->sectors[sectIdx]->phi/(2*M_PI);
+                    idx++;
+                }
+            }
+        }
         _state = computed;
     }
 
