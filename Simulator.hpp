@@ -131,9 +131,11 @@ namespace SIMULATOR
             // Agglomerated element values
             double *BV; // -, beta*volume over all nodes
             double *BVT; // -, beta*volume*T over all nodes
-            double *BVTfactor; // -, Countercurrent heat exchange component of TblA
-            double *BPRBPCfactor; // -, Complement of BVT factor, body component of TblA
-            double *TblA; // K, Arterial blood temperature
+            double *BPRBPCfactor; // Westin eqn 21 term 1 coefficient
+            double *TblAoverlayFactor; // Westin eqn 21 term 2 coefficient
+            double *TblAoverlay; // Westin eqn 21 term 2
+            double *BPRBPCfactor; // Westin eqn 21 term 1 coefficient
+            double *TblA; // K, Arterial blood temperature, Westin eqn 21 resultant
 
             // Agglomerated body values
             double CplC; // -, Blood pool timestep coupling coefficient (Bottom rightmost matrix entry)
@@ -149,7 +151,6 @@ namespace SIMULATOR
             void runSim();
             // Linear system maintenance
             void clearSystem();
-            void buildSystem();
             // Whole body parameters
             void computeThermalLoadParameters();
             double computeQresp();
@@ -186,10 +187,10 @@ namespace SIMULATOR
             void projectBodyValues();
             void projectElementValues();
             void projectNodeValues();
-            void projectAgglomeratedElementValues();
-            void projectAgglomeratedBodyValues();
             
             // Matrix construction
+            void buildSystem();
+            void solveSystem();
     };
 
 }

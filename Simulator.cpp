@@ -40,15 +40,15 @@ namespace SIMULATOR
         for(elemIdx = 0; elemIdx < body->nElements; ++elemIdx){
             ELEMENT::Element* elem = body->elements[elemIdx];
             WASHER::Washer* cur = elem->washers[0];
-            Mbas0 += cur->volume*elem->sumPhi/(2*M_PI)*cur->q_m;
-            MbasDelta += cur->volume*elem->sumPhi/(2*M_PI)*sim->thermovariant*deltaQMetabolic(cur->q_m,T[idx],Tn[idx],sim->Q10);
+            Mbas0 += body->V[idx]*cur->q_m;
+            MbasDelta += body->V[idx]*sim->thermovariant*deltaQMetabolic(cur->q_m,T[idx],Tn[idx],sim->Q10);
             idx++;
             for(sectIdx = 0; sectIdx<elem->nSectors; ++sectIdx){
                 SECTOR::Sector* sect = elem->sectors[sectIdx];
                 for(washIdx = 1; washIdx<elem->nWashers; ++washIdx){
                     cur = elem->washers[washIdx];
-                    Mbas0 += cur->volume*sect->phi/(2*M_PI)*cur->q_m;
-                    MbasDelta += cur->volume*sect->phi/(2*M_PI)*sim->thermovariant*deltaQMetabolic(cur->q_m,T[idx],Tn[idx],sim->Q10);
+                    Mbas0 += body->V[idx]*cur->q_m;
+                    MbasDelta += body->V[idx]*sim->thermovariant*deltaQMetabolic(cur->q_m,T[idx],Tn[idx],sim->Q10);
                     idx++;
                 }
             }
@@ -115,16 +115,13 @@ namespace SIMULATOR
         for(elemIdx = 0; elemIdx < body->nElements; ++elemIdx){
             BV[elemIdx] = 0; // -, beta*volume over all nodes
             BVT[elemIdx] = 0; // -, beta*volume*T over all nodes
-            BVTfactor[elemIdx] = 0; // K, Countercurrent heat exchange component of TblA
-            BPRBPCfactor[elemIdx] = 0; // -, Complement of BVT factor, body component of TblA
-            TblA[elemIdx] = 0; // K, Arterial blood temperature
-
+            BVNxt[elemIdx] = 0; // -, beta*volume over all nodes
             element = body->elements[elemIdx];
 
             // Core washer
             washer = element->washers[0];
-            BV[elemIdx] += beta[idx]*washer->volume*element->sumPhi/(2*M_PI);
-            BVNxt[elemIdx] += betaNxt[idx]*washer->volume*element->sumPhi/(2*M_PI);
+            BV[elemIdx] += beta[idx]*body->V[idx];
+            BVNxt[elemIdx] += betaNxt[idx]*body->V[idx];
             BVT[elemIdx] += BV[elemIdx]*T[idx];
             idx++;
             
@@ -134,17 +131,23 @@ namespace SIMULATOR
                 for(washIdx = 1; washIdx<element->nWashers; ++washIdx){
                     washer = element->washers[washIdx];
                     
-                    BV[elemIdx] += beta[idx]*washer->volume*sector->phi/(2*M_PI);
-                    BVNxt[elemIdx] += betaNxt[idx]*washer->volume*sector->phi/(2*M_PI);
+                    BV[elemIdx] += beta[idx]*body->V[idx];
+                    BVNxt[elemIdx] += betaNxt[idx]*body->V[idx];
                     BVT[elemIdx] += BV[elemIdx]*T[idx];
                     idx++;
                 }
             }
             
             // Derived values
-            BVTfactor[elemIdx] = element->hx*(BVT[elemIdx]/BV[elemIdx])/(element->hx+BV[elemIdx]); // K
-            BPRBPCfactor[elemIdx] = BVNxt[elemIdx]/(element->hx+BVNxt[elemIdx])*TblPNxtRatio[elemIdx]; // -
-            TblA[elemIdx] = TblP[elemIdx]*BV[elemIdx]/(element->hx+BV[elemIdx])+BVTfactor[elemIdx]; // K
+            //  See Westin eqn 21
+            BPRBPCfactor[elemIdx] = BV[elemIdx]/(element->hx+BV[elemIdx]); // -
+            BPRBPCfactorNxt[elemIdx] = BVNxt[elemIdx]/(element->hx+BVNxt[elemIdx])*TblPNxtRatio[elemIdx]; // -
+
+            TblAoverlayFactor[elemIdx] = element->hx/BV[elemIdx] / (element->hx + BV[elemIdx]); // -
+            TblAoverlayFactorNxt[elemIdx] = element->hx/BVNxt[elemIdx] / (element->hx + BVNxt[elemIdx]); // -
+            TblAoverlay[elemIdx] = BVT[elemIdx] * TblAoverlayFactor; // K
+            
+            TblA[elemIdx] = TblP[elemIdx]*BPRBPCfactor[elemIdx] + TblAoverlay[elemIdx]; // K
         }
     }
 
@@ -174,7 +177,7 @@ namespace SIMULATOR
                 qSh = element->a_sh*Sh/element->Vmuscle*sim->thermovariant;
             }
             if(element->Vresp > 0){
-                qResp = -Qresp*washer->a_resp/(washer->volume*element->sumPhi/(2*M_PI))*sim->thermovariant;
+                qResp = -Qresp*washer->a_resp/(body->V[idx])*sim->thermovariant;
             }
             qs[idx] = washer->q_m+qDm+qW+qSh+qResp;
             ws[idx] = max(w0[idx]*pow(sim->KonstasAlpha,sim->KonstasBeta*(Ts[idx]-T0[idx])*sim->thermovariant)*(1-sim->KonstasGamma*DeltaHCT),0.0);
@@ -198,7 +201,7 @@ namespace SIMULATOR
                         qSh = element->a_sh*Sh/element->Vmuscle*sim->thermovariant;
                     }
                     if(element->Vresp > 0){
-                        qResp = -Qresp*washer->a_resp/(washer->volume*sector->phi/(2*M_PI))*sim->thermovariant;
+                        qResp = -Qresp*washer->a_resp/(body->V[idx])*sim->thermovariant;
                     }
                     qs[idx] = washer->q_m+qDm+qW+qSh+qResp;
                     ws[idx] = max(w0[idx]*pow(sim->KonstasAlpha,sim->KonstasBeta*(Ts[idx]-T0[idx])*sim->thermovariant)*(1-sim->KonstasGamma*DeltaHCT),0.0);
@@ -311,11 +314,52 @@ namespace SIMULATOR
         for(elemIdx = 0; elemIdx < body->nElements; ++elemIdx){
             element = body->elements[elemIdx];
             
-            // Handle core
+            // Core node eqn (Westin eqn 57)
             coreIdx = idx;
-            coreWasher = element->washers[0];
-            idx++;
+            // Current (Core) node
+            washer = element->washers[0];
+            coreWasher = washer;
+            // Westin eqn 57 rhs term 1
+            rhs[idx] += (
+                washer->zeta/dt
+                -washer->del*beta[idx]
+                +element->theta*(washer->AForwardCur-1)*element->sumPhi
+            ) * T[idx];
+            // Westin eqn 57 lhs term 1
+            pbm->add(idx,idx,
+                washer->zeta/dt
+                +washer->del*betaNxt[idx]
+                +element->theta*(1-washer->AForwardCur)*element->sumPhi
+            );
+            // Core node heat gen
+            // Westin eqn 57 rhs term 3
+            rhs[idx] += washer->del*(q[idx] + qNxt[idx]);
+            
+            // Core node blood perfusion warming
+            // Westin eqn 57 rhs term 4
+            rhs[idx] += washer->del*beta[idx]*TblA[idx];
+            // Westin eqn 57 lhs term 3
+            //      Westin eqns 21 term 2 (Also called TblA overlay)
+            for(int tIdx=coreIdx; tIdx<coreIdx+element->N; tIdx++){
+                pbm->add(idx,tIdx,
+                    -washer->del
+                    *betaNxt[idx]
+                    *betaNxt[tIdx]
+                    *body->V[tIdx]
+                    *TblAoverlayFactorNxt[elemIdx]
+                );
+            }
+            // Westin eqn 57 lhs term 3
+            //      Westin eqns 69
+            pbm->add(idx,body->N-1,
+                -washer->del*betaNxt[idx]*BPRBPCfactorNxt
+            );
+            //      Westin eqns 70
+            pbm->add(body->N-1,idx,
+                betaNxt[idx]*body->V[idx]*BPRBPCfactorNxt
+            );
 
+            idx++;
             // Loop thru sectors
             for(sectIdx = 0; sectIdx < element->nSectors; ++elemIdx){
                 sector = element->sectors[sectIdx];
@@ -328,9 +372,13 @@ namespace SIMULATOR
                     backwardIdx = NAN;
                     // Core adjacent nodes have the same previous node, the core
                     if(washIdx == 1){
-                        // Westin eqn 57 term 2
-                        pbm->add(coreIdx,idx,-element->theta*coreWasher->AForwardNxt*element->sumPhi);
                         backwardIdx = coreIdx;
+
+                        // Add this node to core node eqn
+                        // Westin eqn 57 lhs term 2
+                        pbm->add(coreIdx,idx,-element->theta*coreWasher->AForwardNxt*sector->phi);
+                        // Westin eqn 57 rhs term 2
+                        rhs[coreIdx] += element->theta*coreWasher->AForwardNxt*sector->phi*T[idx];
                     }
                     // Other nodes have an interior node as a previous node
                     else{
@@ -342,6 +390,7 @@ namespace SIMULATOR
                     pbm->add(idx,backwardIdx,(washer->gamma-1)*washer->ABackwardPrv);
 
                     // Forwards nodes
+                    forwardIdx = NAN;
                     // Internal nodes have forward nodes
                     if(washIdx < element->nWashers-1){
                         forwardIdx = idx+1;
@@ -356,7 +405,7 @@ namespace SIMULATOR
                         rhs[idx] += (1+washer->gamma)*washer->AForwardNxt*(Tpp[idx]+TppNxt[idx]);
                     }
 
-                    // Current node
+                    // Current node coupling
                     // Westin eqn 55 rhs term 2 / Westin eqn 68 rhs term 2 (The same thing)
                     rhs[idx] += (
                         (1-washer->gamma)*washer->ABackwardCur
@@ -373,16 +422,45 @@ namespace SIMULATOR
                         +washer->del*betaNxt[idx]
                         -(1+washer->gamma)*washer->AForwardCur
                     );
+
+                    // Current node heat gen
                     // Westin eqn 55 rhs term 4 / Westin eqn 68 rhs term 4 (The same thing)
-                    rhs += washer->del*(q[idx] + qNxt[idx]);
+                    rhs[idx] += washer->del*(q[idx] + qNxt[idx]);
+
+                    // Current node blood perfusion warming
                     // Westin eqn 55 rhs term 5 / Westin eqn 68 rhs term 5 (The same thing)
-
-
+                    rhs[idx] += washer->del*beta[idx]*TblA[idx];
+                    // Westin eqn 55 lhs term 4 / Westin eqn 68 lhs term 3 (The same thing)
+                    //      Westin eqns 21 term 2 (Also called TblA overlay)
+                    for(int tIdx=coreIdx; tIdx<coreIdx+element->N; tIdx++){
+                        pbm->add(idx,tIdx,
+                            -washer->del
+                            *betaNxt[idx]
+                            *betaNxt[tIdx]
+                            *body->V[tIdx]
+                            *TblAoverlayFactorNxt[elemIdx]
+                        );
+                    }
+                    //      Westin eqns 69
+                    pbm->add(idx,body->N-1,
+                        -washer->del*betaNxt[idx]*BPRBPCfactorNxt
+                    );
+                    //      Westin eqns 70
+                    pbm->add(body->N-1,idx,
+                        betaNxt[idx]*body->V[idx]*BPRBPCfactorNxt
+                    );
+                }
             }
-            // Update body-level blood props
-
-
         }
+
+        // Westin eqn 71, CplC
+        pbm->add(body->N-1,body->N-1,
+            CplC
+        );
+    }
+
+    void SimulationInstance::solveSystem(){
+        pbm->GaussSeidel(rhs,T,1e-5,1e-5,TNxt);
     }
 
     void SimulationInstance::runSim(){
@@ -420,11 +498,9 @@ namespace SIMULATOR
 
             // Compute agglomerated element values
             agglomeratedElementValues();
-            projectAgglomeratedElementValues();
 
             // Compute agglomerated body values
             agglomeratedBodyValues();
-            projectAgglomeratedBodyValues();
 
             // Empty PBM and RHS
             clearSystem();
@@ -433,6 +509,7 @@ namespace SIMULATOR
             buildSystem();
 
             // Solve system
+            solveSystem();
 
             // Overwrite values with "Prv"
 
