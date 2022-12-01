@@ -17,7 +17,24 @@ namespace SIMMODEL
     {
     private:
         SimModelState _state = undefined;
+
+        // Local pointers
+        ELEMENT::Element* element;
+        SECTOR::Sector* sector;
+        WASHER::Washer* washer;
+        // Private variables (set by BC)
+        double s; // W/m^2, Light intensity
+        double echelonSf; // -, Skin surface emissivity
+        double echelonSrm; // -, Surroundings emissivity
+        double alphaSf; // -, Skin surface absorptivity
+        double psi; // -, View factor
+        double Tsrm; // K, surrounding temperature mean
     public:
+        // Time attributes
+        const double tInitial = 0.0; // s
+        double tFinal; // s
+        double dt; // s
+
         // Model attributes
         int modelCase; // Number of case (if automating)
         double thermovariant; // 0 for thermoneutral, 1 for variant
@@ -28,8 +45,8 @@ namespace SIMMODEL
         const double KonstasAlpha = 2.961; // -
         
         // Saline constants
-        const double salineRho; // kg/m^3, saline density
-        const double salineCp; // J/kg/K, saline specific heat capacity
+        const double salineRho = 1004.6; // kg/m^3, saline density
+        const double salineCp = 4180; // J/kg/K, saline specific heat capacity
 
         // Environmental constants
         const double Pair = 2300; // Pa, partial vapor air pressure
@@ -49,19 +66,60 @@ namespace SIMMODEL
         double TsrmOutdoors; // K, mean surroundings temperature outside
 
         // BC values
+        double Tair;
+
+        SimModel(){
+            _state = initialized;
+        };
         SimModelState getState();
-        void skinHeat(BODYMODEL::BodyModel* body,
-            int elemIdx,
-            int sectIdx,
-            double Twash, // K, outermost node temperature
-            double Sw, // g/min, sweat command
-            double TsfAssumed, // K, assumed skin surface temperature
-            int njActual // -, number of equivalent clothings on this sector
-            );
-        virtual void skinBC( int element, int sector, double time, double* T, double* Amatrixii, double* Trhs);
+        double skinHeat(
+                BODYMODEL::BodyModel* body,
+                ELEMENT::Element* elem,
+                SECTOR::Sector* sect,
+                int elemIdx,
+                int sectIdx,
+                double Sw, // g/min, sweat command
+                double TsfAssumed, // K, assumed skin surface temperature
+                double Tsf0, // K, skin thermoneutral temperature
+                int njActual, // -, number of equivalent clothings on this sector
+                double psiActual // rad^2, exposure angle
+        );
+        virtual void skinBC(
+                double *Tpp,
+                BODYMODEL::BodyModel* body,
+                double *T,
+                double *T0,
+                double Sw,
+                double time
+        );
         virtual void BVRSVR( double *bvr, double *svr, double time );
     };
 
+
+    void SimModel::skinBC(
+            double *Tpp,
+            BODYMODEL::BodyModel* body,
+            double *T,
+            double *T0,
+            double Sw,
+            double time)
+    {
+        int idx=0;
+        for(int elemIdx=0;elemIdx<body->nElements;elemIdx++){
+            element = body->elements[elemIdx];
+            idx++;
+            washer = element->washers[element->nWashers-1];
+            for(int sectIdx=0;sectIdx<element->nSectors;sectIdx++){
+                idx+=element->nWashers-2;
+                sector = element->sectors[sectIdx];
+                double qsk = skinHeat(body,element,sector,elemIdx,sectIdx,Sw,Tpp[idx],Tpp0[idx],element->n_j,sector->psiStnd);
+                // Westin eqn 64
+                Tpp[idx] = qsk*(washer->r+washer->deltaR/2.0)/washer->k
+                        *log((washer->r+washer->deltaR)/washer->r)
+                        +T[idx];
+            }
+        }
+    }
     void SimModel::BVRSVR( double *bvr, double *svr, double time )
     {
         *bvr = 1.0;
@@ -85,7 +143,7 @@ namespace SIMMODEL
         
         double f = 1;
         double echelonSf = body->elements[elemIdx]->sectors[sectIdx]->echelon;
-
+        double echelonSr = echelonSrm;
         if(njActual > 0){
             f = 0.9;
             echelonSr = 1.0;
@@ -110,7 +168,7 @@ namespace SIMMODEL
         
         double U = 1/(njActual*body->Icl+1/(f*(hcmix+hR))); // W/m^2/K
 
-        qsR = alphaSr*psi*s;
+        qsR = alphaSf*psiActual*s;
 
         double Tweight = (hcmix*TairC + hR*(TsrmC) + qsR)/(hcmix + hR);
         double Posksat = 100.0*exp(18.956-4030.0/(TsfC+235));
@@ -130,26 +188,37 @@ namespace SIMMODEL
     {
         return _state;
     }
-    class InitialCase : SimModel
+    class InitialCase : public SimModel
     {
-        thermovariant = 0;
-        transient = 0;
-
-    }
-    class SteadyCase : SimModel
-    {
-        thermovariant = 0;
-        transient = 1;
-    }
-    class TransientCase : SimModel
-    {
-
-    }
-    class KonstasCase : SimModel
-    {
+        public:
+            InitialCase() : SimModel() {
+                thermovariant = 0;
+                transient = 0;
+                tFinal = 1.0;
+                dt = 1.0;
+            };
 
     };
-
+    class SteadyCase : public SimModel
+    {
+        public:
+            SteadyCase() : SimModel() {
+                thermovariant = 1;
+                transient = 0;
+                tFinal = 1.0;
+                dt = 1.0;
+            };
+    };
+    class TransientCase : public SimModel
+    {
+        public:
+            TransientCase() : SimModel() {
+                thermovariant = 1;
+                transient = 1;
+                tFinal = 200.0;
+                dt = 1.0;
+            };
+    };
 
 }
 
