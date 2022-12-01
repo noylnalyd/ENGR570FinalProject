@@ -323,17 +323,59 @@ namespace SIMULATOR
                 for(washIdx = 1; washIdx < element->nWashers; ++washIdx){
                     washer = element->washers[washIdx];
 
+
+                    // Backwards nodes
+                    backwardIdx = NAN;
                     // Core adjacent nodes have the same previous node, the core
-                    if(washIdx == 2){
+                    if(washIdx == 1){
                         // Westin eqn 57 term 2
                         pbm->add(coreIdx,idx,-element->theta*coreWasher->AForwardNxt*element->sumPhi);
+                        backwardIdx = coreIdx;
                     }
                     // Other nodes have an interior node as a previous node
                     else{
-                        // Westin eqn 55 term 1
-                        rhs[idx] += (1-washer->gamma)*washer->ABackwardPrv*TPrv[idx-1];
+                        backwardIdx = idx-1;
                     }
-                    // Forwards
+                    // Westin eqn 55 rhs term 1
+                    rhs[idx] += (1-washer->gamma)*washer->ABackwardPrv*T[backwardIdx];
+                    // Westin eqn 55 lhs term 1
+                    pbm->add(idx,backwardIdx,(washer->gamma-1)*washer->ABackwardPrv);
+
+                    // Forwards nodes
+                    // Internal nodes have forward nodes
+                    if(washIdx < element->nWashers-1){
+                        forwardIdx = idx+1;
+                        // Westin eqn 55 rhs term 3
+                        rhs[idx] += (1+washer->gamma)*washer->AForwardNxt*T[forwardIdx];
+                        // Westin eqn 55 lhs term 3
+                        pbm->add(idx,forwardIdx,-(washer->gamma+1)*washer->AForwardNxt);
+                    }
+                    // Skin nodes use the virtual temperature Tpp instead
+                    else{
+                        // Westin eqn 68 rhs term 3
+                        rhs[idx] += (1+washer->gamma)*washer->AForwardNxt*(Tpp[idx]+TppNxt[idx]);
+                    }
+
+                    // Current node
+                    // Westin eqn 55 rhs term 2 / Westin eqn 68 rhs term 2 (The same thing)
+                    rhs[idx] += (
+                        (1-washer->gamma)*washer->ABackwardCur
+                        + washer->zeta/dt
+                        -2
+                        -washer->del*beta[idx]
+                        +(1+washer->gamma)*washer->AForwardCur
+                    ) * T[idx];
+                    // Westin eqn 55 lhs term 2 / Westin eqn 68 lhs term 2 (The same thing)
+                    pbm->add(idx,idx,
+                        (washer->gamma-1)*washer->ABackwardCur
+                        +washer->zeta/dt
+                        +2
+                        +washer->del*betaNxt[idx]
+                        -(1+washer->gamma)*washer->AForwardCur
+                    );
+                    // Westin eqn 55 rhs term 4 / Westin eqn 68 rhs term 4 (The same thing)
+                    rhs += washer->del*(q[idx] + qNxt[idx]);
+                    // Westin eqn 55 rhs term 5 / Westin eqn 68 rhs term 5 (The same thing)
 
 
             }

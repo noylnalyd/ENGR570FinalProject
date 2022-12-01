@@ -67,10 +67,12 @@ namespace SIMULATOR
             WASHER::Washer* coreWasher;
             // Temporary indices
             int idx = NAN; // Used to loop thru temperatures
-            int coreIdx = NAN; // Used to retain index of core node
             int elemIdx = NAN;
             int sectIdx = NAN;
             int washIdx = NAN;
+            int coreIdx = NAN; // Used to retain index of core node
+            int forwardIdx = NAN;
+            int backwardIdx = NAN;
 
             // Sim initial values
             double Tskm0=NAN; // K, initial average skin temperature
@@ -121,6 +123,7 @@ namespace SIMULATOR
 
             // Node values
             double *T; // Temperature (K), to be solved for
+            double *Tpp; // Temperature (K), fictional forward skin node temperature
             double *q; // W/m^3, Heat generation in tissue
             double *w; // -, Blood perfusion rate
             double *beta; // W/m^3/K, Blood perfusion rate factor (rho*c*w)
