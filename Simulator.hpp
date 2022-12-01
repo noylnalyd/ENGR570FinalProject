@@ -25,6 +25,7 @@ namespace SIMULATOR
 
         // Initial values
         double *T0,*beta0,*q0,*Tpp0;
+        // Steady values
         double M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0;
 
     public:
@@ -38,29 +39,18 @@ namespace SIMULATOR
         void initializer();
 
         // Run the sim with a given args and write to given outs addresses
-        void runSim( double args[], double* outs[] );
+        void runSim( double args[], double outs[] );
 
 
     };
 
     class SimulationInstance
     {
-        public:
-            // Simulation attributes
-            const double tInitial = 0.0; // s
-            double tFinal = 3600.0; // s
-            double dt = 1e-2; // s
-            int nSteps = (int)ceil((tFinal-tInitial)/dt); // -
-            double* times; // -
-
-            // Sim attributes
-            int ICconfigMode=0; // How to initialize (0=scratch, 1=T from file, 2=T and PBM from file)
-            
+        private:
+            // Local temporary pointers
             BODYMODEL::BodyModel* body; // Body object
             SIMMODEL::SimModel* sim; // Simulator options object
             PSEUDOBLOCKMATRIX::PseudoBlockMatrix* pbm; // Linear matrix
-            
-            // Local temporary pointers
             ELEMENT::Element* element;
             SECTOR::Sector* sector;
             WASHER::Washer* washer;
@@ -73,6 +63,13 @@ namespace SIMULATOR
             int coreIdx = NAN; // Used to retain index of core node
             int forwardIdx = NAN;
             int backwardIdx = NAN;
+        public:
+            // Simulation attributes
+            int nSteps = (int)ceil((tFinal-tInitial)/dt); // -
+            double* times; // -
+
+            // Sim attributes
+            int ICconfigMode=0; // How to initialize (0=scratch, 1=T from file, 2=T and PBM from file)
 
             // Sim initial values
             double Tskm0=NAN; // K, initial average skin temperature
@@ -134,7 +131,6 @@ namespace SIMULATOR
             double *BPRBPCfactor; // Westin eqn 21 term 1 coefficient
             double *TblAoverlayFactor; // Westin eqn 21 term 2 coefficient
             double *TblAoverlay; // Westin eqn 21 term 2
-            double *BPRBPCfactor; // Westin eqn 21 term 1 coefficient
             double *TblA; // K, Arterial blood temperature, Westin eqn 21 resultant
 
             // Agglomerated body values
@@ -146,8 +142,17 @@ namespace SIMULATOR
             double qSh; // W/m^3, heat gen due to shivering
             double qResp; // W/m^3, heat gen due to breathing
 
-
-
+            // Initialize
+            SimulationInstance(BODYMODEL::BodyModel* tbody,SIMMODEL::SimModel* tsim);
+            void copyToInitials( double *T0tmp, double *beta0tmp,double *q0tmp, double *Tpp0tmp);
+            void fillInitials( double *T0tmp, double *beta0tmp, double *q0tmp, double *Tpp0tmp);
+            void copyToSteadys( double *T0tmp, double *beta0tmp, double *q0tmp, double *Tpp0tmp,
+                    double M0tmp, double QResp0tmp, double Tskm0tmp, double H0tmp,
+                    double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp);
+            void fillSteadys( double *T0tmp, double *beta0tmp, double *q0tmp, double *Tpp0tmp,
+                    double M0tmp, double QResp0tmp, double Tskm0tmp, double H0tmp,
+                    double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp);
+            
             void runSim();
             // Linear system maintenance
             void clearSystem();

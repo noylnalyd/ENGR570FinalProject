@@ -31,6 +31,110 @@ namespace SIMULATOR
         _state = simLoaded;
     }
 
+    void Simulator::initializer(){
+        // Allocate initial matrices
+        body->compute();
+        T0 = new double[body->N];
+        beta0 = new double[body->N];
+        q0 = new double[body->N];
+        Tpp0 = new double[body->N];
+
+        for(int i=0;i<body->N;i++){
+            T0[i] = 33+273.15; // K
+            Tpp0[i] = 27+273.15; // K
+        }
+
+        // Populate beta, q, and prvs for steady case
+        SIMMODEL::InitialCase* simInit = new SIMMODEL::InitialCase();
+        SimulationInstance* siInit = new SimulationInstance(body,simInit);
+        siInit->runSim();
+        siInit->copyToInitials(T0,beta0,q0,Tpp0);
+
+        // Now find the steady case
+        SIMMODEL::SteadyCase* simSteady = new SIMMODEL::SteadyCase();
+        SimulationInstance* siSteady = new SimulationInstance(body,simSteady);
+        siSteady->fillInitials(T0,beta0,q0,Tpp0);
+        siSteady->runSim();
+        siSteady->copyToSteadys(T0,beta0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
+
+        // Now normalize by using the transient, no injury case with active controls
+        SIMMODEL::TransientCase* simTransient = new SIMMODEL::TransientCase();
+        SimulationInstance* siTransient = new SimulationInstance(body,simTransient);
+        siTransient->fillSteadys(T0,beta0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
+        siTransient->runSim();
+        siTransient->copyToSteadys(T0,beta0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
+    }
+
+    void Simulator::runSim( double args[], double outs[] )
+    {
+        // Modify simmodel with args
+        sim->TairIndoors = args[0];
+        sim->TairOutdoors = args[1];
+        sim->TsrmIndoors = args[2];
+        sim->TsrmOutdoors = args[3];
+        // Create instance
+        SimulationInstance* si = new SimulationInstance(body,sim);
+        // Fill initial values
+        si->fillSteadys(T0,beta0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
+        // Run si
+        si->runSim();
+        // Fill outputs
+        outs[0] = si->time;
+    }
+
+    void SimulationInstance::copyToInitials( double *T0tmp, double *beta0tmp,double *q0tmp, double *Tpp0tmp){
+        for(idx=0; idx<body->N; idx++){
+            T0tmp[idx] = T0[idx];
+            beta0tmp[idx] = beta0[idx];
+            q0tmp[idx] = q0[idx];
+            Tpp0tmp[idx] = Tpp0[idx];
+        }
+    }
+    void SimulationInstance::fillInitials( double *T0tmp, double *beta0tmp, double *q0tmp, double *Tpp0tmp){
+        for(idx=0; idx<body->N; idx++){
+            T0[idx] = T0tmp[idx];
+            beta0[idx] = beta0tmp[idx];
+            q0[idx] = q0tmp[idx];
+            Tpp0[idx] = Tpp0tmp[idx];
+        }
+    }
+    void SimulationInstance::copyToSteadys( double *T0tmp, double *beta0tmp, double *q0tmp, double *Tpp0tmp,
+            double M0tmp, double QResp0tmp, double Tskm0tmp, double H0tmp,
+            double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp){
+        for(idx=0; idx<body->N; idx++){
+            T0tmp[idx] = T0[idx];
+            beta0tmp[idx] = beta0[idx];
+            q0tmp[idx] = q0[idx];
+            Tpp0tmp[idx] = Tpp0[idx];
+        }
+        M0tmp = M0;
+        QResp0tmp = QResp0;
+        Tskm0tmp = Tskm0;
+        H0tmp = H0;
+        Sh0tmp = Sh0;
+        Cs0tmp = Cs0;
+        Dl0tmp = Dl0;
+        Sw0tmp = Sw0;
+    }
+    void SimulationInstance::fillSteadys( double *T0tmp, double *beta0tmp, double *q0tmp, double *Tpp0tmp,
+            double M0tmp, double QResp0tmp, double Tskm0tmp, double H0tmp,
+            double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp){
+        for(idx=0; idx<body->N; idx++){
+            T0[idx] = T0tmp[idx];
+            beta0[idx] = beta0tmp[idx];
+            q0[idx] = q0tmp[idx];
+            Tpp0[idx] = Tpp0tmp[idx];
+        }
+        M0 = M0tmp;
+        QResp0 = QResp0tmp;
+        Tskm0 = Tskm0tmp;
+        H0 = H0tmp;
+        Sh0 = Sh0tmp;
+        Cs0 = Cs0tmp;
+        Dl0 = Dl0tmp;
+        Sw0 = Sw0tmp;
+    }
+
     void SimulationInstance::computeThermalLoadParameters()
     {
         double Mbas0 = 0; // W
@@ -65,8 +169,8 @@ namespace SIMULATOR
 
     }
     double SimulationInstance::computeQresp(){
-        return 3.45*M*(0.028+6.5e-5*Tair-4.98e-6*sim->Pair)+
-            1.44e-3*M*(32.6-0.934*Tair+1.99e-4*sim->Pair);
+        return 3.45*M*(0.028+6.5e-5*sim->Tair-4.98e-6*sim->Pair)+
+            1.44e-3*M*(32.6-0.934*sim->Tair+1.99e-4*sim->Pair);
     }
     double SimulationInstance::deltaQMetabolic( double q, double T, double Tn)
     {
@@ -221,9 +325,9 @@ namespace SIMULATOR
             }
         }
     }
-    void SimulationInstance::BVR(){
-        sim->BVR(&bvr, &svr, time);
-        sim->SVR(&bvrNxt,&svrNxt,timeNxt);
+    void SimulationInstance::BVRSVR(){
+        sim->BVRSVR(&bvr, &svr, time);
+        sim->BVRSVR(&bvrNxt,&svrNxt,timeNxt);
     }
     void SimulationInstance::bloodParams(){
         Viv = body->Viv0*bvr;
@@ -248,7 +352,7 @@ namespace SIMULATOR
     }
     void SimulationInstance::BCvalues(){
         // Shock
-        BVR();
+        BVRSVR();
         // Hemodilution
         bloodParams();
         // Change in hematocrit
