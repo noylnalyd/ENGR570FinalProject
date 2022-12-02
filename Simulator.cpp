@@ -9,10 +9,16 @@ namespace SIMULATOR
     Simulator::Simulator(){
         _state = initialized;
     }
-    Simulator::Simulator(BODYMODEL::BodyModel* bodyPtr, SIMMODEL::SimModel* simPtr, PSEUDOBLOCKMATRIX::PseudoBlockMatrix *pbmPtr) : Simulator() {
+    Simulator::Simulator( BODYMODEL::BodyModel* bodyPtr, SIMMODEL::SimModel* simPtr ) : Simulator() {
         setBody(bodyPtr);
         setSim(simPtr);
-        setPBM(pbmPtr);
+        int *blockN = new int[body->nElements],
+            *blockM = new int[body->nElements];
+        for(int i=0;i<body->nElements;i++){
+            blockN[i] = body->elements[i]->N;
+            blockM[i] = body->elements[i]->N;
+        }
+        PSEUDOBLOCKMATRIX::PseudoBlockMatrix* pbm = new PSEUDOBLOCKMATRIX::PseudoBlockMatrix(body->nElements,blockN,blockM);
     }
     Simulator::~Simulator(){
         pbm->~PseudoBlockMatrix();
