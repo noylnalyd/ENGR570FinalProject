@@ -9,9 +9,10 @@ namespace SIMULATOR
     Simulator::Simulator(){
         _state = initialized;
     }
-    Simulator::Simulator(BODYMODEL::BodyModel* bodyPtr, SIMMODEL::SimModel* simPtr) : Simulator() {
+    Simulator::Simulator(BODYMODEL::BodyModel* bodyPtr, SIMMODEL::SimModel* simPtr, PSEUDOBLOCKMATRIX::PseudoBlockMatrix *pbmPtr) : Simulator() {
         setBody(bodyPtr);
         setSim(simPtr);
+        setPBM(pbmPtr);
     }
     Simulator::~Simulator(){
         pbm->~PseudoBlockMatrix();
@@ -46,20 +47,20 @@ namespace SIMULATOR
 
         // Populate beta, q, and prvs for steady case
         SIMMODEL::InitialCase* simInit = new SIMMODEL::InitialCase();
-        SimulationInstance* siInit = new SimulationInstance(body,simInit);
+        SimulationInstance* siInit = new SimulationInstance(body,simInit,pbm);
         siInit->runSim();
         siInit->copyToInitials(T0,beta0,q0,Tpp0);
 
         // Now find the steady case
         SIMMODEL::SteadyCase* simSteady = new SIMMODEL::SteadyCase();
-        SimulationInstance* siSteady = new SimulationInstance(body,simSteady);
+        SimulationInstance* siSteady = new SimulationInstance(body,simSteady,pbm);
         siSteady->fillInitials(T0,beta0,q0,Tpp0);
         siSteady->runSim();
         siSteady->copyToSteadys(T0,beta0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
 
         // Now normalize by using the transient, no injury case with active controls
         SIMMODEL::TransientCase* simTransient = new SIMMODEL::TransientCase();
-        SimulationInstance* siTransient = new SimulationInstance(body,simTransient);
+        SimulationInstance* siTransient = new SimulationInstance(body,simTransient,pbm);
         siTransient->fillSteadys(T0,beta0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
         siTransient->runSim();
         siTransient->copyToSteadys(T0,beta0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
@@ -73,7 +74,7 @@ namespace SIMULATOR
         sim->TsrmIndoors = args[2];
         sim->TsrmOutdoors = args[3];
         // Create instance
-        SimulationInstance* si = new SimulationInstance(body,sim);
+        SimulationInstance* si = new SimulationInstance(body,sim,pbm);
         // Fill initial values
         si->fillSteadys(T0,beta0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
         // Run si
@@ -82,6 +83,16 @@ namespace SIMULATOR
         outs[0] = si->time;
     }
 
+
+    SimulationInstance::SimulationInstance(BODYMODEL::BodyModel* tbody,SIMMODEL::SimModel* tsim, PSEUDOBLOCKMATRIX::PseudoBlockMatrix* tpbm)
+    {
+        // Copy over ptrs
+        body = tbody;
+        sim = tsim;
+        pbm = tpbm;
+
+        
+    }
     void SimulationInstance::copyToInitials( double *T0tmp, double *beta0tmp,double *q0tmp, double *Tpp0tmp){
         for(idx=0; idx<body->N; idx++){
             T0tmp[idx] = T0[idx];
@@ -145,14 +156,14 @@ namespace SIMULATOR
             ELEMENT::Element* elem = body->elements[elemIdx];
             WASHER::Washer* cur = elem->washers[0];
             Mbas0 += body->V[idx]*cur->q_m;
-            MbasDelta += body->V[idx]*sim->thermovariant*deltaQMetabolic(cur->q_m,T[idx],Tn[idx],sim->Q10);
+            MbasDelta += body->V[idx]*sim->thermovariant*deltaQMetabolic(cur->q_m,T[idx],T0[idx]);
             idx++;
             for(sectIdx = 0; sectIdx<elem->nSectors; ++sectIdx){
                 SECTOR::Sector* sect = elem->sectors[sectIdx];
                 for(washIdx = 1; washIdx<elem->nWashers; ++washIdx){
                     cur = elem->washers[washIdx];
                     Mbas0 += body->V[idx]*cur->q_m;
-                    MbasDelta += body->V[idx]*sim->thermovariant*deltaQMetabolic(cur->q_m,T[idx],Tn[idx],sim->Q10);
+                    MbasDelta += body->V[idx]*sim->thermovariant*deltaQMetabolic(cur->q_m,T[idx],T0[idx]);
                     idx++;
                 }
             }
@@ -183,10 +194,12 @@ namespace SIMULATOR
         MNxt = project(M,MPrv);
         HNxt = project(H,HPrv);
         QrespNxt = project(Qresp,QrespPrv);
+        TskmNxt = project(Tskm,TskmPrv);
         ShNxt = project(Sh,ShPrv);
         CsNxt = project(Cs,CsPrv);
         DlNxt = project(Dl,DlPrv);
         SwNxt = project(Sw,SwPrv);
+        
     }
 
     void SimulationInstance::elementValues(){
@@ -249,7 +262,7 @@ namespace SIMULATOR
 
             TblAoverlayFactor[elemIdx] = element->hx/BV[elemIdx] / (element->hx + BV[elemIdx]); // -
             TblAoverlayFactorNxt[elemIdx] = element->hx/BVNxt[elemIdx] / (element->hx + BVNxt[elemIdx]); // -
-            TblAoverlay[elemIdx] = BVT[elemIdx] * TblAoverlayFactor; // K
+            TblAoverlay[elemIdx] = BVT[elemIdx] * TblAoverlayFactor[elemIdx]; // K
             
             TblA[elemIdx] = TblP[elemIdx]*BPRBPCfactor[elemIdx] + TblAoverlay[elemIdx]; // K
         }
@@ -259,7 +272,7 @@ namespace SIMULATOR
         CplC = 0;
         for(elemIdx = 0; elemIdx < body->nElements; ++elemIdx){
             element = body->elements[elemIdx];
-            CplC += -(BVNxt[elemIdx]*BVNxt[elemIdx])/(element->hx+BVnxt[elemIdx])*TblPNxtRatio;
+            CplC += -(BVNxt[elemIdx]*BVNxt[elemIdx])/(element->hx+BVNxt[elemIdx])*TblPNxtRatio[elemIdx];
         }
     }
 
@@ -565,6 +578,28 @@ namespace SIMULATOR
 
     void SimulationInstance::solveSystem(){
         pbm->GaussSeidel(rhs,T,1e-5,1e-5,TNxt);
+    }
+    void SimulationInstance::permuteTimestep(){
+        // Initial values
+        double *T0,*beta0,*q0,*Tpp0;
+        // Steady values
+        double M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0;
+
+        // Overwrite Prv
+        for(idx=0;idx<body->N;idx++){
+            TPrv[idx] = T[idx];
+            betaPrv[idx] = beta[idx];
+            qPrv[idx] = q[idx];
+            TppPrv[idx] = Tpp[idx];
+        }
+        MPrv = M;
+        QrespPrv = Qresp;
+        TskmPrv = Tskm;
+        HPrv = H;
+        ShPrv = Sh;
+        CsPrv = Cs;
+        DlPrv = Dl;
+        SwPrv = Sw;
     }
 
     void SimulationInstance::runSim(){

@@ -10,7 +10,7 @@
 
 namespace SIMULATOR
 {
-    enum SimulatorState { undefined, initialized, bodyLoaded, simLoaded, computed, allocated, initializerRun};
+    enum SimulatorState { undefined, initialized, bodyLoaded, simLoaded, pbmLoaded, computed, allocated, initializerRun};
 
 
     class Simulator
@@ -135,6 +135,58 @@ namespace SIMULATOR
 
             // Agglomerated body values
             double CplC; // -, Blood pool timestep coupling coefficient (Bottom rightmost matrix entry)
+
+            // Next timestep values
+            double timeNxt; // s, simulation time at next timestep
+
+            // Body values
+            // Thermal loads
+            double TskmNxt; // K, Mean skin temperature
+            double ThyNxt; // K, Hypothalamic temperature
+            double TblpNxt; // K, Blood pool temperature
+            double MNxt; // W, Total metabolism
+            double HNxt; // W, Heat load
+            double QrespNxt; // W, Respiratory cooling intake
+            // Active error signals
+            double TskErrorNxt;
+            double ThyErrorNxt;
+            double TskErrorGradientNxt;
+            // Active controls:
+            double ShNxt; // W, Shivering power
+            double CsNxt; // -, Vasoconstriction ratio
+            double DlNxt; // W/K, Vasodilation capacitance
+            double SwNxt; // g/min, Sweat output
+            // Whole body blood content
+            double VivNxt; // Intravenous blood volume
+            double VrbcNxt; // Red blood cell volume
+            double DVivNxt; // Added non-blood volume
+            double bvrNxt; // Blood volume / initial blood volume
+            double svrNxt; // Saline volume / initial blood volume
+            double DeltaHCTNxt; // Ratio of hematocrit, ability to carry oxygen
+
+            // Element values
+            // Blood values
+            double *FlowECMOBloodNxt; // m^3/s, Recirculated blood injection rate
+            double *FlowECMOSalineNxt; // m^3/s, Saline injection rate
+            double *CpNxt; // J/kg/K, Blood specific heat capacity
+            double *RhoNxt; // kg/m^3, Blood density
+            double *TblPNxt; // K, experienced blood pool temperature
+            double *TblPNxtRatioNxt; // K/K, future experienced blood pool temperature ratio
+
+            // Node values
+            double *TNxt; // Temperature (K), to be solved for
+            double *TppNxt; // Temperature (K), fictional forward skin node temperature
+            double *qNxt; // W/m^3, Heat generation in tissue
+            double *wNxt; // -, Blood perfusion rate
+            double *betaNxt; // W/m^3/K, Blood perfusion rate factor (rho*c*w)
+
+            // Agglomerated element values
+            double *BVNxt; // -, beta*volume over all nodes
+            double *BVTNxt; // -, beta*volume*T over all nodes
+            double *BPRBPCfactorNxt; // Westin eqn 21 term 1 coefficient
+            double *TblAoverlayFactorNxt; // Westin eqn 21 term 2 coefficient
+            double *TblAoverlayNxt; // Westin eqn 21 term 2
+            double *TblANxt; // K, Arterial blood temperature, Westin eqn 21 resultant
             
             // Heats
             double qDm; // W/m^3, change in metabolism
@@ -143,7 +195,7 @@ namespace SIMULATOR
             double qResp; // W/m^3, heat gen due to breathing
 
             // Initialize
-            SimulationInstance(BODYMODEL::BodyModel* tbody,SIMMODEL::SimModel* tsim);
+            SimulationInstance(BODYMODEL::BodyModel* tbody,SIMMODEL::SimModel* tsim, PSEUDOBLOCKMATRIX::PseudoBlockMatrix* tpbm);
             void copyToInitials( double *T0tmp, double *beta0tmp,double *q0tmp, double *Tpp0tmp);
             void fillInitials( double *T0tmp, double *beta0tmp, double *q0tmp, double *Tpp0tmp);
             void copyToSteadys( double *T0tmp, double *beta0tmp, double *q0tmp, double *Tpp0tmp,
@@ -196,6 +248,9 @@ namespace SIMULATOR
             // Matrix construction
             void buildSystem();
             void solveSystem();
+
+            // Timestep permute
+            void permuteTimestep();
     };
 
 }
