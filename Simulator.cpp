@@ -245,6 +245,18 @@ namespace SIMULATOR
             (FlowECMOBloodNxt[eleIdx]+FlowECMOSalineNxt[eleIdx]);
     }
 
+    void SimulationInstance::tblp( int eleIdx ){
+        TblP[eleIdx] = T[body->N-1];
+        /*
+        TblP[eleIdx] = (sim->salineRho*sim->salineCp*(DViv/(Viv+DViv)*FlowECMOBlood[eleIdx]*T[body->N-1]+FlowECMOSaline[eleIdx]*sim->TECMO)+
+            body->rhoBlood*body->cpBlood*(Viv/(Viv+DViv)*FlowECMOBlood[eleIdx]*T[body->N-1]))/
+            (sim->salineRho*sim->salineCp*(DViv/(Viv+DViv)*FlowECMOBlood[eleIdx]+FlowECMOSaline[eleIdx])+
+            body->rhoBlood*body->cpBlood*(Viv/(Viv+DViv)*FlowECMOBlood[eleIdx]));
+        */
+        TblPNxtRatio[eleIdx] = TblP[eleIdx]/T[body->N-1];
+    }
+
+
     void SimulationInstance::nodeValues(){
         for(idx=0;idx<body->N;idx++){
             q[idx] = 0; // W/m^3, Heat generation in tissue
@@ -409,8 +421,6 @@ namespace SIMULATOR
         bloodParams();
         // Change in hematocrit
         deltaHCT();
-        // Environment values
-        environmentParams();
     }
     double SimulationInstance::computeMeanSkinTemp(){
         double Tskcur = 0;
@@ -436,7 +446,7 @@ namespace SIMULATOR
         Thy = computeHypothalamicTemp();
         TskError = (Tskm-Tskm0)*sim->transient*sim->thermovariant;
         ThyError = (Thy-Thy0)*sim->transient*sim->thermovariant;
-        TskErrorGradient = (Tskm-TskmPrv)/dt/3600.0*sim->transient*sim->thermovariant;
+        TskErrorGradient = (Tskm-TskmPrv)/sim->dt/3600.0*sim->transient*sim->thermovariant;
     }
 
     void SimulationInstance::computeActiveControls(){
@@ -477,13 +487,13 @@ namespace SIMULATOR
             coreWasher = washer;
             // Westin eqn 57 rhs term 1
             rhs[idx] += (
-                washer->zeta/dt
+                washer->zeta/sim->dt
                 -washer->del*beta[idx]
                 +element->theta*(washer->AForwardCur-1)*element->sumPhi
             ) * T[idx];
             // Westin eqn 57 lhs term 1
             pbm->add(idx,idx,
-                washer->zeta/dt
+                washer->zeta/sim->dt
                 +washer->del*betaNxt[idx]
                 +element->theta*(1-washer->AForwardCur)*element->sumPhi
             );
@@ -525,7 +535,7 @@ namespace SIMULATOR
 
 
                     // Backwards nodes
-                    backwardIdx = NAN;
+                    backwardIdx = -1;
                     // Core adjacent nodes have the same previous node, the core
                     if(washIdx == 1){
                         backwardIdx = coreIdx;
@@ -546,7 +556,7 @@ namespace SIMULATOR
                     pbm->add(idx,backwardIdx,(washer->gamma-1)*washer->ABackwardPrv);
 
                     // Forwards nodes
-                    forwardIdx = NAN;
+                    forwardIdx = -1;
                     // Internal nodes have forward nodes
                     if(washIdx < element->nWashers-1){
                         forwardIdx = idx+1;
@@ -565,7 +575,7 @@ namespace SIMULATOR
                     // Westin eqn 55 rhs term 2 / Westin eqn 68 rhs term 2 (The same thing)
                     rhs[idx] += (
                         (1-washer->gamma)*washer->ABackwardCur
-                        + washer->zeta/dt
+                        + washer->zeta/sim->dt
                         -2
                         -washer->del*beta[idx]
                         +(1+washer->gamma)*washer->AForwardCur
@@ -573,7 +583,7 @@ namespace SIMULATOR
                     // Westin eqn 55 lhs term 2 / Westin eqn 68 lhs term 2 (The same thing)
                     pbm->add(idx,idx,
                         (washer->gamma-1)*washer->ABackwardCur
-                        +washer->zeta/dt
+                        +washer->zeta/sim->dt
                         +2
                         +washer->del*betaNxt[idx]
                         -(1+washer->gamma)*washer->AForwardCur
@@ -656,7 +666,7 @@ namespace SIMULATOR
         for(int timestep=1;timestep<nSteps;++timestep){
             
             // Compute temporary BC values and properties from sim
-            timeNxt = time + dt;
+            timeNxt = time + sim->dt;
             BCvalues();
 
             // Compute body values
@@ -673,8 +683,8 @@ namespace SIMULATOR
             projectElementValues();
 
             // Compute node thermal load parameters
-            nodeValues();
             projectNodeValues();
+            nodeValues();
 
             // Compute agglomerated element values
             agglomeratedElementValues();
@@ -692,9 +702,11 @@ namespace SIMULATOR
             solveSystem();
 
             // Overwrite values with "Prv"
+            permuteTimestep();
 
-
-           
+            // End condition
+            if(sim->endCondition(Thy))
+                break;
 
         }
 

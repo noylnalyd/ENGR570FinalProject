@@ -47,6 +47,7 @@ namespace SIMMODEL
         // Saline constants
         const double salineRho = 1004.6; // kg/m^3, saline density
         const double salineCp = 4180; // J/kg/K, saline specific heat capacity
+        const double TECMO = 5+273.15; // K, temperature of reincorporated ECMO fluid
 
         // Environmental constants
         const double Pair = 2300; // Pa, partial vapor air pressure
@@ -95,6 +96,7 @@ namespace SIMMODEL
         virtual void ecmoBlood( double *fEB, int elemIdx, double time);
         virtual void ecmoSaline( double *fES, int elemIdx, double time);
         virtual void BVRSVR( double *bvr, double *svr, double time );
+        virtual bool endCondition( double Thy );
     };
 
 
@@ -114,7 +116,7 @@ namespace SIMMODEL
             for(int sectIdx=0;sectIdx<element->nSectors;sectIdx++){
                 idx+=element->nWashers-2;
                 sector = element->sectors[sectIdx];
-                double qsk = skinHeat(body,element,sector,elemIdx,sectIdx,Sw,Tpp[idx],Tpp0[idx],element->n_j,sector->psiStnd);
+                double qsk = skinHeat(body,element,sector,elemIdx,sectIdx,Sw,Tpp[idx],T0[idx],element->n_j,sector->psiStnd);
                 // Westin eqn 64
                 Tpp[idx] = qsk*(washer->r+washer->deltaR/2.0)/washer->k
                         *log((washer->r+washer->deltaR)/washer->r)
@@ -125,7 +127,7 @@ namespace SIMMODEL
     void SimModel::BVRSVR( double *bvr, double *svr, double time )
     {
         *bvr = 1.0;
-        *svr = 1.0;
+        *svr = 0.0;
     }
     void SimModel::ecmoBlood( double *fEB, int elemIdx, double time)
     {
@@ -134,6 +136,10 @@ namespace SIMMODEL
     void SimModel::ecmoSaline( double *fES, int elemIdx, double time )
     {
         *fES = 0;
+    }
+    bool SimModel::endCondition(double Thy)
+    {
+        return false;
     }
     // Default heat flux of the skin at a select elment and sector at a particular moment in time
     double SimModel::skinHeat(
@@ -229,7 +235,25 @@ namespace SIMMODEL
                 dt = 1.0;
             };
     };
-
+    class InjuryCase : public SimModel
+    {
+        public:
+            double tinjury = 0;
+            double trecovery = 300;
+            double bvrFinal = .6;
+            InjuryCase() : SimModel() {
+                thermovariant = 1;
+                transient = 1;
+                tFinal = 3600.0;
+                dt = 1.0;
+            };
+            void BVRSVR( double *bvr, double *svr, double time ) override
+            {
+                if(time > tinjury && time < trecovery)
+                    *bvr = bvrFinal + (1-bvrFinal)*(time-tinjury)/(trecovery-tinjury);
+                    *svr = 0;
+            };
+    };
 }
 
 #endif

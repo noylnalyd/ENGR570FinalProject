@@ -147,7 +147,7 @@ namespace PSEUDOBLOCKMATRIX
 
     double PseudoBlockMatrix::getFromBlock( int b, int i, int j ){
         if(!(i<blockN[b] && j<blockM[b] && i>=0 && j>=0))
-            return NULL;
+            return NAN;
         return blocks[b][i][j];
     }
     
@@ -166,14 +166,14 @@ namespace PSEUDOBLOCKMATRIX
         if(j==M-1){
             return denseCol[i];
         }
-        return NULL;
+        return NAN;
     }
 
     double PseudoBlockMatrix::get( int i , int j )
     {
         assert(i<N && i>=0 && j<M && j>=0);
         double tmp = getOverDense(i,j);
-        if(tmp!=NULL)
+        if(tmp!=NAN)
             return tmp;
         return getOverBlocks(i,j);
     }
@@ -313,7 +313,7 @@ namespace PSEUDOBLOCKMATRIX
         //  No pivoting. Mostly bc permutation would slow computation and is not necessary for body model.
         for(i=0;i<N;i++){
             int tmp = get(i,i);
-            assert(tmp!=NULL);
+            assert(tmp!=NAN);
             assert(tmp!=0);
         }
 

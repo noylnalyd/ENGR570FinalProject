@@ -56,13 +56,13 @@ namespace SIMULATOR
             WASHER::Washer* washer;
             WASHER::Washer* coreWasher;
             // Temporary indices
-            int idx = NAN; // Used to loop thru temperatures
-            int elemIdx = NAN;
-            int sectIdx = NAN;
-            int washIdx = NAN;
-            int coreIdx = NAN; // Used to retain index of core node
-            int forwardIdx = NAN;
-            int backwardIdx = NAN;
+            int idx = -1; // Used to loop thru temperatures
+            int elemIdx = -1;
+            int sectIdx = -1;
+            int washIdx = -1;
+            int coreIdx = -1; // Used to retain index of core node
+            int forwardIdx = -1;
+            int backwardIdx = -1;
 
             // Previous timestep values
 
@@ -88,7 +88,7 @@ namespace SIMULATOR
             double qResp; // W/m^3, heat gen due to breathing
         public:
             // Simulation attributes
-            int nSteps = (int)ceil((tFinal-tInitial)/dt); // -
+            int nSteps; // -
             double* times; // -
 
             // Sim attributes
@@ -100,7 +100,7 @@ namespace SIMULATOR
             double Viv0=NAN; // m^3, initial blood volume
             double Vrbc0=NAN; // m^3, initial red blood cell volume
             double *T0,*beta0,*w0,*q0,*Tpp0;
-            double M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0;
+            double M0,QResp0,H0,Sh0,Cs0,Dl0,Sw0;
 
             // Sim values per timestep
             // Sim values
@@ -111,7 +111,6 @@ namespace SIMULATOR
             // Thermal loads
             double Tskm; // K, Mean skin temperature
             double Thy; // K, Hypothalamic temperature
-            double Tblp; // K, Blood pool temperature
             double M; // W, Total metabolism
             double H; // W, Heat load
             double Qresp; // W, Respiratory cooling intake
@@ -191,8 +190,6 @@ namespace SIMULATOR
             double *FlowECMOSalineNxt; // m^3/s, Saline injection rate
             double *CpNxt; // J/kg/K, Blood specific heat capacity
             double *RhoNxt; // kg/m^3, Blood density
-            double *TblPNxt; // K, experienced blood pool temperature
-            double *TblPNxtRatioNxt; // K/K, future experienced blood pool temperature ratio
 
             // Node values
             double *TNxt; // Temperature (K), to be solved for
@@ -230,6 +227,7 @@ namespace SIMULATOR
             void elementValues();
             void cp(int eleIdx);
             void rho(int eleIdx);
+            void tblp( int eleIdx );
 
             // Node parameters
             void nodeValues();
