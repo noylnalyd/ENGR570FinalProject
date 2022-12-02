@@ -92,6 +92,8 @@ namespace SIMMODEL
                 double Sw,
                 double time
         );
+        virtual void ecmoBlood( double *fEB, int elemIdx, double time);
+        virtual void ecmoSaline( double *fES, int elemIdx, double time);
         virtual void BVRSVR( double *bvr, double *svr, double time );
     };
 
@@ -124,6 +126,14 @@ namespace SIMMODEL
     {
         *bvr = 1.0;
         *svr = 1.0;
+    }
+    void SimModel::ecmoBlood( double *fEB, int elemIdx, double time)
+    {
+        *fEB = 0;
+    }
+    void SimModel::ecmoSaline( double *fES, int elemIdx, double time )
+    {
+        *fES = 0;
     }
     // Default heat flux of the skin at a select elment and sector at a particular moment in time
     double SimModel::skinHeat(

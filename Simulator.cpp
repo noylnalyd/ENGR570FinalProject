@@ -207,6 +207,13 @@ namespace SIMULATOR
         SwNxt = project(Sw,SwPrv);
         
     }
+    void SimulationInstance::projectNodeValues(){
+        for(idx=0;idx<body->N;idx++){
+            // Project nodal temperature only to compute q,w,beta
+            TNxt[idx] = project(T[idx],TPrv[idx]); // K, Nodal temperature.
+        }
+        
+    }
 
     void SimulationInstance::elementValues(){
         for(elemIdx = 0; elemIdx < body->nElements; ++elemIdx){
@@ -218,6 +225,24 @@ namespace SIMULATOR
             rho(elemIdx);
             tblp(elemIdx);
         }
+    }
+    void SimulationInstance::cp( int eleIdx ){
+        Cp[eleIdx] = (sim->salineRho*sim->salineCp*(DViv/(Viv+DViv)*FlowECMOBlood[eleIdx]+FlowECMOSaline[eleIdx])
+            +body->rhoBlood*body->cpBlood*(Viv/(Viv+DViv)*FlowECMOBlood[eleIdx]))/
+            (sim->salineRho*(DViv/(Viv+DViv)*FlowECMOBlood[eleIdx]+FlowECMOSaline[eleIdx])+
+            body->rhoBlood*(Viv/(Viv+DViv)*FlowECMOBlood[eleIdx]));
+        CpNxt[eleIdx] = (sim->salineRho*sim->salineCp*(DVivNxt/(VivNxt+DVivNxt)*FlowECMOBloodNxt[eleIdx]+FlowECMOSalineNxt[eleIdx])
+            +body->rhoBlood*body->cpBlood*(VivNxt/(VivNxt+DVivNxt)*FlowECMOBloodNxt[eleIdx]))/
+            (sim->salineRho*(DVivNxt/(VivNxt+DVivNxt)*FlowECMOBloodNxt[eleIdx]+FlowECMOSalineNxt[eleIdx])+
+            body->rhoBlood*(VivNxt/(VivNxt+DVivNxt)*FlowECMOBloodNxt[eleIdx]));
+    }
+    void SimulationInstance::rho( int eleIdx ){
+        Rho[eleIdx] = (sim->salineRho*(DViv/(Viv+DViv)*FlowECMOBlood[eleIdx]+FlowECMOSaline[eleIdx])
+            +body->rhoBlood*(Viv/(Viv+DViv)*FlowECMOBlood[eleIdx]))/
+            (FlowECMOBlood[eleIdx]+FlowECMOSaline[eleIdx]);
+        RhoNxt[eleIdx] = (sim->salineRho*(DVivNxt/(VivNxt+DVivNxt)*FlowECMOBloodNxt[eleIdx]+FlowECMOSalineNxt[eleIdx])
+            +body->rhoBlood*(VivNxt/(VivNxt+DVivNxt)*FlowECMOBloodNxt[eleIdx]))/
+            (FlowECMOBloodNxt[eleIdx]+FlowECMOSalineNxt[eleIdx]);
     }
 
     void SimulationInstance::nodeValues(){
@@ -306,8 +331,8 @@ namespace SIMULATOR
             ws[idx] = max(w0[idx]*pow(sim->KonstasAlpha,sim->KonstasBeta*(Ts[idx]-T0[idx])*sim->thermovariant)*(1-sim->KonstasGamma*DeltaHCT),0.0);
             betas[idx] = (beta0[idx]+0.932*(qDm+qSh+qW))
                     *ws[idx]/w0[idx]
-                    *rhos[idx]/body->rhoBlood
-                    *cps[idx]/body->cpBlood;
+                    *rhos[elemIdx]/body->rhoBlood
+                    *cps[elemIdx]/body->cpBlood;
             idx++;
             
             // Loop thru washers
@@ -355,23 +380,31 @@ namespace SIMULATOR
         Vrbc = body->Vrbc0*bvr;
         VrbcNxt = body->Vrbc0*bvrNxt;
 
-        Dviv = body->Viv0*svr;
-        DvivNxt = body->Viv0*svrNxt;
+        DViv = body->Viv0*svr;
+        DVivNxt = body->Viv0*svrNxt;
     }
     void SimulationInstance::deltaHCT(){
-        deltaHCT = (body->p*Vrbc*DViv)/(Viv*(Viv+body->p*DViv));
+        DeltaHCT = (body->p*Vrbc*DViv)/(Viv*(Viv+body->p*DViv));
     }
-    void SimulationInstance::flowECMOSaline(elemIdx){
-        sim->ecmoSaline(&(flowECMOSaline[elemIdx]), elemIdx, time);
-        sim->ecmoSaline(&(flowECMOSalineNxt[elemIdx]), elemIdx, timeNxt);
+    void SimulationInstance::flowECMOSaline(int elemIdx){
+        sim->ecmoSaline(&(FlowECMOSaline[elemIdx]), elemIdx, time);
+        sim->ecmoSaline(&(FlowECMOSalineNxt[elemIdx]), elemIdx, timeNxt);
     }
-    void SimulationInstance::flowECMOBlood(elemIdx){
-        sim->ecmoBlood(&(flowECMOBlood[elemIdx]), elemIdx, time);
-        sim->ecmoBlood(&(flowECMOBloodNxt[elemIdx]), elemIdx, timeNxt);
+    void SimulationInstance::flowECMOBlood(int elemIdx){
+        sim->ecmoBlood(&(FlowECMOBlood[elemIdx]), elemIdx, time);
+        sim->ecmoBlood(&(FlowECMOBloodNxt[elemIdx]), elemIdx, timeNxt);
+    }
+    void SimulationInstance::ECMOtreatment(){
+        for(elemIdx=0;elemIdx<body->nElements;elemIdx++){
+            flowECMOBlood(elemIdx);
+            flowECMOSaline(elemIdx);
+        }
     }
     void SimulationInstance::BCvalues(){
         // Shock
         BVRSVR();
+        // ECMO treatment
+        ECMOtreatment();
         // Hemodilution
         bloodParams();
         // Change in hematocrit
@@ -379,7 +412,7 @@ namespace SIMULATOR
         // Environment values
         environmentParams();
     }
-    double SimulationInstance::computeMeanSkinTemp( double* T ){
+    double SimulationInstance::computeMeanSkinTemp(){
         double Tskcur = 0;
         int idx=1;
         for(elemIdx = 0;elemIdx<body->nElements;elemIdx++){
@@ -475,11 +508,11 @@ namespace SIMULATOR
             // Westin eqn 57 lhs term 3
             //      Westin eqns 69
             pbm->add(idx,body->N-1,
-                -washer->del*betaNxt[idx]*BPRBPCfactorNxt
+                -washer->del*betaNxt[idx]*BPRBPCfactorNxt[elemIdx]
             );
             //      Westin eqns 70
             pbm->add(body->N-1,idx,
-                betaNxt[idx]*body->V[idx]*BPRBPCfactorNxt
+                betaNxt[idx]*body->V[idx]*BPRBPCfactorNxt[elemIdx]
             );
 
             idx++;
@@ -566,11 +599,11 @@ namespace SIMULATOR
                     }
                     //      Westin eqns 69
                     pbm->add(idx,body->N-1,
-                        -washer->del*betaNxt[idx]*BPRBPCfactorNxt
+                        -washer->del*betaNxt[idx]*BPRBPCfactorNxt[elemIdx]
                     );
                     //      Westin eqns 70
                     pbm->add(body->N-1,idx,
-                        betaNxt[idx]*body->V[idx]*BPRBPCfactorNxt
+                        betaNxt[idx]*body->V[idx]*BPRBPCfactorNxt[elemIdx]
                     );
                 }
             }
@@ -594,9 +627,6 @@ namespace SIMULATOR
         // Overwrite Prv
         for(idx=0;idx<body->N;idx++){
             TPrv[idx] = T[idx];
-            betaPrv[idx] = beta[idx];
-            qPrv[idx] = q[idx];
-            TppPrv[idx] = Tpp[idx];
         }
         MPrv = M;
         QrespPrv = Qresp;
@@ -606,6 +636,11 @@ namespace SIMULATOR
         CsPrv = Cs;
         DlPrv = Dl;
         SwPrv = Sw;
+
+        // Overwrite Cur
+        for(idx=0;idx<body->N;idx++){
+            T[idx] = TNxt[idx];
+        }
     }
 
     void SimulationInstance::runSim(){

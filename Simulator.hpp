@@ -63,6 +63,29 @@ namespace SIMULATOR
             int coreIdx = NAN; // Used to retain index of core node
             int forwardIdx = NAN;
             int backwardIdx = NAN;
+
+            // Previous timestep values
+
+            // Body values
+            // Thermal loads
+            double TskmPrv; // K, Mean skin temperature
+            double MPrv; // W, Total metabolism
+            double HPrv; // W, Heat load
+            double QrespPrv; // W, Respiratory cooling intake
+            // Active controls:
+            double ShPrv; // W, Shivering power
+            double CsPrv; // -, Vasoconstriction ratio
+            double DlPrv; // W/K, Vasodilation capacitance
+            double SwPrv; // g/min, Sweat output
+            // Node values
+            double *TPrv; // Temperature (K), to be solved for
+            double *TppPrv; // Temperature (K) at skin surf
+
+            // Heats
+            double qDm; // W/m^3, change in metabolism
+            double qW; // W/m^3, heat gen due to workload
+            double qSh; // W/m^3, heat gen due to shivering
+            double qResp; // W/m^3, heat gen due to breathing
         public:
             // Simulation attributes
             int nSteps = (int)ceil((tFinal-tInitial)/dt); // -
@@ -142,8 +165,6 @@ namespace SIMULATOR
             // Body values
             // Thermal loads
             double TskmNxt; // K, Mean skin temperature
-            double ThyNxt; // K, Hypothalamic temperature
-            double TblpNxt; // K, Blood pool temperature
             double MNxt; // W, Total metabolism
             double HNxt; // W, Heat load
             double QrespNxt; // W, Respiratory cooling intake
@@ -182,17 +203,10 @@ namespace SIMULATOR
 
             // Agglomerated element values
             double *BVNxt; // -, beta*volume over all nodes
-            double *BVTNxt; // -, beta*volume*T over all nodes
             double *BPRBPCfactorNxt; // Westin eqn 21 term 1 coefficient
             double *TblAoverlayFactorNxt; // Westin eqn 21 term 2 coefficient
-            double *TblAoverlayNxt; // Westin eqn 21 term 2
-            double *TblANxt; // K, Arterial blood temperature, Westin eqn 21 resultant
+            double *TblAoverlayNxt; // Westin eqn 21 term 2            
             
-            // Heats
-            double qDm; // W/m^3, change in metabolism
-            double qW; // W/m^3, heat gen due to workload
-            double qSh; // W/m^3, heat gen due to shivering
-            double qResp; // W/m^3, heat gen due to breathing
 
             // Initialize
             SimulationInstance(BODYMODEL::BodyModel* tbody,SIMMODEL::SimModel* tsim, PSEUDOBLOCKMATRIX::PseudoBlockMatrix* tpbm);
@@ -214,8 +228,6 @@ namespace SIMULATOR
             double deltaQMetabolic(double q, double T, double TNxt);
             // Element parameters
             void elementValues();
-            void flowECMOSaline(int eleIdx);
-            void flowECMOBlood(int eleIdx);
             void cp(int eleIdx);
             void rho(int eleIdx);
 
@@ -235,7 +247,10 @@ namespace SIMULATOR
             void computeActiveControls();
             // BCs
             void BCvalues();
-            void BVR();
+            void BVRSVR();
+            void flowECMOSaline(int eleIdx);
+            void flowECMOBlood(int eleIdx);
+            void ECMOtreatment();
             void bloodParams();
             void deltaHCT();
             
