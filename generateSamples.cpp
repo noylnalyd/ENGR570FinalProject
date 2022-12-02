@@ -23,15 +23,15 @@ int main(int argc, char *argv[]){
     // number of uncertain parameters (dimension of parameter space)
     static const int d=4;
 
-    // upper/lower bounds (uniform) and mean/variance (Gaussian) for UQ parameters
-    static const double lbTairIndoors    = 293.150;
-    static const double ubTairIndoors    = 298.706;
-    static const double lbTsrmIndoors    = 293.150;
-    static const double ubTsrmIndoors    = 298.706;
-    static const double meanTairOutdoors = 285.928;
-    static const double varTairOutdoors  = 10.000 ;
+    // distribution constants for UQ parameters
+    static const double meanTsrmIndoors  = 295;
+    static const double stdTsrmIndoors   = 3;
     static const double meanTsrmOutdoors = 285.928;
-    static const double varTsrmOutdoors  = 10.000 ;
+    static const double stdTsrmOutdoors  = 6.000;
+    static const double meanTToRecovery  = 5.6;
+    static const double stdTToRecovery   = 0.4;
+    static const double meanTMachine     = 5+273.15;
+    static const double stdTMachine      = 1.5;
 
     // creating first experiment matrix A
     double A[d][n];
@@ -47,18 +47,20 @@ int main(int argc, char *argv[]){
         }
     }
 
-    // initializing random seed for rng
-    std::random_device rd; // Will be used to obtain a seed for the random number engine
+    // initializing rng
+    std::random_device rd; 
     std::mt19937 gen(rd());  // Standard mersenne_twister_engine seeded with rd()
 
     // drawing uniform random samples for temperatures and saving to arrays
-    std::uniform_real_distribution<double> unif(lbTairIndoors, ubTairIndoors);
-    std::normal_distribution<double> normal(meanTairOutdoors,sqrt(varTairOutdoors));
+    std::normal_distribution<double> norm1(meanTsrmIndoors,stdTsrmIndoors);
+    std::normal_distribution<double> norm2(meanTsrmOutdoors,stdTsrmOutdoors);
+    std::lognormal_distribution<double> lognorm(meanTToRecovery,stdTToRecovery);
+    std::normal_distribution<double> norm3(meanTMachine,stdTMachine);
     for (int in=0; in<n; in++) {
-        A[0][in] = unif(gen); B[0][in] = unif(gen);
-        A[1][in] = unif(gen); B[1][in] = unif(gen);
-        A[2][in] = normal(gen); B[2][in] = normal(gen);
-        A[3][in] = normal(gen); B[3][in] = normal(gen);
+        A[0][in] = norm1(gen); B[0][in] = norm1(gen);
+        A[1][in] = norm2(gen); B[1][in] = norm2(gen);
+        A[2][in] = lognorm(gen); B[2][in] = lognorm(gen);
+        A[3][in] = norm3(gen); B[3][in] = norm3(gen);
     }
 
     // writing matrix A to fileoutA
@@ -111,7 +113,6 @@ int main(int argc, char *argv[]){
     fout = fopen(fileoutP,"w");
     if (fout == NULL) {
         printf("Error opening output file P !");
-        cout << fileoutP;
         exit(EXIT_FAILURE);
     }
     int row=0; int iStart=0; int iStop=0;
@@ -127,7 +128,7 @@ int main(int argc, char *argv[]){
         row=row+nThisProc;
         iStop=row-1;
         //fprintf(fout,"%d ",ic);
-        fprintf(fout,"%d ",iStart);
+        fprintf(fout,"%d, ",iStart);
         fprintf(fout,"%d \n",iStop);
     }
 }
