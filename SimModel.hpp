@@ -66,6 +66,12 @@ namespace SIMMODEL
         double TsrmIndoors; // K, mean surroundings temperature inside
         double TsrmOutdoors; // K, mean surroundings temperature outside
 
+        // New UQ
+        double TsrmIndoors;
+        double TsrmOutdoors;
+        double trecovery;
+        double TECMO;
+
         // BC values
         double Tair;
 
