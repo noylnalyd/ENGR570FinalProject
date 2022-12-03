@@ -24,9 +24,9 @@ namespace SIMULATOR
         PSEUDOBLOCKMATRIX::PseudoBlockMatrix* pbm; // Linear matrix
 
         // Initial values
-        double *T0,*beta0,*q0,*Tpp0;
+        double *T0,*beta0,*w0,*q0,*Tpp0;
         // Steady values
-        double M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0;
+        double M0=0,QResp0=0,Tskm0=0,H0=0,Sh0=0,Cs0=0,Dl0=0,Sw0=0;
 
     public:
         Simulator();
@@ -106,7 +106,7 @@ namespace SIMULATOR
             // Sim values per timestep
             // Sim values
             double time; // s, simulation time
-            double* rhs; // K, right hand of system
+            double *rhs; // K, right hand of system
 
             // Body values
             // Thermal loads
@@ -208,12 +208,16 @@ namespace SIMULATOR
 
             // Initialize
             SimulationInstance(BODYMODEL::BodyModel* tbody,SIMMODEL::SimModel* tsim, PSEUDOBLOCKMATRIX::PseudoBlockMatrix* tpbm);
-            void copyToInitials( double *T0tmp, double *beta0tmp,double *q0tmp, double *Tpp0tmp);
-            void fillInitials( double *T0tmp, double *beta0tmp, double *q0tmp, double *Tpp0tmp);
-            void copyToSteadys( double *T0tmp, double *beta0tmp, double *q0tmp, double *Tpp0tmp,
+            ~SimulationInstance();
+            void allocate();
+            void deallocate();
+            void ghostStart();
+            void copyToInitials( double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp);
+            void fillInitials( double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp);
+            void copyToSteadys( double *T0tmp, double *beta0tmp, double *w0tmp,double *q0tmp, double *Tpp0tmp,
                     double M0tmp, double QResp0tmp, double Tskm0tmp, double H0tmp,
                     double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp);
-            void fillSteadys( double *T0tmp, double *beta0tmp, double *q0tmp, double *Tpp0tmp,
+            void fillSteadys( double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp,
                     double M0tmp, double QResp0tmp, double Tskm0tmp, double H0tmp,
                     double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp);
             

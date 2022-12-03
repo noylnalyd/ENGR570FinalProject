@@ -18,15 +18,15 @@ namespace PSEUDOBLOCKMATRIX
         double *denseRow; // 1D dense final row
         double *denseCol; // 1D dense final column
         double denseCorner; // 0D final corner value
-        double *rowStart, *colStart; // Indices of first row/col per block. For binsearch of get/add/set
+        int *rowStart, *colStart; // Indices of first row/col per block. For binsearch of get/add/set
 
     public:
         int N,M; // Number of rows and cols
         int *blockN, *blockM; // Number of rows and cols per block
+        int *blockPicker; // Finds block given row address
         int Nblocks; // Number of blocks
 
         void allocate(int tNblocks, int* tblockN, int* tblockM);
-        int binSearchBlock( int rowIdx );
         double getOverBlocks( int i, int j );
         double getFromBlock( int b, int i, int j );
         double getOverDense( int i, int j );
@@ -99,49 +99,42 @@ namespace PSEUDOBLOCKMATRIX
 
         // Allocate blocks, compute rowstart / colStart
         blocks = new double**[Nblocks]();
-        rowStart = new double[Nblocks];
-        colStart = new double[Nblocks];
+        rowStart = new int[Nblocks];
+        colStart = new int[Nblocks];
         for(int b=0;b<Nblocks;b++){
             blocks[b] = new double*[blockN[b]];
+            rowStart[b] = N;
+            colStart[b] = M;
+
             for(int i=0;i<blockN[b];i++){
                 blocks[b][i] = new double[blockM[b]];
             }
-            rowStart[b] = N;
             N = N + blockN[b];
-            colStart[b] = M;
             M = M + blockM[b];
         }
-        // Allocate dense col, row, corner
-        denseCol = new double[N-1];
-        denseRow = new double[M-1];
-        denseCorner = 0;
 
+        blockPicker = new int[N];
+        for(int b=0;b<Nblocks;b++){
+            for(int i=0;i<blockN[b];i++){
+                blockPicker[rowStart[b]+i] = b;
+            }
+        }
         // Adjust for dense row/col!
         N = N+1;
         M = M+1;
+        // Allocate dense col, row, corner
+        denseCol = new double[N-1];
+        denseRow = new double[M-1];
+        denseCorner = 0;        
         
+        fill(NAN);
+
         _state= allocated;
     }
 
-    int PseudoBlockMatrix::binSearchBlock( int rowIdx ){
-        int lo = 0, hi = Nblocks-1,mid=-1;
-        while(lo != hi)
-        {
-            mid = (lo+hi+1)/2;
-            if(rowStart[mid]<=rowIdx){
-                lo = mid;
-            }
-            else{
-                hi = mid-1;
-            }
-        }
-        return mid;
-    }
-
-
     double PseudoBlockMatrix::getOverBlocks( int i, int j ){
         assert(i<N && i>=0 && j<M && j>=0);
-        int tblock = binSearchBlock(i);
+        int tblock = blockPicker[i];
         return getFromBlock(tblock,i-rowStart[tblock],j-colStart[tblock]);
     }
 
@@ -179,7 +172,7 @@ namespace PSEUDOBLOCKMATRIX
     }
     bool PseudoBlockMatrix::setOverBlocks( int i, int j, double val ){
         assert(i<N && i>=0 && j<M && j>=0);
-        int tblock = binSearchBlock(i);
+        int tblock = blockPicker[i];
         return setFromBlock(tblock,i-rowStart[tblock],j-colStart[tblock],val);
     }
 
@@ -219,7 +212,7 @@ namespace PSEUDOBLOCKMATRIX
     }
     bool PseudoBlockMatrix::addOverBlocks( int i, int j, double val ){
         assert(i<N && i>=0 && j<M && j>=0);
-        int tblock = binSearchBlock(i);
+        int tblock = blockPicker[i];
         return addFromBlock(tblock,i-rowStart[tblock],j-colStart[tblock],val);
     }
 

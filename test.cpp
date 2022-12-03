@@ -21,4 +21,5 @@ int main(void){
     SIMULATOR::Simulator* simulator = new SIMULATOR::Simulator(body,sim);
     simulator->initializer();
     simulator->runSim(args,outs);
+    simulator->~Simulator();
 }

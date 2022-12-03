@@ -50,8 +50,8 @@ namespace BODYMODEL
         const double p = 0.33; // -, RBC fraction of blood
         const double Viv0 = 5.0e-3; // m^3, initial blood plasma volume
         const double Vrbc0 = 2.1e-3; // m^3, initial RBC volume
-        const double rhoBlood = 1069; // kg/m^3, nominal blood density
-        const double cpBlood = 3650; // J/kg/K, nominal blood constant pressure specific heat capacity
+        const double rhoBlood = 1069.0; // kg/m^3, nominal blood density
+        const double cpBlood = 3650.0; // J/kg/K, nominal blood constant pressure specific heat capacity
 
         BodyState getState();
         void addElement( ELEMENT::Element* element );

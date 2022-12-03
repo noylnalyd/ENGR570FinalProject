@@ -43,7 +43,7 @@ namespace SIMMODEL
         int modelCase; // Number of case (if automating)
         double thermovariant; // 0 for thermoneutral, 1 for variant
         double transient; // 0 for steady, 1 for transient
-        double Q10; // Q10 constant. Often 2, sometimes 3
+        double Q10 = 3; // Q10 constant. Often 2, sometimes 3
         const double KonstasBeta = 0.08401; // K^-1
         const double KonstasGamma =  2.245; // -
         const double KonstasAlpha = 2.961; // -
@@ -264,7 +264,7 @@ namespace SIMMODEL
             InjuryCase() : SimModel() {
                 thermovariant = 1;
                 transient = 1;
-                tFinal = 3600.0;
+                tFinal = 36.0;
                 dt = 1.0;
             };
             void BVRSVR( double *bvr, double *svr, double time ) override
