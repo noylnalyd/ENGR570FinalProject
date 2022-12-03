@@ -40,25 +40,26 @@ namespace SIMULATOR
 
     void Simulator::initializer(){
         // Allocate initial matrices
-        body->compute();
         T0 = new double[body->N];
         beta0 = new double[body->N];
         q0 = new double[body->N];
         Tpp0 = new double[body->N];
-
+    }
+    void Simulator::findICs( double args[]){
         for(int i=0;i<body->N;i++){
             T0[i] = 33+273.15; // K
             Tpp0[i] = 27+273.15; // K
         }
-
         // Populate beta, q, and prvs for steady case
         SIMMODEL::InitialCase* simInit = new SIMMODEL::InitialCase();
+        simInit->setUQs(args);
         SimulationInstance* siInit = new SimulationInstance(body,simInit,pbm);
         siInit->runSim();
         siInit->copyToInitials(T0,beta0,q0,Tpp0);
 
         // Now find the steady case
         SIMMODEL::SteadyCase* simSteady = new SIMMODEL::SteadyCase();
+        simSteady->setUQs(args);
         SimulationInstance* siSteady = new SimulationInstance(body,simSteady,pbm);
         siSteady->fillInitials(T0,beta0,q0,Tpp0);
         siSteady->runSim();
@@ -66,21 +67,30 @@ namespace SIMULATOR
 
         // Now normalize by using the transient, no injury case with active controls
         SIMMODEL::TransientCase* simTransient = new SIMMODEL::TransientCase();
+        simTransient->setUQs(args);
         SimulationInstance* siTransient = new SimulationInstance(body,simTransient,pbm);
         siTransient->fillSteadys(T0,beta0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
         siTransient->runSim();
         siTransient->copyToSteadys(T0,beta0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
+
+        // Free vars
+        delete simInit;
+        delete simSteady;
+        delete simTransient;
+        delete siInit;
+        delete siSteady;
+        delete siTransient;
     }
 
     void Simulator::runSim( double args[], double outs[] )
     {
         // Modify simmodel with args
-        sim->TairIndoors = args[0];
-        sim->TairOutdoors = args[1];
-        sim->TsrmIndoors = args[2];
-        sim->TsrmOutdoors = args[3];
+        // UQ attributes worth exploring for all cases
+        sim->setUQs(args);
         // Create instance
         SimulationInstance* si = new SimulationInstance(body,sim,pbm);
+        // Determine ICs
+        findICs(args);
         // Fill initial values
         si->fillSteadys(T0,beta0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
         // Run si
@@ -663,7 +673,7 @@ namespace SIMULATOR
         time = 0;
 
         // Iterate
-        for(int timestep=1;timestep<nSteps;++timestep){
+        for(int timestep=1;timestep<sim->nSteps;++timestep){
             
             // Compute temporary BC values and properties from sim
             timeNxt = time + sim->dt;
@@ -680,7 +690,6 @@ namespace SIMULATOR
 
             // Compute element values
             elementValues();
-            projectElementValues();
 
             // Compute node thermal load parameters
             projectNodeValues();

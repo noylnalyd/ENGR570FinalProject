@@ -14,7 +14,7 @@ namespace PSEUDOBLOCKMATRIX
     {
     private:
         PBMState _state = undefined;
-        double ***blocks; // 2D dense blocks
+        double*** blocks; // 2D dense blocks
         double *denseRow; // 1D dense final row
         double *denseCol; // 1D dense final column
         double denseCorner; // 0D final corner value
@@ -55,7 +55,7 @@ namespace PSEUDOBLOCKMATRIX
             int* tblockN,
             int* tblockM) : PseudoBlockMatrix()
         {
-            allocate( tNblocks, tblockN, tblockM);
+            allocate( tNblocks, tblockN, tblockM );
         }
 
         ~PseudoBlockMatrix()
@@ -98,7 +98,7 @@ namespace PSEUDOBLOCKMATRIX
         M = 0;
 
         // Allocate blocks, compute rowstart / colStart
-        blocks = new double**[Nblocks];
+        blocks = new double**[Nblocks]();
         rowStart = new double[Nblocks];
         colStart = new double[Nblocks];
         for(int b=0;b<Nblocks;b++){

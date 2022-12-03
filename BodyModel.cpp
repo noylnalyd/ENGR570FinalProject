@@ -2,40 +2,9 @@
 #define _BODYMODEL_CPP_
 
 #include "BodyModel.hpp"
-using namespace std;
 
 namespace BODYMODEL
 {
-    BodyModel* defaultBody(){
-        BodyModel* body = new BodyModel(10);
-        
-        // Check allocation status
-        assert(body->getState() == BODYMODEL::allocated);
-
-        // Add elements
-        body->addElement(head());
-        body->addElement(face());
-        body->addElement(neck());
-        body->addElement(shoulders());
-        body->addElement(thorax());
-        body->addElement(abdomen());
-        body->addElement(arms());
-        body->addElement(hands());
-        body->addElement(legs());
-        body->addElement(feet());
-
-        // Check status now
-        assert(body->getState() == BODYMODEL::elementsAdded);
-
-        // Compute body parameters
-        body->compute();
-
-        // Check status again
-        assert(body->getState() == BODYMODEL::computed);
-
-        
-    }
-    
     void controlSignals(
         double* Sh,
         double* Cs,
@@ -912,6 +881,91 @@ namespace BODYMODEL
         // Make sure totally filled!
         assert(feet->getState()==ELEMENT::wsAdded);
         return feet;
+    }
+
+    void BodyModel::addElement( ELEMENT::Element* element )
+    {
+        // Must have been allocated!
+        assert(_state==allocated);
+        // Must have space remaining!
+        assert(elemIdx<nElements);
+
+        elements[elemIdx++] = element;
+        if(elemIdx == nElements)
+            _state = elementsAdded;
+    }
+
+    void BodyModel::computeN()
+    {
+        assert(_state==elementsAdded);
+
+        N = 1;
+        for(int i=0;i<nElements;i++){
+            N += elements[i]->N;
+        }
+    }
+
+    void BodyModel::Compute()
+    {
+        assert(_state==elementsAdded);
+        
+        // Subcompute (left DFS)
+        for(int i=0;i<nElements;i++)
+            elements[i]->subCompute(&(skinSurfaceArea));
+        
+        // Compute sub attributes (right DFS)
+        for(int i=0;i<nElements;i++)
+            elements[i]->compute((skinSurfaceArea));
+
+        // Compute node attributes
+        computeN();
+        
+        V = new double[N];
+        V[N-1] = NAN; // Blood has no tangible volume
+        int idx = 0;
+        for(int elementIdx = 0; elementIdx < nElements; ++elementIdx){
+            V[idx] = elements[elementIdx]->washers[0]->volume*elements[elementIdx]->sumPhi/(2*M_PI);
+            idx++;
+            for(int sectIdx = 0; sectIdx < elements[elementIdx]->nSectors; ++sectIdx){
+                // Loop thru washers
+                for(int washIdx = 1; washIdx < elements[elementIdx]->nWashers; ++washIdx){
+                    V[idx] = elements[elementIdx]->washers[washIdx]->volume
+                            *elements[elementIdx]->sectors[sectIdx]->phi/(2*M_PI);
+                    idx++;
+                }
+            }
+        }
+        _state = computed;
+    }
+    BODYMODEL::BodyModel* defaultBody(){
+        
+        BodyModel* body = new BodyModel(10);
+        
+        // Check allocation status
+        assert(body->getState() == BODYMODEL::allocated);
+
+        // Add elements
+        body->addElement(head());
+        body->addElement(face());
+        body->addElement(neck());
+        body->addElement(shoulders());
+        body->addElement(thorax());
+        body->addElement(abdomen());
+        body->addElement(arms());
+        body->addElement(hands());
+        body->addElement(legs());
+        body->addElement(feet());
+        
+        // Check status now
+        assert(body->getState() == BODYMODEL::elementsAdded);
+
+        // Compute body parameters
+        body->Compute();
+
+        // Check status again
+        assert(body->getState() == BODYMODEL::computed);
+
+        return body;
     }
 }
 

@@ -5,7 +5,7 @@
 #include <cstddef>
 #include <math.h>
 #include <assert.h>
-#include "BodyModel.hpp"
+#include "BodyModel.cpp"
 #include "SimModel.hpp"
 
 namespace SIMULATOR
@@ -35,8 +35,11 @@ namespace SIMULATOR
         void setBody(BODYMODEL::BodyModel* bodyPtr);
         void setSim(SIMMODEL::SimModel* simPtr);
 
-        // Runs a simple sim case to create initial values and pbm
+        // Allocates space
         void initializer();
+
+        // Finds initial conditions for the current sim
+        void findICs( double args[] );
 
         // Run the sim with a given args and write to given outs addresses
         void runSim( double args[], double outs[] );
@@ -88,8 +91,6 @@ namespace SIMULATOR
             double qResp; // W/m^3, heat gen due to breathing
         public:
             // Simulation attributes
-            int nSteps; // -
-            double* times; // -
 
             // Sim attributes
             int ICconfigMode=0; // How to initialize (0=scratch, 1=T from file, 2=T and PBM from file)
@@ -255,7 +256,6 @@ namespace SIMULATOR
             // Linear projection
             double project( double cur, double prv );
             void projectBodyValues();
-            void projectElementValues();
             void projectNodeValues();
             
             // Matrix construction

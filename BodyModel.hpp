@@ -5,7 +5,7 @@
 #include <cstddef>
 #include <math.h>
 #include <assert.h>
-#include "element.hpp"
+#include "element.cpp"
 #include "PseudoBlockMatrix.hpp"
 
 using namespace std;
@@ -55,8 +55,8 @@ namespace BODYMODEL
 
         BodyState getState();
         void addElement( ELEMENT::Element* element );
-
-        void compute();
+        
+        void Compute();
         
         BodyModel()
         {
@@ -71,10 +71,23 @@ namespace BODYMODEL
         ~BodyModel()
         {
             delete [] elements;
+            delete [] V;
         }
     };
 
     BodyModel* defaultBody();
+    // Default body helper methods
+    // Add elements
+    ELEMENT::Element* head();
+    ELEMENT::Element* face();
+    ELEMENT::Element* neck();
+    ELEMENT::Element* shoulders();
+    ELEMENT::Element* thorax();
+    ELEMENT::Element* abdomen();
+    ELEMENT::Element* arms();
+    ELEMENT::Element* hands();
+    ELEMENT::Element* legs();
+    ELEMENT::Element* feet();
 
     void controlSignals(
         double* Sh,
@@ -91,59 +104,6 @@ namespace BODYMODEL
     BodyState BodyModel::getState()
     {
         return _state;
-    }
-
-    void BodyModel::addElement( ELEMENT::Element* element )
-    {
-        // Must have been allocated!
-        assert(_state==allocated);
-        // Must have space remaining!
-        assert(elemIdx<nElements);
-
-        elements[elemIdx++] = element;
-        if(elemIdx == nElements)
-            _state = elementsAdded;
-    }
-
-    void BodyModel::computeN()
-    {
-        assert(_state==computed);
-
-        N = 1;
-        for(int i=0;i<nElements;i++){
-            N += elements[i]->N;
-        }
-    }
-
-    void BodyModel::compute()
-    {
-        assert(_state==elementsAdded);
-        // Subcompute (left DFS)
-        for(int i=0;i<nElements;i++)
-            elements[i]->subCompute( &skinSurfaceArea );
-        
-        // Compute sub attributes (right DFS)
-        for(int i=0;i<nElements;i++)
-            elements[i]->compute( skinSurfaceArea );
-
-        // Compute node attributes
-        computeN();
-        V = new double[N];
-        V[N-1] = NAN; // Blood has no tangible volume
-        int idx = 0;
-        for(int elementIdx = 0; elementIdx < nElements; ++elementIdx){
-            V[idx] = elements[elementIdx]->washers[0]->volume*elements[elementIdx]->sumPhi/(2*M_PI);
-            idx++;
-            for(int sectIdx = 0; sectIdx < elements[elementIdx]->nSectors; ++elementIdx){
-                // Loop thru washers
-                for(int washIdx = 1; washIdx < elements[elementIdx]->nWashers; ++washIdx){
-                    V[idx] = elements[elementIdx]->washers[washIdx]->volume
-                            *elements[elementIdx]->sectors[sectIdx]->phi/(2*M_PI);
-                    idx++;
-                }
-            }
-        }
-        _state = computed;
     }
 
 }

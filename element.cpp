@@ -1,7 +1,7 @@
 #ifndef _ELEMENT_CPP_
 #define _ELEMENT_CPP_
 
-#include "element.hpp";
+#include "element.hpp"
 
 namespace ELEMENT{
     void Element::subCompute( double* totalSkinArea ){

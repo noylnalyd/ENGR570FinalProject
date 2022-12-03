@@ -1,4 +1,9 @@
 #include "Simulator.cpp"
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
 int main(void){
     double *args = new double[4];
     args[0] = 300;
@@ -8,6 +13,8 @@ int main(void){
 
     double *outs = new double[1];
 
+    //BODYMODEL::BodyModel* body = new BODYMODEL::BodyModel(10);
+    
     BODYMODEL::BodyModel* body = BODYMODEL::defaultBody();
     SIMMODEL::SimModel* sim = new SIMMODEL::InjuryCase();
 

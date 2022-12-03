@@ -28,12 +28,16 @@ namespace SIMMODEL
         double echelonSrm; // -, Surroundings emissivity
         double alphaSf; // -, Skin surface absorptivity
         double psi; // -, View factor
-        double Tsrm; // K, surrounding temperature mean
+
+        // UQ-dependencies
+        double TairIndoors; // K, inside / treatment air temperature
+        double TairOutdoors; // K, outside / pretreatment air temperature
     public:
         // Time attributes
         const double tInitial = 0.0; // s
         double tFinal; // s
         double dt; // s
+        int nSteps;
 
         // Model attributes
         int modelCase; // Number of case (if automating)
@@ -47,7 +51,6 @@ namespace SIMMODEL
         // Saline constants
         const double salineRho = 1004.6; // kg/m^3, saline density
         const double salineCp = 4180; // J/kg/K, saline specific heat capacity
-        const double TECMO = 5+273.15; // K, temperature of reincorporated ECMO fluid
 
         // Environmental constants
         const double Pair = 2300; // Pa, partial vapor air pressure
@@ -61,19 +64,14 @@ namespace SIMMODEL
         const double Tmelt = 273.15; // K, melting point of water
 
         // UQ attributes worth exploring for all cases
-        double TairIndoors; // K, inside / treatment air temperature
-        double TairOutdoors; // K, outside / pretreatment air temperature
         double TsrmIndoors; // K, mean surroundings temperature inside
-        double TsrmOutdoors; // K, mean surroundings temperature outside
+        double TsrmOutdoors; // K, mena surroundings temperature outside
+        double trecovery; // s, time at which treatment begins
+        double TECMO; // K, temperature of reincorporated ECMO blood/saline mix
 
-        // New UQ
-        double TsrmIndoors;
-        double TsrmOutdoors;
-        double trecovery;
-        double TECMO;
-
-        // BC values
-        double Tair;
+        // BC values to update at each iteration
+        double Tsrm; // K, surrounding temperature mean
+        double Tair; // K, air temperature
 
         SimModel(){
             _state = initialized;
@@ -99,13 +97,29 @@ namespace SIMMODEL
                 double Sw,
                 double time
         );
+        void setUQs( double args[] );
         virtual void ecmoBlood( double *fEB, int elemIdx, double time);
         virtual void ecmoSaline( double *fES, int elemIdx, double time);
         virtual void BVRSVR( double *bvr, double *svr, double time );
         virtual bool endCondition( double Thy );
     };
 
+    void SimModel::setUQs(double args[])
+    {
+        TsrmIndoors = args[0];
+        TsrmOutdoors = args[1];
+        trecovery = args[2];
+        TECMO = args[3];
 
+        // Dependencies!
+        TairIndoors = TsrmIndoors;
+        TairOutdoors = TsrmOutdoors;
+
+        // Other dependencies
+        nSteps = ceil((tFinal-tInitial)/dt);
+
+        _state = allValuesAssigned;
+    }
     void SimModel::skinBC(
             double *Tpp,
             BODYMODEL::BodyModel* body,
