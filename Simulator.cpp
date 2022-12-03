@@ -18,6 +18,10 @@ namespace SIMULATOR
             blockN[i] = body->elements[i]->N;
             blockM[i] = body->elements[i]->N;
         }
+        T0 = new double[body->N];
+        beta0 = new double[body->N];
+        q0 = new double[body->N];
+        Tpp0 = new double[body->N];
         PSEUDOBLOCKMATRIX::PseudoBlockMatrix* pbm = new PSEUDOBLOCKMATRIX::PseudoBlockMatrix(body->nElements,blockN,blockM);
     }
     Simulator::~Simulator(){
@@ -49,11 +53,14 @@ namespace SIMULATOR
         for(int i=0;i<body->N;i++){
             T0[i] = 33+273.15; // K
             Tpp0[i] = 27+273.15; // K
+            q0[i] = NAN;
+            beta0[i] = NAN;
         }
         // Populate beta, q, and prvs for steady case
         SIMMODEL::InitialCase* simInit = new SIMMODEL::InitialCase();
         simInit->setUQs(args);
         SimulationInstance* siInit = new SimulationInstance(body,simInit,pbm);
+        siInit->fillInitials(T0,beta0,q0,Tpp0);
         siInit->runSim();
         siInit->copyToInitials(T0,beta0,q0,Tpp0);
 
@@ -106,15 +113,27 @@ namespace SIMULATOR
         body = tbody;
         sim = tsim;
         pbm = tpbm;
-
         
+        allocate();
+    }
+    void SimulationInstance::allocate(){
+        // Allocate initial node matrices
+        T0 = new double[body->N];
+        beta0 = new double[body->N];
+        w0 = new double[body->N];
+        q0 = new double[body->N];
+        Tpp0 = new double[body->N];
+
+        // Allocate previous node matrices
+        TPrv = new double[body->N];
+        TppPrv = new double[body->N];
     }
     void SimulationInstance::copyToInitials( double *T0tmp, double *beta0tmp,double *q0tmp, double *Tpp0tmp){
         for(idx=0; idx<body->N; idx++){
-            T0tmp[idx] = T0[idx];
-            beta0tmp[idx] = beta0[idx];
-            q0tmp[idx] = q0[idx];
-            Tpp0tmp[idx] = Tpp0[idx];
+            T0tmp[idx] = T[idx];
+            beta0tmp[idx] = beta[idx];
+            q0tmp[idx] = q[idx];
+            Tpp0tmp[idx] = Tpp[idx];
         }
     }
     void SimulationInstance::fillInitials( double *T0tmp, double *beta0tmp, double *q0tmp, double *Tpp0tmp){
@@ -129,19 +148,19 @@ namespace SIMULATOR
             double M0tmp, double QResp0tmp, double Tskm0tmp, double H0tmp,
             double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp){
         for(idx=0; idx<body->N; idx++){
-            T0tmp[idx] = T0[idx];
-            beta0tmp[idx] = beta0[idx];
-            q0tmp[idx] = q0[idx];
-            Tpp0tmp[idx] = Tpp0[idx];
+            T0tmp[idx] = T[idx];
+            beta0tmp[idx] = beta[idx];
+            q0tmp[idx] = q[idx];
+            Tpp0tmp[idx] = Tpp[idx];
         }
-        M0tmp = M0;
-        QResp0tmp = QResp0;
-        Tskm0tmp = Tskm0;
-        H0tmp = H0;
-        Sh0tmp = Sh0;
-        Cs0tmp = Cs0;
-        Dl0tmp = Dl0;
-        Sw0tmp = Sw0;
+        M0tmp = M;
+        QResp0tmp = QResp;
+        Tskm0tmp = Tskm;
+        H0tmp = H;
+        Sh0tmp = Sh;
+        Cs0tmp = Cs;
+        Dl0tmp = Dl;
+        Sw0tmp = Sw;
     }
     void SimulationInstance::fillSteadys( double *T0tmp, double *beta0tmp, double *q0tmp, double *Tpp0tmp,
             double M0tmp, double QResp0tmp, double Tskm0tmp, double H0tmp,
@@ -192,7 +211,7 @@ namespace SIMULATOR
             etaW = 0.2*tanh(body->b1*act+body->b0); // W/W
         M = act*Mbas0/body->actBas; // W
         H = M*(1-etaW)-Mbas0; // W
-        Qresp = computeQresp(); // W
+        QResp = computeQresp(); // W
 
     }
     double SimulationInstance::computeQresp(){
@@ -209,7 +228,7 @@ namespace SIMULATOR
     void SimulationInstance::projectBodyValues(){
         MNxt = project(M,MPrv);
         HNxt = project(H,HPrv);
-        QrespNxt = project(Qresp,QrespPrv);
+        QRespNxt = project(QResp,QRespPrv);
         TskmNxt = project(Tskm,TskmPrv);
         ShNxt = project(Sh,ShPrv);
         CsNxt = project(Cs,CsPrv);
@@ -347,7 +366,7 @@ namespace SIMULATOR
                 qSh = element->a_sh*Sh/element->Vmuscle*sim->thermovariant;
             }
             if(element->Vresp > 0){
-                qResp = -Qresp*washer->a_resp/(body->V[idx])*sim->thermovariant;
+                qResp = -QResp*washer->a_resp/(body->V[idx])*sim->thermovariant;
             }
             qs[idx] = washer->q_m+qDm+qW+qSh+qResp;
             ws[idx] = max(w0[idx]*pow(sim->KonstasAlpha,sim->KonstasBeta*(Ts[idx]-T0[idx])*sim->thermovariant)*(1-sim->KonstasGamma*DeltaHCT),0.0);
@@ -371,7 +390,7 @@ namespace SIMULATOR
                         qSh = element->a_sh*Sh/element->Vmuscle*sim->thermovariant;
                     }
                     if(element->Vresp > 0){
-                        qResp = -Qresp*washer->a_resp/(body->V[idx])*sim->thermovariant;
+                        qResp = -QResp*washer->a_resp/(body->V[idx])*sim->thermovariant;
                     }
                     qs[idx] = washer->q_m+qDm+qW+qSh+qResp;
                     ws[idx] = max(w0[idx]*pow(sim->KonstasAlpha,sim->KonstasBeta*(Ts[idx]-T0[idx])*sim->thermovariant)*(1-sim->KonstasGamma*DeltaHCT),0.0);
@@ -649,7 +668,7 @@ namespace SIMULATOR
             TPrv[idx] = T[idx];
         }
         MPrv = M;
-        QrespPrv = Qresp;
+        QRespPrv = QResp;
         TskmPrv = Tskm;
         HPrv = H;
         ShPrv = Sh;

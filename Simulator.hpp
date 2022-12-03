@@ -74,7 +74,7 @@ namespace SIMULATOR
             double TskmPrv; // K, Mean skin temperature
             double MPrv; // W, Total metabolism
             double HPrv; // W, Heat load
-            double QrespPrv; // W, Respiratory cooling intake
+            double QRespPrv; // W, Respiratory cooling intake
             // Active controls:
             double ShPrv; // W, Shivering power
             double CsPrv; // -, Vasoconstriction ratio
@@ -114,7 +114,7 @@ namespace SIMULATOR
             double Thy; // K, Hypothalamic temperature
             double M; // W, Total metabolism
             double H; // W, Heat load
-            double Qresp; // W, Respiratory cooling intake
+            double QResp; // W, Respiratory cooling intake
             // Active error signals
             double TskError;
             double ThyError;
@@ -167,7 +167,7 @@ namespace SIMULATOR
             double TskmNxt; // K, Mean skin temperature
             double MNxt; // W, Total metabolism
             double HNxt; // W, Heat load
-            double QrespNxt; // W, Respiratory cooling intake
+            double QRespNxt; // W, Respiratory cooling intake
             // Active error signals
             double TskErrorNxt;
             double ThyErrorNxt;
