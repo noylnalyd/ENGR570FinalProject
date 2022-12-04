@@ -16,10 +16,17 @@ int main(void){
     //BODYMODEL::BodyModel* body = new BODYMODEL::BodyModel(10);
     
     BODYMODEL::BodyModel* body = BODYMODEL::defaultBody();
-    SIMMODEL::SimModel* sim = new SIMMODEL::InjuryCase();
+    SIMMODEL::SimModel* sim = new SIMMODEL::KonstasCase();
 
     SIMULATOR::Simulator* simulator = new SIMULATOR::Simulator(body,sim);
     simulator->initializer();
     simulator->runSim(args,outs);
-    simulator->~Simulator();
+    
+    cout << outs[0] << endl;
+    
+    delete simulator;
+    delete sim;
+    delete body;
+    delete [] args;
+    delete [] outs;
 }

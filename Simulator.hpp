@@ -213,7 +213,7 @@ namespace SIMULATOR
             void deallocate();
             void ghostStart();
             void copyToInitials( double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp);
-            void fillInitials( double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp);
+            void fillInitials( double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp, double Tskm0);
             void copyToSteadys( double *T0tmp, double *beta0tmp, double *w0tmp,double *q0tmp, double *Tpp0tmp,
                     double M0tmp, double QResp0tmp, double Tskm0tmp, double H0tmp,
                     double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp);
@@ -230,8 +230,7 @@ namespace SIMULATOR
             double deltaQMetabolic(double q, double T, double TNxt);
             // Element parameters
             void elementValues();
-            void cp(int eleIdx);
-            void rho(int eleIdx);
+            void rhocp(int eleIdx);
             void tblp( int eleIdx );
 
             // Node parameters

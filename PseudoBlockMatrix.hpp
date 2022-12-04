@@ -140,7 +140,7 @@ namespace PSEUDOBLOCKMATRIX
 
     double PseudoBlockMatrix::getFromBlock( int b, int i, int j ){
         if(!(i<blockN[b] && j<blockM[b] && i>=0 && j>=0))
-            return NAN;
+            assert(1==0);
         return blocks[b][i][j];
     }
     
@@ -166,7 +166,7 @@ namespace PSEUDOBLOCKMATRIX
     {
         assert(i<N && i>=0 && j<M && j>=0);
         double tmp = getOverDense(i,j);
-        if(tmp!=NAN)
+        if(!isnan(tmp))
             return tmp;
         return getOverBlocks(i,j);
     }
@@ -184,6 +184,7 @@ namespace PSEUDOBLOCKMATRIX
     
     bool PseudoBlockMatrix::setOverDense( int i, int j, double val ){
         assert(i<N && i>=0 && j<M && j>=0);
+        assert(!isnan(val));
         // Last row or corner!
         if(i==N-1){
             // Corner!
@@ -206,24 +207,28 @@ namespace PSEUDOBLOCKMATRIX
     bool PseudoBlockMatrix::set( int i , int j, double val )
     {
         assert(i<N && i>=0 && j<M && j>=0);
+        assert(!isnan(val));
         if(setOverDense(i,j,val))
             return true;
         return setOverBlocks(i,j,val);
     }
     bool PseudoBlockMatrix::addOverBlocks( int i, int j, double val ){
         assert(i<N && i>=0 && j<M && j>=0);
+        assert(!isnan(val));
         int tblock = blockPicker[i];
         return addFromBlock(tblock,i-rowStart[tblock],j-colStart[tblock],val);
     }
 
     bool PseudoBlockMatrix::addFromBlock( int b, int i, int j, double val ){
         assert(i<blockN[b] && j<blockM[b] && i>=0 && j>=0);
+        assert(!isnan(val));
         blocks[b][i][j] += val;
         return true;
     }
     
     bool PseudoBlockMatrix::addOverDense( int i, int j, double val ){
         assert(i<N && i>=0 && j<M && j>=0);
+        assert(!isnan(val));
         // Last row or corner!
         if(i==N-1){
             // Corner!
@@ -246,6 +251,7 @@ namespace PSEUDOBLOCKMATRIX
     bool PseudoBlockMatrix::add( int i , int j, double val )
     {
         assert(i<N && i>=0 && j<M && j>=0);
+        assert(!isnan(val));
         if(addOverDense(i,j,val))
             return true;
         return addOverBlocks(i,j,val);
@@ -297,7 +303,7 @@ namespace PSEUDOBLOCKMATRIX
         // Iterators
         int rs,cs,b,i,j,row,col,iter = 0,maxIter = 100;
         // Tmp
-        double tmpx,tmpAii,tmpres;
+        double tmpx=NAN,tmpAii=NAN,tmpres=NAN;
 
         // Assert square!
         assert(N==M);
@@ -305,13 +311,21 @@ namespace PSEUDOBLOCKMATRIX
         // Assert GS conditions (no zero entries on diag).
         //  No pivoting. Mostly bc permutation would slow computation and is not necessary for body model.
         for(i=0;i<N;i++){
-            int tmp = get(i,i);
+            double tmp = get(i,i);
             assert(tmp!=NAN);
             assert(tmp!=0);
         }
+        for(i=0;i<N;i++){
+            double tmp = rhs[i];
+            assert(tmp!=NAN);
+        }
+        for(i=0;i<M;i++){
+            double tmp = x0[i];
+            assert(tmp!=NAN);
+        }
 
         // Copy x0 to x
-        for(j=0;j<M-1;j++)
+        for(j=0;j<M;j++)
             x[j] = x0[j];
 
         // Residuals and convergences
@@ -333,6 +347,7 @@ namespace PSEUDOBLOCKMATRIX
                     tmpx = 0;
                     // Add rhs
                     tmpx += rhs[row];
+                    
                     // Subtract last col*last x
                     tmpx -= denseCol[row]*x[M-1];
                     // Subtract jth col * jth x
@@ -365,7 +380,6 @@ namespace PSEUDOBLOCKMATRIX
             conv = max(conv,abs(x[M-1]-tmpx));
             // Update x
             x[M-1] = tmpx;
-
 
             // Check residual
             res = 0;

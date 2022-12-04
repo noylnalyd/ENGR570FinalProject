@@ -70,6 +70,8 @@ namespace BODYMODEL
         }
         ~BodyModel()
         {
+            for(elemIdx=0;elemIdx<nElements;elemIdx++)
+                delete elements[elemIdx];
             delete [] elements;
             delete [] V;
         }

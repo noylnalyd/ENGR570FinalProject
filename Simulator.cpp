@@ -22,7 +22,7 @@ namespace SIMULATOR
         pbm = new PSEUDOBLOCKMATRIX::PseudoBlockMatrix(body->nElements,blockN,blockM);
     }
     Simulator::~Simulator(){
-        pbm->~PseudoBlockMatrix();
+        delete pbm;
         delete [] T0;
         delete [] beta0;
         delete [] q0;
@@ -53,22 +53,27 @@ namespace SIMULATOR
             T0[i] = 33+273.15; // K
             Tpp0[i] = 27+273.15; // K
         }
+        Tskm0 = 27+273.15; // K
         // Populate beta, q, and prvs for steady case
         SIMMODEL::InitialCase* simInit = new SIMMODEL::InitialCase();
         simInit->setUQs(args);
         SimulationInstance* siInit = new SimulationInstance(body,simInit,pbm);
-        siInit->fillInitials(T0,beta0,w0,q0,Tpp0);
+        siInit->fillInitials(T0,beta0,w0,q0,Tpp0,Tskm0);
         siInit->runSim();
         siInit->copyToSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
+        for(int i=0;i<body->N;++i){
+            cout << T0[i] << "\t" << beta0[i]  << "\t" << Tpp0[i] << endl;
+        }
+        /*
+        // Now find the steady case
+        SIMMODEL::SteadyCase* simSteady = new SIMMODEL::SteadyCase();
+        simSteady->setUQs(args);
+        SimulationInstance* siSteady = new SimulationInstance(body,simSteady,pbm);
+        siSteady->fillInitials(T0,beta0,w0,q0,Tpp0,Tskm0);
+        siSteady->runSim();
+        siSteady->copyToSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
 
-        // // Now find the steady case
-        // SIMMODEL::SteadyCase* simSteady = new SIMMODEL::SteadyCase();
-        // simSteady->setUQs(args);
-        // SimulationInstance* siSteady = new SimulationInstance(body,simSteady,pbm);
-        // siSteady->fillInitials(T0,beta0,q0,Tpp0);
-        // siSteady->runSim();
-        // siSteady->copyToSteadys(T0,beta0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
-
+        
         // Now normalize by using the transient, no injury case with active controls
         SIMMODEL::TransientCase* simTransient = new SIMMODEL::TransientCase();
         simTransient->setUQs(args);
@@ -76,12 +81,12 @@ namespace SIMULATOR
         siTransient->fillSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
         siTransient->runSim();
         siTransient->copyToSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
-
+        */
         // Free vars
         delete simInit;
-        delete simTransient;
+        //delete simTransient;
         delete siInit;
-        delete siTransient;
+        //delete siTransient;
     }
 
     void Simulator::runSim( double args[], double outs[] )
@@ -96,10 +101,10 @@ namespace SIMULATOR
         // Fill initial values
         si->fillSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
         // Run si
-        si->runSim();
+        //si->runSim();
         // Fill outputs
         outs[0] = si->time;
-        //si->~SimulationInstance();
+        si->~SimulationInstance();
     }
 
 
@@ -119,7 +124,7 @@ namespace SIMULATOR
     void SimulationInstance::allocate(){
 
         // Allocate system rhs
-        rhs = new double[body->N];
+        rhs = new double[body->N]();
 
         // Allocate element arrays
         // Current
@@ -236,11 +241,14 @@ namespace SIMULATOR
             T[idx] = T0[idx];
             beta[idx] = beta0[idx];
             w[idx] = w0[idx];
-            q0[idx] = q0[idx];
-            Tpp0[idx] = Tpp0[idx];
+            q[idx] = q0[idx];
+            Tpp[idx] = Tpp0[idx];
+            // Nxt
+            TppNxt[idx] = Tpp[idx];
         }
         // Thermal loads
         TskmPrv=Tskm0; // K, Mean skin temperature
+        Thy0 = T[0];
         MPrv=M0; // W, Total metabolism
         HPrv=H0; // W, Heat load
         QRespPrv=QResp0; // W, Respiratory cooling intake
@@ -259,7 +267,7 @@ namespace SIMULATOR
             Tpp0tmp[idx] = Tpp[idx];
         }
     }
-    void SimulationInstance::fillInitials( double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp){
+    void SimulationInstance::fillInitials( double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp, double Tskm0tmp){
         for(idx=0; idx<body->N; idx++){
             T0[idx] = T0tmp[idx];
             beta0[idx] = beta0tmp[idx];
@@ -267,6 +275,7 @@ namespace SIMULATOR
             q0[idx] = q0tmp[idx];
             Tpp0[idx] = Tpp0tmp[idx];
         }
+        Tskm0 = Tskm0tmp;
     }
     void SimulationInstance::copyToSteadys( double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp,
             double M0tmp, double QResp0tmp, double Tskm0tmp, double H0tmp,
@@ -329,15 +338,22 @@ namespace SIMULATOR
                 }
             }
         }
+        assert(!isnan(Sh));
+        assert(!isnan(MbasDelta));
         double act = 1 + (Sh+MbasDelta)/Mbas0*MperWork; // MET
         double etaW;
         if(act < 1.6)
             etaW = 0.05; // W/W
         else
             etaW = 0.2*tanh(body->b1*act+body->b0); // W/W
+        assert(!isnan(act));
         M = act*Mbas0/body->actBas; // W
+        assert(!isnan(M));
         H = M*(1-etaW)-Mbas0; // W
+        assert(!isnan(H));
         QResp = computeQresp(); // W
+        assert(!isnan(QResp));
+        
 
     }
     double SimulationInstance::computeQresp(){
@@ -346,7 +362,7 @@ namespace SIMULATOR
     }
     double SimulationInstance::deltaQMetabolic( double q, double T, double Tn)
     {
-        return q*(pow(sim->Q10,(T-Tn)/10.0)-1);
+        return q*(pow(sim->Q10,(T-Tn)*sim->thermovariant/10.0)-1);
     }
     double SimulationInstance::project( double cur, double prv ){
         return cur+(cur-prv)*sim->thermovariant*sim->transient;
@@ -366,6 +382,7 @@ namespace SIMULATOR
         for(idx=0;idx<body->N;idx++){
             // Project nodal temperature only to compute q,w,beta
             TNxt[idx] = project(T[idx],TPrv[idx]); // K, Nodal temperature.
+            TppNxt[idx] = project(Tpp[idx],TppPrv[idx]);
         }
         
     }
@@ -376,28 +393,19 @@ namespace SIMULATOR
 
             flowECMOBlood(elemIdx);
             flowECMOSaline(elemIdx);
-            cp(elemIdx);
-            rho(elemIdx);
+            rhocp(elemIdx);
             tblp(elemIdx);
         }
     }
-    void SimulationInstance::cp( int eleIdx ){
-        Cp[eleIdx] = (sim->salineRho*sim->salineCp*(DViv/(Viv+DViv)*FlowECMOBlood[eleIdx]+FlowECMOSaline[eleIdx])
-            +body->rhoBlood*body->cpBlood*(Viv/(Viv+DViv)*FlowECMOBlood[eleIdx]))/
-            (sim->salineRho*(DViv/(Viv+DViv)*FlowECMOBlood[eleIdx]+FlowECMOSaline[eleIdx])+
-            body->rhoBlood*(Viv/(Viv+DViv)*FlowECMOBlood[eleIdx]));
-        CpNxt[eleIdx] = (sim->salineRho*sim->salineCp*(DVivNxt/(VivNxt+DVivNxt)*FlowECMOBloodNxt[eleIdx]+FlowECMOSalineNxt[eleIdx])
-            +body->rhoBlood*body->cpBlood*(VivNxt/(VivNxt+DVivNxt)*FlowECMOBloodNxt[eleIdx]))/
-            (sim->salineRho*(DVivNxt/(VivNxt+DVivNxt)*FlowECMOBloodNxt[eleIdx]+FlowECMOSalineNxt[eleIdx])+
-            body->rhoBlood*(VivNxt/(VivNxt+DVivNxt)*FlowECMOBloodNxt[eleIdx]));
-    }
-    void SimulationInstance::rho( int eleIdx ){
-        Rho[eleIdx] = (sim->salineRho*(DViv/(Viv+DViv)*FlowECMOBlood[eleIdx]+FlowECMOSaline[eleIdx])
-            +body->rhoBlood*(Viv/(Viv+DViv)*FlowECMOBlood[eleIdx]))/
-            (FlowECMOBlood[eleIdx]+FlowECMOSaline[eleIdx]);
-        RhoNxt[eleIdx] = (sim->salineRho*(DVivNxt/(VivNxt+DVivNxt)*FlowECMOBloodNxt[eleIdx]+FlowECMOSalineNxt[eleIdx])
-            +body->rhoBlood*(VivNxt/(VivNxt+DVivNxt)*FlowECMOBloodNxt[eleIdx]))/
-            (FlowECMOBloodNxt[eleIdx]+FlowECMOSalineNxt[eleIdx]);
+    void SimulationInstance::rhocp( int eleIdx ){
+        assert(!isnan(DViv));
+        assert(!isnan(Viv));
+        assert(!isnan(FlowECMOBlood[eleIdx]));
+        assert(!isnan(FlowECMOSaline[eleIdx]));
+        sim->rhocp(Rho,Cp,body,eleIdx,Viv,DViv,FlowECMOBlood[eleIdx],FlowECMOSaline[idx]);
+        sim->rhocp(RhoNxt,CpNxt,body,eleIdx,VivNxt,DVivNxt,FlowECMOBloodNxt[eleIdx],FlowECMOSalineNxt[idx]);
+        assert(!isnan(Rho[eleIdx]));
+        assert(!isnan(RhoNxt[eleIdx]));
     }
 
     void SimulationInstance::tblp( int eleIdx ){
@@ -419,11 +427,13 @@ namespace SIMULATOR
             beta[idx] = 0; // W/m^3/K, Blood perfusion rate factor (rho*c*w)
         }
         
+        // Skin values
+        sim->skinBC(Tpp,body,T,T0,Sw,time);
         // Heat generation, blood perfusion, heats
         qwbeta(q,w,beta,Cp,Rho,T);
         qwbeta(qNxt,wNxt,betaNxt,CpNxt,RhoNxt,TNxt);
 
-
+        
     }
     void SimulationInstance::agglomeratedElementValues(){
         idx = 0;
@@ -438,6 +448,9 @@ namespace SIMULATOR
             BV[elemIdx] += beta[idx]*body->V[idx];
             BVNxt[elemIdx] += betaNxt[idx]*body->V[idx];
             BVT[elemIdx] += BV[elemIdx]*T[idx];
+            assert(!isnan(body->V[idx]));
+            assert(!isnan(beta[idx]));
+            assert(!isnan(betaNxt[idx]));
             idx++;
             
             // Interior/skin washers
@@ -449,10 +462,12 @@ namespace SIMULATOR
                     BV[elemIdx] += beta[idx]*body->V[idx];
                     BVNxt[elemIdx] += betaNxt[idx]*body->V[idx];
                     BVT[elemIdx] += BV[elemIdx]*T[idx];
+                    assert(!isnan(body->V[idx]));
+                    assert(!isnan(beta[idx]));
+                    assert(!isnan(betaNxt[idx]));
                     idx++;
                 }
             }
-            
             // Derived values
             //  See Westin eqn 21
             BPRBPCfactor[elemIdx] = BV[elemIdx]/(element->hx+BV[elemIdx]); // -
@@ -463,6 +478,8 @@ namespace SIMULATOR
             TblAoverlay[elemIdx] = BVT[elemIdx] * TblAoverlayFactor[elemIdx]; // K
             
             TblA[elemIdx] = TblP[elemIdx]*BPRBPCfactor[elemIdx] + TblAoverlay[elemIdx]; // K
+            assert(!isnan(TblAoverlayFactor[elemIdx]));
+            assert(!isnan(TblAoverlayFactorNxt[elemIdx]));
         }
     }
 
@@ -495,11 +512,13 @@ namespace SIMULATOR
                 qResp = -QResp*washer->a_resp/(body->V[idx])*sim->thermovariant;
             }
             qs[idx] = washer->q_m+qDm+qW+qSh+qResp;
-            ws[idx] = max(w0[idx]*pow(sim->KonstasAlpha,sim->KonstasBeta*(Ts[idx]-T0[idx])*sim->thermovariant)*(1-sim->KonstasGamma*DeltaHCT),0.0);
-            betas[idx] = (beta0[idx]+0.932*(qDm+qSh+qW))
-                    *ws[idx]/w0[idx]
+            ws[idx] = max(pow(sim->KonstasAlpha,sim->KonstasBeta*(Ts[idx]-T0[idx])*sim->thermovariant)*(1-sim->KonstasGamma*DeltaHCT*sim->thermovariant),0.0);
+            betas[idx] = (washer->w_bl*body->rhoBlood*body->cpBlood+0.932*(qDm+qSh+qW))
+                    *ws[idx]
                     *rhos[elemIdx]/body->rhoBlood
                     *cps[elemIdx]/body->cpBlood;
+            ws[idx] *= washer->w_bl;
+            
             idx++;
             
             // Loop thru washers
@@ -518,19 +537,34 @@ namespace SIMULATOR
                     if(element->Vresp > 0){
                         qResp = -QResp*washer->a_resp/(body->V[idx])*sim->thermovariant;
                     }
+
+                    assert(!isnan(qDm));
+                    assert(!isnan(qW));
+                    assert(!isnan(qSh));
+                    assert(!isnan(qResp));
                     qs[idx] = washer->q_m+qDm+qW+qSh+qResp;
-                    ws[idx] = max(w0[idx]*pow(sim->KonstasAlpha,sim->KonstasBeta*(Ts[idx]-T0[idx])*sim->thermovariant)*(1-sim->KonstasGamma*DeltaHCT),0.0);
-                    betas[idx] = (beta0[idx]+0.932*(qDm+qSh+qW))
-                            *ws[idx]/w0[idx]
+                    ws[idx] = max(pow(sim->KonstasAlpha,sim->KonstasBeta*(Ts[idx]-T0[idx])*sim->thermovariant)*(1-sim->KonstasGamma*DeltaHCT),0.0);
+                    assert(!isnan(ws[idx]));                    
+                    assert(!isnan(rhos[elemIdx]));
+                    assert(!isnan(cps[elemIdx]));
+                    
+                    betas[idx] = (washer->w_bl*body->rhoBlood*body->cpBlood+0.932*(qDm+qSh+qW))
+                            *ws[idx]
                             *rhos[elemIdx]/body->rhoBlood
                             *cps[elemIdx]/body->cpBlood;
+                    ws[idx] *= washer->w_bl;
+                    assert(!isnan(betas[idx]));
                     // Add vasodilation, vasoconstriction for outermost skin
                     if(washIdx == element->nWashers-1){
                         // Westin eqn 84
                         betas[idx] = (betas[idx]+element->a_dl*Dl)/(1+element->a_cs*Cs*exp(-Dl/80));
                         // Westin eqn 85
-                        betas[idx] = min((386.9-.32*.932*H)*(Viv+DViv)/Viv0,betas[idx]);
+                        assert(!isnan(H));
+                        assert(!isnan(Viv));
+                        assert(!isnan(DViv));
+                        betas[idx] = min((386.9-.32*.932*H)*(Viv+DViv)/body->Viv0,betas[idx]);
                     }
+                    assert(!isnan(betas[idx]));
                     idx++;
                 }
             }
@@ -568,6 +602,8 @@ namespace SIMULATOR
         }
     }
     void SimulationInstance::BCvalues(){
+        // Surroundings BCs
+        sim->setTairTsrm(time);
         // Shock
         BVRSVR();
         // ECMO treatment
@@ -590,6 +626,7 @@ namespace SIMULATOR
             }
             idx++;
         }
+        assert(!isnan(Tskcur));
         return Tskcur;
     }
     double SimulationInstance::computeHypothalamicTemp(){
@@ -599,9 +636,12 @@ namespace SIMULATOR
         // Tsk,m
         Tskm = computeMeanSkinTemp();
         Thy = computeHypothalamicTemp();
+        assert(!isnan(Tskm0));
+        assert(!isnan(Thy0));
         TskError = (Tskm-Tskm0)*sim->transient*sim->thermovariant;
         ThyError = (Thy-Thy0)*sim->transient*sim->thermovariant;
         TskErrorGradient = (Tskm-TskmPrv)/sim->dt/3600.0*sim->transient*sim->thermovariant;
+        
     }
 
     void SimulationInstance::computeActiveControls(){
@@ -617,10 +657,16 @@ namespace SIMULATOR
             +3.9*TskErrorDot; // -
         Dl = 21*(tanh(.79*TskError-.70)+1)*TskError
             +32*(tanh(3.29*ThyError-1.46)+1)*ThyError; // W/K
+        assert(!isnan(Dl));
         Sw = (.8*tanh(.59*TskError-.19)+1.2)*TskError
             +(5.7*tanh(1.98*ThyError-1.03)+6.3)*ThyError; // g/min
         Sh = min(350.0*(svr+bvr),max(0.0,Sh)); // W      
         Sw = min(30.0,max(Sw,0.0)); // g/min
+
+        assert(!isnan(Dl));
+        assert(!isnan(Cs));
+        assert(!isnan(Sh));
+        assert(!isnan(Sw));
     }
 
     void SimulationInstance::clearSystem(){
@@ -658,7 +704,7 @@ namespace SIMULATOR
             
             // Core node blood perfusion warming
             // Westin eqn 57 rhs term 4
-            rhs[idx] += washer->del*beta[idx]*TblA[idx];
+            rhs[idx] += washer->del*beta[idx]*TblA[elemIdx];
             // Westin eqn 57 lhs term 3
             //      Westin eqns 21 term 2 (Also called TblA overlay)
             
@@ -751,7 +797,7 @@ namespace SIMULATOR
 
                     // Current node blood perfusion warming
                     // Westin eqn 55 rhs term 5 / Westin eqn 68 rhs term 5 (The same thing)
-                    rhs[idx] += washer->del*beta[idx]*TblA[idx];
+                    rhs[idx] += washer->del*beta[idx]*TblA[elemIdx];
                     // Westin eqn 55 lhs term 4 / Westin eqn 68 lhs term 3 (The same thing)
                     //      Westin eqns 21 term 2 (Also called TblA overlay)
                     for(int tIdx=coreIdx; tIdx<coreIdx+element->N; tIdx++){
@@ -781,6 +827,7 @@ namespace SIMULATOR
         pbm->add(body->N-1,body->N-1,
             CplC
         );
+        rhs[body->N-1] = 0.0;
     }
 
     void SimulationInstance::solveSystem(){
@@ -795,6 +842,7 @@ namespace SIMULATOR
         // Overwrite Prv
         for(idx=0;idx<body->N;idx++){
             TPrv[idx] = T[idx];
+            TppPrv[idx] = Tpp[idx];
         }
         MPrv = M;
         QRespPrv = QResp;
@@ -816,17 +864,20 @@ namespace SIMULATOR
         // Check status of body and simmodel. Make sure both completed.
         assert(body->getState() == BODYMODEL::computed);
         assert(sim->getState() == SIMMODEL::allValuesAssigned);
-
+        
         // Provide initial values
         time = 0;
         ghostStart();
 
         // Iterate
-        for(int timestep=1;timestep<sim->nSteps;++timestep){
-            
+        for(int timestep=1;timestep<=sim->nSteps;++timestep){
             // Compute temporary BC values and properties from sim
             timeNxt = time + sim->dt;
             BCvalues();
+
+            
+            // Compute whole-body thermal load parameters
+            computeThermalLoadParameters();
 
             // Compute body values
             // Compute error inputs
@@ -834,8 +885,6 @@ namespace SIMULATOR
             // Compute active controls
             computeActiveControls();
             projectBodyValues();
-            // Compute whole-body thermal load parameters
-            computeThermalLoadParameters();
 
             // Compute element values
             elementValues();
@@ -855,16 +904,25 @@ namespace SIMULATOR
 
             // Build system
             buildSystem();
-
+            
             // Solve system
             solveSystem();
 
             // Overwrite values with "Prv"
             permuteTimestep();
+            time += sim->dt;
+
+            // Occasional updates
+            if(true){
+                if(timestep%10==0)
+                cout << timestep <<" " << Thy << endl;
+            }
 
             // End condition
             if(sim->endCondition(Thy))
                 break;
+
+            
 
         }
 

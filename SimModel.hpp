@@ -22,16 +22,8 @@ namespace SIMMODEL
         ELEMENT::Element* element;
         SECTOR::Sector* sector;
         WASHER::Washer* washer;
-        // Private variables (set by BC)
-        double s; // W/m^2, Light intensity
-        double echelonSf; // -, Skin surface emissivity
-        double echelonSrm; // -, Surroundings emissivity
-        double alphaSf; // -, Skin surface absorptivity
-        double psi; // -, View factor
 
-        // UQ-dependencies
-        double TairIndoors; // K, inside / treatment air temperature
-        double TairOutdoors; // K, outside / pretreatment air temperature
+        
     public:
         // Time attributes
         const double tInitial = 0.0; // s
@@ -68,10 +60,15 @@ namespace SIMMODEL
         double TsrmOutdoors; // K, mena surroundings temperature outside
         double trecovery; // s, time at which treatment begins
         double TECMO; // K, temperature of reincorporated ECMO blood/saline mix
-
+        // UQ-dependencies
+        double TairIndoors; // K, inside / treatment air temperature
+        double TairOutdoors; // K, outside / pretreatment air temperature
         // BC values to update at each iteration
         double Tsrm; // K, surrounding temperature mean
         double Tair; // K, air temperature
+        double echelonSrm; // -, Surroundings emissivity
+        double alphaSrm; // --, Surroundings absorptivity
+        double s; // W/m^2, Light intensity
 
         SimModel(){
             _state = initialized;
@@ -89,6 +86,16 @@ namespace SIMMODEL
                 int njActual, // -, number of equivalent clothings on this sector
                 double psiActual // rad^2, exposure angle
         );
+        virtual void rhocp(
+            double *Rho,
+            double *Cp,
+            BODYMODEL::BodyModel *body,
+            int eleIdx,
+            double Viv,
+            double DViv,
+            double fEB,
+            double fES
+        );
         virtual void skinBC(
                 double *Tpp,
                 BODYMODEL::BodyModel* body,
@@ -98,6 +105,7 @@ namespace SIMMODEL
                 double time
         );
         void setUQs( double args[] );
+        virtual void setTairTsrm( double time );
         virtual void ecmoBlood( double *fEB, int elemIdx, double time);
         virtual void ecmoSaline( double *fES, int elemIdx, double time);
         virtual void BVRSVR( double *bvr, double *svr, double time );
@@ -120,6 +128,27 @@ namespace SIMMODEL
 
         _state = allValuesAssigned;
     }
+    void SimModel::setTairTsrm(double time)
+    {
+        Tair = TairOutdoors;
+        Tsrm = TsrmOutdoors;
+        echelonSrm = echelonSrOutdoors;
+        alphaSrm = alphaSrOutdoors;
+        s = sOutdoors;
+    }
+    void SimModel::rhocp(
+        double *Rho,
+        double *Cp,
+        BODYMODEL::BodyModel *body,
+        int eleIdx,
+        double Viv,
+        double DViv,
+        double fEB,
+        double fES
+    ){
+        Rho[eleIdx] = body->rhoBlood;
+        Cp[eleIdx] = body->cpBlood;
+    }
     void SimModel::skinBC(
             double *Tpp,
             BODYMODEL::BodyModel* body,
@@ -136,7 +165,8 @@ namespace SIMMODEL
             for(int sectIdx=0;sectIdx<element->nSectors;sectIdx++){
                 idx+=element->nWashers-2;
                 sector = element->sectors[sectIdx];
-                double qsk = skinHeat(body,element,sector,elemIdx,sectIdx,Sw,Tpp[idx],T0[idx],element->n_j,sector->psiStnd);
+                
+                double qsk = skinHeat(body,element,sector,elemIdx,sectIdx,Sw,(T[idx]),T0[idx],element->n_j,sector->psiStnd);
                 // Westin eqn 64
                 Tpp[idx] = qsk*(washer->r+washer->deltaR/2.0)/washer->k
                         *log((washer->r+washer->deltaR)/washer->r)
@@ -190,21 +220,21 @@ namespace SIMMODEL
         double TsfC = TsfAssumed-273.15; // C
         double TsrmC = TsrmAbs - 273.15; // C
         double TairAbs = Tair; // K
-        double TairC = TairC; // C
-
+        double TairC = Tair-273.15; // C
+        
         double hcmix = sqrt(abs(
                 elem->a_nat*sqrt(abs(TsfC-TairC))
                 +elem->a_frc*vAirEff
                 +elem->a_mix
         )); // W/m^2/K
-
+        
         double hR = body->StefanBoltzmann*echelonSf*echelonSrm
                 *(TsfAbs*TsfAbs + TsrmAbs*TsrmAbs)
                 *(TsfAbs + TsrmAbs); // W/m^2/K
         
         double U = 1/(njActual*body->Icl+1/(f*(hcmix+hR))); // W/m^2/K
-
-        qsR = alphaSf*psiActual*s;
+        qsR = alphaSrm*psiActual*s;
+        
 
         double Tweight = (hcmix*TairC + hR*(TsrmC) + qsR)/(hcmix + hR);
         double Posksat = 100.0*exp(18.956-4030.0/(TsfC+235));
@@ -217,7 +247,9 @@ namespace SIMMODEL
         double Psk = (body->LambdaH20*dsweat + Posksat*body->Rinverse + Ue*Pair)/
                 (Ue + body->Rinverse);
         
-        return U*(TsfC-Tweight) + Ue*(Psk-Pair);
+        double ans = U*(TsfC-Tweight) + Ue*(Psk-Pair);
+        assert(ans!=NAN);
+        return ans;
     }
 
     SimModelState SimModel::getState()
@@ -241,7 +273,7 @@ namespace SIMMODEL
             SteadyCase() : SimModel() {
                 thermovariant = 1;
                 transient = 0;
-                tFinal = 1.0;
+                tFinal = 5.0;
                 dt = 1.0;
             };
     };
@@ -258,9 +290,8 @@ namespace SIMMODEL
     class InjuryCase : public SimModel
     {
         public:
-            double tinjury = 0;
-            double trecovery = 300;
-            double bvrFinal = .6;
+            double tinjury = 300; // s
+            double bvrRate = -.4/tinjury; // m^3/m^3 / s
             InjuryCase() : SimModel() {
                 thermovariant = 1;
                 transient = 1;
@@ -269,9 +300,85 @@ namespace SIMMODEL
             };
             void BVRSVR( double *bvr, double *svr, double time ) override
             {
-                if(time > tinjury && time < trecovery)
-                    *bvr = bvrFinal + (1-bvrFinal)*(time-tinjury)/(trecovery-tinjury);
+                if(time <= tinjury){
+                    *bvr = 1.0 + bvrRate*(time);
                     *svr = 0;
+                }else{
+                    *bvr = 1.0 + bvrRate*(tinjury);
+                    *svr = 0;
+                }
+            };
+            bool endCondition(double Thy)
+            {
+                return Thy<=10+273.15;
+            };
+    };
+    class KonstasCase : public SimModel
+    {
+        public:
+            double tinjury = 300; // s
+            double bvrRate = -.4/tinjury; // m^3/m^3 / s
+            double trestore = 120; // s, time to restore blood volume
+            KonstasCase() : SimModel() {
+                thermovariant = 1;
+                transient = 1;
+                tFinal = 1.0;
+                dt = 1.0;
+            };
+            void rhocp(
+                double *Rho,
+                double *Cp,
+                BODYMODEL::BodyModel *body,
+                int eleIdx,
+                double Viv,
+                double DViv,
+                double fEB,
+                double fES
+            ) override {
+                if(eleIdx<3){
+                    Rho[eleIdx] = (salineRho*(DViv/(Viv+DViv)*fEB+fES)+
+                            body->rhoBlood*(Viv/(Viv+DViv)*fEB))/
+                            (fES+fEB);
+                    Cp[eleIdx] = (salineRho*salineCp*(DViv/(Viv+DViv)*fEB+fES)+
+                            body->rhoBlood*body->cpBlood*(Viv/(Viv+DViv)*fEB))/
+                            (salineRho*(DViv/(Viv+DViv)*fEB+fES)+
+                            body->rhoBlood*(Viv/(Viv+DViv)*fEB));
+                } else {
+                    Rho[eleIdx] = salineRho*(DViv/(Viv+DViv))+body->rhoBlood*(Viv/(Viv+DViv));
+                    Cp[eleIdx] = (salineRho*salineCp*(DViv/(Viv+DViv))+body->rhoBlood*body->cpBlood*(Viv/(Viv+DViv)))/
+                            salineRho*(DViv/(Viv+DViv))+body->rhoBlood*(Viv/(Viv+DViv));
+                }
+            }
+            void setTairTsrm(double time) override
+            {
+                if(time < trecovery){
+                    Tair = TairOutdoors;
+                    Tsrm = TsrmOutdoors;
+                    echelonSrm = echelonSrOutdoors;
+                    alphaSrm = alphaSrOutdoors;
+                    s = sOutdoors;
+                }else{
+                    Tair = TairOutdoors;
+                    Tsrm = TsrmOutdoors;
+                    echelonSrm = echelonSrOutdoors;
+                    alphaSrm = alphaSrOutdoors;
+                    s = sOutdoors;
+                }
+            }
+            void BVRSVR( double *bvr, double *svr, double time ) override
+            {
+                if(time < trecovery){
+                    *bvr = 1+bvrRate*min(tinjury,time);
+                    *svr = 0.0;
+                }
+                else{
+                    *bvr = 1+bvrRate*min(tinjury,trecovery);
+                    *svr = (1-*bvr)*min(1.0,(time-trecovery)/trecovery);
+                }
+            };
+            bool endCondition(double Thy) override
+            {
+                return Thy<=10+273.15;
             };
     };
 }
