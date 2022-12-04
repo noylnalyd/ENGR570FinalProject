@@ -61,9 +61,7 @@ namespace SIMULATOR
         siInit->fillInitials(T0,beta0,w0,q0,Tpp0,Tskm0);
         siInit->runSim();
         siInit->copyToSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
-        for(int i=0;i<body->N;++i){
-            cout << T0[i] << "\t" << beta0[i]  << "\t" << Tpp0[i] << endl;
-        }
+        
         /*
         // Now find the steady case
         SIMMODEL::SteadyCase* simSteady = new SIMMODEL::SteadyCase();
@@ -72,7 +70,7 @@ namespace SIMULATOR
         siSteady->fillInitials(T0,beta0,w0,q0,Tpp0,Tskm0);
         siSteady->runSim();
         siSteady->copyToSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
-
+        */
         
         // Now normalize by using the transient, no injury case with active controls
         SIMMODEL::TransientCase* simTransient = new SIMMODEL::TransientCase();
@@ -81,12 +79,12 @@ namespace SIMULATOR
         siTransient->fillSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
         siTransient->runSim();
         siTransient->copyToSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
-        */
+        
         // Free vars
         delete simInit;
-        //delete simTransient;
+        delete simTransient;
         delete siInit;
-        //delete siTransient;
+        delete siTransient;
     }
 
     void Simulator::runSim( double args[], double outs[] )
@@ -101,7 +99,7 @@ namespace SIMULATOR
         // Fill initial values
         si->fillSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
         // Run si
-        //si->runSim();
+        si->runSim();
         // Fill outputs
         outs[0] = si->time;
         si->~SimulationInstance();
@@ -337,9 +335,12 @@ namespace SIMULATOR
                     idx++;
                 }
             }
+            cout << MbasDelta << endl;
         }
         assert(!isnan(Sh));
         assert(!isnan(MbasDelta));
+        cout << Mbas0 << " QRESP " <<  endl;
+        Mbas0 = 58.2;
         double act = 1 + (Sh+MbasDelta)/Mbas0*MperWork; // MET
         double etaW;
         if(act < 1.6)
@@ -350,11 +351,10 @@ namespace SIMULATOR
         M = act*Mbas0/body->actBas; // W
         assert(!isnan(M));
         H = M*(1-etaW)-Mbas0; // W
+        cout << "MBasDelta "<<MbasDelta<<" act " << act << " M " << M << " H " << H << endl;
         assert(!isnan(H));
         QResp = computeQresp(); // W
         assert(!isnan(QResp));
-        
-
     }
     double SimulationInstance::computeQresp(){
         return 3.45*M*(0.028+6.5e-5*sim->Tair-4.98e-6*sim->Pair)+
@@ -480,6 +480,7 @@ namespace SIMULATOR
             TblA[elemIdx] = TblP[elemIdx]*BPRBPCfactor[elemIdx] + TblAoverlay[elemIdx]; // K
             assert(!isnan(TblAoverlayFactor[elemIdx]));
             assert(!isnan(TblAoverlayFactorNxt[elemIdx]));
+            assert(!isnan(TblAoverlay[elemIdx]));
         }
     }
 
@@ -518,7 +519,7 @@ namespace SIMULATOR
                     *rhos[elemIdx]/body->rhoBlood
                     *cps[elemIdx]/body->cpBlood;
             ws[idx] *= washer->w_bl;
-            
+            assert(!isnan(betas[idx]));
             idx++;
             
             // Loop thru washers
@@ -688,23 +689,23 @@ namespace SIMULATOR
             coreWasher = washer;
             // Westin eqn 57 rhs term 1
             rhs[idx] += (
-                washer->zeta/sim->dt
+                washer->zeta/sim->dt*sim->thermovariant
                 -washer->del*beta[idx]
                 +element->theta*(washer->AForwardCur-1)*element->sumPhi
-            ) * T[idx];
+            ) * T[idx]*sim->thermovariant;
             // Westin eqn 57 lhs term 1
             pbm->add(idx,idx,
-                washer->zeta/sim->dt
+                washer->zeta/sim->dt*sim->thermovariant
                 +washer->del*betaNxt[idx]
                 +element->theta*(1-washer->AForwardCur)*element->sumPhi
             );
             // Core node heat gen
             // Westin eqn 57 rhs term 3
-            rhs[idx] += washer->del*(q[idx] + qNxt[idx]);
+            rhs[idx] += washer->del*(q[idx]*sim->thermovariant + qNxt[idx]);
             
             // Core node blood perfusion warming
             // Westin eqn 57 rhs term 4
-            rhs[idx] += washer->del*beta[idx]*TblA[elemIdx];
+            rhs[idx] += washer->del*beta[idx]*TblA[elemIdx]*sim->thermovariant;
             // Westin eqn 57 lhs term 3
             //      Westin eqns 21 term 2 (Also called TblA overlay)
             
@@ -712,9 +713,9 @@ namespace SIMULATOR
                 pbm->add(idx,tIdx,
                     -washer->del
                     *betaNxt[idx]
+                    *TblAoverlayFactorNxt[elemIdx]
                     *betaNxt[tIdx]
                     *body->V[tIdx]
-                    *TblAoverlayFactorNxt[elemIdx]
                 );
             }
             // Westin eqn 57 lhs term 3
@@ -746,14 +747,14 @@ namespace SIMULATOR
                         // Westin eqn 57 lhs term 2
                         pbm->add(coreIdx,idx,-element->theta*coreWasher->AForwardNxt*sector->phi);
                         // Westin eqn 57 rhs term 2
-                        rhs[coreIdx] += element->theta*coreWasher->AForwardNxt*sector->phi*T[idx];
+                        rhs[coreIdx] += element->theta*coreWasher->AForwardNxt*sector->phi*T[idx]*sim->thermovariant;
                     }
                     // Other nodes have an interior node as a previous node
                     else{
                         backwardIdx = idx-1;
                     }
                     // Westin eqn 55 rhs term 1
-                    rhs[idx] += (1-washer->gamma)*washer->ABackwardPrv*T[backwardIdx];
+                    rhs[idx] += (1-washer->gamma)*washer->ABackwardPrv*T[backwardIdx]*sim->thermovariant;
                     // Westin eqn 55 lhs term 1
                     pbm->add(idx,backwardIdx,(washer->gamma-1)*washer->ABackwardPrv);
 
@@ -763,29 +764,30 @@ namespace SIMULATOR
                     if(washIdx < element->nWashers-1){
                         forwardIdx = idx+1;
                         // Westin eqn 55 rhs term 3
-                        rhs[idx] += (1+washer->gamma)*washer->AForwardNxt*T[forwardIdx];
+                        rhs[idx] += (1+washer->gamma)*washer->AForwardNxt*T[forwardIdx]*sim->thermovariant;
                         // Westin eqn 55 lhs term 3
                         pbm->add(idx,forwardIdx,-(washer->gamma+1)*washer->AForwardNxt);
                     }
                     // Skin nodes use the virtual temperature Tpp instead
                     else{
                         // Westin eqn 68 rhs term 3
-                        rhs[idx] += (1+washer->gamma)*washer->AForwardNxt*(Tpp[idx]+TppNxt[idx]);
+                        rhs[idx] += (1+washer->gamma)*washer->AForwardNxt*(Tpp[idx]*sim->thermovariant+TppNxt[idx]);
                     }
 
                     // Current node coupling
                     // Westin eqn 55 rhs term 2 / Westin eqn 68 rhs term 2 (The same thing)
                     rhs[idx] += (
                         (1-washer->gamma)*washer->ABackwardCur
-                        + washer->zeta/sim->dt
+                        + washer->zeta/sim->dt*sim->thermovariant
                         -2
                         -washer->del*beta[idx]
                         +(1+washer->gamma)*washer->AForwardCur
-                    ) * T[idx];
+                    ) * T[idx]*sim->thermovariant;
                     // Westin eqn 55 lhs term 2 / Westin eqn 68 lhs term 2 (The same thing)
+                    assert(!isnan(washer->AForwardCur));
                     pbm->add(idx,idx,
                         (washer->gamma-1)*washer->ABackwardCur
-                        +washer->zeta/sim->dt
+                        +washer->zeta/sim->dt*sim->thermovariant
                         +2
                         +washer->del*betaNxt[idx]
                         -(1+washer->gamma)*washer->AForwardCur
@@ -793,11 +795,11 @@ namespace SIMULATOR
 
                     // Current node heat gen
                     // Westin eqn 55 rhs term 4 / Westin eqn 68 rhs term 4 (The same thing)
-                    rhs[idx] += washer->del*(q[idx] + qNxt[idx]);
+                    rhs[idx] += washer->del*(q[idx]*sim->thermovariant + qNxt[idx]);
 
                     // Current node blood perfusion warming
                     // Westin eqn 55 rhs term 5 / Westin eqn 68 rhs term 5 (The same thing)
-                    rhs[idx] += washer->del*beta[idx]*TblA[elemIdx];
+                    rhs[idx] += washer->del*beta[idx]*TblA[elemIdx]*sim->thermovariant;
                     // Westin eqn 55 lhs term 4 / Westin eqn 68 lhs term 3 (The same thing)
                     //      Westin eqns 21 term 2 (Also called TblA overlay)
                     for(int tIdx=coreIdx; tIdx<coreIdx+element->N; tIdx++){
@@ -831,7 +833,7 @@ namespace SIMULATOR
     }
 
     void SimulationInstance::solveSystem(){
-        pbm->GaussSeidel(rhs,T,1e-5,1e-5,TNxt);
+        pbm->GaussSeidel(rhs,T,1e-1,1e-1,TNxt);
     }
     void SimulationInstance::permuteTimestep(){
         // Initial values
@@ -853,10 +855,12 @@ namespace SIMULATOR
         DlPrv = Dl;
         SwPrv = Sw;
 
-        // Overwrite Cur
+        // Overwrite Nxt
         for(idx=0;idx<body->N;idx++){
             T[idx] = TNxt[idx];
+            Tpp[idx] = TppNxt[idx];
         }
+
     }
 
     void SimulationInstance::runSim(){
@@ -906,14 +910,22 @@ namespace SIMULATOR
             buildSystem();
             
             // Solve system
+            // pbm->Print();
+            // for(int i=25;i<35;++i){
+            //     cout << rhs[i]<<endl;
+            // }
             solveSystem();
-
+            
             // Overwrite values with "Prv"
             permuteTimestep();
             time += sim->dt;
 
             // Occasional updates
             if(true){
+                cout << "ITER " << time << endl;
+                for(int i=0;i<body->N;++i){
+                    //cout << i << "\tT"<<T[i] << "\tq" << q[i]  << "\tTpp" << Tpp[i] <<"\tbeta"<<beta[i]<<endl;
+                }
                 if(timestep%10==0)
                 cout << timestep <<" " << Thy << endl;
             }

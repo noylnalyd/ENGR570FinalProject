@@ -60,6 +60,7 @@ namespace ELEMENT
         virtual void computeVolume( WASHER::Washer* cur ) = 0;
         virtual void computeAForward( WASHER::Washer* cur, WASHER::Washer* nxt) = 0;
         virtual void computeABackward( WASHER::Washer* cur, WASHER::Washer* prv) = 0;
+        virtual void computeAForwardSkin( WASHER::Washer* cur ) = 0;
         virtual double handlearesp(double tresp, double ricur, double rocur, double ri, double ro) = 0;
         void computeGamma( WASHER::Washer* cur );
         virtual void computeTheta() = 0;
@@ -120,6 +121,7 @@ namespace ELEMENT
             double handlearesp(double tresp, double ricur, double rocur, double ri, double ro) override;
             void computeVolume( WASHER::Washer* cur ) override;
             void computeAForward( WASHER::Washer* cur, WASHER::Washer* nxt) override;
+            void computeAForwardSkin( WASHER::Washer* cur ) override;
             void computeABackward( WASHER::Washer* cur, WASHER::Washer* prv) override;
             void computeTheta() override;
     };
@@ -137,6 +139,7 @@ namespace ELEMENT
             double handlearesp(double tresp, double ricur, double rocur, double ri, double ro) override;
             void computeVolume( WASHER::Washer* cur ) override;
             void computeAForward( WASHER::Washer* cur, WASHER::Washer* nxt) override;
+            void computeAForwardSkin( WASHER::Washer* cur ) override;
             void computeABackward( WASHER::Washer* cur, WASHER::Washer* prv) override;
             void computeTheta() override;
     };

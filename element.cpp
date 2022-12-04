@@ -32,6 +32,7 @@ namespace ELEMENT{
             Vmuscle += washers[i]->volume*washers[i]->muscle*sumPhi/(2*M_PI);
             Vresp += washers[i]->volume*washers[i]->resp*sumPhi/(2*M_PI);
         }
+        computeAForwardSkin(washers[nWashers-1]);
 
         // Compute relational attributes
         for(int i=0;i<nWashers-1;i++){
@@ -122,6 +123,20 @@ namespace ELEMENT{
 
         cur->AForwardCur = (Ds*Lnxt-Dnxt*L)/(D*Lnxt-Dnxt*L);
         cur->AForwardNxt = Lnxt/(D*Lnxt-Dnxt*L);
+        assert(!isnan(cur->AForwardCur));
+        assert(!isnan(cur->AForwardNxt));
+    }
+    void CylinderElement::computeAForwardSkin(WASHER::Washer* cur){
+        double rIFC = cur->r+cur->deltaR/2;
+        double L = cur->k/log((cur->r+cur->deltaR)/cur->r);
+        double Lnxt = cur->k/log((cur->r+cur->deltaR)/((cur->r+cur->deltaR)-cur->deltaR));
+        double D = log(rIFC/cur->r)/log((cur->r+cur->deltaR)/cur->r);
+        double Ds = log(rIFC/(cur->r+cur->deltaR))/log((cur->r+cur->deltaR)/cur->r);
+        double Dnxt = log(rIFC/(cur->r+cur->deltaR))/log((cur->r+cur->deltaR)/((cur->r+cur->deltaR)+cur->deltaR));
+        cur->AForwardCur = (Ds*Lnxt-Dnxt*L)/(D*Lnxt-Dnxt*L);
+        cur->AForwardNxt = Lnxt/(D*Lnxt-Dnxt*L);
+        assert(!isnan(cur->AForwardCur));
+        assert(!isnan(cur->AForwardNxt));
     }
     
     void CylinderElement::computeABackward( WASHER::Washer* cur, WASHER::Washer* prv )
@@ -135,6 +150,8 @@ namespace ELEMENT{
 
         cur->ABackwardCur = (Dprv*L-Ds*Lprv)/(Dprv*L-D*Lprv);
         cur->ABackwardPrv = Lprv/(Dprv*L-D*Lprv);
+        assert(!isnan(cur->ABackwardCur));
+        assert(!isnan(cur->ABackwardPrv));
     }
     double CylinderElement::handlearesp(double resp, double ricur, double rocur, double ri, double ro)
     {
@@ -153,8 +170,24 @@ namespace ELEMENT{
         double L = cur->k/(1/cur->r-1/(cur->r+cur->deltaR));
         double Lnxt = nxt->k/(1/(nxt->r-nxt->deltaR)-1/nxt->r);
 
-        cur->AForwardCur = (L-Lnxt*cur->r/(nxt->r-nxt->deltaR))/(L+Lnxt*((cur->r+cur->deltaR)/(nxt->r-nxt->deltaR)));
-        cur->AForwardNxt = (Lnxt*(1+nxt->r/(nxt->r-nxt->deltaR)))/(L+Lnxt*((cur->r+cur->deltaR)/(nxt->r-nxt->deltaR)));
+        cur->AForwardCur = (L-Lnxt*cur->r/(nxt->r-nxt->deltaR))/
+                (L+Lnxt*((cur->r+cur->deltaR)/(nxt->r-nxt->deltaR)));
+        cur->AForwardNxt = (Lnxt*(1+nxt->r/(nxt->r-nxt->deltaR)))/
+                (L+Lnxt*((cur->r+cur->deltaR)/(nxt->r-nxt->deltaR)));
+        assert(!isnan(cur->AForwardCur));
+        assert(!isnan(cur->AForwardNxt));
+    }
+    void SphereElement::computeAForwardSkin( WASHER::Washer* cur)
+    {
+        double L = cur->k/(1/cur->r-1/(cur->r+cur->deltaR));
+        double Lnxt = cur->k/(1/((cur->r+cur->deltaR)-cur->deltaR)-1/(cur->r+cur->deltaR));
+
+        cur->AForwardCur = (L-Lnxt*cur->r/((cur->r+cur->deltaR)-cur->deltaR))/
+                (L+Lnxt*((cur->r+cur->deltaR)/((cur->r+cur->deltaR)-cur->deltaR)));
+        cur->AForwardNxt = (Lnxt*(1+(cur->r+cur->deltaR)/((cur->r+cur->deltaR)-cur->deltaR)))/
+                (L+Lnxt*((cur->r+cur->deltaR)/((cur->r+cur->deltaR)-cur->deltaR)));
+        assert(!isnan(cur->AForwardCur));
+        assert(!isnan(cur->AForwardNxt));
     }
     void SphereElement::computeABackward( WASHER::Washer* cur, WASHER::Washer* prv )
     {
@@ -163,6 +196,8 @@ namespace ELEMENT{
 
         cur->ABackwardCur = (L-Lprv*(cur->r/(prv->r+prv->deltaR)))/(L+Lprv*((cur->r-cur->deltaR)/prv->r+prv->deltaR));
         cur->ABackwardPrv = (Lprv*(1+prv->r/(prv->r+prv->deltaR)))/(L+Lprv*((cur->r-cur->deltaR)/(prv->r+prv->deltaR)));
+        assert(!isnan(cur->ABackwardCur));
+        assert(!isnan(cur->ABackwardPrv));
     }
     double SphereElement::handlearesp(double resp, double ricur, double rocur, double ri, double ro){
         return resp*(rocur*rocur*rocur-ricur*ricur*ricur)/(ro*ro*ro-ri*ri*ri);
