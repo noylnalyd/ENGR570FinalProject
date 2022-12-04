@@ -833,7 +833,8 @@ namespace SIMULATOR
     }
 
     void SimulationInstance::solveSystem(){
-        pbm->GaussSeidel(rhs,T,1e-1,1e-1,TNxt);
+        pbm->directsolve(rhs,TNxt);
+        //pbm->GaussSeidel(rhs,T,1e-1,1e-1,TNxt);
     }
     void SimulationInstance::permuteTimestep(){
         // Initial values

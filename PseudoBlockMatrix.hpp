@@ -45,8 +45,8 @@ namespace PSEUDOBLOCKMATRIX
         PseudoBlockMatrix shallowCopy( PseudoBlockMatrix );
         void PBMVM( const double *x, double *b );
         // bool GaussElim( const double *rhs, double *x, PseudoBlockMatrix tmp );
-        bool directsolve( const double *rhs, double *x, PseudoBlockMatrix tmp );
-        bool GaussSeidel( const double *rhs, const double *x0, double resTol, double convTol, double *x );
+        bool directsolve( double *rhs, double *x);
+        bool GaussSeidel( double *rhs, const double *x0, double resTol, double convTol, double *x );
 
         PseudoBlockMatrix()
         {
@@ -304,7 +304,7 @@ namespace PSEUDOBLOCKMATRIX
     }
     void PseudoBlockMatrix::Print(){
         int rs,cs,b,i,j;
-        for(b=1;b<2;b++){
+        for(b=0;b<Nblocks;b++){
             rs = rowStart[b];
             cs = colStart[b];
             cout << "B "<<b <<endl;
@@ -312,16 +312,13 @@ namespace PSEUDOBLOCKMATRIX
                 for(j=0;j<blockM[b];j++){
                     cout<<blocks[b][i][j] << "\t";
                 }
-                cout << endl;
+                cout << "Densecol " << denseCol[rs+i] << endl;
             }
         }
-
-        for(i=rowStart[1];i<rowStart[2];i++)
-            cout<<denseCol[i] << endl;
-        cout << endl << endl;
-        for(j=rowStart[1];j<rowStart[2];j++)
-            cout << denseRow[j] << endl;
-        cout << endl;
+        cout << endl << "DenseRow" << endl;
+        for(j=0;j<M-1;j++)
+            cout << denseRow[j] << "\t";
+        cout << endl << "DenseCorner" << endl;
         cout << denseCorner << endl;
     }
     void PseudoBlockMatrix::PBMVM( const double *x, double *B )
@@ -344,7 +341,7 @@ namespace PSEUDOBLOCKMATRIX
             B[N-1] += denseRow[j]*x[j];
         B[N-1] += denseCorner*x[M-1];
     }
-    bool PseudoBlockMatrix::directsolve( double *rhs, const double *x0, double *x )
+    bool PseudoBlockMatrix::directsolve( double *rhs, double *x )
     {
         // Iterators
         int rs,cs,b,i,j,row,row2,col;
@@ -365,10 +362,6 @@ namespace PSEUDOBLOCKMATRIX
             double tmp = rhs[i];
             assert(tmp!=NAN);
         }
-        for(i=0;i<M;i++){
-            double tmp = x0[i];
-            assert(tmp!=NAN);
-        }
         // Precondition by norming values
         for(b=0;b<Nblocks;b++){
             rs = rowStart[b];
@@ -378,32 +371,32 @@ namespace PSEUDOBLOCKMATRIX
                 row = rs+i;
 
                 norm = 0;
-                // Subtract last col*last x
                 norm += abs(denseCol[row]);
                 // Subtract jth col * jth x
                 for(j=0;j<blockM[b];j++){
                     norm += abs(blocks[b][i][j]);
                 }
-                denseCol[row] /= norm;
+                norm = .9/norm;
+                
+                denseCol[row] *= norm;
                 for(j=0;j<blockM[b];j++){
-                    blocks[b][i][j]/=norm;
+                    blocks[b][i][j]*= norm;
                 }
-                rhs[row]/=norm;
+                rhs[row]*=norm;
             }
         }
         norm = abs(denseCorner);
         for(j=0;j<M-1;j++){
             norm += abs(denseRow[j]);
         }
-        // Divide by corner
-        denseCorner /= norm;
+        norm = 0.9/norm;
+        cout << norm;
+        assert(!isnan(norm));
+        denseCorner *= norm;
         for(j=0;j<M-1;j++){
-            denseRow[j] /= norm;
+            denseRow[j] *= norm;
         }
 
-        // Copy x0 to x
-        for(j=0;j<M;j++)
-            x[j] = x0[j];
         double A[N][M];
         for(b=0;b<Nblocks;b++){
             rs = rowStart[b];
@@ -413,7 +406,7 @@ namespace PSEUDOBLOCKMATRIX
                 row = rs+i;
                 for(j=0;j<blockM[b];j++){
                     col = cs+j;
-                    A[row][col] = blocks[b][i][j]*x[j+cs];
+                    A[row][col] = blocks[b][i][j];
                 }
                 A[row][M-1] = denseCol[row];
             }
@@ -422,6 +415,13 @@ namespace PSEUDOBLOCKMATRIX
             A[N-1][j] = denseRow[j];
         }
         A[N-1][M-1] = denseCorner;
+        for(row=0;row<N;row++){
+                for(col=0;col<M;col++){
+                    cout << A[row][col] << "\t";
+                }
+                cout << "\tRHS" << rhs[row] << endl;
+
+        }
         for(row=0;row<N;row++){
             double Aiiinv = 1.0/A[row][row];
             for(row2=row+1;row2<N;row2++){
@@ -433,6 +433,13 @@ namespace PSEUDOBLOCKMATRIX
                 rhs[row2] -= srat*rhs[row];
             }
         }
+        for(row=0;row<N;row++){
+                for(col=0;col<M;col++){
+                    cout << A[row][col] << "\t";
+                }
+                cout << "\tRHS" << rhs[row] << endl;
+
+        }
         for(row=N-1;row>=0;row--){
             x[row] = rhs[row]/A[row][row];
             for(col=row+1;col<M;col++){
@@ -440,11 +447,11 @@ namespace PSEUDOBLOCKMATRIX
             }
         }
         res = checkRes(x,rhs);
-        cout << res << endl;
+        cout << res  << "RES" << endl;
         return res<1e-1;
     }
     // bool GaussElim( const double *rhs, double *x, PseudoBlockMatrix tmp );
-    bool PseudoBlockMatrix::GaussSeidel( const double *rhs, const double *x0, double resTol, double convTol, double *x )
+    bool PseudoBlockMatrix::GaussSeidel(double *rhs, const double *x0, double resTol, double convTol, double *x )
     {
         // Iterators
         int rs,cs,b,i,j,row,col,iter = 0,maxIter = 100;
