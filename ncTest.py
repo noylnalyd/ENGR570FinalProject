@@ -10,9 +10,9 @@ import os
 import sys
 
 #%% reading in arguments
-nProc = int(sys.argv[1])
-nSamples = int(sys.argv[2])
-nParam = int(sys.argv[3])
+nProc = 4
+nSamples = 8
+nParam = 4
 
 #%% defining constants
 aFile = "a.txt"
@@ -88,31 +88,31 @@ fC=pd.concat([fA,fB],ignore_index=True)
 plt.figure()
 cIn["TsrmIndoors (K)"].hist(bins=20)
 plt.title("Indoor Temperature Prior Samples")
-plt.ylabel("Temp (K)")
-plt.xlabel("Frequency")
+plt.xlabel("Temp (K)")
+plt.ylabel("Frequency")
 plt.figure()
 cIn["TsrmOutdoors (K)"].hist(bins=20)
 plt.title("Outdoor Temperature Prior Samples")
-plt.ylabel("Temp (K)")
-plt.xlabel("Frequency")
+plt.xlabel("Temp (K)")
+plt.ylabel("Frequency")
 plt.figure()
 cIn["TToRecovery (sec)"].hist(bins=20)
 plt.title("Ambulance Arrival Time Prior Samples")
-plt.ylabel("Time (s)")
-plt.xlabel("Frequency")
+plt.xlabel("Time (s)")
+plt.ylabel("Frequency")
 plt.figure()
 cIn["TMachine (K)"].hist(bins=20)
 plt.title("Temperature of Saline-Blood Mixture Prior Samples")
-plt.ylabel("Temp (K)")
-plt.xlabel("Frequency")
+plt.xlabel("Temp (K)")
+plt.ylabel("Frequency")
 
 #%% plotting output distribution given parameter uncertainty
 
 plt.figure()
 fC["Time to Stable Temp"].hist(bins=20)
 plt.title("Solver Outputs: Time to Stable Temperature")
-plt.ylabel("Time (s)")
-plt.xlabel("Frequency")
+plt.xlabel("Time (s)")
+plt.ylabel("Frequency")
 
 #%% Calculating stuff of interest
 
@@ -133,8 +133,8 @@ for i in range(nParam):
         num=num+(fA.loc[j]["Time to Stable Temp"]*fBA.loc[j]["Time to Stable Temp"] \
                  - fA.loc[j]["Time to Stable Temp"]*fB.loc[j]["Time to Stable Temp"])
         numT=numT+(fA.loc[j]["Time to Stable Temp"]-fAB.loc[j]["Time to Stable Temp"])**2
-    for j in range(2*nSamples):
-        denom=denom+(fC.loc[j]["Time to Stable Temp"]**2)
+    for j2 in range(2*nSamples):
+        denom=denom+(fC.loc[j2]["Time to Stable Temp"]**2)
     num=num/nSamples
     numT=numT/(2*nSamples)
     denom=denom/(2*nSamples)

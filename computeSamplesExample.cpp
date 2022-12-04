@@ -196,7 +196,7 @@ int main(int argc, char *argv[]){
     }
     for (int in=0; in<nrows; in++) {
         //mysim->runSim(A[in],outputs);
-        outputs[in]=std::sqrt(A[in][0]+A[in][1]+A[in][2]+A[in][3]); // fake function, for now
+        outputs[in]=(A[in][0]+A[in][1]+A[in][2]+A[in][3]); // fake function, for now
         fprintf(foutA, "%.17g\n", outputs[in]);
         std::cout << outputs[in] << ' ';
     }
@@ -214,14 +214,14 @@ int main(int argc, char *argv[]){
     }
     for (int in=0; in<nrows; in++) {
         //mysim->runSim(A[in],outputs);
-        outputs[in]=std::sqrt(B[in][0]+B[in][1]+B[in][2]+B[in][3]); // fake function, for now
+        outputs[in]=(B[in][0]+B[in][1]+B[in][2]+B[in][3]); // fake function, for now
         fprintf(foutB, "%.17g\n", outputs[in]);
         std::cout << outputs[in] << ' ';
     }
     fclose(foutB);
 
     for (int id=0; id<d; id++){
-        // writing out A_B tensor to correct directory
+        // writing out A_B outputs to correct directory
         std::ostringstream ossAB;
         ossAB << "pID" << pID << ".A_B_" << id << "_out.txt";
         std::string filenameAB = ossAB.str();
@@ -234,7 +234,7 @@ int main(int argc, char *argv[]){
             fprintf(foutAB, "");
             for (int in=0; in<nrows; in++) {
                 //mysim->runSim(A[in],outputs[in]]);
-                outputs[in]=std::sqrt(AB[in][0][id]+AB[in][1][id]+AB[in][2][id]+AB[in][3][id]); // fake function, for now
+                outputs[in]=(AB[in][0][id]+AB[in][1][id]+AB[in][2][id]+AB[in][3][id]); // fake function, for now
                 fprintf(foutAB, "%.17g\n", outputs[in]);
                 std::cout << outputs[in] << ' ';
             }
@@ -255,7 +255,7 @@ int main(int argc, char *argv[]){
             fprintf(foutBA, "");
             for (int in=0; in<nrows; in++) {
                 //mysim->runSim(A[in],outputs[in]]);
-                outputs[in]=std::sqrt(BA[in][0][id]+BA[in][1][id]+BA[in][2][id]+BA[in][3][id]); // fake function, for now
+                outputs[in]=(BA[in][0][id]+BA[in][1][id]+BA[in][2][id]+BA[in][3][id]); // fake function, for now
                 fprintf(foutBA, "%.17g\n", outputs[in]);
                 std::cout << outputs[in] << ' ';
             }
