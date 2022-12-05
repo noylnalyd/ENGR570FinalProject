@@ -24,7 +24,7 @@ int main(int argc, char *argv[]){
     static const int d=4;
 
     // distribution constants for UQ parameters
-    /*
+    
     static const double meanTsrmIndoors  = 1;
     static const double stdTsrmIndoors   = 1;
     static const double meanTsrmOutdoors = 3;
@@ -32,15 +32,15 @@ int main(int argc, char *argv[]){
     static const double meanTToRecovery  = 5;
     static const double stdTToRecovery   = 2;
     static const double meanTMachine     = 7;
-    static const double stdTMachine      = 2.5;*/
-    static const double meanTsrmIndoors  = 1;
+    static const double stdTMachine      = 2.5;
+/*    static const double meanTsrmIndoors  = 1;
     static const double stdTsrmIndoors   = 1;
     static const double meanTsrmOutdoors = 1;
     static const double stdTsrmOutdoors  = 1;
     static const double meanTToRecovery  = 1;
     static const double stdTToRecovery   = 1;
     static const double meanTMachine     = 1;
-    static const double stdTMachine      = 1;
+    static const double stdTMachine      = 1;*/
 
     // creating first experiment matrix A
     double A[d][n];
