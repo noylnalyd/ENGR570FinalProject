@@ -262,8 +262,8 @@ namespace SIMMODEL
             InitialCase() : SimModel() {
                 thermovariant = 0;
                 transient = 0;
-                tFinal = 1.0;
-                dt = 1.0;
+                tFinal = 0.1;
+                dt = 0.1;
             };
 
     };
@@ -273,8 +273,8 @@ namespace SIMMODEL
             SteadyCase() : SimModel() {
                 thermovariant = 1;
                 transient = 0;
-                tFinal = 5.0;
-                dt = 1.0;
+                tFinal = 0.05;
+                dt = .05;
             };
     };
     class TransientCase : public SimModel
@@ -283,8 +283,8 @@ namespace SIMMODEL
             TransientCase() : SimModel() {
                 thermovariant = 1;
                 transient = 1;
-                tFinal = 200.0;
-                dt = 1.0;
+                tFinal = 20.0;
+                dt = .05;
             };
     };
     class InjuryCase : public SimModel
