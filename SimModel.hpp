@@ -35,7 +35,7 @@ namespace SIMMODEL
         int modelCase; // Number of case (if automating)
         double thermovariant; // 0 for thermoneutral, 1 for variant
         double transient; // 0 for steady, 1 for transient
-        double Q10 = 3; // Q10 constant. Often 2, sometimes 3
+        double Q10 = 2; // Q10 constant. Often 2, sometimes 3
         const double KonstasBeta = 0.08401; // K^-1
         const double KonstasGamma =  2.245; // -
         const double KonstasAlpha = 2.961; // -
@@ -160,18 +160,33 @@ namespace SIMMODEL
         int idx=0;
         for(int elemIdx=0;elemIdx<body->nElements;elemIdx++){
             element = body->elements[elemIdx];
-            idx++;
             washer = element->washers[element->nWashers-1];
             for(int sectIdx=0;sectIdx<element->nSectors;sectIdx++){
-                idx+=element->nWashers-2;
+                idx+=element->nWashers-1;
                 sector = element->sectors[sectIdx];
                 
                 double qsk = skinHeat(body,element,sector,elemIdx,sectIdx,Sw,(T[idx]),T0[idx],element->n_j,sector->psiStnd);
-                // Westin eqn 64
-                Tpp[idx] = qsk*(washer->r+washer->deltaR/2.0)/washer->k
-                        *log((washer->r+washer->deltaR)/washer->r)
-                        +T[idx];
+                assert(!isnan(abs(qsk)));
+                // Fiala eqn A6
+                if(element->isCylinder){
+                    Tpp[idx] = T[idx]-
+                            qsk*(washer->r+washer->deltaR/2.0)/washer->k
+                            *log((washer->r+washer->deltaR)/washer->r)
+                            ;
+                    assert(!isnan(abs(Tpp[idx])));
+                }
+                // Fiala eqn A9
+                else{
+                    Tpp[idx] = T[idx]-
+                            qsk*(
+                                (washer->r+washer->deltaR/2.0)*(washer->r+washer->deltaR/2.0)*
+                                (1/washer->r-1/(washer->r+washer->deltaR)))/
+                                washer->k;
+                            ;
+                    assert(!isnan(abs(Tpp[idx])));
+                }
             }
+            idx++;
         }
     }
     void SimModel::BVRSVR( double *bvr, double *svr, double time )
@@ -236,19 +251,18 @@ namespace SIMMODEL
         qsR = alphaSrm*psiActual*s;
         
 
-        double Tweight = (hcmix*TairC + hR*(TsrmC) + qsR)/(hcmix + hR);
+        double Tweight = (hcmix*TairAbs + hR*(TsrmAbs) + qsR)/(hcmix + hR);
         double Posksat = 100.0*exp(18.956-4030.0/(TsfC+235));
         
         double Ue = body->LewisConstant/(
             njActual*body->Icl/body->icl
             +1/(f*hcmix)
         );
-        double dsweat = elem->a_sw*sect->areaShare*Sw*pow(2,(TsfAssumed-Tsf0)/Q10) * 1e-3/60;
+        double dsweat = elem->a_sw*sect->areaShare*Sw*pow(2,(TsfAssumed-Tsf0)*transient/Q10) * 1e-3/60;
         double Psk = (body->LambdaH20*dsweat + Posksat*body->Rinverse + Ue*Pair)/
                 (Ue + body->Rinverse);
-        
-        double ans = U*(TsfC-Tweight) + Ue*(Psk-Pair);
-        assert(ans!=NAN);
+        double ans = U*(TsfAbs-Tweight) + Ue*(Psk-Pair);
+        assert(!isnan(abs(ans)));
         return ans;
     }
 
@@ -262,8 +276,8 @@ namespace SIMMODEL
             InitialCase() : SimModel() {
                 thermovariant = 0;
                 transient = 0;
-                tFinal = 0.1;
-                dt = 0.1;
+                tFinal = 1;
+                dt = 1;
             };
 
     };
@@ -273,8 +287,8 @@ namespace SIMMODEL
             SteadyCase() : SimModel() {
                 thermovariant = 1;
                 transient = 0;
-                tFinal = 0.05;
-                dt = .05;
+                tFinal = 1;
+                dt = 1;
             };
     };
     class TransientCase : public SimModel
@@ -283,8 +297,8 @@ namespace SIMMODEL
             TransientCase() : SimModel() {
                 thermovariant = 1;
                 transient = 1;
-                tFinal = 20.0;
-                dt = .05;
+                tFinal = 2.0;
+                dt = .1;
             };
     };
     class InjuryCase : public SimModel
@@ -322,7 +336,7 @@ namespace SIMMODEL
             KonstasCase() : SimModel() {
                 thermovariant = 1;
                 transient = 1;
-                tFinal = 1.0;
+                tFinal = 3600.0;
                 dt = 1.0;
             };
             void rhocp(

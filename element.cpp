@@ -119,7 +119,7 @@ namespace ELEMENT{
         double Lnxt = nxt->k/log(nxt->r/(nxt->r-nxt->deltaR));
         double D = log(rIFC/cur->r)/log((cur->r+cur->deltaR)/cur->r);
         double Ds = log(rIFC/(cur->r+cur->deltaR))/log((cur->r+cur->deltaR)/cur->r);
-        double Dnxt = log(rIFC/nxt->r)/log(nxt->r/(nxt->r+nxt->deltaR));
+        double Dnxt = log(rIFC/nxt->r)/log(nxt->r/(nxt->r-nxt->deltaR));
 
         cur->AForwardCur = (Ds*Lnxt-Dnxt*L)/(D*Lnxt-Dnxt*L);
         cur->AForwardNxt = Lnxt/(D*Lnxt-Dnxt*L);
@@ -132,7 +132,7 @@ namespace ELEMENT{
         double Lnxt = cur->k/log((cur->r+cur->deltaR)/((cur->r+cur->deltaR)-cur->deltaR));
         double D = log(rIFC/cur->r)/log((cur->r+cur->deltaR)/cur->r);
         double Ds = log(rIFC/(cur->r+cur->deltaR))/log((cur->r+cur->deltaR)/cur->r);
-        double Dnxt = log(rIFC/(cur->r+cur->deltaR))/log((cur->r+cur->deltaR)/((cur->r+cur->deltaR)+cur->deltaR));
+        double Dnxt = log(rIFC/(cur->r+cur->deltaR))/log((cur->r+cur->deltaR)/((cur->r+cur->deltaR)-cur->deltaR));
         cur->AForwardCur = (Ds*Lnxt-Dnxt*L)/(D*Lnxt-Dnxt*L);
         cur->AForwardNxt = Lnxt/(D*Lnxt-Dnxt*L);
         assert(!isnan(cur->AForwardCur));
@@ -194,7 +194,7 @@ namespace ELEMENT{
         double L = cur->k/(1/(cur->r-cur->deltaR)-1/cur->r);
         double Lprv = prv->k/(1/prv->r-1/(prv->r+prv->deltaR));
 
-        cur->ABackwardCur = (L-Lprv*(cur->r/(prv->r+prv->deltaR)))/(L+Lprv*((cur->r-cur->deltaR)/prv->r+prv->deltaR));
+        cur->ABackwardCur = (L-Lprv*(cur->r/(prv->r+prv->deltaR)))/(L+Lprv*((cur->r-cur->deltaR)/(prv->r+prv->deltaR)));
         cur->ABackwardPrv = (Lprv*(1+prv->r/(prv->r+prv->deltaR)))/(L+Lprv*((cur->r-cur->deltaR)/(prv->r+prv->deltaR)));
         assert(!isnan(cur->ABackwardCur));
         assert(!isnan(cur->ABackwardPrv));

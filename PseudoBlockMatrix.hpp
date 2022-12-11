@@ -28,6 +28,8 @@ namespace PSEUDOBLOCKMATRIX
         int Nblocks; // Number of blocks
 
         void Print();
+        void PrintRow( int row );
+        double SumRow( int row );
         void allocate(int tNblocks, int* tblockN, int* tblockM);
         double getOverBlocks( int i, int j );
         double getFromBlock( int b, int i, int j );
@@ -50,6 +52,7 @@ namespace PSEUDOBLOCKMATRIX
         // bool GaussElim( const double *rhs, double *x, PseudoBlockMatrix tmp );
         bool directsolve( const double *rhs, double *x);
         bool GaussSeidel( double *rhs, const double *x0, double resTol, double convTol, double *x );
+        bool denseGaussSeidel( double *rhs, const double *x0, double resTol, double convTol, double *x );
 
         PseudoBlockMatrix()
         {
@@ -76,6 +79,9 @@ namespace PSEUDOBLOCKMATRIX
             for(int b=0;b<Nblocks;b++){
                 delete [] blocks[b];
             }
+            for(int i=0;i<N;i++)
+                delete [] A[i];
+            delete [] A;
             delete [] blocks;
 
             delete [] denseRow;
@@ -177,7 +183,7 @@ namespace PSEUDOBLOCKMATRIX
     {
         assert(i<N && i>=0 && j<M && j>=0);
         double tmp = getOverDense(i,j);
-        if(!isnan(tmp))
+        if(!isnan(abs(tmp)))
             return tmp;
         return getOverBlocks(i,j);
     }
@@ -195,7 +201,7 @@ namespace PSEUDOBLOCKMATRIX
     
     bool PseudoBlockMatrix::setOverDense( int i, int j, double val ){
         assert(i<N && i>=0 && j<M && j>=0);
-        assert(!isnan(val));
+        assert(!isnan(abs(val)));
         // Last row or corner!
         if(i==N-1){
             // Corner!
@@ -218,28 +224,28 @@ namespace PSEUDOBLOCKMATRIX
     bool PseudoBlockMatrix::set( int i , int j, double val )
     {
         assert(i<N && i>=0 && j<M && j>=0);
-        assert(!isnan(val));
+        assert(!isnan(abs(val)));
         if(setOverDense(i,j,val))
             return true;
         return setOverBlocks(i,j,val);
     }
     bool PseudoBlockMatrix::addOverBlocks( int i, int j, double val ){
         assert(i<N && i>=0 && j<M && j>=0);
-        assert(!isnan(val));
+        assert(!isnan(abs(val)));
         int tblock = blockPicker[i];
         return addFromBlock(tblock,i-rowStart[tblock],j-colStart[tblock],val);
     }
 
     bool PseudoBlockMatrix::addFromBlock( int b, int i, int j, double val ){
         assert(i<blockN[b] && j<blockM[b] && i>=0 && j>=0);
-        assert(!isnan(val));
+        assert(!isnan(abs(val)));
         blocks[b][i][j] += val;
         return true;
     }
     
     bool PseudoBlockMatrix::addOverDense( int i, int j, double val ){
         assert(i<N && i>=0 && j<M && j>=0);
-        assert(!isnan(val));
+        assert(!isnan(abs(val)));
         // Last row or corner!
         if(i==N-1){
             // Corner!
@@ -262,7 +268,7 @@ namespace PSEUDOBLOCKMATRIX
     bool PseudoBlockMatrix::add( int i , int j, double val )
     {
         assert(i<N && i>=0 && j<M && j>=0);
-        assert(!isnan(val));
+        assert(!isnan(abs(val)));
         if(addOverDense(i,j,val))
             return true;
         return addOverBlocks(i,j,val);
@@ -360,6 +366,38 @@ namespace PSEUDOBLOCKMATRIX
         cout << endl << "DenseCorner" << endl;
         cout << denseCorner << endl;
     }
+    void PseudoBlockMatrix::PrintRow(int row){
+        if(row != N-1){
+            int b = blockPicker[row];
+            row -= rowStart[b];
+            for(int j=0;j<blockM[b];j++){
+                cout << blocks[b][row][j] << " ";
+            }
+            cout << "\tlast col " << denseCol[rowStart[b]+row] << endl;
+        }else{
+            for(int j=0;j<M-1;j++){
+                cout << denseRow[j] << " ";
+            }
+            cout << denseCorner << endl;
+        }
+    }
+    double PseudoBlockMatrix::SumRow(int row){
+        double sum = 0;
+        if(row != N-1){
+            int b = blockPicker[row];
+            row -= rowStart[b];
+            for(int j=0;j<blockM[b];j++){
+                sum += blocks[b][row][j];
+            }
+            sum += denseCol[rowStart[b]+row];
+        }else{
+            for(int j=0;j<M-1;j++){
+                sum += denseRow[j];
+            }
+            sum += denseCorner;
+        }
+        return sum;
+    }
     void PseudoBlockMatrix::PBMVM( const double *x, double *B )
     {
         int rs,cs,b,i,j;
@@ -424,7 +462,7 @@ namespace PSEUDOBLOCKMATRIX
             norm += abs(denseRow[j]);
         }
         norms[N-1] = 0.9/norm;
-        assert(!isnan(norm));
+        assert(!isnan(abs(norm)));
 
         for(i=0;i<N;i++)
             for(j=0;j<M;j++)
@@ -477,13 +515,124 @@ namespace PSEUDOBLOCKMATRIX
         }
         res = checkRes(x,rhs);
         cout << res  << "RES" << endl;
-
-        for(i=0;i<N;i++)
-            delete [] A[i];
-        delete [] A;
+        assert(res<1e-1);
+        
         delete [] rhsv;
         delete [] norms;
         return res<1e-1;
+    }
+    bool PseudoBlockMatrix::denseGaussSeidel(double *rhs, const double *x0, double resTol, double convTol, double *x )
+    {
+        // Iterators
+        int rs,cs,b,i,j,row,row2,col;
+        // Tmp
+        double norm=NAN;
+        double *norms = new double[N] ,*rhsv = new double[N];
+        // Iterators
+        int iter = 0,maxIter = 100;
+        double tmpx=NAN,tmpAii=NAN,tmpres=NAN;
+
+        // Assert square!
+        assert(N==M);
+
+        // Assert GS conditions (no zero entries on diag).
+        //  No pivoting. Mostly bc permutation would slow computation and is not necessary for body model.
+        for(i=0;i<N;i++){
+            double tmp = get(i,i);
+            assert(tmp!=NAN);
+            assert(tmp!=0);
+        }
+        for(i=0;i<N;i++){
+            double tmp = rhs[i];
+            assert(tmp!=NAN);
+        }
+        // Precondition by norming values
+        for(b=0;b<Nblocks;b++){
+            rs = rowStart[b];
+            cs = colStart[b];
+            
+            for(i=0;i<blockN[b];i++){
+                row = rs+i;
+
+                norm = 0;
+                norm += abs(denseCol[row]);
+                // Subtract jth col * jth x
+                for(j=0;j<blockM[b];j++){
+                    norm += abs(blocks[b][i][j]);
+                }
+                norms[row] = .9/norm;
+            }
+        }
+        norm = abs(denseCorner);
+        for(j=0;j<M-1;j++){
+            norm += abs(denseRow[j]);
+        }
+        norms[N-1] = 0.9/norm;
+        assert(!isnan(abs(norm)));
+
+        for(i=0;i<N;i++)
+            for(j=0;j<M;j++)
+                A[i][j] = 0;
+
+        for(b=0;b<Nblocks;b++){
+            rs = rowStart[b];
+            cs = colStart[b];
+            
+            for(i=0;i<blockN[b];i++){
+                row = rs+i;
+                for(j=0;j<blockM[b];j++){
+                    col = cs+j;
+                    A[row][col] = norms[row]*blocks[b][i][j];
+                }
+                A[row][M-1] = norms[row]*denseCol[row];
+            }
+        }
+        for(j=0;j<M-1;j++){
+            A[N-1][j] = norms[N-1]*denseRow[j];
+        }
+        A[N-1][M-1] = norms[N-1]*denseCorner;
+        for(i=0;i<N;i++)
+            rhsv[i] = norms[i]*rhs[i];
+        
+        // Copy x0 to x
+        for(j=0;j<M;j++)
+            x[j] = x0[j];
+
+        // Residuals and convergences
+        double res = 2*resTol;
+        double conv = 2*convTol;
+        while(res>resTol && conv>convTol && iter<maxIter){
+            res = 0;
+            conv = 0;
+            ++iter;
+
+            // Iterate over block rows
+            for(row=0;row<M;row++){
+                // Temporary value of x
+                tmpx = 0;
+                // Add rhs
+                tmpx += rhsv[row];
+                for(col=0;col<M;col++){
+                    tmpx -= A[row][col]*x[col];
+                }
+                tmpx += A[row][row]*x[row];
+                tmpx /= A[row][row];
+                // compute conv
+                conv = max(conv,abs(x[row]-tmpx));
+                // Update x
+                x[row] = tmpx;
+            }
+
+            // Check residual
+            res = checkRes(x,rhs);
+            cout << res << endl;
+        }
+        assert(iter<maxIter-1);
+        cout << res  << "RES" << endl;
+
+        delete [] rhsv;
+        delete [] norms;
+        return iter<maxIter && res<resTol && conv<convTol;
     }
     // bool GaussElim( const double *rhs, double *x, PseudoBlockMatrix tmp );
     bool PseudoBlockMatrix::GaussSeidel(double *rhs, const double *x0, double resTol, double convTol, double *x )
@@ -604,8 +753,8 @@ namespace PSEUDOBLOCKMATRIX
 
             // Check residual
             res = checkRes(x,rhs);
-            cout << res << endl;
         }
+        cout << res  << "RES" << endl;
         assert(iter<maxIter-1);
         return iter<maxIter && res<resTol && conv<convTol;
     }

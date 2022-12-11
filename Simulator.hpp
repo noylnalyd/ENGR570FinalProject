@@ -259,7 +259,8 @@ namespace SIMULATOR
             // Linear projection
             double project( double cur, double prv );
             void projectBodyValues();
-            void projectNodeValues();
+            void projectTemperatures();
+            void projectTpp();
             
             // Matrix construction
             void buildSystem();
