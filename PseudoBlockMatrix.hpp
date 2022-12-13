@@ -514,7 +514,7 @@ namespace PSEUDOBLOCKMATRIX
             x[row] /= A[row][row];
         }
         res = checkRes(x,rhs);
-        cout << res  << "RES" << endl;
+        // cout << res  << "RES" << endl;
         assert(res<1e-1);
         
         delete [] rhsv;
@@ -625,10 +625,10 @@ namespace PSEUDOBLOCKMATRIX
 
             // Check residual
             res = checkRes(x,rhs);
-            cout << res << endl;
+            // cout << res << endl;
         }
         assert(iter<maxIter-1);
-        cout << res  << "RES" << endl;
+        // cout << res  << "RES" << endl;
 
         delete [] rhsv;
         delete [] norms;

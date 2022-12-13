@@ -100,7 +100,4 @@ int main(void){
     delete body;
     delete [] args;
     delete [] outs;
-
-
-    
 }

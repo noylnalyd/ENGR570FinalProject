@@ -28,7 +28,6 @@ namespace SIMULATOR
         delete [] q0;
         delete [] Tpp0;
         delete [] w0;
-        cout << "Destroyed?" << endl;
     }
     void Simulator::setBody(BODYMODEL::BodyModel* bodyPtr){
         assert(_state==initialized);
@@ -74,10 +73,7 @@ namespace SIMULATOR
         siInit->fillSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
         siInit->runSim();
         siInit->copyToSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
-        
-        for(int i=0;i<body->N-1;i++)
-            cout << T0[i] <<" " << siInit->Tpp[i] << " " << i << " "<< pbm->blockPicker[i] << endl;
-        
+
         // Now find the steady case
         SIMMODEL::SteadyCase* simSteady = new SIMMODEL::SteadyCase();
         simSteady->setUQs(args);
