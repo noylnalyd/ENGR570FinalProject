@@ -8,8 +8,8 @@ cFile="c.txt"
 partitionFile="p.txt"
 FILE=../$partitionFile
 
-g++ -o generateSamples.exe generateSamples.cpp -O3
-g++ -o computeSamples.exe computeSamples.cpp -O3
+g++ -o generateSamples.exe generateSamples.cpp -O3 -std=c++11
+g++ -o computeSamples.exe computeSamples.cpp -O3 -std=c++11
 
 ./generateSamples.exe $nSamples $aFile $bFile $cFile $nProc $partitionFile
 rm -rf runs

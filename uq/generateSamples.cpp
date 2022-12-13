@@ -31,7 +31,7 @@ int main(int argc, char *argv[]){
     static const double meanTToRecovery  = 5.6;
     static const double stdTToRecovery   = 0.4;
     static const double meanTMachine     = 5+273.15;
-    static const double stdTMachine      = 1.5;
+    static const double stdTMachine      = 0.5;
 
     // creating first experiment matrix A
     double A[d][n];
