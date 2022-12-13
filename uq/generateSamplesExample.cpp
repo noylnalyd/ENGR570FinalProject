@@ -23,8 +23,8 @@ int main(int argc, char *argv[]){
     // number of uncertain parameters (dimension of parameter space)
     static const int d=4;
 
-    // distribution constants for UQ parameters
-    
+    // distribution constants for UQ parameters  
+    // lines below test case of analytically known indices
     static const double meanTsrmIndoors  = 1;
     static const double stdTsrmIndoors   = 1;
     static const double meanTsrmOutdoors = 3;
@@ -33,6 +33,7 @@ int main(int argc, char *argv[]){
     static const double stdTToRecovery   = 2;
     static const double meanTMachine     = 7;
     static const double stdTMachine      = 2.5;
+    // uncomment the lines before for equal indices:
 /*    static const double meanTsrmIndoors  = 1;
     static const double stdTsrmIndoors   = 1;
     static const double meanTsrmOutdoors = 1;
@@ -116,7 +117,7 @@ int main(int argc, char *argv[]){
         fprintf(fout,"%.17g\n",B[3][in]);
     }
 
-    // partitioning samples
+    // partitioning samples and writing to partition file
     int nPerProc = n/nCores;
     int remainder = n % nCores;
     fout = fopen(fileoutP,"w");

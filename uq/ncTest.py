@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# Test file that tests example outputs
+# (used for verification testing)
 
 #%% Importing modules
 import numpy as np
@@ -8,7 +10,6 @@ import matplotlib.pyplot as plt
 import scipy as sp
 import os
 import sys
-#plt.rcParams['text.usetex'] = True
 
 #%% reading in arguments
 nProc = 4
@@ -88,40 +89,28 @@ fC=pd.concat([fA,fB],ignore_index=True)
 #%% optionally plotting input spaces
 plt.figure()
 cIn["TsrmIndoors (K)"].hist(bins=20)
-#plt.title("Indoor Temperature Prior Samples")
-#plt.xlabel("Temp (K)")
 plt.xlabel('x_{1}')
 plt.ylabel("Frequency")
 plt.figure()
 cIn["TsrmOutdoors (K)"].hist(bins=20)
-#plt.title("Outdoor Temperature Prior Samples")
-#plt.xlabel("Temp (K)")
 plt.xlabel('x_{2}')
 plt.ylabel("Frequency")
 plt.figure()
 cIn["TToRecovery (sec)"].hist(bins=20)
-#plt.title("Ambulance Arrival Time Prior Samples")
-#plt.xlabel("Time (s)")
 plt.xlabel('x_{3}')
 plt.ylabel("Frequency")
 plt.figure()
 cIn["TMachine (K)"].hist(bins=20)
-#plt.title("Temperature of Saline-Blood Mixture Prior Samples")
-#plt.xlabel("Temp (K)")
 plt.xlabel('x_{4}')
 plt.ylabel("Frequency")
 
 #%% plotting output distribution given parameter uncertainty
-
 plt.figure()
 fC["Time to Stable Temp"].hist(bins=20)
-#plt.title("Solver Outputs: Time to Stable Temperature")
-#plt.xlabel("Time (s)")
 plt.xlabel("f(x)")
 plt.ylabel("Frequency")
 
-#%% Calculating stuff of interest
-
+#%% Calculating indices
 meanC = fC["Time to Stable Temp"].mean()
 sT=np.zeros((nParam,))
 s=np.zeros((nParam,))
