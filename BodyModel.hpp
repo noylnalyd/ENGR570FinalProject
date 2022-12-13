@@ -157,7 +157,6 @@ namespace BODYMODEL
     {
         return _state;
     }
-
 }
 
 #endif
