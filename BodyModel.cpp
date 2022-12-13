@@ -109,7 +109,7 @@ namespace BODYMODEL
         headBack->psiStnd = 0.90; // -, standard view factor
         headBack->echelon = 0.80; // -, emission coefficient
         head->addSector(headBack);
-
+        
         // Make sure totally filled!
         assert(head->getState()==ELEMENT::wsAdded);
         return head;
@@ -173,7 +173,7 @@ namespace BODYMODEL
             850, // kg/m^3, density
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
-            588, // W/m^3, specific basal metabolism
+            58, // W/m^3, specific basal metabolism
             0, // not muscle
             0); // not respiratory
         face->addWashers(
@@ -837,7 +837,7 @@ namespace BODYMODEL
             0.0250,  // m, outer radius
             0.42,   // W/m^2, conductivity
             1085, // kg/m^3, density
-            3768,   // J/kg/PosteriorK, specific heat capacity
+            3768,   // J/kg/K, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
             1, // muscle

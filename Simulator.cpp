@@ -28,6 +28,7 @@ namespace SIMULATOR
         delete [] q0;
         delete [] Tpp0;
         delete [] w0;
+        cout << "Destroyed?" << endl;
     }
     void Simulator::setBody(BODYMODEL::BodyModel* bodyPtr){
         assert(_state==initialized);
@@ -50,7 +51,7 @@ namespace SIMULATOR
     }
     void Simulator::findICs( double args[]){
         for(int i=0;i<body->N;i++){
-            T0[i] = 35+273.15; // K
+            T0[i] = 34.8+273.15; // K
             Tpp0[i] = NAN;// 30+273.15; // K
             q0[i] = NAN; // W/m^3
             w0[i] = NAN; // m^3/m^3
@@ -99,12 +100,12 @@ namespace SIMULATOR
         
 
         // // Free vars
-        // delete simInit;
-        // delete simSteady;
+        delete simInit;
+        delete simSteady;
         // delete simTransient;
         
-        // delete siInit;
-        // delete siSteady;
+        delete siInit;
+        delete siSteady;
         // delete siTransient;
     }
 
@@ -120,8 +121,9 @@ namespace SIMULATOR
         // Fill initial values
         si->fillSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
         // Run si
-        //si->runSim();
+        si->runSim();
         // Fill outputs
+        
         outs[0] = si->time;
         si->~SimulationInstance();
     }
@@ -424,7 +426,7 @@ namespace SIMULATOR
         for(elemIdx = 0; elemIdx < body->nElements; ++elemIdx){
             element = body->elements[elemIdx];
             rhocp(elemIdx);
-            tblp(elemIdx);
+            sim->tblp(TblP,TblPNxtRatio,body,elemIdx,T[body->N-1],Viv,DViv,FlowECMOBlood[elemIdx],FlowECMOSaline[elemIdx],time);
         }
     }
     void SimulationInstance::rhocp( int eleIdx ){
@@ -432,23 +434,11 @@ namespace SIMULATOR
         assert(!isnan(abs(Viv)));
         assert(!isnan(abs(FlowECMOBlood[eleIdx])));
         assert(!isnan(abs(FlowECMOSaline[eleIdx])));
-        sim->rhocp(Rho,Cp,body,eleIdx,Viv,DViv,FlowECMOBlood[eleIdx],FlowECMOSaline[idx]);
-        sim->rhocp(RhoNxt,CpNxt,body,eleIdx,VivNxt,DVivNxt,FlowECMOBloodNxt[eleIdx],FlowECMOSalineNxt[idx]);
+        sim->rhocp(Rho,Cp,body,eleIdx,Viv,DViv,FlowECMOBlood[eleIdx],FlowECMOSaline[idx],time);
+        sim->rhocp(RhoNxt,CpNxt,body,eleIdx,VivNxt,DVivNxt,FlowECMOBloodNxt[eleIdx],FlowECMOSalineNxt[idx],time);
         assert(!isnan(abs(Rho[eleIdx])));
         assert(!isnan(abs(RhoNxt[eleIdx])));
     }
-
-    void SimulationInstance::tblp( int eleIdx ){
-        TblP[eleIdx] = T[body->N-1];
-        /*
-        TblP[eleIdx] = (sim->salineRho*sim->salineCp*(DViv/(Viv+DViv)*FlowECMOBlood[eleIdx]*T[body->N-1]+FlowECMOSaline[eleIdx]*sim->TECMO)+
-            body->rhoBlood*body->cpBlood*(Viv/(Viv+DViv)*FlowECMOBlood[eleIdx]*T[body->N-1]))/
-            (sim->salineRho*sim->salineCp*(DViv/(Viv+DViv)*FlowECMOBlood[eleIdx]+FlowECMOSaline[eleIdx])+
-            body->rhoBlood*body->cpBlood*(Viv/(Viv+DViv)*FlowECMOBlood[eleIdx]));
-        */
-        TblPNxtRatio[eleIdx] = TblP[eleIdx]/T[body->N-1];
-    }
-
 
     void SimulationInstance::nodeValues(){
         for(idx=0;idx<body->N;idx++){
@@ -463,7 +453,7 @@ namespace SIMULATOR
         qwbeta(q,w,beta,Cp,Rho,T);
 
         // Future terms
-        if(sim->thermovariant > 0 && sim->transient > 0 && 0){
+        if(sim->thermovariant > 0 && sim->transient > 0 && 1){
             qwbeta(qNxt,wNxt,betaNxt,CpNxt,RhoNxt,TNxt);
             sim->skinBC(TppNxt,body,TNxt,T0,Sw,timeNxt);
         }
@@ -504,7 +494,7 @@ namespace SIMULATOR
                     
                     BV[elemIdx] += beta[idx]*body->V[idx];
                     BVNxt[elemIdx] += betaNxt[idx]*body->V[idx];
-                    BVT[elemIdx] += BV[elemIdx]*T[idx];
+                    BVT[elemIdx] += beta[idx]*body->V[idx]*T[idx];
                     assert(!isnan(abs(body->V[idx])));
                     assert(!isnan(abs(beta[idx])));
                     assert(!isnan(abs(betaNxt[idx])));
@@ -514,7 +504,7 @@ namespace SIMULATOR
             // Derived values
             //  See Westin eqn 21
             BPRBPCfactor[elemIdx] = BV[elemIdx]/(element->hx+BV[elemIdx]); // -
-            BPRBPCfactorNxt[elemIdx] = BVNxt[elemIdx]/(element->hx+BVNxt[elemIdx])*TblPNxtRatio[elemIdx]; // -
+            BPRBPCfactorNxt[elemIdx] = BVNxt[elemIdx]/(element->hx+BVNxt[elemIdx]); // -
 
             TblAoverlayFactor[elemIdx] = element->hx/BV[elemIdx] / (element->hx + BV[elemIdx]); // -
             TblAoverlayFactorNxt[elemIdx] = element->hx/BVNxt[elemIdx] / (element->hx + BVNxt[elemIdx]); // -
@@ -531,7 +521,7 @@ namespace SIMULATOR
         CplC = 0;
         for(elemIdx = 0; elemIdx < body->nElements; ++elemIdx){
             element = body->elements[elemIdx];
-            CplC += -(BVNxt[elemIdx]*BVNxt[elemIdx])/(element->hx+BVNxt[elemIdx])*TblPNxtRatio[elemIdx];
+            CplC += -(BVNxt[elemIdx]*BVNxt[elemIdx])/(element->hx+BVNxt[elemIdx])/TblPNxtRatio[elemIdx];
         }
     }
 
@@ -548,7 +538,7 @@ namespace SIMULATOR
             qW = 0;
             qSh = 0;
             qResp = 0;
-            if(element->Vmuscle > 0){
+            if(element->Vmuscle > 0 && washer->muscle > 0){
                 qW = element->a_sed*H/element->Vmuscle;
                 qSh = element->a_sh*Sh/element->Vmuscle*sim->thermovariant*sim->transient;
             }
@@ -562,6 +552,7 @@ namespace SIMULATOR
                     *rhos[elemIdx]/body->rhoBlood
                     *cps[elemIdx]/body->cpBlood;
             ws[idx] *= washer->w_bl;
+            
             assert(!isnan(abs(betas[idx])));
             idx++;
             
@@ -570,16 +561,18 @@ namespace SIMULATOR
                 sector = element->sectors[sectIdx];
                 for(washIdx = 1; washIdx < element->nWashers; ++washIdx){
                     washer = element->washers[washIdx];
+
                     qDm = deltaQMetabolic(washer->q_m,Ts[idx],T0[idx])*sim->thermovariant*sim->transient;
+                    
                     qW = 0;
                     qSh = 0;
                     qResp = 0;
-                    if(element->Vmuscle > 0){
+                    if(element->Vmuscle > 0 && washer->muscle > 0){
                         qW = element->a_sed*H/element->Vmuscle;
                         qSh = element->a_sh*Sh/element->Vmuscle*sim->thermovariant*sim->transient;
                     }
                     if(element->Vresp > 0){
-                        qResp = QResp*washer->a_resp/(body->V[idx]);
+                        qResp = QResp*washer->a_resp/washer->volume;
                     }
 
                     assert(!isnan(abs(qDm)));
@@ -588,10 +581,9 @@ namespace SIMULATOR
                     assert(!isnan(abs(qResp)));
                     qs[idx] = washer->q_m+qDm+qW+qSh+qResp;
                     ws[idx] = max(pow(sim->KonstasAlpha,sim->KonstasBeta*(Ts[idx]-T0[idx])*sim->thermovariant*sim->transient)*(1-sim->KonstasGamma*DeltaHCT),0.0);
-                    assert(!isnan(abs(ws[idx])));                    
+                    assert(!isnan(abs(ws[idx])));    
                     assert(!isnan(abs(rhos[elemIdx])));
                     assert(!isnan(abs(cps[elemIdx])));
-                    
                     betas[idx] = (washer->w_bl*body->rhoBlood*body->cpBlood+0.932*(qDm+qSh+qW))
                             *ws[idx]
                             *rhos[elemIdx]/body->rhoBlood
@@ -608,6 +600,7 @@ namespace SIMULATOR
                         assert(!isnan(abs(DViv)));
                         betas[idx] = min((386.9-.32*.932*H)*(Viv+DViv)/body->Viv0,betas[idx]);
                     }
+                    // cout<<idx<<" "<<(washer->w_bl*body->rhoBlood*body->cpBlood+0.932*(qDm+qSh+qW))<<" "<<ws[idx]<<" "<<qs[idx]<<endl;
                     assert(!isnan(abs(betas[idx])));
                     idx++;
                 }
@@ -632,12 +625,12 @@ namespace SIMULATOR
         DeltaHCT = (body->p*Vrbc*DViv)/(Viv*(Viv+body->p*DViv));
     }
     void SimulationInstance::flowECMOSaline(int elemIdx){
-        sim->ecmoSaline(&(FlowECMOSaline[elemIdx]), elemIdx, time);
-        sim->ecmoSaline(&(FlowECMOSalineNxt[elemIdx]), elemIdx, timeNxt);
+        sim->ecmoSaline(&(FlowECMOSaline[elemIdx]), body, elemIdx, Viv, bvr, time);
+        sim->ecmoSaline(&(FlowECMOSalineNxt[elemIdx]), body, elemIdx, Viv, bvr, timeNxt);
     }
     void SimulationInstance::flowECMOBlood(int elemIdx){
-        sim->ecmoBlood(&(FlowECMOBlood[elemIdx]), elemIdx, time);
-        sim->ecmoBlood(&(FlowECMOBloodNxt[elemIdx]), elemIdx, timeNxt);
+        sim->ecmoBlood(&(FlowECMOBlood[elemIdx]), body, elemIdx, Viv, time);
+        sim->ecmoBlood(&(FlowECMOBloodNxt[elemIdx]), body, elemIdx, VivNxt, timeNxt);
     }
     void SimulationInstance::ECMOtreatment(){
         for(elemIdx=0;elemIdx<body->nElements;elemIdx++){
@@ -703,9 +696,9 @@ namespace SIMULATOR
         assert(!isnan(abs(Dl)));
         Sw = (.8*tanh(.59*TskError-.19)+1.2)*TskError
             +(5.7*tanh(1.98*ThyError-1.03)+6.3)*ThyError; // g/min
-        Sh = min(350.0*(svr+bvr),max(0.0,Sh)); // W      
+        Sh = min(350.0*(svr+bvr),max(0.0,Sh)); // W
         Sw = min(30.0,max(Sw,0.0)); // g/min
-
+        sim->shiverDrugs(&Sh,time);
         assert(!isnan(abs(Dl)));
         assert(!isnan(abs(Cs)));
         assert(!isnan(abs(Sh)));
@@ -775,11 +768,11 @@ namespace SIMULATOR
             // Westin eqn 57 lhs term 3
             //      Westin eqns 69
             pbm->add(idx,body->N-1,
-                -washer->del*betaNxt[idx]*BPRBPCfactorNxt[elemIdx]
+                -washer->del*betaNxt[idx]*BPRBPCfactorNxt[elemIdx]*TblPNxtRatio[elemIdx]
             );
             //      Westin eqns 70
             pbm->add(body->N-1,idx,
-                betaNxt[idx]*body->V[idx]*BPRBPCfactorNxt[elemIdx]
+                betaNxt[idx]*body->V[idx]*BPRBPCfactorNxt[elemIdx]*TblPNxtRatio[elemIdx]
             );
 
             idx++;
@@ -845,7 +838,7 @@ namespace SIMULATOR
                     assert(!isnan(abs(washer->AForwardCur)));
                     pbm->add(idx,idx,
                         (washer->gamma-1)*washer->ABackwardCur
-                        +washer->zeta/sim->dt*sim->thermovariant*sim->transient
+                        + washer->zeta/sim->dt*sim->thermovariant*sim->transient
                         +2
                         +washer->del*betaNxt[idx]
                         -(1+washer->gamma)*washer->AForwardCur
@@ -872,11 +865,11 @@ namespace SIMULATOR
                     }
                     //      Westin eqns 69
                     pbm->add(idx,body->N-1,
-                        -washer->del*betaNxt[idx]*BPRBPCfactorNxt[elemIdx]
+                        -washer->del*betaNxt[idx]*BPRBPCfactorNxt[elemIdx]*TblPNxtRatio[elemIdx]
                     );
                     //      Westin eqns 70
                     pbm->add(body->N-1,idx,
-                        betaNxt[idx]*body->V[idx]*BPRBPCfactorNxt[elemIdx]
+                        betaNxt[idx]*body->V[idx]*BPRBPCfactorNxt[elemIdx]*TblPNxtRatio[elemIdx]
                     );
 
                     idx++;
@@ -892,8 +885,8 @@ namespace SIMULATOR
     }
 
     void SimulationInstance::solveSystem(){
-        //pbm->directsolve(rhs,TNxt);
-        pbm->GaussSeidel(rhs,T,1e-2,1e-2,TNxt);
+        // pbm->directsolve(rhs,TNxt);
+        pbm->GaussSeidel(rhs,T,1e-5,1e-5,TNxt);
     }
     void SimulationInstance::permuteTimestep(){
         // Initial values
@@ -991,8 +984,14 @@ namespace SIMULATOR
             time += sim->dt;
 
             // Occasional updates
-            if(true){
+            if(false){
                 cout << "ITER " << time << endl;
+                cout << "Thy "<< timestep <<" " << Thy << endl;
+                cout << "Tskcur "<< timestep <<" " << Tskm << endl;
+                cout << "M "<< timestep <<" " << M << endl;
+                cout << "Tskeg" << TskErrorGradient << endl;
+                cout << "Tair" << sim->Tair << endl;
+
                 int maxb = 0, maxwidx = 0;
                 double maxt = 0;
                 idx = 0;
@@ -1007,31 +1006,32 @@ namespace SIMULATOR
                     for(sectIdx=0;sectIdx<element->nSectors;sectIdx++){
                         sector = element->sectors[sectIdx];
                         for(washIdx=1;washIdx<element->nWashers;washIdx++){
+                            washer = element->washers[washIdx];
                             if(T[idx]>maxt){
                                 maxt=T[idx];
                                 maxb=elemIdx;
                                 maxwidx=washIdx;
                             }
+                            // cout << idx << "\tgamma"<< washer->AForwardNxt << "\tbeta" << beta[idx]<<"\tq" << q[idx]<< "\tqNxt" << qNxt[idx]  << "\tSrDelta" << pbm->SumRow(idx)*T[idx]/rhs[idx] <<"\tT0"<<T0[idx] << "Tpp" << Tpp[idx] <<endl;
                             idx++;
                         }
+                        
                     }
                 }
                 cout << "Max T: " << maxt <<" at " << maxb << " " << maxwidx << endl;
-                for(int i=0;i<body->N;++i){
-                    cout << i << "\tT"<<T[i] << "\tq" << q[i]<< "\tqNxt" << qNxt[i]  << "\tSrDelta" << pbm->SumRow(i)*T[i]/rhs[i] <<"\tT0"<<T0[i]<<endl;
-                }
-                if(timestep%10==0)
-                cout << timestep <<" " << Thy << endl;
+                
             }
 
             // End condition
             if(sim->endCondition(Thy))
                 break;
-
-            
-
         }
-
+        // cout << "TblA " << TblA[0] << endl;
+        // cout << "TblP " << TblP[0] << endl;
+        // for(int i=0;i<body->N;++i){
+        //     cout << i << "\tT"<<T[i] << "\trhs" << rhs[i]<<"\tq" << q[i]<< "\tw" << w[i]  << "\tbeta" << beta[i] <<"\tT0"<<T0[i] << "Tpp" << Tpp[i] <<endl;
+        // }
+        // pbm->Print();
     }
 }
 #endif

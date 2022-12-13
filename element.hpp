@@ -14,7 +14,7 @@ using namespace std;
 
 namespace ELEMENT
 {
-    enum ElementState { undefined, initialized, allocated, wsAdded, subcomputed, computed};
+    enum ElementState { undefined, initialized, allocated, wsAdded, computed};
 
     class Element
     {
@@ -55,7 +55,7 @@ namespace ELEMENT
         double a_sh; // Share of shivering
 
         // Precomputation methods
-        void subCompute( double* totalSkinArea );
+        virtual void subCompute( double* totalSkinArea ) = 0;
         void compute( double totalSkinArea );
         virtual void computeVolume( WASHER::Washer* cur ) = 0;
         virtual void computeAForward( WASHER::Washer* cur, WASHER::Washer* nxt) = 0;
@@ -118,6 +118,7 @@ namespace ELEMENT
             {
                 allocate(nWash,nSect);
             }
+            void subCompute( double* totalSkinArea );
             double handlearesp(double tresp, double ricur, double rocur, double ri, double ro) override;
             void computeVolume( WASHER::Washer* cur ) override;
             void computeAForward( WASHER::Washer* cur, WASHER::Washer* nxt) override;
@@ -136,6 +137,7 @@ namespace ELEMENT
             {
                 allocate(nWash,nSect);
             }
+            void subCompute( double* totalSkinArea );
             double handlearesp(double tresp, double ricur, double rocur, double ri, double ro) override;
             void computeVolume( WASHER::Washer* cur ) override;
             void computeAForward( WASHER::Washer* cur, WASHER::Washer* nxt) override;

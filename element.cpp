@@ -4,22 +4,9 @@
 #include "element.hpp"
 
 namespace ELEMENT{
-    void Element::subCompute( double* totalSkinArea ){
-        // Assert all w/s addded
-        assert(_state==wsAdded);
-        sumPhi = 0;
-        double rskin = washers[nWashers-1]->r+washers[nWashers-1]->deltaR/2.0;
-        double coeff = 4*M_PI*rskin*rskin/(2*M_PI);
-        for(int i=0;i<nSectors;i++){
-            sumPhi += sectors[i]->phi;
-            sectors[i]->areaSkin = coeff*sectors[i]->phi;
-            *totalSkinArea += sectors[i]->areaSkin;
-        }
-        _state = subcomputed;
-    };
+    
     void Element::compute( double totalSkinArea ){
         // Assert left DFS'd
-        assert(_state==subcomputed);
         // Compute skin share
         for(int i=0;i<nSectors;i++)
             sectors[i]->areaShare = sectors[i]->areaSkin/totalSkinArea;
@@ -109,12 +96,33 @@ namespace ELEMENT{
 
     void Element::computeGamma( WASHER::Washer* cur )
     {
-        cur->gamma = cur->deltaR/cur->r/omega;
+        cur->gamma = cur->deltaR/cur->r/2*omega;
     }
-
+    void CylinderElement::subCompute( double* totalSkinArea ){
+        // Assert all w/s addded
+        sumPhi = 0;
+        double rskin = washers[nWashers-1]->r+washers[nWashers-1]->deltaR/2.0;
+        double coeff = 2*M_PI*rskin*length/(2*M_PI);
+        for(int i=0;i<nSectors;i++){
+            sumPhi += sectors[i]->phi;
+            sectors[i]->areaSkin = coeff*sectors[i]->phi;
+            *totalSkinArea += sectors[i]->areaSkin;
+        }
+    };
+    void SphereElement::subCompute( double* totalSkinArea ){
+        // Assert all w/s addded
+        sumPhi = 0;
+        double rskin = washers[nWashers-1]->r+washers[nWashers-1]->deltaR/2.0;
+        double coeff = 4*M_PI*rskin*rskin/(2*M_PI);
+        for(int i=0;i<nSectors;i++){
+            sumPhi += sectors[i]->phi;
+            sectors[i]->areaSkin = coeff*sectors[i]->phi;
+            *totalSkinArea += sectors[i]->areaSkin;
+        }
+    };
     void CylinderElement::computeAForward( WASHER::Washer* cur, WASHER::Washer* nxt )
     {
-        double rIFC = cur->r+cur->deltaR/2;
+        double rIFC = (cur->r+nxt->r)/2.0;
         double L = cur->k/log((cur->r+cur->deltaR)/cur->r);
         double Lnxt = nxt->k/log(nxt->r/(nxt->r-nxt->deltaR));
         double D = log(rIFC/cur->r)/log((cur->r+cur->deltaR)/cur->r);
@@ -141,7 +149,7 @@ namespace ELEMENT{
     
     void CylinderElement::computeABackward( WASHER::Washer* cur, WASHER::Washer* prv )
     {
-        double rIFC = cur->r-cur->deltaR/2;
+        double rIFC = (cur->r+prv->r)/2.0;
         double L = cur->k/log((cur->r)/(cur->r-cur->deltaR));
         double Lprv = prv->k/log((prv->r+prv->deltaR)/prv->r);
         double D = log(rIFC/cur->r)/log(cur->r/(cur->r-cur->deltaR));

@@ -638,7 +638,7 @@ namespace PSEUDOBLOCKMATRIX
     bool PseudoBlockMatrix::GaussSeidel(double *rhs, const double *x0, double resTol, double convTol, double *x )
     {
         // Iterators
-        int rs,cs,b,i,j,row,col,iter = 0,maxIter = 100;
+        int rs,cs,b,i,j,row,col,iter = 0,maxIter = 500;
         // Tmp
         double tmpx=NAN,tmpAii=NAN,tmpres=NAN,norm=NAN;
 
@@ -754,7 +754,7 @@ namespace PSEUDOBLOCKMATRIX
             // Check residual
             res = checkRes(x,rhs);
         }
-        cout << res  << "RES" << endl;
+        // cout << res  << "RES" << endl;
         assert(iter<maxIter-1);
         return iter<maxIter && res<resTol && conv<convTol;
     }

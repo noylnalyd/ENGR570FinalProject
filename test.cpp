@@ -10,7 +10,7 @@ int main(void){
     args[0] = 20+273.15;
     args[1] = 20+273.15;
     args[2] = 300;
-    args[3] = 300;
+    args[3] = 7+273.15;
 
     double *outs = new double[1];
     
@@ -92,6 +92,7 @@ int main(void){
     simulator->initializer();
     simulator->runSim(args,outs);
     
+
     cout << outs[0] << endl;
     
     delete simulator;
@@ -99,5 +100,7 @@ int main(void){
     delete body;
     delete [] args;
     delete [] outs;
+
+
     
 }
