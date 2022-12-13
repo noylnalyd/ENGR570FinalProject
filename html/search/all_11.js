@@ -1,6 +1,30 @@
 var searchData=
 [
-  ['washer_74',['Washer',['../classWASHER_1_1Washer.html',1,'WASHER']]],
-  ['washeridx_75',['washerIdx',['../classELEMENT_1_1Element.html#a4f7c0b5841f2bca3c18b27908d47a483',1,'ELEMENT::Element']]],
-  ['washers_76',['washers',['../classELEMENT_1_1Element.html#a61c18ac85c50659ecc133ba0acc49784',1,'ELEMENT::Element']]]
+  ['simulation_20values_20at_20current_20time_145',['Simulation values at current time',['../group__current.html',1,'']]],
+  ['software_20improvements_20and_20sensitivity_20analysis_20for_20an_20fdm_20model_20of_20hypothermia_20during_20shock_26nbsp_3b​_146',['Software Improvements and Sensitivity Analysis for an FDM Model of Hypothermia During Shock&amp;nbsp;​',['../index.html',1,'']]],
+  ['sector_147',['Sector',['../classSECTOR_1_1Sector.html',1,'SECTOR']]],
+  ['sectoridx_148',['sectorIdx',['../classELEMENT_1_1Element.html#a5c472ae9909c94fb5ae86d8bb5029305',1,'ELEMENT::Element']]],
+  ['sectors_149',['sectors',['../classELEMENT_1_1Element.html#a41561d871e707383ce1cf772c1bfe8c7',1,'ELEMENT::Element']]],
+  ['setbody_150',['setBody',['../classSIMULATOR_1_1Simulator.html#a136a4d9c892173efefab1a3dc9f9433c',1,'SIMULATOR::Simulator']]],
+  ['setsim_151',['setSim',['../classSIMULATOR_1_1Simulator.html#a58b08b187c111afd7743b181239b6d71',1,'SIMULATOR::Simulator']]],
+  ['sh_152',['Sh',['../group__current.html#ga435a94bed4286b59686395c79172250c',1,'SIMULATOR::SimulationInstance']]],
+  ['sh0_153',['Sh0',['../group__Steadys.html#ga760f204775a2104523cc0bd6a9014e00',1,'SIMULATOR::SimulationInstance']]],
+  ['shnxt_154',['ShNxt',['../group__future.html#ga0bce83933eae474fe0e6aa45283c68f0',1,'SIMULATOR::SimulationInstance']]],
+  ['simmodel_155',['SimModel',['../classSIMMODEL_1_1SimModel.html',1,'SIMMODEL']]],
+  ['simulationinstance_156',['SimulationInstance',['../classSIMULATOR_1_1SimulationInstance.html',1,'SIMULATOR::SimulationInstance'],['../classSIMULATOR_1_1SimulationInstance.html#a115b2b61e8ffb0a14466ff5c9c87f776',1,'SIMULATOR::SimulationInstance::SimulationInstance()']]],
+  ['simulator_157',['Simulator',['../classSIMULATOR_1_1Simulator.html',1,'SIMULATOR::Simulator'],['../classSIMULATOR_1_1Simulator.html#a86e301dafa939b024bff03b00a75882b',1,'SIMULATOR::Simulator::Simulator()'],['../classSIMULATOR_1_1Simulator.html#a1fafaaf92290806c34ea7262db70ac9b',1,'SIMULATOR::Simulator::Simulator(BODYMODEL::BodyModel *bodyPtr, SIMMODEL::SimModel *simPtr)']]],
+  ['skinsurfacearea_158',['skinSurfaceArea',['../classBODYMODEL_1_1BodyModel.html#af3c1569d6db39f9e77e51fa4e4b6a31a',1,'BODYMODEL::BodyModel']]],
+  ['solvesystem_159',['solveSystem',['../classSIMULATOR_1_1SimulationInstance.html#a07ec1ef8fa6310acfb6441e2001f805b',1,'SIMULATOR::SimulationInstance']]],
+  ['sphereelement_160',['SphereElement',['../classELEMENT_1_1SphereElement.html',1,'ELEMENT::SphereElement'],['../classELEMENT_1_1SphereElement.html#a7aa90133985cbf171848b2945f3ef7bd',1,'ELEMENT::SphereElement::SphereElement()'],['../classELEMENT_1_1SphereElement.html#a5b5892b6918f83210f3102ac1822d178',1,'ELEMENT::SphereElement::SphereElement(int nWash, int nSect)']]],
+  ['staticpbm_161',['staticPBM',['../classBODYMODEL_1_1BodyModel.html#a0f182a893645337bc2236da6796412f5',1,'BODYMODEL::BodyModel']]],
+  ['steadycase_162',['SteadyCase',['../classSIMMODEL_1_1SteadyCase.html',1,'SIMMODEL']]],
+  ['steadys_163',['Steadys',['../group__Steadys.html',1,'']]],
+  ['stefanboltzmann_164',['StefanBoltzmann',['../classBODYMODEL_1_1BodyModel.html#a561c81b1ff51a1288daa0f4045dc1d80',1,'BODYMODEL::BodyModel']]],
+  ['subcompute_165',['subCompute',['../classELEMENT_1_1Element.html#a34d371a30797db4c9a598948151586f4',1,'ELEMENT::Element::subCompute()'],['../classELEMENT_1_1CylinderElement.html#a622898d6be7b058968bc435b8d93206a',1,'ELEMENT::CylinderElement::subCompute()'],['../classELEMENT_1_1SphereElement.html#afc42ca4e611f9ace1fb59e0c19536d18',1,'ELEMENT::SphereElement::subCompute()']]],
+  ['sumphi_166',['sumPhi',['../classELEMENT_1_1Element.html#a9e2784b2337773b478350811e520ce91',1,'ELEMENT::Element']]],
+  ['svr_167',['svr',['../group__current.html#ga2149a737a6997923ab0f375fbb89c367',1,'SIMULATOR::SimulationInstance']]],
+  ['svrnxt_168',['svrNxt',['../group__future.html#ga93e77aff5a8b1bad89d57d8c1cf36593',1,'SIMULATOR::SimulationInstance']]],
+  ['sw_169',['Sw',['../group__current.html#ga6a55ff72f9e1dd1cc4d5810a6c9de3ed',1,'SIMULATOR::SimulationInstance']]],
+  ['sw0_170',['Sw0',['../group__Steadys.html#gaad65a8a6ce263925140da569307efb39',1,'SIMULATOR::SimulationInstance']]],
+  ['swnxt_171',['SwNxt',['../group__future.html#ga5eeb7ad7d0be27a955c14c19931e7ff0',1,'SIMULATOR::SimulationInstance']]]
 ];

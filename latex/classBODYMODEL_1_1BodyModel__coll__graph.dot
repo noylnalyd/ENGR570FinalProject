@@ -9,7 +9,7 @@ digraph "BODYMODEL::BodyModel"
   Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" elements" ];
   Node3 [label="ELEMENT::Element",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classELEMENT_1_1Element.html",tooltip="Abstract class for a Fiala element."];
   Node4 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" washers" ];
-  Node4 [label="WASHER::Washer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classWASHER_1_1Washer.html",tooltip=" "];
+  Node4 [label="WASHER::Washer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classWASHER_1_1Washer.html",tooltip="Class for all washers."];
   Node5 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" sectors" ];
   Node5 [label="SECTOR::Sector",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSECTOR_1_1Sector.html",tooltip=" "];
 }

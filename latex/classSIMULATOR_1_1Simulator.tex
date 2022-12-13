@@ -1,26 +1,142 @@
 \hypertarget{classSIMULATOR_1_1Simulator}{}\doxysection{S\+I\+M\+U\+L\+A\+T\+OR\+::Simulator Class Reference}
 \label{classSIMULATOR_1_1Simulator}\index{SIMULATOR::Simulator@{SIMULATOR::Simulator}}
+
+
+\mbox{\hyperlink{classSIMULATOR_1_1Simulator}{Simulator}} factory class.  
+
+
+
+
+{\ttfamily \#include $<$Simulator.\+hpp$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{classSIMULATOR_1_1Simulator_a86e301dafa939b024bff03b00a75882b}\label{classSIMULATOR_1_1Simulator_a86e301dafa939b024bff03b00a75882b}} 
+\mbox{\hyperlink{classSIMULATOR_1_1Simulator_a86e301dafa939b024bff03b00a75882b}{Simulator}} ()
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classSIMULATOR_1_1Simulator}{Simulator}} object Creates a blank \mbox{\hyperlink{classSIMULATOR_1_1Simulator}{Simulator}} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSIMULATOR_1_1Simulator_a1fafaaf92290806c34ea7262db70ac9b}{Simulator}} (\mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$body\+Ptr, \mbox{\hyperlink{classSIMMODEL_1_1SimModel}{S\+I\+M\+M\+O\+D\+E\+L\+::\+Sim\+Model}} $\ast$sim\+Ptr)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classSIMULATOR_1_1Simulator}{Simulator}} object Creates an allocated \mbox{\hyperlink{classSIMULATOR_1_1Simulator}{Simulator}} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSIMULATOR_1_1Simulator_a976d29227d39a3f3b88f6c8dbe1dc9cc}{$\sim$\+Simulator}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \mbox{\hyperlink{classSIMULATOR_1_1Simulator}{Simulator}} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1Simulator_a136a4d9c892173efefab1a3dc9f9433c}{set\+Body}} (\mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$body\+Ptr)
+\begin{DoxyCompactList}\small\item\em Set the Body object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1Simulator_a58b08b187c111afd7743b181239b6d71}{set\+Sim}} (\mbox{\hyperlink{classSIMMODEL_1_1SimModel}{S\+I\+M\+M\+O\+D\+E\+L\+::\+Sim\+Model}} $\ast$sim\+Ptr)
+\begin{DoxyCompactList}\small\item\em Set the Sim object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1Simulator_a72160822f6e50405d314e723237fe3ad}{initializer}} ()
+\begin{DoxyCompactList}\small\item\em Allocates space, declares pre-\/initial values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1Simulator_a4b69d37c4fe566faf10c1ddc45bb1fbc}{find\+I\+Cs}} (double args\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Finds initial conditions for the current Sim\+Model. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1Simulator_a12b9ad0d1b2cfae027f329507c2f0324}{run\+Sim}} (double args\mbox{[}$\,$\mbox{]}, double outs\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Run the sim with given args and writes to given outs addresses Finds I\+Cs, begins sim, records until end condition, outputs an array of doubles. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classSIMULATOR_1_1Simulator}{Simulator}} factory class. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classSIMULATOR_1_1Simulator_a1fafaaf92290806c34ea7262db70ac9b}\label{classSIMULATOR_1_1Simulator_a1fafaaf92290806c34ea7262db70ac9b}} 
-{\bfseries Simulator} (\mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$body\+Ptr, \mbox{\hyperlink{classSIMMODEL_1_1SimModel}{S\+I\+M\+M\+O\+D\+E\+L\+::\+Sim\+Model}} $\ast$sim\+Ptr)
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1Simulator_a136a4d9c892173efefab1a3dc9f9433c}\label{classSIMULATOR_1_1Simulator_a136a4d9c892173efefab1a3dc9f9433c}} 
-void {\bfseries set\+Body} (\mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$body\+Ptr)
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1Simulator_a58b08b187c111afd7743b181239b6d71}\label{classSIMULATOR_1_1Simulator_a58b08b187c111afd7743b181239b6d71}} 
-void {\bfseries set\+Sim} (\mbox{\hyperlink{classSIMMODEL_1_1SimModel}{S\+I\+M\+M\+O\+D\+E\+L\+::\+Sim\+Model}} $\ast$sim\+Ptr)
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1Simulator_a72160822f6e50405d314e723237fe3ad}\label{classSIMULATOR_1_1Simulator_a72160822f6e50405d314e723237fe3ad}} 
-void {\bfseries initializer} ()
-\item 
+\index{SIMULATOR::Simulator@{SIMULATOR::Simulator}!Simulator@{Simulator}}
+\index{Simulator@{Simulator}!SIMULATOR::Simulator@{SIMULATOR::Simulator}}
+\doxysubsubsection{\texorpdfstring{Simulator()}{Simulator()}}
+{\footnotesize\ttfamily S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulator\+::\+Simulator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$}]{body\+Ptr,  }\item[{\mbox{\hyperlink{classSIMMODEL_1_1SimModel}{S\+I\+M\+M\+O\+D\+E\+L\+::\+Sim\+Model}} $\ast$}]{sim\+Ptr }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{classSIMULATOR_1_1Simulator}{Simulator}} object Creates an allocated \mbox{\hyperlink{classSIMULATOR_1_1Simulator}{Simulator}} object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em body\+Ptr} & Pointer to already-\/created body object. \\
+\hline
+\mbox{\texttt{ in}}  & {\em sim\+Ptr} & Pointer to already-\/created simmodel object \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSIMULATOR_1_1Simulator_a976d29227d39a3f3b88f6c8dbe1dc9cc}\label{classSIMULATOR_1_1Simulator_a976d29227d39a3f3b88f6c8dbe1dc9cc}} 
+\index{SIMULATOR::Simulator@{SIMULATOR::Simulator}!````~Simulator@{$\sim$Simulator}}
+\index{````~Simulator@{$\sim$Simulator}!SIMULATOR::Simulator@{SIMULATOR::Simulator}}
+\doxysubsubsection{\texorpdfstring{$\sim$Simulator()}{~Simulator()}}
+{\footnotesize\ttfamily S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulator\+::$\sim$\+Simulator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destroy the \mbox{\hyperlink{classSIMULATOR_1_1Simulator}{Simulator}} object. 
+
+
+
+\doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classSIMULATOR_1_1Simulator_a4b69d37c4fe566faf10c1ddc45bb1fbc}\label{classSIMULATOR_1_1Simulator_a4b69d37c4fe566faf10c1ddc45bb1fbc}} 
-void {\bfseries find\+I\+Cs} (double args\mbox{[}$\,$\mbox{]})
-\item 
+\index{SIMULATOR::Simulator@{SIMULATOR::Simulator}!findICs@{findICs}}
+\index{findICs@{findICs}!SIMULATOR::Simulator@{SIMULATOR::Simulator}}
+\doxysubsubsection{\texorpdfstring{findICs()}{findICs()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulator\+::find\+I\+Cs (\begin{DoxyParamCaption}\item[{double}]{args\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Finds initial conditions for the current Sim\+Model. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em args} & List of current uncertainty quantification values \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSIMULATOR_1_1Simulator_a72160822f6e50405d314e723237fe3ad}\label{classSIMULATOR_1_1Simulator_a72160822f6e50405d314e723237fe3ad}} 
+\index{SIMULATOR::Simulator@{SIMULATOR::Simulator}!initializer@{initializer}}
+\index{initializer@{initializer}!SIMULATOR::Simulator@{SIMULATOR::Simulator}}
+\doxysubsubsection{\texorpdfstring{initializer()}{initializer()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulator\+::initializer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Allocates space, declares pre-\/initial values. 
+
 \mbox{\Hypertarget{classSIMULATOR_1_1Simulator_a12b9ad0d1b2cfae027f329507c2f0324}\label{classSIMULATOR_1_1Simulator_a12b9ad0d1b2cfae027f329507c2f0324}} 
-void {\bfseries run\+Sim} (double args\mbox{[}$\,$\mbox{]}, double outs\mbox{[}$\,$\mbox{]})
-\end{DoxyCompactItemize}
+\index{SIMULATOR::Simulator@{SIMULATOR::Simulator}!runSim@{runSim}}
+\index{runSim@{runSim}!SIMULATOR::Simulator@{SIMULATOR::Simulator}}
+\doxysubsubsection{\texorpdfstring{runSim()}{runSim()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulator\+::run\+Sim (\begin{DoxyParamCaption}\item[{double}]{args\mbox{[}$\,$\mbox{]},  }\item[{double}]{outs\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Run the sim with given args and writes to given outs addresses Finds I\+Cs, begins sim, records until end condition, outputs an array of doubles. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em args} & Uncertainty Quantification values \\
+\hline
+\mbox{\texttt{ out}}  & {\em outs} & Addresses of output parameters to fill \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSIMULATOR_1_1Simulator_a136a4d9c892173efefab1a3dc9f9433c}\label{classSIMULATOR_1_1Simulator_a136a4d9c892173efefab1a3dc9f9433c}} 
+\index{SIMULATOR::Simulator@{SIMULATOR::Simulator}!setBody@{setBody}}
+\index{setBody@{setBody}!SIMULATOR::Simulator@{SIMULATOR::Simulator}}
+\doxysubsubsection{\texorpdfstring{setBody()}{setBody()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulator\+::set\+Body (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$}]{body\+Ptr }\end{DoxyParamCaption})}
+
+
+
+Set the Body object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em body\+Ptr} & Ptr to bodymodel to copy. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSIMULATOR_1_1Simulator_a58b08b187c111afd7743b181239b6d71}\label{classSIMULATOR_1_1Simulator_a58b08b187c111afd7743b181239b6d71}} 
+\index{SIMULATOR::Simulator@{SIMULATOR::Simulator}!setSim@{setSim}}
+\index{setSim@{setSim}!SIMULATOR::Simulator@{SIMULATOR::Simulator}}
+\doxysubsubsection{\texorpdfstring{setSim()}{setSim()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulator\+::set\+Sim (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classSIMMODEL_1_1SimModel}{S\+I\+M\+M\+O\+D\+E\+L\+::\+Sim\+Model}} $\ast$}]{sim\+Ptr }\end{DoxyParamCaption})}
+
+
+
+Set the Sim object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sim\+Ptr} & Ptr to simmodel to copy \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

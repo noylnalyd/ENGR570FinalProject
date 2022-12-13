@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['icl_35',['icl',['../classBODYMODEL_1_1BodyModel.html#af81ff221c91c653a2d0083df27c11dd4',1,'BODYMODEL::BodyModel::icl()'],['../classBODYMODEL_1_1BodyModel.html#aaf8fd39e416605853dba2996cb321022',1,'BODYMODEL::BodyModel::Icl()']]],
-  ['initialcase_36',['InitialCase',['../classSIMMODEL_1_1InitialCase.html',1,'SIMMODEL']]],
-  ['injurycase_37',['InjuryCase',['../classSIMMODEL_1_1InjuryCase.html',1,'SIMMODEL']]],
-  ['iscylinder_38',['isCylinder',['../classELEMENT_1_1Element.html#a0475ab7a315fef50c71fb80dcc4dfcdd',1,'ELEMENT::Element']]]
+  ['gamma_90',['gamma',['../classWASHER_1_1Washer.html#ad23f268a1e44dac849ee57b59345d322',1,'WASHER::Washer']]],
+  ['getstate_91',['getState',['../classBODYMODEL_1_1BodyModel.html#ae5faa0cef161a7cd438618001b006944',1,'BODYMODEL::BodyModel::getState()'],['../classELEMENT_1_1Element.html#a02a422928ac89be37c87a7671f802aa6',1,'ELEMENT::Element::getState()']]],
+  ['ghoststart_92',['ghostStart',['../classSIMULATOR_1_1SimulationInstance.html#a75cc58fd5d67b83b26686fed4d975b35',1,'SIMULATOR::SimulationInstance']]]
 ];

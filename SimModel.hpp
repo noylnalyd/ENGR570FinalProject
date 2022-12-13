@@ -11,8 +11,6 @@ using namespace std;
 namespace SIMMODEL
 {
     enum SimModelState { undefined, initialized, allValuesAssigned};
-
-
     class SimModel
     {
     private:

@@ -1,0 +1,64 @@
+\hypertarget{group__future}{}\doxysection{Future timestep values}
+\label{group__future}\index{Future timestep values@{Future timestep values}}
+
+
+Future values used throughout the sim\textquotesingle{}s run. Projected and actualized.  
+
+
+Collaboration diagram for Future timestep values\+:
+% FIG 0
+\doxysubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{group__futbody}{Future body-\/wide values}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{group__future_ga992f6c7a47b96885c254a7de8cb4c4de}\label{group__future_ga992f6c7a47b96885c254a7de8cb4c4de}} 
+double \mbox{\hyperlink{group__future_ga992f6c7a47b96885c254a7de8cb4c4de}{S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::time\+Nxt}}
+\begin{DoxyCompactList}\small\item\em s, simulation time at next timestep \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__future_ga5d66a7065abeff11be2c015bd85a7778}\label{group__future_ga5d66a7065abeff11be2c015bd85a7778}} 
+double $\ast$ {\bfseries S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::\+Flow\+E\+C\+M\+O\+Blood\+Nxt}
+\item 
+\mbox{\Hypertarget{group__future_ga5d55a092cc9592bea74469b3adc059ba}\label{group__future_ga5d55a092cc9592bea74469b3adc059ba}} 
+double $\ast$ {\bfseries S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::\+Flow\+E\+C\+M\+O\+Saline\+Nxt}
+\item 
+\mbox{\Hypertarget{group__future_ga7702b134c54b2fddcb8f16ee199ff068}\label{group__future_ga7702b134c54b2fddcb8f16ee199ff068}} 
+double $\ast$ {\bfseries S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::\+Cp\+Nxt}
+\item 
+\mbox{\Hypertarget{group__future_gab82301f46cbcfd6060b25852d1d4d4b4}\label{group__future_gab82301f46cbcfd6060b25852d1d4d4b4}} 
+double $\ast$ {\bfseries S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::\+Rho\+Nxt}
+\item 
+\mbox{\Hypertarget{group__future_ga05a70e5fa83da056dfa98c07189b7565}\label{group__future_ga05a70e5fa83da056dfa98c07189b7565}} 
+double $\ast$ {\bfseries S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::\+T\+Nxt}
+\item 
+\mbox{\Hypertarget{group__future_gab2aeed1cdb0336bb34532638d6b4a637}\label{group__future_gab2aeed1cdb0336bb34532638d6b4a637}} 
+double $\ast$ {\bfseries S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::\+Tpp\+Nxt}
+\item 
+\mbox{\Hypertarget{group__future_gacedcd2b975ddad877d00215043644654}\label{group__future_gacedcd2b975ddad877d00215043644654}} 
+double $\ast$ {\bfseries S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::q\+Nxt}
+\item 
+\mbox{\Hypertarget{group__future_ga824b5692c809bab9ca3acb3ec2852518}\label{group__future_ga824b5692c809bab9ca3acb3ec2852518}} 
+double $\ast$ {\bfseries S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::w\+Nxt}
+\item 
+\mbox{\Hypertarget{group__future_gab186dcb8bf738e82a8998875faf4d4b1}\label{group__future_gab186dcb8bf738e82a8998875faf4d4b1}} 
+double $\ast$ {\bfseries S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::beta\+Nxt}
+\item 
+\mbox{\Hypertarget{group__future_ga07b35f21aaa811eefdcc3ed7d86aaf19}\label{group__future_ga07b35f21aaa811eefdcc3ed7d86aaf19}} 
+double $\ast$ {\bfseries S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::\+B\+V\+Nxt}
+\item 
+\mbox{\Hypertarget{group__future_ga6b0f0208d201a5743357976f3e7acc15}\label{group__future_ga6b0f0208d201a5743357976f3e7acc15}} 
+double $\ast$ {\bfseries S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::\+B\+P\+R\+B\+P\+Cfactor\+Nxt}
+\item 
+\mbox{\Hypertarget{group__future_ga9a6ef6c9bf298792166cff5516bc2c14}\label{group__future_ga9a6ef6c9bf298792166cff5516bc2c14}} 
+double $\ast$ {\bfseries S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::\+Tbl\+Aoverlay\+Factor\+Nxt}
+\item 
+\mbox{\Hypertarget{group__future_gac74f73acddd8efbfb395c206f431e12f}\label{group__future_gac74f73acddd8efbfb395c206f431e12f}} 
+double $\ast$ {\bfseries S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::\+Tbl\+Aoverlay\+Nxt}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Future values used throughout the sim\textquotesingle{}s run. Projected and actualized. 
+

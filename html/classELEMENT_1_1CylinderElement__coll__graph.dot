@@ -7,7 +7,7 @@ digraph "ELEMENT::CylinderElement"
   Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node2 [label="ELEMENT::Element",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classELEMENT_1_1Element.html",tooltip="Abstract class for a Fiala element."];
   Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" washers" ,fontname="Helvetica"];
-  Node3 [label="WASHER::Washer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classWASHER_1_1Washer.html",tooltip=" "];
+  Node3 [label="WASHER::Washer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classWASHER_1_1Washer.html",tooltip="Class for all washers."];
   Node4 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" sectors" ,fontname="Helvetica"];
   Node4 [label="SECTOR::Sector",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSECTOR_1_1Sector.html",tooltip=" "];
 }

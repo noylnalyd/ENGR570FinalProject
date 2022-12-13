@@ -73,388 +73,1523 @@ $(function() {
 <div class="title">SIMULATOR::SimulationInstance Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Class that performs one single simulation.  
+ <a href="classSIMULATOR_1_1SimulationInstance.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Simulator_8hpp_source.html">Simulator.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a115b2b61e8ffb0a14466ff5c9c87f776"><td class="memItemLeft" align="right" valign="top"><a id="a115b2b61e8ffb0a14466ff5c9c87f776"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SimulationInstance</b> (<a class="el" href="classBODYMODEL_1_1BodyModel.html">BODYMODEL::BodyModel</a> *tbody, <a class="el" href="classSIMMODEL_1_1SimModel.html">SIMMODEL::SimModel</a> *tsim, <a class="el" href="classPSEUDOBLOCKMATRIX_1_1PseudoBlockMatrix.html">PSEUDOBLOCKMATRIX::PseudoBlockMatrix</a> *tpbm)</td></tr>
+<tr class="memitem:a115b2b61e8ffb0a14466ff5c9c87f776"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a115b2b61e8ffb0a14466ff5c9c87f776">SimulationInstance</a> (<a class="el" href="classBODYMODEL_1_1BodyModel.html">BODYMODEL::BodyModel</a> *tbody, <a class="el" href="classSIMMODEL_1_1SimModel.html">SIMMODEL::SimModel</a> *tsim, <a class="el" href="classPSEUDOBLOCKMATRIX_1_1PseudoBlockMatrix.html">PSEUDOBLOCKMATRIX::PseudoBlockMatrix</a> *tpbm)</td></tr>
+<tr class="memdesc:a115b2b61e8ffb0a14466ff5c9c87f776"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create simulation instance.  <a href="classSIMULATOR_1_1SimulationInstance.html#a115b2b61e8ffb0a14466ff5c9c87f776">More...</a><br /></td></tr>
 <tr class="separator:a115b2b61e8ffb0a14466ff5c9c87f776"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8eb4b8f9e18dfae5f3510aa14afd35c8"><td class="memItemLeft" align="right" valign="top"><a id="a8eb4b8f9e18dfae5f3510aa14afd35c8"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a8eb4b8f9e18dfae5f3510aa14afd35c8">~SimulationInstance</a> ()</td></tr>
+<tr class="memdesc:a8eb4b8f9e18dfae5f3510aa14afd35c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy simulation instance. <br /></td></tr>
+<tr class="separator:a8eb4b8f9e18dfae5f3510aa14afd35c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc6c8e156b5ab0b3a449eb4ea282052d"><td class="memItemLeft" align="right" valign="top"><a id="acc6c8e156b5ab0b3a449eb4ea282052d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>allocate</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#acc6c8e156b5ab0b3a449eb4ea282052d">allocate</a> ()</td></tr>
+<tr class="memdesc:acc6c8e156b5ab0b3a449eb4ea282052d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate memory. <br /></td></tr>
 <tr class="separator:acc6c8e156b5ab0b3a449eb4ea282052d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ac4e0b20a255637e4086d6def9dea22"><td class="memItemLeft" align="right" valign="top"><a id="a0ac4e0b20a255637e4086d6def9dea22"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>deallocate</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a0ac4e0b20a255637e4086d6def9dea22">deallocate</a> ()</td></tr>
+<tr class="memdesc:a0ac4e0b20a255637e4086d6def9dea22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocate memory. <br /></td></tr>
 <tr class="separator:a0ac4e0b20a255637e4086d6def9dea22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75cc58fd5d67b83b26686fed4d975b35"><td class="memItemLeft" align="right" valign="top"><a id="a75cc58fd5d67b83b26686fed4d975b35"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ghostStart</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a75cc58fd5d67b83b26686fed4d975b35">ghostStart</a> ()</td></tr>
+<tr class="memdesc:a75cc58fd5d67b83b26686fed4d975b35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy all steady values into Prv and current values. <br /></td></tr>
 <tr class="separator:a75cc58fd5d67b83b26686fed4d975b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab65c9fbbfdfb553b993676adb829debf"><td class="memItemLeft" align="right" valign="top"><a id="ab65c9fbbfdfb553b993676adb829debf"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>copyToInitials</b> (double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp)</td></tr>
+<tr class="memitem:ab65c9fbbfdfb553b993676adb829debf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#ab65c9fbbfdfb553b993676adb829debf">copyToInitials</a> (double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp)</td></tr>
+<tr class="memdesc:ab65c9fbbfdfb553b993676adb829debf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy initial values from external arrays.  <a href="classSIMULATOR_1_1SimulationInstance.html#ab65c9fbbfdfb553b993676adb829debf">More...</a><br /></td></tr>
 <tr class="separator:ab65c9fbbfdfb553b993676adb829debf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c43bea70b21796b23fac6b40b45b47f"><td class="memItemLeft" align="right" valign="top"><a id="a5c43bea70b21796b23fac6b40b45b47f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>fillInitials</b> (double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp, double Tskm0)</td></tr>
+<tr class="memitem:a5c43bea70b21796b23fac6b40b45b47f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a5c43bea70b21796b23fac6b40b45b47f">fillInitials</a> (double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp, double <a class="el" href="group__Steadys.html#ga59371afc7486982742a598e0b49a7513">Tskm0</a>)</td></tr>
+<tr class="memdesc:a5c43bea70b21796b23fac6b40b45b47f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill external arrays with initial values.  <a href="classSIMULATOR_1_1SimulationInstance.html#a5c43bea70b21796b23fac6b40b45b47f">More...</a><br /></td></tr>
 <tr class="separator:a5c43bea70b21796b23fac6b40b45b47f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7425c4e2fbf45c95090e52b18d7ea0ca"><td class="memItemLeft" align="right" valign="top"><a id="a7425c4e2fbf45c95090e52b18d7ea0ca"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>copyToSteadys</b> (double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp, double M0tmp, double QResp0tmp, double Tskm0tmp, double H0tmp, double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp)</td></tr>
+<tr class="memitem:a7425c4e2fbf45c95090e52b18d7ea0ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a7425c4e2fbf45c95090e52b18d7ea0ca">copyToSteadys</a> (double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp, double M0tmp, double QResp0tmp, double Tskm0tmp, double H0tmp, double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp)</td></tr>
+<tr class="memdesc:a7425c4e2fbf45c95090e52b18d7ea0ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy steady values from external arrays.  <a href="classSIMULATOR_1_1SimulationInstance.html#a7425c4e2fbf45c95090e52b18d7ea0ca">More...</a><br /></td></tr>
 <tr class="separator:a7425c4e2fbf45c95090e52b18d7ea0ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0f6b667e69f761963b494520fbf5376"><td class="memItemLeft" align="right" valign="top"><a id="ae0f6b667e69f761963b494520fbf5376"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>fillSteadys</b> (double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp, double M0tmp, double QResp0tmp, double Tskm0tmp, double H0tmp, double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp)</td></tr>
+<tr class="memitem:ae0f6b667e69f761963b494520fbf5376"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#ae0f6b667e69f761963b494520fbf5376">fillSteadys</a> (double *T0tmp, double *beta0tmp, double *w0tmp, double *q0tmp, double *Tpp0tmp, double M0tmp, double QResp0tmp, double Tskm0tmp, double H0tmp, double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp)</td></tr>
+<tr class="memdesc:ae0f6b667e69f761963b494520fbf5376"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill external arrays with steady values.  <a href="classSIMULATOR_1_1SimulationInstance.html#ae0f6b667e69f761963b494520fbf5376">More...</a><br /></td></tr>
 <tr class="separator:ae0f6b667e69f761963b494520fbf5376"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae040df2088d04a4801fc90145f75d577"><td class="memItemLeft" align="right" valign="top"><a id="ae040df2088d04a4801fc90145f75d577"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>runSim</b> ()</td></tr>
+<tr class="memitem:ae040df2088d04a4801fc90145f75d577"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#ae040df2088d04a4801fc90145f75d577">runSim</a> ()</td></tr>
+<tr class="memdesc:ae040df2088d04a4801fc90145f75d577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the simulation.  <a href="classSIMULATOR_1_1SimulationInstance.html#ae040df2088d04a4801fc90145f75d577">More...</a><br /></td></tr>
 <tr class="separator:ae040df2088d04a4801fc90145f75d577"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaad2665735ac1beabc1454a00f3c4078"><td class="memItemLeft" align="right" valign="top"><a id="aaad2665735ac1beabc1454a00f3c4078"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>clearSystem</b> ()</td></tr>
+<tr class="memitem:aaad2665735ac1beabc1454a00f3c4078"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#aaad2665735ac1beabc1454a00f3c4078">clearSystem</a> ()</td></tr>
+<tr class="memdesc:aaad2665735ac1beabc1454a00f3c4078"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the matrix and rhs.  <a href="classSIMULATOR_1_1SimulationInstance.html#aaad2665735ac1beabc1454a00f3c4078">More...</a><br /></td></tr>
 <tr class="separator:aaad2665735ac1beabc1454a00f3c4078"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8eb7a47225318726a4bfe8baa43c05fa"><td class="memItemLeft" align="right" valign="top"><a id="a8eb7a47225318726a4bfe8baa43c05fa"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>computeThermalLoadParameters</b> ()</td></tr>
+<tr class="memitem:a8eb7a47225318726a4bfe8baa43c05fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a8eb7a47225318726a4bfe8baa43c05fa">computeThermalLoadParameters</a> ()</td></tr>
+<tr class="memdesc:a8eb7a47225318726a4bfe8baa43c05fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes whole-body load parameters like M,H,QResp.  <a href="classSIMULATOR_1_1SimulationInstance.html#a8eb7a47225318726a4bfe8baa43c05fa">More...</a><br /></td></tr>
 <tr class="separator:a8eb7a47225318726a4bfe8baa43c05fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba813be1f896a117c1d81098046b5889"><td class="memItemLeft" align="right" valign="top"><a id="aba813be1f896a117c1d81098046b5889"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>computeQresp</b> ()</td></tr>
+<tr class="memitem:aba813be1f896a117c1d81098046b5889"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#aba813be1f896a117c1d81098046b5889">computeQresp</a> ()</td></tr>
+<tr class="memdesc:aba813be1f896a117c1d81098046b5889"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes QResp.  <a href="classSIMULATOR_1_1SimulationInstance.html#aba813be1f896a117c1d81098046b5889">More...</a><br /></td></tr>
 <tr class="separator:aba813be1f896a117c1d81098046b5889"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefa9a3307d585013101f04667cfabe09"><td class="memItemLeft" align="right" valign="top"><a id="aefa9a3307d585013101f04667cfabe09"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>deltaQMetabolic</b> (double q, double T, double TNxt)</td></tr>
-<tr class="separator:aefa9a3307d585013101f04667cfabe09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd71b738323cc7a00b82154b3e9d4fe5"><td class="memItemLeft" align="right" valign="top"><a id="afd71b738323cc7a00b82154b3e9d4fe5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>elementValues</b> ()</td></tr>
+<tr class="memitem:a6430f9af5893f4613c906ae3f02e73dd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a6430f9af5893f4613c906ae3f02e73dd">deltaQMetabolic</a> (double <a class="el" href="group__current.html#ga8aed9fa93d350b7f9c7d21360c5532d4">q</a>, double <a class="el" href="group__current.html#ga0a67f0e09068bcc3ad12190cfd398c78">T</a>, double Tneut)</td></tr>
+<tr class="memdesc:a6430f9af5893f4613c906ae3f02e73dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes change in metabolism at a node, following Q10 law.  <a href="classSIMULATOR_1_1SimulationInstance.html#a6430f9af5893f4613c906ae3f02e73dd">More...</a><br /></td></tr>
+<tr class="separator:a6430f9af5893f4613c906ae3f02e73dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd71b738323cc7a00b82154b3e9d4fe5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#afd71b738323cc7a00b82154b3e9d4fe5">elementValues</a> ()</td></tr>
+<tr class="memdesc:afd71b738323cc7a00b82154b3e9d4fe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes element-level values like TblP, Rho, Cp.  <a href="classSIMULATOR_1_1SimulationInstance.html#afd71b738323cc7a00b82154b3e9d4fe5">More...</a><br /></td></tr>
 <tr class="separator:afd71b738323cc7a00b82154b3e9d4fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac1c71f35f57750da78a086d683a33fd"><td class="memItemLeft" align="right" valign="top"><a id="aac1c71f35f57750da78a086d683a33fd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>rhocp</b> (int eleIdx)</td></tr>
+<tr class="memitem:aac1c71f35f57750da78a086d683a33fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#aac1c71f35f57750da78a086d683a33fd">rhocp</a> (int eleIdx)</td></tr>
+<tr class="memdesc:aac1c71f35f57750da78a086d683a33fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes blood density and specific heat capacity at an element.  <a href="classSIMULATOR_1_1SimulationInstance.html#aac1c71f35f57750da78a086d683a33fd">More...</a><br /></td></tr>
 <tr class="separator:aac1c71f35f57750da78a086d683a33fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a814d41137afdcbf3007afa85b5308b2d"><td class="memItemLeft" align="right" valign="top"><a id="a814d41137afdcbf3007afa85b5308b2d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>tblp</b> (int eleIdx)</td></tr>
+<tr class="memitem:a814d41137afdcbf3007afa85b5308b2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a814d41137afdcbf3007afa85b5308b2d">tblp</a> (int eleIdx)</td></tr>
+<tr class="memdesc:a814d41137afdcbf3007afa85b5308b2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes EXPERIENCED blood pool temperature. Differs from T[body-&gt;N-1] when ECMO introduced.  <a href="classSIMULATOR_1_1SimulationInstance.html#a814d41137afdcbf3007afa85b5308b2d">More...</a><br /></td></tr>
 <tr class="separator:a814d41137afdcbf3007afa85b5308b2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e8649ab89996ffe3bf26a08728a3b01"><td class="memItemLeft" align="right" valign="top"><a id="a4e8649ab89996ffe3bf26a08728a3b01"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>nodeValues</b> ()</td></tr>
+<tr class="memitem:a4e8649ab89996ffe3bf26a08728a3b01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a4e8649ab89996ffe3bf26a08728a3b01">nodeValues</a> ()</td></tr>
+<tr class="memdesc:a4e8649ab89996ffe3bf26a08728a3b01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes all nodal values.  <a href="classSIMULATOR_1_1SimulationInstance.html#a4e8649ab89996ffe3bf26a08728a3b01">More...</a><br /></td></tr>
 <tr class="separator:a4e8649ab89996ffe3bf26a08728a3b01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9836dd268ac1a916d95075822ba3e2e"><td class="memItemLeft" align="right" valign="top"><a id="ac9836dd268ac1a916d95075822ba3e2e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>qwbeta</b> (double *qs, double *ws, double *betas, double *cps, double *rhos, double *Ts)</td></tr>
+<tr class="memitem:ac9836dd268ac1a916d95075822ba3e2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#ac9836dd268ac1a916d95075822ba3e2e">qwbeta</a> (double *qs, double *ws, double *betas, double *cps, double *rhos, double *Ts)</td></tr>
+<tr class="memdesc:ac9836dd268ac1a916d95075822ba3e2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes q,w,beta at all nodes at one timestep.  <a href="classSIMULATOR_1_1SimulationInstance.html#ac9836dd268ac1a916d95075822ba3e2e">More...</a><br /></td></tr>
 <tr class="separator:ac9836dd268ac1a916d95075822ba3e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8038d76b19822a9992c54cea9eef2dae"><td class="memItemLeft" align="right" valign="top"><a id="a8038d76b19822a9992c54cea9eef2dae"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>skinT</b> ()</td></tr>
-<tr class="separator:a8038d76b19822a9992c54cea9eef2dae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a624730c6845094face527743d1f1d844"><td class="memItemLeft" align="right" valign="top"><a id="a624730c6845094face527743d1f1d844"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>agglomeratedElementValues</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a624730c6845094face527743d1f1d844">agglomeratedElementValues</a> ()</td></tr>
+<tr class="memdesc:a624730c6845094face527743d1f1d844"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes agglomerated element values Some element-level values depend on nodal values, so this comes after <a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a4e8649ab89996ffe3bf26a08728a3b01" title="Computes all nodal values.">nodeValues()</a> Computes TblA coefficients, BV/BVT dot products, BPRBPCfactors. <br /></td></tr>
 <tr class="separator:a624730c6845094face527743d1f1d844"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a553a4cf468388d9983a231b5c85b6f05"><td class="memItemLeft" align="right" valign="top"><a id="a553a4cf468388d9983a231b5c85b6f05"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>agglomeratedBodyValues</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a553a4cf468388d9983a231b5c85b6f05">agglomeratedBodyValues</a> ()</td></tr>
+<tr class="memdesc:a553a4cf468388d9983a231b5c85b6f05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes agglomerated body values One value CplC depends on agglomerated element values over the body. <br /></td></tr>
 <tr class="separator:a553a4cf468388d9983a231b5c85b6f05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7227eaafa948d2d03ba8b3efd52abc53"><td class="memItemLeft" align="right" valign="top"><a id="a7227eaafa948d2d03ba8b3efd52abc53"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>computeMeanSkinTemp</b> ()</td></tr>
+<tr class="memitem:a7227eaafa948d2d03ba8b3efd52abc53"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a7227eaafa948d2d03ba8b3efd52abc53">computeMeanSkinTemp</a> ()</td></tr>
+<tr class="memdesc:a7227eaafa948d2d03ba8b3efd52abc53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes mean skin temperature.  <a href="classSIMULATOR_1_1SimulationInstance.html#a7227eaafa948d2d03ba8b3efd52abc53">More...</a><br /></td></tr>
 <tr class="separator:a7227eaafa948d2d03ba8b3efd52abc53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0653f5f1c6c416d4af39f1dad794f4b"><td class="memItemLeft" align="right" valign="top"><a id="aa0653f5f1c6c416d4af39f1dad794f4b"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>computeHypothalamicTemp</b> ()</td></tr>
+<tr class="memitem:aa0653f5f1c6c416d4af39f1dad794f4b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#aa0653f5f1c6c416d4af39f1dad794f4b">computeHypothalamicTemp</a> ()</td></tr>
+<tr class="memdesc:aa0653f5f1c6c416d4af39f1dad794f4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes "hypothalamic temperature" Note: Brain resolution is small, so this is node 0 in the brain.  <a href="classSIMULATOR_1_1SimulationInstance.html#aa0653f5f1c6c416d4af39f1dad794f4b">More...</a><br /></td></tr>
 <tr class="separator:aa0653f5f1c6c416d4af39f1dad794f4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae93fc01fc4c0ad4039b539b1fea8b87f"><td class="memItemLeft" align="right" valign="top"><a id="ae93fc01fc4c0ad4039b539b1fea8b87f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>computeErrorSignals</b> ()</td></tr>
+<tr class="memitem:ae93fc01fc4c0ad4039b539b1fea8b87f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#ae93fc01fc4c0ad4039b539b1fea8b87f">computeErrorSignals</a> ()</td></tr>
+<tr class="memdesc:ae93fc01fc4c0ad4039b539b1fea8b87f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes active control signals Computes TskError,ThyError,TskErrorGradient.  <a href="classSIMULATOR_1_1SimulationInstance.html#ae93fc01fc4c0ad4039b539b1fea8b87f">More...</a><br /></td></tr>
 <tr class="separator:ae93fc01fc4c0ad4039b539b1fea8b87f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2eb3918c0436160d889ad62eca4802d"><td class="memItemLeft" align="right" valign="top"><a id="aa2eb3918c0436160d889ad62eca4802d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>computeActiveControls</b> ()</td></tr>
+<tr class="memitem:aa2eb3918c0436160d889ad62eca4802d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#aa2eb3918c0436160d889ad62eca4802d">computeActiveControls</a> ()</td></tr>
+<tr class="memdesc:aa2eb3918c0436160d889ad62eca4802d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes active control outputs Computes Sh,Cs,Dl,Sw.  <a href="classSIMULATOR_1_1SimulationInstance.html#aa2eb3918c0436160d889ad62eca4802d">More...</a><br /></td></tr>
 <tr class="separator:aa2eb3918c0436160d889ad62eca4802d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d9b1f05842bd888628598dd161fa604"><td class="memItemLeft" align="right" valign="top"><a id="a7d9b1f05842bd888628598dd161fa604"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>BCvalues</b> ()</td></tr>
+<tr class="memitem:a7d9b1f05842bd888628598dd161fa604"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a7d9b1f05842bd888628598dd161fa604">BCvalues</a> ()</td></tr>
+<tr class="memdesc:a7d9b1f05842bd888628598dd161fa604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes everything to do with simmodel. Updates simmodel's temperatures, gets UQ values.  <a href="classSIMULATOR_1_1SimulationInstance.html#a7d9b1f05842bd888628598dd161fa604">More...</a><br /></td></tr>
 <tr class="separator:a7d9b1f05842bd888628598dd161fa604"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a973bab7b1979187b2854ded74af72043"><td class="memItemLeft" align="right" valign="top"><a id="a973bab7b1979187b2854ded74af72043"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>BVRSVR</b> ()</td></tr>
+<tr class="memitem:a973bab7b1979187b2854ded74af72043"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a973bab7b1979187b2854ded74af72043">BVRSVR</a> ()</td></tr>
+<tr class="memdesc:a973bab7b1979187b2854ded74af72043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets blood and saline volume ratios (Injury)  <a href="classSIMULATOR_1_1SimulationInstance.html#a973bab7b1979187b2854ded74af72043">More...</a><br /></td></tr>
 <tr class="separator:a973bab7b1979187b2854ded74af72043"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f30e1a9a3082bfae715aea782fda20f"><td class="memItemLeft" align="right" valign="top"><a id="a0f30e1a9a3082bfae715aea782fda20f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>flowECMOSaline</b> (int eleIdx)</td></tr>
+<tr class="memitem:a0f30e1a9a3082bfae715aea782fda20f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a0f30e1a9a3082bfae715aea782fda20f">flowECMOSaline</a> (int eleIdx)</td></tr>
+<tr class="memdesc:a0f30e1a9a3082bfae715aea782fda20f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets saline flow at an element.  <a href="classSIMULATOR_1_1SimulationInstance.html#a0f30e1a9a3082bfae715aea782fda20f">More...</a><br /></td></tr>
 <tr class="separator:a0f30e1a9a3082bfae715aea782fda20f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab19cd71218e0c551780be308e01d9f9"><td class="memItemLeft" align="right" valign="top"><a id="aab19cd71218e0c551780be308e01d9f9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>flowECMOBlood</b> (int eleIdx)</td></tr>
+<tr class="memitem:aab19cd71218e0c551780be308e01d9f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#aab19cd71218e0c551780be308e01d9f9">flowECMOBlood</a> (int eleIdx)</td></tr>
+<tr class="memdesc:aab19cd71218e0c551780be308e01d9f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets blood flow at an element.  <a href="classSIMULATOR_1_1SimulationInstance.html#aab19cd71218e0c551780be308e01d9f9">More...</a><br /></td></tr>
 <tr class="separator:aab19cd71218e0c551780be308e01d9f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36ec7d4d896ccf4d67bdcb9c671ba1a0"><td class="memItemLeft" align="right" valign="top"><a id="a36ec7d4d896ccf4d67bdcb9c671ba1a0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ECMOtreatment</b> ()</td></tr>
+<tr class="memitem:a36ec7d4d896ccf4d67bdcb9c671ba1a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a36ec7d4d896ccf4d67bdcb9c671ba1a0">ECMOtreatment</a> ()</td></tr>
+<tr class="memdesc:a36ec7d4d896ccf4d67bdcb9c671ba1a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes all ECMO parameters.  <a href="classSIMULATOR_1_1SimulationInstance.html#a36ec7d4d896ccf4d67bdcb9c671ba1a0">More...</a><br /></td></tr>
 <tr class="separator:a36ec7d4d896ccf4d67bdcb9c671ba1a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb0c3b4c311ab986a00078b4958881b6"><td class="memItemLeft" align="right" valign="top"><a id="adb0c3b4c311ab986a00078b4958881b6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>bloodParams</b> ()</td></tr>
+<tr class="memitem:adb0c3b4c311ab986a00078b4958881b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#adb0c3b4c311ab986a00078b4958881b6">bloodParams</a> ()</td></tr>
+<tr class="memdesc:adb0c3b4c311ab986a00078b4958881b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes all blood volume parameters.  <a href="classSIMULATOR_1_1SimulationInstance.html#adb0c3b4c311ab986a00078b4958881b6">More...</a><br /></td></tr>
 <tr class="separator:adb0c3b4c311ab986a00078b4958881b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc608f07dc695417c1da84edbc5e31b4"><td class="memItemLeft" align="right" valign="top"><a id="afc608f07dc695417c1da84edbc5e31b4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>deltaHCT</b> ()</td></tr>
+<tr class="memitem:afc608f07dc695417c1da84edbc5e31b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#afc608f07dc695417c1da84edbc5e31b4">deltaHCT</a> ()</td></tr>
+<tr class="memdesc:afc608f07dc695417c1da84edbc5e31b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes change in hematocrit Hematocrit is really relative concentration of red blood cells to steady state. Affects blood properties as well as oxygenation. Subject to future work.  <a href="classSIMULATOR_1_1SimulationInstance.html#afc608f07dc695417c1da84edbc5e31b4">More...</a><br /></td></tr>
 <tr class="separator:afc608f07dc695417c1da84edbc5e31b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69f16505c35d486541ca0bcbb6530a0f"><td class="memItemLeft" align="right" valign="top"><a id="a69f16505c35d486541ca0bcbb6530a0f"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>project</b> (double cur, double prv)</td></tr>
+<tr class="memitem:a69f16505c35d486541ca0bcbb6530a0f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a69f16505c35d486541ca0bcbb6530a0f">project</a> (double cur, double prv)</td></tr>
+<tr class="memdesc:a69f16505c35d486541ca0bcbb6530a0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finite difference to get future value. Note: Will equal cur if steady state or initial.  <a href="classSIMULATOR_1_1SimulationInstance.html#a69f16505c35d486541ca0bcbb6530a0f">More...</a><br /></td></tr>
 <tr class="separator:a69f16505c35d486541ca0bcbb6530a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8465c93696a35d298f051b65f93cbe01"><td class="memItemLeft" align="right" valign="top"><a id="a8465c93696a35d298f051b65f93cbe01"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>projectBodyValues</b> ()</td></tr>
+<tr class="memitem:a8465c93696a35d298f051b65f93cbe01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a8465c93696a35d298f051b65f93cbe01">projectBodyValues</a> ()</td></tr>
+<tr class="memdesc:a8465c93696a35d298f051b65f93cbe01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get future body values.  <a href="classSIMULATOR_1_1SimulationInstance.html#a8465c93696a35d298f051b65f93cbe01">More...</a><br /></td></tr>
 <tr class="separator:a8465c93696a35d298f051b65f93cbe01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c7829d7ca2382905e1fdd6568f955b7"><td class="memItemLeft" align="right" valign="top"><a id="a5c7829d7ca2382905e1fdd6568f955b7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>projectTemperatures</b> ()</td></tr>
+<tr class="memitem:a5c7829d7ca2382905e1fdd6568f955b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a5c7829d7ca2382905e1fdd6568f955b7">projectTemperatures</a> ()</td></tr>
+<tr class="memdesc:a5c7829d7ca2382905e1fdd6568f955b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">ESTIMATE future temperature values. Very important for skin eqns and heat gen, both termperature reliant.  <a href="classSIMULATOR_1_1SimulationInstance.html#a5c7829d7ca2382905e1fdd6568f955b7">More...</a><br /></td></tr>
 <tr class="separator:a5c7829d7ca2382905e1fdd6568f955b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae685beaf39b9c57f5e813485802df0ef"><td class="memItemLeft" align="right" valign="top"><a id="ae685beaf39b9c57f5e813485802df0ef"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>projectTpp</b> ()</td></tr>
+<tr class="memitem:ae685beaf39b9c57f5e813485802df0ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#ae685beaf39b9c57f5e813485802df0ef">projectTpp</a> ()</td></tr>
+<tr class="memdesc:ae685beaf39b9c57f5e813485802df0ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Project fictinal outer-skin temperatures.  <a href="classSIMULATOR_1_1SimulationInstance.html#ae685beaf39b9c57f5e813485802df0ef">More...</a><br /></td></tr>
 <tr class="separator:ae685beaf39b9c57f5e813485802df0ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ac88257a125f1b6389ec5cab72822af"><td class="memItemLeft" align="right" valign="top"><a id="a4ac88257a125f1b6389ec5cab72822af"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>buildSystem</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a4ac88257a125f1b6389ec5cab72822af">buildSystem</a> ()</td></tr>
+<tr class="memdesc:a4ac88257a125f1b6389ec5cab72822af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills in linearized system This function is the workhorse of the simulation. Must have computed every parameter beforehand; This only affects pbm and rhs. Fills in, element-by-element, first the 1D relational FDM equations. Then completes the 2D arterial blood eqns from Westin. Throughout, completes the final "blood pool row" for blood temp. <br /></td></tr>
 <tr class="separator:a4ac88257a125f1b6389ec5cab72822af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07ec1ef8fa6310acfb6441e2001f805b"><td class="memItemLeft" align="right" valign="top"><a id="a07ec1ef8fa6310acfb6441e2001f805b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>solveSystem</b> ()</td></tr>
+<tr class="memitem:a07ec1ef8fa6310acfb6441e2001f805b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a07ec1ef8fa6310acfb6441e2001f805b">solveSystem</a> ()</td></tr>
+<tr class="memdesc:a07ec1ef8fa6310acfb6441e2001f805b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses one of the PBM solvers to fill in TNxt with realistic values. At present, uses Gauss-Seidel since it was indeed the fastest.  <a href="classSIMULATOR_1_1SimulationInstance.html#a07ec1ef8fa6310acfb6441e2001f805b">More...</a><br /></td></tr>
 <tr class="separator:a07ec1ef8fa6310acfb6441e2001f805b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5bd306c689a278b4018afa7a0a14fd5"><td class="memItemLeft" align="right" valign="top"><a id="af5bd306c689a278b4018afa7a0a14fd5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>permuteTimestep</b> ()</td></tr>
+<tr class="memitem:af5bd306c689a278b4018afa7a0a14fd5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#af5bd306c689a278b4018afa7a0a14fd5">permuteTimestep</a> ()</td></tr>
+<tr class="memdesc:af5bd306c689a278b4018afa7a0a14fd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies values to previous timesteps in memory.  <a href="classSIMULATOR_1_1SimulationInstance.html#af5bd306c689a278b4018afa7a0a14fd5">More...</a><br /></td></tr>
 <tr class="separator:af5bd306c689a278b4018afa7a0a14fd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a7437a76f7d49975e05e46a4c8c69b208"><td class="memItemLeft" align="right" valign="top"><a id="a7437a76f7d49975e05e46a4c8c69b208"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>ICconfigMode</b> =0</td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSIMULATOR_1_1SimulationInstance.html#a7437a76f7d49975e05e46a4c8c69b208">ICconfigMode</a> =0</td></tr>
+<tr class="memdesc:a7437a76f7d49975e05e46a4c8c69b208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initial condition configuration mode. Only mode 0 is implemented. <br /></td></tr>
 <tr class="separator:a7437a76f7d49975e05e46a4c8c69b208"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59371afc7486982742a598e0b49a7513"><td class="memItemLeft" align="right" valign="top"><a id="a59371afc7486982742a598e0b49a7513"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Tskm0</b> =NAN</td></tr>
-<tr class="separator:a59371afc7486982742a598e0b49a7513"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afecef1544ee5764048bef0d806e392a8"><td class="memItemLeft" align="right" valign="top"><a id="afecef1544ee5764048bef0d806e392a8"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Thy0</b> =NAN</td></tr>
-<tr class="separator:afecef1544ee5764048bef0d806e392a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a80b8ddac8403ee3e2b8a9bd0066da1"><td class="memItemLeft" align="right" valign="top"><a id="a0a80b8ddac8403ee3e2b8a9bd0066da1"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Viv0</b> =NAN</td></tr>
-<tr class="separator:a0a80b8ddac8403ee3e2b8a9bd0066da1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f1a5c9a181c758e08eebe4f306a4927"><td class="memItemLeft" align="right" valign="top"><a id="a0f1a5c9a181c758e08eebe4f306a4927"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Vrbc0</b> =NAN</td></tr>
-<tr class="separator:a0f1a5c9a181c758e08eebe4f306a4927"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6832afa5db94b2b54b502efb49605043"><td class="memItemLeft" align="right" valign="top"><a id="a6832afa5db94b2b54b502efb49605043"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>T0</b></td></tr>
-<tr class="separator:a6832afa5db94b2b54b502efb49605043"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcb30758433bd44f61175a7311a94948"><td class="memItemLeft" align="right" valign="top"><a id="afcb30758433bd44f61175a7311a94948"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>beta0</b></td></tr>
-<tr class="separator:afcb30758433bd44f61175a7311a94948"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaec3d35735cbfc973c87078f74d710f6"><td class="memItemLeft" align="right" valign="top"><a id="aaec3d35735cbfc973c87078f74d710f6"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>w0</b></td></tr>
-<tr class="separator:aaec3d35735cbfc973c87078f74d710f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89c6f49810fcdc748f03199bf93b2f03"><td class="memItemLeft" align="right" valign="top"><a id="a89c6f49810fcdc748f03199bf93b2f03"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>q0</b></td></tr>
-<tr class="separator:a89c6f49810fcdc748f03199bf93b2f03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38f4d479fb05c5fe8d8630c4ec7f23eb"><td class="memItemLeft" align="right" valign="top"><a id="a38f4d479fb05c5fe8d8630c4ec7f23eb"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>Tpp0</b></td></tr>
-<tr class="separator:a38f4d479fb05c5fe8d8630c4ec7f23eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5581e98920845f3d05b662dcd472c82b"><td class="memItemLeft" align="right" valign="top"><a id="a5581e98920845f3d05b662dcd472c82b"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>M0</b></td></tr>
-<tr class="separator:a5581e98920845f3d05b662dcd472c82b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a319e4567ee12f9dbeef83091ec9ab4fd"><td class="memItemLeft" align="right" valign="top"><a id="a319e4567ee12f9dbeef83091ec9ab4fd"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>QResp0</b></td></tr>
-<tr class="separator:a319e4567ee12f9dbeef83091ec9ab4fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a306c6f45fe2673264fd1bafd87149ce8"><td class="memItemLeft" align="right" valign="top"><a id="a306c6f45fe2673264fd1bafd87149ce8"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>H0</b></td></tr>
-<tr class="separator:a306c6f45fe2673264fd1bafd87149ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a760f204775a2104523cc0bd6a9014e00"><td class="memItemLeft" align="right" valign="top"><a id="a760f204775a2104523cc0bd6a9014e00"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Sh0</b></td></tr>
-<tr class="separator:a760f204775a2104523cc0bd6a9014e00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe1e7aa4fade005bc71072be9c6458b5"><td class="memItemLeft" align="right" valign="top"><a id="abe1e7aa4fade005bc71072be9c6458b5"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Cs0</b></td></tr>
-<tr class="separator:abe1e7aa4fade005bc71072be9c6458b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5455592149ce3e82fb3d262857eb0cd3"><td class="memItemLeft" align="right" valign="top"><a id="a5455592149ce3e82fb3d262857eb0cd3"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Dl0</b></td></tr>
-<tr class="separator:a5455592149ce3e82fb3d262857eb0cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad65a8a6ce263925140da569307efb39"><td class="memItemLeft" align="right" valign="top"><a id="aad65a8a6ce263925140da569307efb39"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Sw0</b></td></tr>
-<tr class="separator:aad65a8a6ce263925140da569307efb39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac358aec1a085b26fcd500c2dab794ce9"><td class="memItemLeft" align="right" valign="top"><a id="ac358aec1a085b26fcd500c2dab794ce9"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>time</b></td></tr>
-<tr class="separator:ac358aec1a085b26fcd500c2dab794ce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0e80453615e2e350df5ff22a7fb72ba"><td class="memItemLeft" align="right" valign="top"><a id="ab0e80453615e2e350df5ff22a7fb72ba"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>rhs</b></td></tr>
-<tr class="separator:ab0e80453615e2e350df5ff22a7fb72ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd3f484c97caeed5d9c181c813c50507"><td class="memItemLeft" align="right" valign="top"><a id="acd3f484c97caeed5d9c181c813c50507"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Tskm</b></td></tr>
-<tr class="separator:acd3f484c97caeed5d9c181c813c50507"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a069cf65107a255caf97bab770e09a2b1"><td class="memItemLeft" align="right" valign="top"><a id="a069cf65107a255caf97bab770e09a2b1"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Thy</b></td></tr>
-<tr class="separator:a069cf65107a255caf97bab770e09a2b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9dbae70a199f5320f2609aef5a15d79e"><td class="memItemLeft" align="right" valign="top"><a id="a9dbae70a199f5320f2609aef5a15d79e"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>M</b></td></tr>
-<tr class="separator:a9dbae70a199f5320f2609aef5a15d79e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75edb219d7114b06444744c2dbbc89a1"><td class="memItemLeft" align="right" valign="top"><a id="a75edb219d7114b06444744c2dbbc89a1"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>H</b></td></tr>
-<tr class="separator:a75edb219d7114b06444744c2dbbc89a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb84d9bcf74e316615a8d6fd07110d8d"><td class="memItemLeft" align="right" valign="top"><a id="acb84d9bcf74e316615a8d6fd07110d8d"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>QResp</b></td></tr>
-<tr class="separator:acb84d9bcf74e316615a8d6fd07110d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82592399621eec7f9151cfd6cd808880"><td class="memItemLeft" align="right" valign="top"><a id="a82592399621eec7f9151cfd6cd808880"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>TskError</b></td></tr>
-<tr class="separator:a82592399621eec7f9151cfd6cd808880"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f84d5cd8e6a055eb5d449bf7e0c225a"><td class="memItemLeft" align="right" valign="top"><a id="a0f84d5cd8e6a055eb5d449bf7e0c225a"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>ThyError</b></td></tr>
-<tr class="separator:a0f84d5cd8e6a055eb5d449bf7e0c225a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5663ae683a9e2a349a447dde9f89bf0"><td class="memItemLeft" align="right" valign="top"><a id="ae5663ae683a9e2a349a447dde9f89bf0"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>TskErrorGradient</b></td></tr>
-<tr class="separator:ae5663ae683a9e2a349a447dde9f89bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a435a94bed4286b59686395c79172250c"><td class="memItemLeft" align="right" valign="top"><a id="a435a94bed4286b59686395c79172250c"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Sh</b></td></tr>
-<tr class="separator:a435a94bed4286b59686395c79172250c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc1de28a39a2ad4ea40303c3fc7797af"><td class="memItemLeft" align="right" valign="top"><a id="acc1de28a39a2ad4ea40303c3fc7797af"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Cs</b></td></tr>
-<tr class="separator:acc1de28a39a2ad4ea40303c3fc7797af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ced092b629ac2f0a3c9bf7d474cce2a"><td class="memItemLeft" align="right" valign="top"><a id="a2ced092b629ac2f0a3c9bf7d474cce2a"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Dl</b></td></tr>
-<tr class="separator:a2ced092b629ac2f0a3c9bf7d474cce2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a55ff72f9e1dd1cc4d5810a6c9de3ed"><td class="memItemLeft" align="right" valign="top"><a id="a6a55ff72f9e1dd1cc4d5810a6c9de3ed"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Sw</b></td></tr>
-<tr class="separator:a6a55ff72f9e1dd1cc4d5810a6c9de3ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada0894907a5a00a543762c5970a28d9f"><td class="memItemLeft" align="right" valign="top"><a id="ada0894907a5a00a543762c5970a28d9f"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Viv</b></td></tr>
-<tr class="separator:ada0894907a5a00a543762c5970a28d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a4eb425da03bfcae5b947330f3897ee"><td class="memItemLeft" align="right" valign="top"><a id="a9a4eb425da03bfcae5b947330f3897ee"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>Vrbc</b></td></tr>
-<tr class="separator:a9a4eb425da03bfcae5b947330f3897ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01c5a0140a6fa992776d999d3777558d"><td class="memItemLeft" align="right" valign="top"><a id="a01c5a0140a6fa992776d999d3777558d"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>DViv</b></td></tr>
-<tr class="separator:a01c5a0140a6fa992776d999d3777558d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a379d87e5d6203f4da4506539d8c22a62"><td class="memItemLeft" align="right" valign="top"><a id="a379d87e5d6203f4da4506539d8c22a62"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>bvr</b></td></tr>
-<tr class="separator:a379d87e5d6203f4da4506539d8c22a62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2149a737a6997923ab0f375fbb89c367"><td class="memItemLeft" align="right" valign="top"><a id="a2149a737a6997923ab0f375fbb89c367"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>svr</b></td></tr>
-<tr class="separator:a2149a737a6997923ab0f375fbb89c367"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f211b12ae01d5782c8f999879287607"><td class="memItemLeft" align="right" valign="top"><a id="a7f211b12ae01d5782c8f999879287607"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>DeltaHCT</b></td></tr>
-<tr class="separator:a7f211b12ae01d5782c8f999879287607"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf11385659333a75b831b55b62ba80ae"><td class="memItemLeft" align="right" valign="top"><a id="acf11385659333a75b831b55b62ba80ae"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>FlowECMOBlood</b></td></tr>
-<tr class="separator:acf11385659333a75b831b55b62ba80ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a438ffebd10957e403585981bc5a383"><td class="memItemLeft" align="right" valign="top"><a id="a2a438ffebd10957e403585981bc5a383"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>FlowECMOSaline</b></td></tr>
-<tr class="separator:a2a438ffebd10957e403585981bc5a383"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae078a174c770c3f70a27e3a2f592cc2c"><td class="memItemLeft" align="right" valign="top"><a id="ae078a174c770c3f70a27e3a2f592cc2c"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>Cp</b></td></tr>
-<tr class="separator:ae078a174c770c3f70a27e3a2f592cc2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8f735af61f94a8ec2c93fa119d70c5c"><td class="memItemLeft" align="right" valign="top"><a id="ac8f735af61f94a8ec2c93fa119d70c5c"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>Rho</b></td></tr>
-<tr class="separator:ac8f735af61f94a8ec2c93fa119d70c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d607c4f8f2b2ce27296b2d069817eb9"><td class="memItemLeft" align="right" valign="top"><a id="a3d607c4f8f2b2ce27296b2d069817eb9"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>TblP</b></td></tr>
-<tr class="separator:a3d607c4f8f2b2ce27296b2d069817eb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13ca3864ec800fb447aedd74da747494"><td class="memItemLeft" align="right" valign="top"><a id="a13ca3864ec800fb447aedd74da747494"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>TblPNxtRatio</b></td></tr>
-<tr class="separator:a13ca3864ec800fb447aedd74da747494"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a67f0e09068bcc3ad12190cfd398c78"><td class="memItemLeft" align="right" valign="top"><a id="a0a67f0e09068bcc3ad12190cfd398c78"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>T</b></td></tr>
-<tr class="separator:a0a67f0e09068bcc3ad12190cfd398c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ebc4d02cc73f886bffb8f2568e4d5aa"><td class="memItemLeft" align="right" valign="top"><a id="a4ebc4d02cc73f886bffb8f2568e4d5aa"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>Tpp</b></td></tr>
-<tr class="separator:a4ebc4d02cc73f886bffb8f2568e4d5aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8aed9fa93d350b7f9c7d21360c5532d4"><td class="memItemLeft" align="right" valign="top"><a id="a8aed9fa93d350b7f9c7d21360c5532d4"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>q</b></td></tr>
-<tr class="separator:a8aed9fa93d350b7f9c7d21360c5532d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab071c77aae53df7a1b1c6dd04e2cf8c9"><td class="memItemLeft" align="right" valign="top"><a id="ab071c77aae53df7a1b1c6dd04e2cf8c9"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>w</b></td></tr>
-<tr class="separator:ab071c77aae53df7a1b1c6dd04e2cf8c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7e42c553c3935ce1f00bb21bc865d49"><td class="memItemLeft" align="right" valign="top"><a id="ad7e42c553c3935ce1f00bb21bc865d49"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>beta</b></td></tr>
-<tr class="separator:ad7e42c553c3935ce1f00bb21bc865d49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6578cd06ea598a676708d84c281a13a6"><td class="memItemLeft" align="right" valign="top"><a id="a6578cd06ea598a676708d84c281a13a6"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>BV</b></td></tr>
-<tr class="separator:a6578cd06ea598a676708d84c281a13a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3dd7c579c6694c1327c72087545b05a"><td class="memItemLeft" align="right" valign="top"><a id="af3dd7c579c6694c1327c72087545b05a"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>BVT</b></td></tr>
-<tr class="separator:af3dd7c579c6694c1327c72087545b05a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cb55a9a2f3512b020ad56b0760c23b0"><td class="memItemLeft" align="right" valign="top"><a id="a1cb55a9a2f3512b020ad56b0760c23b0"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>BPRBPCfactor</b></td></tr>
-<tr class="separator:a1cb55a9a2f3512b020ad56b0760c23b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ae3e5dc71a42e13dc6b1cea28bfab7d"><td class="memItemLeft" align="right" valign="top"><a id="a5ae3e5dc71a42e13dc6b1cea28bfab7d"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>TblAoverlayFactor</b></td></tr>
-<tr class="separator:a5ae3e5dc71a42e13dc6b1cea28bfab7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76c96be21c647f9349622d2c932a22d6"><td class="memItemLeft" align="right" valign="top"><a id="a76c96be21c647f9349622d2c932a22d6"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>TblAoverlay</b></td></tr>
-<tr class="separator:a76c96be21c647f9349622d2c932a22d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8cd48599a6cf42bc3232aff229bad93"><td class="memItemLeft" align="right" valign="top"><a id="ad8cd48599a6cf42bc3232aff229bad93"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>TblA</b></td></tr>
-<tr class="separator:ad8cd48599a6cf42bc3232aff229bad93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecbcb248d78f0affa8186010a28cb916"><td class="memItemLeft" align="right" valign="top"><a id="aecbcb248d78f0affa8186010a28cb916"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>CplC</b></td></tr>
-<tr class="separator:aecbcb248d78f0affa8186010a28cb916"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a992f6c7a47b96885c254a7de8cb4c4de"><td class="memItemLeft" align="right" valign="top"><a id="a992f6c7a47b96885c254a7de8cb4c4de"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>timeNxt</b></td></tr>
-<tr class="separator:a992f6c7a47b96885c254a7de8cb4c4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad392ddae7619ee696dbfa68f4116757d"><td class="memItemLeft" align="right" valign="top"><a id="ad392ddae7619ee696dbfa68f4116757d"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>TskmNxt</b></td></tr>
-<tr class="separator:ad392ddae7619ee696dbfa68f4116757d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b44779370f1cfeb4f1d7041269bf5fb"><td class="memItemLeft" align="right" valign="top"><a id="a3b44779370f1cfeb4f1d7041269bf5fb"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>MNxt</b></td></tr>
-<tr class="separator:a3b44779370f1cfeb4f1d7041269bf5fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b548e240869e2673aa58f6fdfa4171d"><td class="memItemLeft" align="right" valign="top"><a id="a6b548e240869e2673aa58f6fdfa4171d"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>HNxt</b></td></tr>
-<tr class="separator:a6b548e240869e2673aa58f6fdfa4171d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84cd737b23ff7f2b8b4a5e1877240611"><td class="memItemLeft" align="right" valign="top"><a id="a84cd737b23ff7f2b8b4a5e1877240611"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>QRespNxt</b></td></tr>
-<tr class="separator:a84cd737b23ff7f2b8b4a5e1877240611"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac45464362c691b9f482658826cc2ae7a"><td class="memItemLeft" align="right" valign="top"><a id="ac45464362c691b9f482658826cc2ae7a"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>TskErrorNxt</b></td></tr>
-<tr class="separator:ac45464362c691b9f482658826cc2ae7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59fa86ec146fc0f09d9b36632e48f90e"><td class="memItemLeft" align="right" valign="top"><a id="a59fa86ec146fc0f09d9b36632e48f90e"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>ThyErrorNxt</b></td></tr>
-<tr class="separator:a59fa86ec146fc0f09d9b36632e48f90e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b34bda7df44b3acfdcb8bd848547cfa"><td class="memItemLeft" align="right" valign="top"><a id="a5b34bda7df44b3acfdcb8bd848547cfa"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>TskErrorGradientNxt</b></td></tr>
-<tr class="separator:a5b34bda7df44b3acfdcb8bd848547cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bce83933eae474fe0e6aa45283c68f0"><td class="memItemLeft" align="right" valign="top"><a id="a0bce83933eae474fe0e6aa45283c68f0"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>ShNxt</b></td></tr>
-<tr class="separator:a0bce83933eae474fe0e6aa45283c68f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba16bad0a1e287bf3ade456a9815a84c"><td class="memItemLeft" align="right" valign="top"><a id="aba16bad0a1e287bf3ade456a9815a84c"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>CsNxt</b></td></tr>
-<tr class="separator:aba16bad0a1e287bf3ade456a9815a84c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac378947fee1a38b164f69c96569a972f"><td class="memItemLeft" align="right" valign="top"><a id="ac378947fee1a38b164f69c96569a972f"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>DlNxt</b></td></tr>
-<tr class="separator:ac378947fee1a38b164f69c96569a972f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5eeb7ad7d0be27a955c14c19931e7ff0"><td class="memItemLeft" align="right" valign="top"><a id="a5eeb7ad7d0be27a955c14c19931e7ff0"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>SwNxt</b></td></tr>
-<tr class="separator:a5eeb7ad7d0be27a955c14c19931e7ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1de807a26dff39322eee52120312226"><td class="memItemLeft" align="right" valign="top"><a id="ad1de807a26dff39322eee52120312226"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>VivNxt</b></td></tr>
-<tr class="separator:ad1de807a26dff39322eee52120312226"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c0178568930cff13647e1cedb1c04bd"><td class="memItemLeft" align="right" valign="top"><a id="a8c0178568930cff13647e1cedb1c04bd"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>VrbcNxt</b></td></tr>
-<tr class="separator:a8c0178568930cff13647e1cedb1c04bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e40d0f50ea2c93a9f6bc57deb0a5886"><td class="memItemLeft" align="right" valign="top"><a id="a2e40d0f50ea2c93a9f6bc57deb0a5886"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>DVivNxt</b></td></tr>
-<tr class="separator:a2e40d0f50ea2c93a9f6bc57deb0a5886"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5430c5db478caa2ed2b4d805758ce8f5"><td class="memItemLeft" align="right" valign="top"><a id="a5430c5db478caa2ed2b4d805758ce8f5"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>bvrNxt</b></td></tr>
-<tr class="separator:a5430c5db478caa2ed2b4d805758ce8f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93e77aff5a8b1bad89d57d8c1cf36593"><td class="memItemLeft" align="right" valign="top"><a id="a93e77aff5a8b1bad89d57d8c1cf36593"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>svrNxt</b></td></tr>
-<tr class="separator:a93e77aff5a8b1bad89d57d8c1cf36593"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad329b2f8dcc20b84726cec571f98c0d2"><td class="memItemLeft" align="right" valign="top"><a id="ad329b2f8dcc20b84726cec571f98c0d2"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>DeltaHCTNxt</b></td></tr>
-<tr class="separator:ad329b2f8dcc20b84726cec571f98c0d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d66a7065abeff11be2c015bd85a7778"><td class="memItemLeft" align="right" valign="top"><a id="a5d66a7065abeff11be2c015bd85a7778"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>FlowECMOBloodNxt</b></td></tr>
-<tr class="separator:a5d66a7065abeff11be2c015bd85a7778"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d55a092cc9592bea74469b3adc059ba"><td class="memItemLeft" align="right" valign="top"><a id="a5d55a092cc9592bea74469b3adc059ba"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>FlowECMOSalineNxt</b></td></tr>
-<tr class="separator:a5d55a092cc9592bea74469b3adc059ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7702b134c54b2fddcb8f16ee199ff068"><td class="memItemLeft" align="right" valign="top"><a id="a7702b134c54b2fddcb8f16ee199ff068"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>CpNxt</b></td></tr>
-<tr class="separator:a7702b134c54b2fddcb8f16ee199ff068"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab82301f46cbcfd6060b25852d1d4d4b4"><td class="memItemLeft" align="right" valign="top"><a id="ab82301f46cbcfd6060b25852d1d4d4b4"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>RhoNxt</b></td></tr>
-<tr class="separator:ab82301f46cbcfd6060b25852d1d4d4b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05a70e5fa83da056dfa98c07189b7565"><td class="memItemLeft" align="right" valign="top"><a id="a05a70e5fa83da056dfa98c07189b7565"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>TNxt</b></td></tr>
-<tr class="separator:a05a70e5fa83da056dfa98c07189b7565"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2aeed1cdb0336bb34532638d6b4a637"><td class="memItemLeft" align="right" valign="top"><a id="ab2aeed1cdb0336bb34532638d6b4a637"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>TppNxt</b></td></tr>
-<tr class="separator:ab2aeed1cdb0336bb34532638d6b4a637"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acedcd2b975ddad877d00215043644654"><td class="memItemLeft" align="right" valign="top"><a id="acedcd2b975ddad877d00215043644654"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>qNxt</b></td></tr>
-<tr class="separator:acedcd2b975ddad877d00215043644654"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a824b5692c809bab9ca3acb3ec2852518"><td class="memItemLeft" align="right" valign="top"><a id="a824b5692c809bab9ca3acb3ec2852518"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>wNxt</b></td></tr>
-<tr class="separator:a824b5692c809bab9ca3acb3ec2852518"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab186dcb8bf738e82a8998875faf4d4b1"><td class="memItemLeft" align="right" valign="top"><a id="ab186dcb8bf738e82a8998875faf4d4b1"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>betaNxt</b></td></tr>
-<tr class="separator:ab186dcb8bf738e82a8998875faf4d4b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07b35f21aaa811eefdcc3ed7d86aaf19"><td class="memItemLeft" align="right" valign="top"><a id="a07b35f21aaa811eefdcc3ed7d86aaf19"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>BVNxt</b></td></tr>
-<tr class="separator:a07b35f21aaa811eefdcc3ed7d86aaf19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b0f0208d201a5743357976f3e7acc15"><td class="memItemLeft" align="right" valign="top"><a id="a6b0f0208d201a5743357976f3e7acc15"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>BPRBPCfactorNxt</b></td></tr>
-<tr class="separator:a6b0f0208d201a5743357976f3e7acc15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a6ef6c9bf298792166cff5516bc2c14"><td class="memItemLeft" align="right" valign="top"><a id="a9a6ef6c9bf298792166cff5516bc2c14"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>TblAoverlayFactorNxt</b></td></tr>
-<tr class="separator:a9a6ef6c9bf298792166cff5516bc2c14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac74f73acddd8efbfb395c206f431e12f"><td class="memItemLeft" align="right" valign="top"><a id="ac74f73acddd8efbfb395c206f431e12f"></a>
-double *&#160;</td><td class="memItemRight" valign="bottom"><b>TblAoverlayNxt</b></td></tr>
-<tr class="separator:ac74f73acddd8efbfb395c206f431e12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga59371afc7486982742a598e0b49a7513"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#ga59371afc7486982742a598e0b49a7513">Tskm0</a> =NAN</td></tr>
+<tr class="memdesc:ga59371afc7486982742a598e0b49a7513"><td class="mdescLeft">&#160;</td><td class="mdescRight">K, initial average skin temperature. <br /></td></tr>
+<tr class="separator:ga59371afc7486982742a598e0b49a7513"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafecef1544ee5764048bef0d806e392a8"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#gafecef1544ee5764048bef0d806e392a8">Thy0</a> =NAN</td></tr>
+<tr class="memdesc:gafecef1544ee5764048bef0d806e392a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">K, initial hypothalamic temperature. <br /></td></tr>
+<tr class="separator:gafecef1544ee5764048bef0d806e392a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0a80b8ddac8403ee3e2b8a9bd0066da1"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#ga0a80b8ddac8403ee3e2b8a9bd0066da1">Viv0</a> =NAN</td></tr>
+<tr class="memdesc:ga0a80b8ddac8403ee3e2b8a9bd0066da1"><td class="mdescLeft">&#160;</td><td class="mdescRight">m^3, initial blood volume <br /></td></tr>
+<tr class="separator:ga0a80b8ddac8403ee3e2b8a9bd0066da1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0f1a5c9a181c758e08eebe4f306a4927"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#ga0f1a5c9a181c758e08eebe4f306a4927">Vrbc0</a> =NAN</td></tr>
+<tr class="memdesc:ga0f1a5c9a181c758e08eebe4f306a4927"><td class="mdescLeft">&#160;</td><td class="mdescRight">m^3, initial red blood cell volume <br /></td></tr>
+<tr class="separator:ga0f1a5c9a181c758e08eebe4f306a4927"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6832afa5db94b2b54b502efb49605043"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#ga6832afa5db94b2b54b502efb49605043">T0</a></td></tr>
+<tr class="memdesc:ga6832afa5db94b2b54b502efb49605043"><td class="mdescLeft">&#160;</td><td class="mdescRight">K, initial node temperature values. <br /></td></tr>
+<tr class="separator:ga6832afa5db94b2b54b502efb49605043"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa2c96bb225008885e99b81e3ab5ded6f"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#gaa2c96bb225008885e99b81e3ab5ded6f">beta0</a></td></tr>
+<tr class="memdesc:gaa2c96bb225008885e99b81e3ab5ded6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">W/m^3/K, initial perfusion rate factor. <br /></td></tr>
+<tr class="separator:gaa2c96bb225008885e99b81e3ab5ded6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaec77c6604fe06fd8e5470e0b48b8997f"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#gaec77c6604fe06fd8e5470e0b48b8997f">w0</a></td></tr>
+<tr class="memdesc:gaec77c6604fe06fd8e5470e0b48b8997f"><td class="mdescLeft">&#160;</td><td class="mdescRight">1/s, initial perfusion rate <br /></td></tr>
+<tr class="separator:gaec77c6604fe06fd8e5470e0b48b8997f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga08e035c579640669a5e2322cc11147d0"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#ga08e035c579640669a5e2322cc11147d0">q0</a></td></tr>
+<tr class="memdesc:ga08e035c579640669a5e2322cc11147d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">W/m^3, initial metabolic heat gen. <br /></td></tr>
+<tr class="separator:ga08e035c579640669a5e2322cc11147d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaa6cea4c42f513623f9692473e00d63e"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#gaaa6cea4c42f513623f9692473e00d63e">Tpp0</a></td></tr>
+<tr class="memdesc:gaaa6cea4c42f513623f9692473e00d63e"><td class="mdescLeft">&#160;</td><td class="mdescRight">K, initial projected temperatures (skin nodes only) <br /></td></tr>
+<tr class="separator:gaaa6cea4c42f513623f9692473e00d63e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5581e98920845f3d05b662dcd472c82b"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#ga5581e98920845f3d05b662dcd472c82b">M0</a></td></tr>
+<tr class="memdesc:ga5581e98920845f3d05b662dcd472c82b"><td class="mdescLeft">&#160;</td><td class="mdescRight">W, initial body-wide metabolism. <br /></td></tr>
+<tr class="separator:ga5581e98920845f3d05b662dcd472c82b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga319e4567ee12f9dbeef83091ec9ab4fd"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#ga319e4567ee12f9dbeef83091ec9ab4fd">QResp0</a></td></tr>
+<tr class="memdesc:ga319e4567ee12f9dbeef83091ec9ab4fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">W, initial body-wide respiratory heat loss. <br /></td></tr>
+<tr class="separator:ga319e4567ee12f9dbeef83091ec9ab4fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga306c6f45fe2673264fd1bafd87149ce8"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#ga306c6f45fe2673264fd1bafd87149ce8">H0</a></td></tr>
+<tr class="memdesc:ga306c6f45fe2673264fd1bafd87149ce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">W, initial body-wide heat load. <br /></td></tr>
+<tr class="separator:ga306c6f45fe2673264fd1bafd87149ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga760f204775a2104523cc0bd6a9014e00"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#ga760f204775a2104523cc0bd6a9014e00">Sh0</a></td></tr>
+<tr class="memdesc:ga760f204775a2104523cc0bd6a9014e00"><td class="mdescLeft">&#160;</td><td class="mdescRight">W, initial body-wide shivering command. <br /></td></tr>
+<tr class="separator:ga760f204775a2104523cc0bd6a9014e00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabe1e7aa4fade005bc71072be9c6458b5"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#gabe1e7aa4fade005bc71072be9c6458b5">Cs0</a></td></tr>
+<tr class="memdesc:gabe1e7aa4fade005bc71072be9c6458b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">-, initial vasoconstriction command <br /></td></tr>
+<tr class="separator:gabe1e7aa4fade005bc71072be9c6458b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5455592149ce3e82fb3d262857eb0cd3"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#ga5455592149ce3e82fb3d262857eb0cd3">Dl0</a></td></tr>
+<tr class="memdesc:ga5455592149ce3e82fb3d262857eb0cd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">W/K, initial vasodilation command. <br /></td></tr>
+<tr class="separator:ga5455592149ce3e82fb3d262857eb0cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaad65a8a6ce263925140da569307efb39"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Steadys.html#gaad65a8a6ce263925140da569307efb39">Sw0</a></td></tr>
+<tr class="memdesc:gaad65a8a6ce263925140da569307efb39"><td class="mdescLeft">&#160;</td><td class="mdescRight">g/min, initial sweating command <br /></td></tr>
+<tr class="separator:gaad65a8a6ce263925140da569307efb39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac358aec1a085b26fcd500c2dab794ce9"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#gac358aec1a085b26fcd500c2dab794ce9">time</a></td></tr>
+<tr class="memdesc:gac358aec1a085b26fcd500c2dab794ce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">s, simulation time <br /></td></tr>
+<tr class="separator:gac358aec1a085b26fcd500c2dab794ce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab0e80453615e2e350df5ff22a7fb72ba"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#gab0e80453615e2e350df5ff22a7fb72ba">rhs</a></td></tr>
+<tr class="memdesc:gab0e80453615e2e350df5ff22a7fb72ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">K, right hand of system. <br /></td></tr>
+<tr class="separator:gab0e80453615e2e350df5ff22a7fb72ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacd3f484c97caeed5d9c181c813c50507"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#gacd3f484c97caeed5d9c181c813c50507">Tskm</a></td></tr>
+<tr class="memdesc:gacd3f484c97caeed5d9c181c813c50507"><td class="mdescLeft">&#160;</td><td class="mdescRight">K, Mean skin temperature. <br /></td></tr>
+<tr class="separator:gacd3f484c97caeed5d9c181c813c50507"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga069cf65107a255caf97bab770e09a2b1"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga069cf65107a255caf97bab770e09a2b1">Thy</a></td></tr>
+<tr class="memdesc:ga069cf65107a255caf97bab770e09a2b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">K, Hypothalamic temperature. <br /></td></tr>
+<tr class="separator:ga069cf65107a255caf97bab770e09a2b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9dbae70a199f5320f2609aef5a15d79e"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga9dbae70a199f5320f2609aef5a15d79e">M</a></td></tr>
+<tr class="memdesc:ga9dbae70a199f5320f2609aef5a15d79e"><td class="mdescLeft">&#160;</td><td class="mdescRight">W, Total metabolism. <br /></td></tr>
+<tr class="separator:ga9dbae70a199f5320f2609aef5a15d79e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga75edb219d7114b06444744c2dbbc89a1"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga75edb219d7114b06444744c2dbbc89a1">H</a></td></tr>
+<tr class="memdesc:ga75edb219d7114b06444744c2dbbc89a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">W, Heat load. <br /></td></tr>
+<tr class="separator:ga75edb219d7114b06444744c2dbbc89a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacb84d9bcf74e316615a8d6fd07110d8d"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#gacb84d9bcf74e316615a8d6fd07110d8d">QResp</a></td></tr>
+<tr class="memdesc:gacb84d9bcf74e316615a8d6fd07110d8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">W, Respiratory cooling intake. <br /></td></tr>
+<tr class="separator:gacb84d9bcf74e316615a8d6fd07110d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga82592399621eec7f9151cfd6cd808880"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga82592399621eec7f9151cfd6cd808880">TskError</a></td></tr>
+<tr class="memdesc:ga82592399621eec7f9151cfd6cd808880"><td class="mdescLeft">&#160;</td><td class="mdescRight">K, Mean skin temperature error. <br /></td></tr>
+<tr class="separator:ga82592399621eec7f9151cfd6cd808880"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0f84d5cd8e6a055eb5d449bf7e0c225a"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga0f84d5cd8e6a055eb5d449bf7e0c225a">ThyError</a></td></tr>
+<tr class="memdesc:ga0f84d5cd8e6a055eb5d449bf7e0c225a"><td class="mdescLeft">&#160;</td><td class="mdescRight">K, Hypothalamic temperature error. <br /></td></tr>
+<tr class="separator:ga0f84d5cd8e6a055eb5d449bf7e0c225a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae5663ae683a9e2a349a447dde9f89bf0"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#gae5663ae683a9e2a349a447dde9f89bf0">TskErrorGradient</a></td></tr>
+<tr class="memdesc:gae5663ae683a9e2a349a447dde9f89bf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">K/s, Derivative of mean skin temperature error. <br /></td></tr>
+<tr class="separator:gae5663ae683a9e2a349a447dde9f89bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga435a94bed4286b59686395c79172250c"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga435a94bed4286b59686395c79172250c">Sh</a></td></tr>
+<tr class="memdesc:ga435a94bed4286b59686395c79172250c"><td class="mdescLeft">&#160;</td><td class="mdescRight">W, Shivering power. <br /></td></tr>
+<tr class="separator:ga435a94bed4286b59686395c79172250c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacc1de28a39a2ad4ea40303c3fc7797af"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#gacc1de28a39a2ad4ea40303c3fc7797af">Cs</a></td></tr>
+<tr class="memdesc:gacc1de28a39a2ad4ea40303c3fc7797af"><td class="mdescLeft">&#160;</td><td class="mdescRight">-, Vasoconstriction ratio <br /></td></tr>
+<tr class="separator:gacc1de28a39a2ad4ea40303c3fc7797af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2ced092b629ac2f0a3c9bf7d474cce2a"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga2ced092b629ac2f0a3c9bf7d474cce2a">Dl</a></td></tr>
+<tr class="memdesc:ga2ced092b629ac2f0a3c9bf7d474cce2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">W/K, Vasodilation capacitance. <br /></td></tr>
+<tr class="separator:ga2ced092b629ac2f0a3c9bf7d474cce2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6a55ff72f9e1dd1cc4d5810a6c9de3ed"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga6a55ff72f9e1dd1cc4d5810a6c9de3ed">Sw</a></td></tr>
+<tr class="memdesc:ga6a55ff72f9e1dd1cc4d5810a6c9de3ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">g/min, Sweat output <br /></td></tr>
+<tr class="separator:ga6a55ff72f9e1dd1cc4d5810a6c9de3ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gada0894907a5a00a543762c5970a28d9f"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#gada0894907a5a00a543762c5970a28d9f">Viv</a></td></tr>
+<tr class="memdesc:gada0894907a5a00a543762c5970a28d9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intravenous blood volume. <br /></td></tr>
+<tr class="separator:gada0894907a5a00a543762c5970a28d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9a4eb425da03bfcae5b947330f3897ee"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga9a4eb425da03bfcae5b947330f3897ee">Vrbc</a></td></tr>
+<tr class="memdesc:ga9a4eb425da03bfcae5b947330f3897ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Red blood cell volume. <br /></td></tr>
+<tr class="separator:ga9a4eb425da03bfcae5b947330f3897ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga01c5a0140a6fa992776d999d3777558d"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga01c5a0140a6fa992776d999d3777558d">DViv</a></td></tr>
+<tr class="memdesc:ga01c5a0140a6fa992776d999d3777558d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Added non-blood volume. <br /></td></tr>
+<tr class="separator:ga01c5a0140a6fa992776d999d3777558d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga379d87e5d6203f4da4506539d8c22a62"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga379d87e5d6203f4da4506539d8c22a62">bvr</a></td></tr>
+<tr class="memdesc:ga379d87e5d6203f4da4506539d8c22a62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blood volume / initial blood volume. <br /></td></tr>
+<tr class="separator:ga379d87e5d6203f4da4506539d8c22a62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2149a737a6997923ab0f375fbb89c367"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga2149a737a6997923ab0f375fbb89c367">svr</a></td></tr>
+<tr class="memdesc:ga2149a737a6997923ab0f375fbb89c367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saline volume / initial blood volume. <br /></td></tr>
+<tr class="separator:ga2149a737a6997923ab0f375fbb89c367"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7f211b12ae01d5782c8f999879287607"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga7f211b12ae01d5782c8f999879287607">DeltaHCT</a></td></tr>
+<tr class="memdesc:ga7f211b12ae01d5782c8f999879287607"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ratio of hematocrit, ability to carry oxygen. <br /></td></tr>
+<tr class="separator:ga7f211b12ae01d5782c8f999879287607"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacf11385659333a75b831b55b62ba80ae"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#gacf11385659333a75b831b55b62ba80ae">FlowECMOBlood</a></td></tr>
+<tr class="memdesc:gacf11385659333a75b831b55b62ba80ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">m^3/s, Recirculated blood injection rate <br /></td></tr>
+<tr class="separator:gacf11385659333a75b831b55b62ba80ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2a438ffebd10957e403585981bc5a383"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga2a438ffebd10957e403585981bc5a383">FlowECMOSaline</a></td></tr>
+<tr class="memdesc:ga2a438ffebd10957e403585981bc5a383"><td class="mdescLeft">&#160;</td><td class="mdescRight">m^3/s, Saline injection rate <br /></td></tr>
+<tr class="separator:ga2a438ffebd10957e403585981bc5a383"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae078a174c770c3f70a27e3a2f592cc2c"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#gae078a174c770c3f70a27e3a2f592cc2c">Cp</a></td></tr>
+<tr class="memdesc:gae078a174c770c3f70a27e3a2f592cc2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">J/kg/K, Blood specific heat capacity. <br /></td></tr>
+<tr class="separator:gae078a174c770c3f70a27e3a2f592cc2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac8f735af61f94a8ec2c93fa119d70c5c"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#gac8f735af61f94a8ec2c93fa119d70c5c">Rho</a></td></tr>
+<tr class="memdesc:gac8f735af61f94a8ec2c93fa119d70c5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">kg/m^3, Blood density <br /></td></tr>
+<tr class="separator:gac8f735af61f94a8ec2c93fa119d70c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3d607c4f8f2b2ce27296b2d069817eb9"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga3d607c4f8f2b2ce27296b2d069817eb9">TblP</a></td></tr>
+<tr class="memdesc:ga3d607c4f8f2b2ce27296b2d069817eb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">K, experienced blood pool temperature. <br /></td></tr>
+<tr class="separator:ga3d607c4f8f2b2ce27296b2d069817eb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga13ca3864ec800fb447aedd74da747494"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga13ca3864ec800fb447aedd74da747494">TblPNxtRatio</a></td></tr>
+<tr class="memdesc:ga13ca3864ec800fb447aedd74da747494"><td class="mdescLeft">&#160;</td><td class="mdescRight">K/K, future experienced blood pool temperature ratio. <br /></td></tr>
+<tr class="separator:ga13ca3864ec800fb447aedd74da747494"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0a67f0e09068bcc3ad12190cfd398c78"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga0a67f0e09068bcc3ad12190cfd398c78">T</a></td></tr>
+<tr class="memdesc:ga0a67f0e09068bcc3ad12190cfd398c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temperature (K), to be solved for. <br /></td></tr>
+<tr class="separator:ga0a67f0e09068bcc3ad12190cfd398c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4ebc4d02cc73f886bffb8f2568e4d5aa"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga4ebc4d02cc73f886bffb8f2568e4d5aa">Tpp</a></td></tr>
+<tr class="memdesc:ga4ebc4d02cc73f886bffb8f2568e4d5aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temperature (K), fictional forward skin node temperature. <br /></td></tr>
+<tr class="separator:ga4ebc4d02cc73f886bffb8f2568e4d5aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8aed9fa93d350b7f9c7d21360c5532d4"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga8aed9fa93d350b7f9c7d21360c5532d4">q</a></td></tr>
+<tr class="memdesc:ga8aed9fa93d350b7f9c7d21360c5532d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">W/m^3, Heat generation in tissue. <br /></td></tr>
+<tr class="separator:ga8aed9fa93d350b7f9c7d21360c5532d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab071c77aae53df7a1b1c6dd04e2cf8c9"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#gab071c77aae53df7a1b1c6dd04e2cf8c9">w</a></td></tr>
+<tr class="memdesc:gab071c77aae53df7a1b1c6dd04e2cf8c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">-, Blood perfusion rate <br /></td></tr>
+<tr class="separator:gab071c77aae53df7a1b1c6dd04e2cf8c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad7e42c553c3935ce1f00bb21bc865d49"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#gad7e42c553c3935ce1f00bb21bc865d49">beta</a></td></tr>
+<tr class="memdesc:gad7e42c553c3935ce1f00bb21bc865d49"><td class="mdescLeft">&#160;</td><td class="mdescRight">W/m^3/K, Blood perfusion rate factor (rho*c*w) <br /></td></tr>
+<tr class="separator:gad7e42c553c3935ce1f00bb21bc865d49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6578cd06ea598a676708d84c281a13a6"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga6578cd06ea598a676708d84c281a13a6">BV</a></td></tr>
+<tr class="memdesc:ga6578cd06ea598a676708d84c281a13a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">-, beta*volume over all nodes <br /></td></tr>
+<tr class="separator:ga6578cd06ea598a676708d84c281a13a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf3dd7c579c6694c1327c72087545b05a"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#gaf3dd7c579c6694c1327c72087545b05a">BVT</a></td></tr>
+<tr class="memdesc:gaf3dd7c579c6694c1327c72087545b05a"><td class="mdescLeft">&#160;</td><td class="mdescRight">-, beta*volume*T over all nodes <br /></td></tr>
+<tr class="separator:gaf3dd7c579c6694c1327c72087545b05a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1cb55a9a2f3512b020ad56b0760c23b0"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga1cb55a9a2f3512b020ad56b0760c23b0">BPRBPCfactor</a></td></tr>
+<tr class="memdesc:ga1cb55a9a2f3512b020ad56b0760c23b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Westin eqn 21 term 1 coefficient. <br /></td></tr>
+<tr class="separator:ga1cb55a9a2f3512b020ad56b0760c23b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5ae3e5dc71a42e13dc6b1cea28bfab7d"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga5ae3e5dc71a42e13dc6b1cea28bfab7d">TblAoverlayFactor</a></td></tr>
+<tr class="memdesc:ga5ae3e5dc71a42e13dc6b1cea28bfab7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Westin eqn 21 term 2 coefficient. <br /></td></tr>
+<tr class="separator:ga5ae3e5dc71a42e13dc6b1cea28bfab7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga76c96be21c647f9349622d2c932a22d6"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#ga76c96be21c647f9349622d2c932a22d6">TblAoverlay</a></td></tr>
+<tr class="memdesc:ga76c96be21c647f9349622d2c932a22d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Westin eqn 21 term 2. <br /></td></tr>
+<tr class="separator:ga76c96be21c647f9349622d2c932a22d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad8cd48599a6cf42bc3232aff229bad93"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#gad8cd48599a6cf42bc3232aff229bad93">TblA</a></td></tr>
+<tr class="memdesc:gad8cd48599a6cf42bc3232aff229bad93"><td class="mdescLeft">&#160;</td><td class="mdescRight">K, Arterial blood temperature, Westin eqn 21 resultant. <br /></td></tr>
+<tr class="separator:gad8cd48599a6cf42bc3232aff229bad93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaecbcb248d78f0affa8186010a28cb916"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__current.html#gaecbcb248d78f0affa8186010a28cb916">CplC</a></td></tr>
+<tr class="memdesc:gaecbcb248d78f0affa8186010a28cb916"><td class="mdescLeft">&#160;</td><td class="mdescRight">-, Blood pool timestep coupling coefficient (Bottom rightmost matrix entry) <br /></td></tr>
+<tr class="separator:gaecbcb248d78f0affa8186010a28cb916"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga992f6c7a47b96885c254a7de8cb4c4de"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga992f6c7a47b96885c254a7de8cb4c4de">timeNxt</a></td></tr>
+<tr class="memdesc:ga992f6c7a47b96885c254a7de8cb4c4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">s, simulation time at next timestep <br /></td></tr>
+<tr class="separator:ga992f6c7a47b96885c254a7de8cb4c4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad392ddae7619ee696dbfa68f4116757d"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#gad392ddae7619ee696dbfa68f4116757d">TskmNxt</a></td></tr>
+<tr class="memdesc:gad392ddae7619ee696dbfa68f4116757d"><td class="mdescLeft">&#160;</td><td class="mdescRight">K, Mean skin temperature. <br /></td></tr>
+<tr class="separator:gad392ddae7619ee696dbfa68f4116757d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3b44779370f1cfeb4f1d7041269bf5fb"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga3b44779370f1cfeb4f1d7041269bf5fb">MNxt</a></td></tr>
+<tr class="memdesc:ga3b44779370f1cfeb4f1d7041269bf5fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">W, Total metabolism. <br /></td></tr>
+<tr class="separator:ga3b44779370f1cfeb4f1d7041269bf5fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6b548e240869e2673aa58f6fdfa4171d"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga6b548e240869e2673aa58f6fdfa4171d">HNxt</a></td></tr>
+<tr class="memdesc:ga6b548e240869e2673aa58f6fdfa4171d"><td class="mdescLeft">&#160;</td><td class="mdescRight">W, Heat load. <br /></td></tr>
+<tr class="separator:ga6b548e240869e2673aa58f6fdfa4171d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga84cd737b23ff7f2b8b4a5e1877240611"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga84cd737b23ff7f2b8b4a5e1877240611">QRespNxt</a></td></tr>
+<tr class="memdesc:ga84cd737b23ff7f2b8b4a5e1877240611"><td class="mdescLeft">&#160;</td><td class="mdescRight">W, Respiratory cooling intake. <br /></td></tr>
+<tr class="separator:ga84cd737b23ff7f2b8b4a5e1877240611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac45464362c691b9f482658826cc2ae7a"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#gac45464362c691b9f482658826cc2ae7a">TskErrorNxt</a></td></tr>
+<tr class="memdesc:gac45464362c691b9f482658826cc2ae7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">K, Error in skin mean temperature. <br /></td></tr>
+<tr class="separator:gac45464362c691b9f482658826cc2ae7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga59fa86ec146fc0f09d9b36632e48f90e"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga59fa86ec146fc0f09d9b36632e48f90e">ThyErrorNxt</a></td></tr>
+<tr class="memdesc:ga59fa86ec146fc0f09d9b36632e48f90e"><td class="mdescLeft">&#160;</td><td class="mdescRight">K, Error in hypothalamic mean temperature. <br /></td></tr>
+<tr class="separator:ga59fa86ec146fc0f09d9b36632e48f90e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5b34bda7df44b3acfdcb8bd848547cfa"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga5b34bda7df44b3acfdcb8bd848547cfa">TskErrorGradientNxt</a></td></tr>
+<tr class="memdesc:ga5b34bda7df44b3acfdcb8bd848547cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">K/s, Derivative of mean skin error. <br /></td></tr>
+<tr class="separator:ga5b34bda7df44b3acfdcb8bd848547cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0bce83933eae474fe0e6aa45283c68f0"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga0bce83933eae474fe0e6aa45283c68f0">ShNxt</a></td></tr>
+<tr class="memdesc:ga0bce83933eae474fe0e6aa45283c68f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">W, Shivering power. <br /></td></tr>
+<tr class="separator:ga0bce83933eae474fe0e6aa45283c68f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaba16bad0a1e287bf3ade456a9815a84c"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#gaba16bad0a1e287bf3ade456a9815a84c">CsNxt</a></td></tr>
+<tr class="memdesc:gaba16bad0a1e287bf3ade456a9815a84c"><td class="mdescLeft">&#160;</td><td class="mdescRight">-, Vasoconstriction ratio <br /></td></tr>
+<tr class="separator:gaba16bad0a1e287bf3ade456a9815a84c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac378947fee1a38b164f69c96569a972f"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#gac378947fee1a38b164f69c96569a972f">DlNxt</a></td></tr>
+<tr class="memdesc:gac378947fee1a38b164f69c96569a972f"><td class="mdescLeft">&#160;</td><td class="mdescRight">W/K, Vasodilation capacitance. <br /></td></tr>
+<tr class="separator:gac378947fee1a38b164f69c96569a972f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5eeb7ad7d0be27a955c14c19931e7ff0"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga5eeb7ad7d0be27a955c14c19931e7ff0">SwNxt</a></td></tr>
+<tr class="memdesc:ga5eeb7ad7d0be27a955c14c19931e7ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">g/min, Sweat output <br /></td></tr>
+<tr class="separator:ga5eeb7ad7d0be27a955c14c19931e7ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad1de807a26dff39322eee52120312226"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#gad1de807a26dff39322eee52120312226">VivNxt</a></td></tr>
+<tr class="memdesc:gad1de807a26dff39322eee52120312226"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intravenous blood volume. <br /></td></tr>
+<tr class="separator:gad1de807a26dff39322eee52120312226"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8c0178568930cff13647e1cedb1c04bd"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga8c0178568930cff13647e1cedb1c04bd">VrbcNxt</a></td></tr>
+<tr class="memdesc:ga8c0178568930cff13647e1cedb1c04bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Red blood cell volume. <br /></td></tr>
+<tr class="separator:ga8c0178568930cff13647e1cedb1c04bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2e40d0f50ea2c93a9f6bc57deb0a5886"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga2e40d0f50ea2c93a9f6bc57deb0a5886">DVivNxt</a></td></tr>
+<tr class="memdesc:ga2e40d0f50ea2c93a9f6bc57deb0a5886"><td class="mdescLeft">&#160;</td><td class="mdescRight">Added non-blood volume. <br /></td></tr>
+<tr class="separator:ga2e40d0f50ea2c93a9f6bc57deb0a5886"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5430c5db478caa2ed2b4d805758ce8f5"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga5430c5db478caa2ed2b4d805758ce8f5">bvrNxt</a></td></tr>
+<tr class="memdesc:ga5430c5db478caa2ed2b4d805758ce8f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blood volume / initial blood volume. <br /></td></tr>
+<tr class="separator:ga5430c5db478caa2ed2b4d805758ce8f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga93e77aff5a8b1bad89d57d8c1cf36593"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga93e77aff5a8b1bad89d57d8c1cf36593">svrNxt</a></td></tr>
+<tr class="memdesc:ga93e77aff5a8b1bad89d57d8c1cf36593"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saline volume / initial blood volume. <br /></td></tr>
+<tr class="separator:ga93e77aff5a8b1bad89d57d8c1cf36593"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad329b2f8dcc20b84726cec571f98c0d2"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#gad329b2f8dcc20b84726cec571f98c0d2">DeltaHCTNxt</a></td></tr>
+<tr class="memdesc:gad329b2f8dcc20b84726cec571f98c0d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ratio of hematocrit, ability to carry oxygen. <br /></td></tr>
+<tr class="separator:gad329b2f8dcc20b84726cec571f98c0d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5d66a7065abeff11be2c015bd85a7778"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga5d66a7065abeff11be2c015bd85a7778">FlowECMOBloodNxt</a></td></tr>
+<tr class="memdesc:ga5d66a7065abeff11be2c015bd85a7778"><td class="mdescLeft">&#160;</td><td class="mdescRight">m^3/s, Recirculated blood injection rate <br /></td></tr>
+<tr class="separator:ga5d66a7065abeff11be2c015bd85a7778"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5d55a092cc9592bea74469b3adc059ba"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga5d55a092cc9592bea74469b3adc059ba">FlowECMOSalineNxt</a></td></tr>
+<tr class="memdesc:ga5d55a092cc9592bea74469b3adc059ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">m^3/s, Saline injection rate <br /></td></tr>
+<tr class="separator:ga5d55a092cc9592bea74469b3adc059ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7702b134c54b2fddcb8f16ee199ff068"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga7702b134c54b2fddcb8f16ee199ff068">CpNxt</a></td></tr>
+<tr class="memdesc:ga7702b134c54b2fddcb8f16ee199ff068"><td class="mdescLeft">&#160;</td><td class="mdescRight">J/kg/K, Blood specific heat capacity. <br /></td></tr>
+<tr class="separator:ga7702b134c54b2fddcb8f16ee199ff068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab82301f46cbcfd6060b25852d1d4d4b4"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#gab82301f46cbcfd6060b25852d1d4d4b4">RhoNxt</a></td></tr>
+<tr class="memdesc:gab82301f46cbcfd6060b25852d1d4d4b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">kg/m^3, Blood density <br /></td></tr>
+<tr class="separator:gab82301f46cbcfd6060b25852d1d4d4b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga05a70e5fa83da056dfa98c07189b7565"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga05a70e5fa83da056dfa98c07189b7565">TNxt</a></td></tr>
+<tr class="memdesc:ga05a70e5fa83da056dfa98c07189b7565"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temperature (K), to be solved for. <br /></td></tr>
+<tr class="separator:ga05a70e5fa83da056dfa98c07189b7565"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab2aeed1cdb0336bb34532638d6b4a637"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#gab2aeed1cdb0336bb34532638d6b4a637">TppNxt</a></td></tr>
+<tr class="memdesc:gab2aeed1cdb0336bb34532638d6b4a637"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temperature (K), fictional forward skin node temperature. <br /></td></tr>
+<tr class="separator:gab2aeed1cdb0336bb34532638d6b4a637"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacedcd2b975ddad877d00215043644654"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#gacedcd2b975ddad877d00215043644654">qNxt</a></td></tr>
+<tr class="memdesc:gacedcd2b975ddad877d00215043644654"><td class="mdescLeft">&#160;</td><td class="mdescRight">W/m^3, Heat generation in tissue. <br /></td></tr>
+<tr class="separator:gacedcd2b975ddad877d00215043644654"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga824b5692c809bab9ca3acb3ec2852518"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga824b5692c809bab9ca3acb3ec2852518">wNxt</a></td></tr>
+<tr class="memdesc:ga824b5692c809bab9ca3acb3ec2852518"><td class="mdescLeft">&#160;</td><td class="mdescRight">-, Blood perfusion rate <br /></td></tr>
+<tr class="separator:ga824b5692c809bab9ca3acb3ec2852518"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab186dcb8bf738e82a8998875faf4d4b1"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#gab186dcb8bf738e82a8998875faf4d4b1">betaNxt</a></td></tr>
+<tr class="memdesc:gab186dcb8bf738e82a8998875faf4d4b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">W/m^3/K, Blood perfusion rate factor (rho*c*w) <br /></td></tr>
+<tr class="separator:gab186dcb8bf738e82a8998875faf4d4b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga07b35f21aaa811eefdcc3ed7d86aaf19"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga07b35f21aaa811eefdcc3ed7d86aaf19">BVNxt</a></td></tr>
+<tr class="memdesc:ga07b35f21aaa811eefdcc3ed7d86aaf19"><td class="mdescLeft">&#160;</td><td class="mdescRight">-, beta*volume over all nodes <br /></td></tr>
+<tr class="separator:ga07b35f21aaa811eefdcc3ed7d86aaf19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6b0f0208d201a5743357976f3e7acc15"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga6b0f0208d201a5743357976f3e7acc15">BPRBPCfactorNxt</a></td></tr>
+<tr class="memdesc:ga6b0f0208d201a5743357976f3e7acc15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Westin eqn 21 term 1 coefficient. <br /></td></tr>
+<tr class="separator:ga6b0f0208d201a5743357976f3e7acc15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9a6ef6c9bf298792166cff5516bc2c14"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#ga9a6ef6c9bf298792166cff5516bc2c14">TblAoverlayFactorNxt</a></td></tr>
+<tr class="memdesc:ga9a6ef6c9bf298792166cff5516bc2c14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Westin eqn 21 term 2 coefficient. <br /></td></tr>
+<tr class="separator:ga9a6ef6c9bf298792166cff5516bc2c14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac74f73acddd8efbfb395c206f431e12f"><td class="memItemLeft" align="right" valign="top">
+double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__future.html#gac74f73acddd8efbfb395c206f431e12f">TblAoverlayNxt</a></td></tr>
+<tr class="memdesc:gac74f73acddd8efbfb395c206f431e12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Westin eqn 21 term 2. <br /></td></tr>
+<tr class="separator:gac74f73acddd8efbfb395c206f431e12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class that performs one single simulation. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a115b2b61e8ffb0a14466ff5c9c87f776"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a115b2b61e8ffb0a14466ff5c9c87f776">&#9670;&nbsp;</a></span>SimulationInstance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SIMULATOR::SimulationInstance::SimulationInstance </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classBODYMODEL_1_1BodyModel.html">BODYMODEL::BodyModel</a> *&#160;</td>
+          <td class="paramname"><em>tbody</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classSIMMODEL_1_1SimModel.html">SIMMODEL::SimModel</a> *&#160;</td>
+          <td class="paramname"><em>tsim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classPSEUDOBLOCKMATRIX_1_1PseudoBlockMatrix.html">PSEUDOBLOCKMATRIX::PseudoBlockMatrix</a> *&#160;</td>
+          <td class="paramname"><em>tpbm</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create simulation instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tbody</td><td>Initialized bodymodel ptr </td></tr>
+    <tr><td class="paramname">tsim</td><td>Initialized simmodel ptr </td></tr>
+    <tr><td class="paramname">tpbm</td><td>Initialized pseudoblockmatrix ptr </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a7d9b1f05842bd888628598dd161fa604"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d9b1f05842bd888628598dd161fa604">&#9670;&nbsp;</a></span>BCvalues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::BCvalues </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes everything to do with simmodel. Updates simmodel's temperatures, gets UQ values. </p>
+
+</div>
+</div>
+<a id="adb0c3b4c311ab986a00078b4958881b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb0c3b4c311ab986a00078b4958881b6">&#9670;&nbsp;</a></span>bloodParams()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::bloodParams </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes all blood volume parameters. </p>
+
+</div>
+</div>
+<a id="a973bab7b1979187b2854ded74af72043"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a973bab7b1979187b2854ded74af72043">&#9670;&nbsp;</a></span>BVRSVR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::BVRSVR </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets blood and saline volume ratios (Injury) </p>
+
+</div>
+</div>
+<a id="aaad2665735ac1beabc1454a00f3c4078"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaad2665735ac1beabc1454a00f3c4078">&#9670;&nbsp;</a></span>clearSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::clearSystem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clears the matrix and rhs. </p>
+
+</div>
+</div>
+<a id="aa2eb3918c0436160d889ad62eca4802d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2eb3918c0436160d889ad62eca4802d">&#9670;&nbsp;</a></span>computeActiveControls()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::computeActiveControls </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes active control outputs Computes Sh,Cs,Dl,Sw. </p>
+
+</div>
+</div>
+<a id="ae93fc01fc4c0ad4039b539b1fea8b87f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae93fc01fc4c0ad4039b539b1fea8b87f">&#9670;&nbsp;</a></span>computeErrorSignals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::computeErrorSignals </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes active control signals Computes TskError,ThyError,TskErrorGradient. </p>
+
+</div>
+</div>
+<a id="aa0653f5f1c6c416d4af39f1dad794f4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0653f5f1c6c416d4af39f1dad794f4b">&#9670;&nbsp;</a></span>computeHypothalamicTemp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SIMULATOR::SimulationInstance::computeHypothalamicTemp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes "hypothalamic temperature" Note: Brain resolution is small, so this is node 0 in the brain. </p>
+<dl class="section return"><dt>Returns</dt><dd>double K, Thy </dd></dl>
+
+</div>
+</div>
+<a id="a7227eaafa948d2d03ba8b3efd52abc53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7227eaafa948d2d03ba8b3efd52abc53">&#9670;&nbsp;</a></span>computeMeanSkinTemp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SIMULATOR::SimulationInstance::computeMeanSkinTemp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes mean skin temperature. </p>
+<dl class="section return"><dt>Returns</dt><dd>double K, Tskm </dd></dl>
+
+</div>
+</div>
+<a id="aba813be1f896a117c1d81098046b5889"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba813be1f896a117c1d81098046b5889">&#9670;&nbsp;</a></span>computeQresp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SIMULATOR::SimulationInstance::computeQresp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes QResp. </p>
+<dl class="section return"><dt>Returns</dt><dd>double QResp </dd></dl>
+
+</div>
+</div>
+<a id="a8eb7a47225318726a4bfe8baa43c05fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8eb7a47225318726a4bfe8baa43c05fa">&#9670;&nbsp;</a></span>computeThermalLoadParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::computeThermalLoadParameters </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes whole-body load parameters like M,H,QResp. </p>
+
+</div>
+</div>
+<a id="ab65c9fbbfdfb553b993676adb829debf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab65c9fbbfdfb553b993676adb829debf">&#9670;&nbsp;</a></span>copyToInitials()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::copyToInitials </td>
+          <td>(</td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>T0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>beta0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>w0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>q0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>Tpp0tmp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy initial values from external arrays. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">T0tmp</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">beta0tmp</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">w0tmp</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">q0tmp</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Tpp0tmp</td><td><br  />
+ </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7425c4e2fbf45c95090e52b18d7ea0ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7425c4e2fbf45c95090e52b18d7ea0ca">&#9670;&nbsp;</a></span>copyToSteadys()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::copyToSteadys </td>
+          <td>(</td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>T0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>beta0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>w0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>q0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>Tpp0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>M0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>QResp0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>Tskm0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>H0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>Sh0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>Cs0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>Dl0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>Sw0tmp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy steady values from external arrays. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">T0tmp</td><td></td></tr>
+    <tr><td class="paramname">beta0tmp</td><td></td></tr>
+    <tr><td class="paramname">w0tmp</td><td></td></tr>
+    <tr><td class="paramname">q0tmp</td><td></td></tr>
+    <tr><td class="paramname">Tpp0tmp</td><td></td></tr>
+    <tr><td class="paramname">M0tmp</td><td></td></tr>
+    <tr><td class="paramname">QResp0tmp</td><td></td></tr>
+    <tr><td class="paramname">Tskm0tmp</td><td></td></tr>
+    <tr><td class="paramname">H0tmp</td><td></td></tr>
+    <tr><td class="paramname">Sh0tmp</td><td></td></tr>
+    <tr><td class="paramname">Cs0tmp</td><td></td></tr>
+    <tr><td class="paramname">Dl0tmp</td><td></td></tr>
+    <tr><td class="paramname">Sw0tmp</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afc608f07dc695417c1da84edbc5e31b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc608f07dc695417c1da84edbc5e31b4">&#9670;&nbsp;</a></span>deltaHCT()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::deltaHCT </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes change in hematocrit Hematocrit is really relative concentration of red blood cells to steady state. Affects blood properties as well as oxygenation. Subject to future work. </p>
+
+</div>
+</div>
+<a id="a6430f9af5893f4613c906ae3f02e73dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6430f9af5893f4613c906ae3f02e73dd">&#9670;&nbsp;</a></span>deltaQMetabolic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SIMULATOR::SimulationInstance::deltaQMetabolic </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>q</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>T</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>Tneut</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes change in metabolism at a node, following Q10 law. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">q</td><td>W/m^3, basal metabolism </td></tr>
+    <tr><td class="paramname">T</td><td>K, Actual node temperature </td></tr>
+    <tr><td class="paramname">Tneut</td><td>K, Thermoneutral node temperature </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>double W/m^3, q_DM, change in q </dd></dl>
+
+</div>
+</div>
+<a id="a36ec7d4d896ccf4d67bdcb9c671ba1a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36ec7d4d896ccf4d67bdcb9c671ba1a0">&#9670;&nbsp;</a></span>ECMOtreatment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::ECMOtreatment </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes all ECMO parameters. </p>
+
+</div>
+</div>
+<a id="afd71b738323cc7a00b82154b3e9d4fe5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd71b738323cc7a00b82154b3e9d4fe5">&#9670;&nbsp;</a></span>elementValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::elementValues </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes element-level values like TblP, Rho, Cp. </p>
+
+</div>
+</div>
+<a id="a5c43bea70b21796b23fac6b40b45b47f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c43bea70b21796b23fac6b40b45b47f">&#9670;&nbsp;</a></span>fillInitials()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::fillInitials </td>
+          <td>(</td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>T0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>beta0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>w0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>q0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>Tpp0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>Tskm0</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fill external arrays with initial values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">T0tmp</td><td></td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">beta0tmp</td><td></td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">w0tmp</td><td></td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">q0tmp</td><td></td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">Tpp0tmp</td><td></td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">Tskm0</td><td><br  />
+ </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae0f6b667e69f761963b494520fbf5376"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0f6b667e69f761963b494520fbf5376">&#9670;&nbsp;</a></span>fillSteadys()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::fillSteadys </td>
+          <td>(</td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>T0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>beta0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>w0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>q0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>Tpp0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>M0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>QResp0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>Tskm0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>H0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>Sh0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>Cs0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>Dl0tmp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>Sw0tmp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fill external arrays with steady values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">T0tmp</td><td></td></tr>
+    <tr><td class="paramname">beta0tmp</td><td></td></tr>
+    <tr><td class="paramname">w0tmp</td><td></td></tr>
+    <tr><td class="paramname">q0tmp</td><td></td></tr>
+    <tr><td class="paramname">Tpp0tmp</td><td></td></tr>
+    <tr><td class="paramname">M0tmp</td><td></td></tr>
+    <tr><td class="paramname">QResp0tmp</td><td></td></tr>
+    <tr><td class="paramname">Tskm0tmp</td><td></td></tr>
+    <tr><td class="paramname">H0tmp</td><td></td></tr>
+    <tr><td class="paramname">Sh0tmp</td><td></td></tr>
+    <tr><td class="paramname">Cs0tmp</td><td></td></tr>
+    <tr><td class="paramname">Dl0tmp</td><td></td></tr>
+    <tr><td class="paramname">Sw0tmp</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aab19cd71218e0c551780be308e01d9f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab19cd71218e0c551780be308e01d9f9">&#9670;&nbsp;</a></span>flowECMOBlood()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::flowECMOBlood </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>eleIdx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets blood flow at an element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">eleIdx</td><td>Element computed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0f30e1a9a3082bfae715aea782fda20f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f30e1a9a3082bfae715aea782fda20f">&#9670;&nbsp;</a></span>flowECMOSaline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::flowECMOSaline </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>eleIdx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets saline flow at an element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">eleIdx</td><td>Element computed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4e8649ab89996ffe3bf26a08728a3b01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e8649ab89996ffe3bf26a08728a3b01">&#9670;&nbsp;</a></span>nodeValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::nodeValues </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes all nodal values. </p>
+
+</div>
+</div>
+<a id="af5bd306c689a278b4018afa7a0a14fd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5bd306c689a278b4018afa7a0a14fd5">&#9670;&nbsp;</a></span>permuteTimestep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::permuteTimestep </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies values to previous timesteps in memory. </p>
+
+</div>
+</div>
+<a id="a69f16505c35d486541ca0bcbb6530a0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69f16505c35d486541ca0bcbb6530a0f">&#9670;&nbsp;</a></span>project()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SIMULATOR::SimulationInstance::project </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>cur</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>prv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finite difference to get future value. Note: Will equal cur if steady state or initial. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cur</td><td>Current value </td></tr>
+    <tr><td class="paramname">prv</td><td>Previous value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>double Next value </dd></dl>
+
+</div>
+</div>
+<a id="a8465c93696a35d298f051b65f93cbe01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8465c93696a35d298f051b65f93cbe01">&#9670;&nbsp;</a></span>projectBodyValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::projectBodyValues </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get future body values. </p>
+
+</div>
+</div>
+<a id="a5c7829d7ca2382905e1fdd6568f955b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c7829d7ca2382905e1fdd6568f955b7">&#9670;&nbsp;</a></span>projectTemperatures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::projectTemperatures </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ESTIMATE future temperature values. Very important for skin eqns and heat gen, both termperature reliant. </p>
+
+</div>
+</div>
+<a id="ae685beaf39b9c57f5e813485802df0ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae685beaf39b9c57f5e813485802df0ef">&#9670;&nbsp;</a></span>projectTpp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::projectTpp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Project fictinal outer-skin temperatures. </p>
+
+</div>
+</div>
+<a id="ac9836dd268ac1a916d95075822ba3e2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9836dd268ac1a916d95075822ba3e2e">&#9670;&nbsp;</a></span>qwbeta()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::qwbeta </td>
+          <td>(</td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>qs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>ws</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>betas</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>cps</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>rhos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>Ts</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes q,w,beta at all nodes at one timestep. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">qs</td><td>W/m^3, volumetric heat gen </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">ws</td><td>1/s, perfusion rate </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">betas</td><td>W/m^3/K, blood perfusion rate factor </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cps</td><td>W/kg/K, blood experienced specific heat capacity </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhos</td><td>kg/m^3, blood experienced density </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Ts</td><td>K, temperatures at this timestep </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aac1c71f35f57750da78a086d683a33fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac1c71f35f57750da78a086d683a33fd">&#9670;&nbsp;</a></span>rhocp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::rhocp </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>eleIdx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes blood density and specific heat capacity at an element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">eleIdx</td><td>Element to compute </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae040df2088d04a4801fc90145f75d577"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae040df2088d04a4801fc90145f75d577">&#9670;&nbsp;</a></span>runSim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::runSim </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Run the simulation. </p>
+<p>Performs fixed-timestep iteration until the simmodel's end condition hits or 3600s is achieved. Uses PBM's version of Gauss-Seidel solving. May be modified to produce iterative updates to the terminal. </p>
+
+</div>
+</div>
+<a id="a07ec1ef8fa6310acfb6441e2001f805b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07ec1ef8fa6310acfb6441e2001f805b">&#9670;&nbsp;</a></span>solveSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::solveSystem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uses one of the PBM solvers to fill in TNxt with realistic values. At present, uses Gauss-Seidel since it was indeed the fastest. </p>
+
+</div>
+</div>
+<a id="a814d41137afdcbf3007afa85b5308b2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a814d41137afdcbf3007afa85b5308b2d">&#9670;&nbsp;</a></span>tblp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SIMULATOR::SimulationInstance::tblp </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>eleIdx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes EXPERIENCED blood pool temperature. Differs from T[body-&gt;N-1] when ECMO introduced. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">eleIdx</td><td>Element to compute </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="Simulator_8hpp_source.html">Simulator.hpp</a></li>
 <li>Simulator.cpp</li>

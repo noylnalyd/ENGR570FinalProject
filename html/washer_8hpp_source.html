@@ -75,66 +75,87 @@ $(function() {
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>WASHER</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">enum</span> WasherState { undefined, initialized, computed };</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html">   13</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classWASHER_1_1Washer.html">Washer</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        WasherState _state = undefined;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordtype">void</span> computeZeta();</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordtype">void</span> computeDel();</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordtype">double</span> r; <span class="comment">// m</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordtype">double</span> k; <span class="comment">// W/m^2</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordtype">double</span> rho; <span class="comment">// kg/m^3</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordtype">double</span> c; <span class="comment">// J/kg/K</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordtype">double</span> w_bl; <span class="comment">// 1/s</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordtype">double</span> q_m; <span class="comment">// W/m^3</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordtype">double</span> a_resp=0; <span class="comment">// -</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordtype">double</span> zeta; <span class="comment">// s</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordtype">double</span> gamma; <span class="comment">// -</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordtype">double</span> del; <span class="comment">// m^4/W</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordtype">double</span> deltaR; <span class="comment">// m</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordtype">double</span> volume; <span class="comment">// m^3</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">double</span> muscle; <span class="comment">// -</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">double</span> resp; <span class="comment">// -</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordtype">double</span> AForwardCur=0; <span class="comment">// -</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordtype">double</span> AForwardNxt=0; <span class="comment">// -</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordtype">double</span> ABackwardCur=0; <span class="comment">// -</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordtype">double</span> ABackwardPrv=0; <span class="comment">// -</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="classWASHER_1_1Washer.html">Washer</a>(){</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            _state = initialized;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        };</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        ~<a class="code" href="classWASHER_1_1Washer.html">Washer</a>();</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">enum</span> WasherState { undefined, initialized, computed };</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html">   15</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classWASHER_1_1Washer.html">Washer</a></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        WasherState _state = undefined;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordtype">void</span> computeZeta();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordtype">void</span> computeDel();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#a4d5604e5070f635fdc2da56e5e6a0435">   26</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#a4d5604e5070f635fdc2da56e5e6a0435">r</a>; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#a0cae4b1f4cd423c7e4ae0847fc41e567">   27</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#a0cae4b1f4cd423c7e4ae0847fc41e567">k</a>; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#ab3da4b6f6e070197e110edb74d52aea8">   28</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#ab3da4b6f6e070197e110edb74d52aea8">rho</a>; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#a59e85c36cfb171ca385063598b5622a2">   29</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#a59e85c36cfb171ca385063598b5622a2">c</a>; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#a15f1ba76c4afcd716148625ecf2c5faf">   30</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#a15f1ba76c4afcd716148625ecf2c5faf">w_bl</a>; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#aa5625258b913d4fbb515ae058dddb69d">   31</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#aa5625258b913d4fbb515ae058dddb69d">q_m</a>; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#ad10ba3747c8c390fe64012416df80f17">   32</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#ad10ba3747c8c390fe64012416df80f17">a_resp</a>=0; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#a397f3e9679cca0293b170626ba57d25e">   33</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#a397f3e9679cca0293b170626ba57d25e">zeta</a>; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#ad23f268a1e44dac849ee57b59345d322">   34</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#ad23f268a1e44dac849ee57b59345d322">gamma</a>; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#a640831abf9fcd53a44e8129fddcf5258">   35</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#a640831abf9fcd53a44e8129fddcf5258">del</a>; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#a8c66e679bae4e7eaf640e3df7a5a4b06">   36</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#a8c66e679bae4e7eaf640e3df7a5a4b06">deltaR</a>; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#a9eaa12c054532f43af99fd855b10f776">   37</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#a9eaa12c054532f43af99fd855b10f776">volume</a>; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#a5fec8064102636f947e28e0b42aff745">   38</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#a5fec8064102636f947e28e0b42aff745">muscle</a>; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#a0e70793cc561d94c4e5a0c6d883e3f95">   39</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#a0e70793cc561d94c4e5a0c6d883e3f95">resp</a>; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#a418cfaaf37258ed797d65ad621c2218e">   40</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#a418cfaaf37258ed797d65ad621c2218e">AForwardCur</a>=0; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#abb9c5fc89f623008165ea1b02a8eeccc">   41</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#abb9c5fc89f623008165ea1b02a8eeccc">AForwardNxt</a>=0; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#ac89586f80a7b0df5f556e8872c9ee8c4">   42</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#ac89586f80a7b0df5f556e8872c9ee8c4">ABackwardCur</a>=0; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#a42caebfc217cfcc5374d8b04b769aa98">   43</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="classWASHER_1_1Washer.html#a42caebfc217cfcc5374d8b04b769aa98">ABackwardPrv</a>=0; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordtype">void</span> compute();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    };</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> Washer::computeZeta()</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        zeta = 2*deltaR*deltaR*rho*c/k;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> Washer::computeDel()</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        del = deltaR*deltaR/k;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> Washer::compute()</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#a0a9db7065cf6383f22a3ce74623b6244">   46</a></span>&#160;        <a class="code" href="classWASHER_1_1Washer.html#a0a9db7065cf6383f22a3ce74623b6244">Washer</a>(){</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            _state = initialized;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        };</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="classWASHER_1_1Washer.html#a08b79bc622a78306b3547a63e0e2533a">~Washer</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classWASHER_1_1Washer.html#a964157bf0c4859a83a06fe4f598f3fec">compute</a>();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    };</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> Washer::computeZeta()</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        assert(_state == initialized);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        computeZeta();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        computeDel();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        _state = computed;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="classWASHER_1_1Washer.html#a397f3e9679cca0293b170626ba57d25e">zeta</a> = 2*<a class="code" href="classWASHER_1_1Washer.html#a8c66e679bae4e7eaf640e3df7a5a4b06">deltaR</a>*<a class="code" href="classWASHER_1_1Washer.html#a8c66e679bae4e7eaf640e3df7a5a4b06">deltaR</a>*<a class="code" href="classWASHER_1_1Washer.html#ab3da4b6f6e070197e110edb74d52aea8">rho</a>*<a class="code" href="classWASHER_1_1Washer.html#a59e85c36cfb171ca385063598b5622a2">c</a>/<a class="code" href="classWASHER_1_1Washer.html#a0cae4b1f4cd423c7e4ae0847fc41e567">k</a>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> Washer::computeDel()</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <a class="code" href="classWASHER_1_1Washer.html#a640831abf9fcd53a44e8129fddcf5258">del</a> = <a class="code" href="classWASHER_1_1Washer.html#a8c66e679bae4e7eaf640e3df7a5a4b06">deltaR</a>*<a class="code" href="classWASHER_1_1Washer.html#a8c66e679bae4e7eaf640e3df7a5a4b06">deltaR</a>/<a class="code" href="classWASHER_1_1Washer.html#a0cae4b1f4cd423c7e4ae0847fc41e567">k</a>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classWASHER_1_1Washer.html#a964157bf0c4859a83a06fe4f598f3fec">   65</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classWASHER_1_1Washer.html#a964157bf0c4859a83a06fe4f598f3fec">Washer::compute</a>()</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        assert(_state == initialized);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        computeZeta();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        computeDel();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        _state = computed;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassWASHER_1_1Washer_html"><div class="ttname"><a href="classWASHER_1_1Washer.html">WASHER::Washer</a></div><div class="ttdef"><b>Definition:</b> washer.hpp:13</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_ac89586f80a7b0df5f556e8872c9ee8c4"><div class="ttname"><a href="classWASHER_1_1Washer.html#ac89586f80a7b0df5f556e8872c9ee8c4">WASHER::Washer::ABackwardCur</a></div><div class="ttdeci">double ABackwardCur</div><div class="ttdoc">-, Backward current coefficient</div><div class="ttdef"><b>Definition:</b> washer.hpp:42</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_ad10ba3747c8c390fe64012416df80f17"><div class="ttname"><a href="classWASHER_1_1Washer.html#ad10ba3747c8c390fe64012416df80f17">WASHER::Washer::a_resp</a></div><div class="ttdeci">double a_resp</div><div class="ttdoc">-, respiratory power share</div><div class="ttdef"><b>Definition:</b> washer.hpp:32</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_a640831abf9fcd53a44e8129fddcf5258"><div class="ttname"><a href="classWASHER_1_1Washer.html#a640831abf9fcd53a44e8129fddcf5258">WASHER::Washer::del</a></div><div class="ttdeci">double del</div><div class="ttdoc">m^4/W, flux to perfusion ratio</div><div class="ttdef"><b>Definition:</b> washer.hpp:35</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_aa5625258b913d4fbb515ae058dddb69d"><div class="ttname"><a href="classWASHER_1_1Washer.html#aa5625258b913d4fbb515ae058dddb69d">WASHER::Washer::q_m</a></div><div class="ttdeci">double q_m</div><div class="ttdoc">W/m^3, basal metabolic heat gen.</div><div class="ttdef"><b>Definition:</b> washer.hpp:31</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_ad23f268a1e44dac849ee57b59345d322"><div class="ttname"><a href="classWASHER_1_1Washer.html#ad23f268a1e44dac849ee57b59345d322">WASHER::Washer::gamma</a></div><div class="ttdeci">double gamma</div><div class="ttdoc">-, volume shear coefficient</div><div class="ttdef"><b>Definition:</b> washer.hpp:34</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_a0e70793cc561d94c4e5a0c6d883e3f95"><div class="ttname"><a href="classWASHER_1_1Washer.html#a0e70793cc561d94c4e5a0c6d883e3f95">WASHER::Washer::resp</a></div><div class="ttdeci">double resp</div><div class="ttdoc">-, resp ratio per washer</div><div class="ttdef"><b>Definition:</b> washer.hpp:39</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_a8c66e679bae4e7eaf640e3df7a5a4b06"><div class="ttname"><a href="classWASHER_1_1Washer.html#a8c66e679bae4e7eaf640e3df7a5a4b06">WASHER::Washer::deltaR</a></div><div class="ttdeci">double deltaR</div><div class="ttdoc">m, outer minus inner radius</div><div class="ttdef"><b>Definition:</b> washer.hpp:36</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_a4d5604e5070f635fdc2da56e5e6a0435"><div class="ttname"><a href="classWASHER_1_1Washer.html#a4d5604e5070f635fdc2da56e5e6a0435">WASHER::Washer::r</a></div><div class="ttdeci">double r</div><div class="ttdoc">m, Mean radius</div><div class="ttdef"><b>Definition:</b> washer.hpp:26</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_a397f3e9679cca0293b170626ba57d25e"><div class="ttname"><a href="classWASHER_1_1Washer.html#a397f3e9679cca0293b170626ba57d25e">WASHER::Washer::zeta</a></div><div class="ttdeci">double zeta</div><div class="ttdoc">s, Time-dependence coefficient</div><div class="ttdef"><b>Definition:</b> washer.hpp:33</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_a0a9db7065cf6383f22a3ce74623b6244"><div class="ttname"><a href="classWASHER_1_1Washer.html#a0a9db7065cf6383f22a3ce74623b6244">WASHER::Washer::Washer</a></div><div class="ttdeci">Washer()</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> washer.hpp:46</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_ab3da4b6f6e070197e110edb74d52aea8"><div class="ttname"><a href="classWASHER_1_1Washer.html#ab3da4b6f6e070197e110edb74d52aea8">WASHER::Washer::rho</a></div><div class="ttdeci">double rho</div><div class="ttdoc">kg/m^3, density</div><div class="ttdef"><b>Definition:</b> washer.hpp:28</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_a9eaa12c054532f43af99fd855b10f776"><div class="ttname"><a href="classWASHER_1_1Washer.html#a9eaa12c054532f43af99fd855b10f776">WASHER::Washer::volume</a></div><div class="ttdeci">double volume</div><div class="ttdoc">m^3, volume for whole torus</div><div class="ttdef"><b>Definition:</b> washer.hpp:37</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_a42caebfc217cfcc5374d8b04b769aa98"><div class="ttname"><a href="classWASHER_1_1Washer.html#a42caebfc217cfcc5374d8b04b769aa98">WASHER::Washer::ABackwardPrv</a></div><div class="ttdeci">double ABackwardPrv</div><div class="ttdoc">-, Backward relative coefficient</div><div class="ttdef"><b>Definition:</b> washer.hpp:43</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_a15f1ba76c4afcd716148625ecf2c5faf"><div class="ttname"><a href="classWASHER_1_1Washer.html#a15f1ba76c4afcd716148625ecf2c5faf">WASHER::Washer::w_bl</a></div><div class="ttdeci">double w_bl</div><div class="ttdoc">1/s, blood perfusivity</div><div class="ttdef"><b>Definition:</b> washer.hpp:30</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_a08b79bc622a78306b3547a63e0e2533a"><div class="ttname"><a href="classWASHER_1_1Washer.html#a08b79bc622a78306b3547a63e0e2533a">WASHER::Washer::~Washer</a></div><div class="ttdeci">~Washer()</div><div class="ttdoc">Destructor.</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html"><div class="ttname"><a href="classWASHER_1_1Washer.html">WASHER::Washer</a></div><div class="ttdoc">Class for all washers.</div><div class="ttdef"><b>Definition:</b> washer.hpp:15</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_abb9c5fc89f623008165ea1b02a8eeccc"><div class="ttname"><a href="classWASHER_1_1Washer.html#abb9c5fc89f623008165ea1b02a8eeccc">WASHER::Washer::AForwardNxt</a></div><div class="ttdeci">double AForwardNxt</div><div class="ttdoc">-, Forward relative coefficient</div><div class="ttdef"><b>Definition:</b> washer.hpp:41</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_a59e85c36cfb171ca385063598b5622a2"><div class="ttname"><a href="classWASHER_1_1Washer.html#a59e85c36cfb171ca385063598b5622a2">WASHER::Washer::c</a></div><div class="ttdeci">double c</div><div class="ttdoc">J/kg/K, specific constant pressure heat capacity.</div><div class="ttdef"><b>Definition:</b> washer.hpp:29</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_a5fec8064102636f947e28e0b42aff745"><div class="ttname"><a href="classWASHER_1_1Washer.html#a5fec8064102636f947e28e0b42aff745">WASHER::Washer::muscle</a></div><div class="ttdeci">double muscle</div><div class="ttdoc">-, muscle ratio (1 or 0)</div><div class="ttdef"><b>Definition:</b> washer.hpp:38</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_a964157bf0c4859a83a06fe4f598f3fec"><div class="ttname"><a href="classWASHER_1_1Washer.html#a964157bf0c4859a83a06fe4f598f3fec">WASHER::Washer::compute</a></div><div class="ttdeci">void compute()</div><div class="ttdoc">Compute all subparameters.</div><div class="ttdef"><b>Definition:</b> washer.hpp:65</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_a418cfaaf37258ed797d65ad621c2218e"><div class="ttname"><a href="classWASHER_1_1Washer.html#a418cfaaf37258ed797d65ad621c2218e">WASHER::Washer::AForwardCur</a></div><div class="ttdeci">double AForwardCur</div><div class="ttdoc">-, Forward current coefficient</div><div class="ttdef"><b>Definition:</b> washer.hpp:40</div></div>
+<div class="ttc" id="aclassWASHER_1_1Washer_html_a0cae4b1f4cd423c7e4ae0847fc41e567"><div class="ttname"><a href="classWASHER_1_1Washer.html#a0cae4b1f4cd423c7e4ae0847fc41e567">WASHER::Washer::k</a></div><div class="ttdeci">double k</div><div class="ttdoc">W/m/K, specific conductivity.</div><div class="ttdef"><b>Definition:</b> washer.hpp:27</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

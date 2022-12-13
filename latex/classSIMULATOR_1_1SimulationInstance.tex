@@ -1,386 +1,770 @@
 \hypertarget{classSIMULATOR_1_1SimulationInstance}{}\doxysection{S\+I\+M\+U\+L\+A\+T\+OR\+::Simulation\+Instance Class Reference}
 \label{classSIMULATOR_1_1SimulationInstance}\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+
+
+Class that performs one single simulation.  
+
+
+
+
+{\ttfamily \#include $<$Simulator.\+hpp$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a115b2b61e8ffb0a14466ff5c9c87f776}\label{classSIMULATOR_1_1SimulationInstance_a115b2b61e8ffb0a14466ff5c9c87f776}} 
-{\bfseries Simulation\+Instance} (\mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$tbody, \mbox{\hyperlink{classSIMMODEL_1_1SimModel}{S\+I\+M\+M\+O\+D\+E\+L\+::\+Sim\+Model}} $\ast$tsim, \mbox{\hyperlink{classPSEUDOBLOCKMATRIX_1_1PseudoBlockMatrix}{P\+S\+E\+U\+D\+O\+B\+L\+O\+C\+K\+M\+A\+T\+R\+I\+X\+::\+Pseudo\+Block\+Matrix}} $\ast$tpbm)
-\item 
+\mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a115b2b61e8ffb0a14466ff5c9c87f776}{Simulation\+Instance}} (\mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$tbody, \mbox{\hyperlink{classSIMMODEL_1_1SimModel}{S\+I\+M\+M\+O\+D\+E\+L\+::\+Sim\+Model}} $\ast$tsim, \mbox{\hyperlink{classPSEUDOBLOCKMATRIX_1_1PseudoBlockMatrix}{P\+S\+E\+U\+D\+O\+B\+L\+O\+C\+K\+M\+A\+T\+R\+I\+X\+::\+Pseudo\+Block\+Matrix}} $\ast$tpbm)
+\begin{DoxyCompactList}\small\item\em Create simulation instance. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a8eb4b8f9e18dfae5f3510aa14afd35c8}\label{classSIMULATOR_1_1SimulationInstance_a8eb4b8f9e18dfae5f3510aa14afd35c8}} 
+\mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a8eb4b8f9e18dfae5f3510aa14afd35c8}{$\sim$\+Simulation\+Instance}} ()
+\begin{DoxyCompactList}\small\item\em Destroy simulation instance. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_acc6c8e156b5ab0b3a449eb4ea282052d}\label{classSIMULATOR_1_1SimulationInstance_acc6c8e156b5ab0b3a449eb4ea282052d}} 
-void {\bfseries allocate} ()
-\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_acc6c8e156b5ab0b3a449eb4ea282052d}{allocate}} ()
+\begin{DoxyCompactList}\small\item\em Allocate memory. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a0ac4e0b20a255637e4086d6def9dea22}\label{classSIMULATOR_1_1SimulationInstance_a0ac4e0b20a255637e4086d6def9dea22}} 
-void {\bfseries deallocate} ()
-\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a0ac4e0b20a255637e4086d6def9dea22}{deallocate}} ()
+\begin{DoxyCompactList}\small\item\em Deallocate memory. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a75cc58fd5d67b83b26686fed4d975b35}\label{classSIMULATOR_1_1SimulationInstance_a75cc58fd5d67b83b26686fed4d975b35}} 
-void {\bfseries ghost\+Start} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ab65c9fbbfdfb553b993676adb829debf}\label{classSIMULATOR_1_1SimulationInstance_ab65c9fbbfdfb553b993676adb829debf}} 
-void {\bfseries copy\+To\+Initials} (double $\ast$T0tmp, double $\ast$beta0tmp, double $\ast$w0tmp, double $\ast$q0tmp, double $\ast$Tpp0tmp)
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a5c43bea70b21796b23fac6b40b45b47f}\label{classSIMULATOR_1_1SimulationInstance_a5c43bea70b21796b23fac6b40b45b47f}} 
-void {\bfseries fill\+Initials} (double $\ast$T0tmp, double $\ast$beta0tmp, double $\ast$w0tmp, double $\ast$q0tmp, double $\ast$Tpp0tmp, double Tskm0)
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a7425c4e2fbf45c95090e52b18d7ea0ca}\label{classSIMULATOR_1_1SimulationInstance_a7425c4e2fbf45c95090e52b18d7ea0ca}} 
-void {\bfseries copy\+To\+Steadys} (double $\ast$T0tmp, double $\ast$beta0tmp, double $\ast$w0tmp, double $\ast$q0tmp, double $\ast$Tpp0tmp, double M0tmp, double Q\+Resp0tmp, double Tskm0tmp, double H0tmp, double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp)
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ae0f6b667e69f761963b494520fbf5376}\label{classSIMULATOR_1_1SimulationInstance_ae0f6b667e69f761963b494520fbf5376}} 
-void {\bfseries fill\+Steadys} (double $\ast$T0tmp, double $\ast$beta0tmp, double $\ast$w0tmp, double $\ast$q0tmp, double $\ast$Tpp0tmp, double M0tmp, double Q\+Resp0tmp, double Tskm0tmp, double H0tmp, double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp)
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ae040df2088d04a4801fc90145f75d577}\label{classSIMULATOR_1_1SimulationInstance_ae040df2088d04a4801fc90145f75d577}} 
-void {\bfseries run\+Sim} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aaad2665735ac1beabc1454a00f3c4078}\label{classSIMULATOR_1_1SimulationInstance_aaad2665735ac1beabc1454a00f3c4078}} 
-void {\bfseries clear\+System} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a8eb7a47225318726a4bfe8baa43c05fa}\label{classSIMULATOR_1_1SimulationInstance_a8eb7a47225318726a4bfe8baa43c05fa}} 
-void {\bfseries compute\+Thermal\+Load\+Parameters} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aba813be1f896a117c1d81098046b5889}\label{classSIMULATOR_1_1SimulationInstance_aba813be1f896a117c1d81098046b5889}} 
-double {\bfseries compute\+Qresp} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aefa9a3307d585013101f04667cfabe09}\label{classSIMULATOR_1_1SimulationInstance_aefa9a3307d585013101f04667cfabe09}} 
-double {\bfseries delta\+Q\+Metabolic} (double q, double T, double T\+Nxt)
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_afd71b738323cc7a00b82154b3e9d4fe5}\label{classSIMULATOR_1_1SimulationInstance_afd71b738323cc7a00b82154b3e9d4fe5}} 
-void {\bfseries element\+Values} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aac1c71f35f57750da78a086d683a33fd}\label{classSIMULATOR_1_1SimulationInstance_aac1c71f35f57750da78a086d683a33fd}} 
-void {\bfseries rhocp} (int ele\+Idx)
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a814d41137afdcbf3007afa85b5308b2d}\label{classSIMULATOR_1_1SimulationInstance_a814d41137afdcbf3007afa85b5308b2d}} 
-void {\bfseries tblp} (int ele\+Idx)
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a4e8649ab89996ffe3bf26a08728a3b01}\label{classSIMULATOR_1_1SimulationInstance_a4e8649ab89996ffe3bf26a08728a3b01}} 
-void {\bfseries node\+Values} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ac9836dd268ac1a916d95075822ba3e2e}\label{classSIMULATOR_1_1SimulationInstance_ac9836dd268ac1a916d95075822ba3e2e}} 
-void {\bfseries qwbeta} (double $\ast$qs, double $\ast$ws, double $\ast$betas, double $\ast$cps, double $\ast$rhos, double $\ast$Ts)
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a8038d76b19822a9992c54cea9eef2dae}\label{classSIMULATOR_1_1SimulationInstance_a8038d76b19822a9992c54cea9eef2dae}} 
-void {\bfseries skinT} ()
-\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a75cc58fd5d67b83b26686fed4d975b35}{ghost\+Start}} ()
+\begin{DoxyCompactList}\small\item\em Copy all steady values into Prv and current values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_ab65c9fbbfdfb553b993676adb829debf}{copy\+To\+Initials}} (double $\ast$T0tmp, double $\ast$beta0tmp, double $\ast$w0tmp, double $\ast$q0tmp, double $\ast$Tpp0tmp)
+\begin{DoxyCompactList}\small\item\em Copy initial values from external arrays. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a5c43bea70b21796b23fac6b40b45b47f}{fill\+Initials}} (double $\ast$T0tmp, double $\ast$beta0tmp, double $\ast$w0tmp, double $\ast$q0tmp, double $\ast$Tpp0tmp, double \mbox{\hyperlink{group__Steadys_ga59371afc7486982742a598e0b49a7513}{Tskm0}})
+\begin{DoxyCompactList}\small\item\em Fill external arrays with initial values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a7425c4e2fbf45c95090e52b18d7ea0ca}{copy\+To\+Steadys}} (double $\ast$T0tmp, double $\ast$beta0tmp, double $\ast$w0tmp, double $\ast$q0tmp, double $\ast$Tpp0tmp, double M0tmp, double Q\+Resp0tmp, double Tskm0tmp, double H0tmp, double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp)
+\begin{DoxyCompactList}\small\item\em Copy steady values from external arrays. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_ae0f6b667e69f761963b494520fbf5376}{fill\+Steadys}} (double $\ast$T0tmp, double $\ast$beta0tmp, double $\ast$w0tmp, double $\ast$q0tmp, double $\ast$Tpp0tmp, double M0tmp, double Q\+Resp0tmp, double Tskm0tmp, double H0tmp, double Sh0tmp, double Cs0tmp, double Dl0tmp, double Sw0tmp)
+\begin{DoxyCompactList}\small\item\em Fill external arrays with steady values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_ae040df2088d04a4801fc90145f75d577}{run\+Sim}} ()
+\begin{DoxyCompactList}\small\item\em Run the simulation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_aaad2665735ac1beabc1454a00f3c4078}{clear\+System}} ()
+\begin{DoxyCompactList}\small\item\em Clears the matrix and rhs. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a8eb7a47225318726a4bfe8baa43c05fa}{compute\+Thermal\+Load\+Parameters}} ()
+\begin{DoxyCompactList}\small\item\em Computes whole-\/body load parameters like M,H,Q\+Resp. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_aba813be1f896a117c1d81098046b5889}{compute\+Qresp}} ()
+\begin{DoxyCompactList}\small\item\em Computes Q\+Resp. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a6430f9af5893f4613c906ae3f02e73dd}{delta\+Q\+Metabolic}} (double \mbox{\hyperlink{group__current_ga8aed9fa93d350b7f9c7d21360c5532d4}{q}}, double \mbox{\hyperlink{group__current_ga0a67f0e09068bcc3ad12190cfd398c78}{T}}, double Tneut)
+\begin{DoxyCompactList}\small\item\em Computes change in metabolism at a node, following Q10 law. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_afd71b738323cc7a00b82154b3e9d4fe5}{element\+Values}} ()
+\begin{DoxyCompactList}\small\item\em Computes element-\/level values like TblP, Rho, Cp. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_aac1c71f35f57750da78a086d683a33fd}{rhocp}} (int ele\+Idx)
+\begin{DoxyCompactList}\small\item\em Computes blood density and specific heat capacity at an element. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a814d41137afdcbf3007afa85b5308b2d}{tblp}} (int ele\+Idx)
+\begin{DoxyCompactList}\small\item\em Computes E\+X\+P\+E\+R\+I\+E\+N\+C\+ED blood pool temperature. Differs from T\mbox{[}body-\/$>$N-\/1\mbox{]} when E\+C\+MO introduced. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a4e8649ab89996ffe3bf26a08728a3b01}{node\+Values}} ()
+\begin{DoxyCompactList}\small\item\em Computes all nodal values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_ac9836dd268ac1a916d95075822ba3e2e}{qwbeta}} (double $\ast$qs, double $\ast$ws, double $\ast$betas, double $\ast$cps, double $\ast$rhos, double $\ast$Ts)
+\begin{DoxyCompactList}\small\item\em Computes q,w,beta at all nodes at one timestep. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a624730c6845094face527743d1f1d844}\label{classSIMULATOR_1_1SimulationInstance_a624730c6845094face527743d1f1d844}} 
-void {\bfseries agglomerated\+Element\+Values} ()
-\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a624730c6845094face527743d1f1d844}{agglomerated\+Element\+Values}} ()
+\begin{DoxyCompactList}\small\item\em Computes agglomerated element values Some element-\/level values depend on nodal values, so this comes after \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a4e8649ab89996ffe3bf26a08728a3b01}{node\+Values()}} Computes TblA coefficients, B\+V/\+B\+VT dot products, B\+P\+R\+B\+P\+Cfactors. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a553a4cf468388d9983a231b5c85b6f05}\label{classSIMULATOR_1_1SimulationInstance_a553a4cf468388d9983a231b5c85b6f05}} 
-void {\bfseries agglomerated\+Body\+Values} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a7227eaafa948d2d03ba8b3efd52abc53}\label{classSIMULATOR_1_1SimulationInstance_a7227eaafa948d2d03ba8b3efd52abc53}} 
-double {\bfseries compute\+Mean\+Skin\+Temp} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aa0653f5f1c6c416d4af39f1dad794f4b}\label{classSIMULATOR_1_1SimulationInstance_aa0653f5f1c6c416d4af39f1dad794f4b}} 
-double {\bfseries compute\+Hypothalamic\+Temp} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ae93fc01fc4c0ad4039b539b1fea8b87f}\label{classSIMULATOR_1_1SimulationInstance_ae93fc01fc4c0ad4039b539b1fea8b87f}} 
-void {\bfseries compute\+Error\+Signals} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aa2eb3918c0436160d889ad62eca4802d}\label{classSIMULATOR_1_1SimulationInstance_aa2eb3918c0436160d889ad62eca4802d}} 
-void {\bfseries compute\+Active\+Controls} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a7d9b1f05842bd888628598dd161fa604}\label{classSIMULATOR_1_1SimulationInstance_a7d9b1f05842bd888628598dd161fa604}} 
-void {\bfseries B\+Cvalues} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a973bab7b1979187b2854ded74af72043}\label{classSIMULATOR_1_1SimulationInstance_a973bab7b1979187b2854ded74af72043}} 
-void {\bfseries B\+V\+R\+S\+VR} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a0f30e1a9a3082bfae715aea782fda20f}\label{classSIMULATOR_1_1SimulationInstance_a0f30e1a9a3082bfae715aea782fda20f}} 
-void {\bfseries flow\+E\+C\+M\+O\+Saline} (int ele\+Idx)
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aab19cd71218e0c551780be308e01d9f9}\label{classSIMULATOR_1_1SimulationInstance_aab19cd71218e0c551780be308e01d9f9}} 
-void {\bfseries flow\+E\+C\+M\+O\+Blood} (int ele\+Idx)
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a36ec7d4d896ccf4d67bdcb9c671ba1a0}\label{classSIMULATOR_1_1SimulationInstance_a36ec7d4d896ccf4d67bdcb9c671ba1a0}} 
-void {\bfseries E\+C\+M\+Otreatment} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_adb0c3b4c311ab986a00078b4958881b6}\label{classSIMULATOR_1_1SimulationInstance_adb0c3b4c311ab986a00078b4958881b6}} 
-void {\bfseries blood\+Params} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_afc608f07dc695417c1da84edbc5e31b4}\label{classSIMULATOR_1_1SimulationInstance_afc608f07dc695417c1da84edbc5e31b4}} 
-void {\bfseries delta\+H\+CT} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a69f16505c35d486541ca0bcbb6530a0f}\label{classSIMULATOR_1_1SimulationInstance_a69f16505c35d486541ca0bcbb6530a0f}} 
-double {\bfseries project} (double cur, double prv)
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a8465c93696a35d298f051b65f93cbe01}\label{classSIMULATOR_1_1SimulationInstance_a8465c93696a35d298f051b65f93cbe01}} 
-void {\bfseries project\+Body\+Values} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a5c7829d7ca2382905e1fdd6568f955b7}\label{classSIMULATOR_1_1SimulationInstance_a5c7829d7ca2382905e1fdd6568f955b7}} 
-void {\bfseries project\+Temperatures} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ae685beaf39b9c57f5e813485802df0ef}\label{classSIMULATOR_1_1SimulationInstance_ae685beaf39b9c57f5e813485802df0ef}} 
-void {\bfseries project\+Tpp} ()
-\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a553a4cf468388d9983a231b5c85b6f05}{agglomerated\+Body\+Values}} ()
+\begin{DoxyCompactList}\small\item\em Computes agglomerated body values One value CplC depends on agglomerated element values over the body. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a7227eaafa948d2d03ba8b3efd52abc53}{compute\+Mean\+Skin\+Temp}} ()
+\begin{DoxyCompactList}\small\item\em Computes mean skin temperature. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_aa0653f5f1c6c416d4af39f1dad794f4b}{compute\+Hypothalamic\+Temp}} ()
+\begin{DoxyCompactList}\small\item\em Computes \char`\"{}hypothalamic temperature\char`\"{} Note\+: Brain resolution is small, so this is node 0 in the brain. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_ae93fc01fc4c0ad4039b539b1fea8b87f}{compute\+Error\+Signals}} ()
+\begin{DoxyCompactList}\small\item\em Computes active control signals Computes Tsk\+Error,Thy\+Error,Tsk\+Error\+Gradient. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_aa2eb3918c0436160d889ad62eca4802d}{compute\+Active\+Controls}} ()
+\begin{DoxyCompactList}\small\item\em Computes active control outputs Computes Sh,Cs,Dl,Sw. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a7d9b1f05842bd888628598dd161fa604}{B\+Cvalues}} ()
+\begin{DoxyCompactList}\small\item\em Computes everything to do with simmodel. Updates simmodel\textquotesingle{}s temperatures, gets UQ values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a973bab7b1979187b2854ded74af72043}{B\+V\+R\+S\+VR}} ()
+\begin{DoxyCompactList}\small\item\em Gets blood and saline volume ratios (Injury) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a0f30e1a9a3082bfae715aea782fda20f}{flow\+E\+C\+M\+O\+Saline}} (int ele\+Idx)
+\begin{DoxyCompactList}\small\item\em Gets saline flow at an element. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_aab19cd71218e0c551780be308e01d9f9}{flow\+E\+C\+M\+O\+Blood}} (int ele\+Idx)
+\begin{DoxyCompactList}\small\item\em Gets blood flow at an element. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a36ec7d4d896ccf4d67bdcb9c671ba1a0}{E\+C\+M\+Otreatment}} ()
+\begin{DoxyCompactList}\small\item\em Computes all E\+C\+MO parameters. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_adb0c3b4c311ab986a00078b4958881b6}{blood\+Params}} ()
+\begin{DoxyCompactList}\small\item\em Computes all blood volume parameters. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_afc608f07dc695417c1da84edbc5e31b4}{delta\+H\+CT}} ()
+\begin{DoxyCompactList}\small\item\em Computes change in hematocrit Hematocrit is really relative concentration of red blood cells to steady state. Affects blood properties as well as oxygenation. Subject to future work. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a69f16505c35d486541ca0bcbb6530a0f}{project}} (double cur, double prv)
+\begin{DoxyCompactList}\small\item\em Finite difference to get future value. Note\+: Will equal cur if steady state or initial. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a8465c93696a35d298f051b65f93cbe01}{project\+Body\+Values}} ()
+\begin{DoxyCompactList}\small\item\em Get future body values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a5c7829d7ca2382905e1fdd6568f955b7}{project\+Temperatures}} ()
+\begin{DoxyCompactList}\small\item\em E\+S\+T\+I\+M\+A\+TE future temperature values. Very important for skin eqns and heat gen, both termperature reliant. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_ae685beaf39b9c57f5e813485802df0ef}{project\+Tpp}} ()
+\begin{DoxyCompactList}\small\item\em Project fictinal outer-\/skin temperatures. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a4ac88257a125f1b6389ec5cab72822af}\label{classSIMULATOR_1_1SimulationInstance_a4ac88257a125f1b6389ec5cab72822af}} 
-void {\bfseries build\+System} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a07ec1ef8fa6310acfb6441e2001f805b}\label{classSIMULATOR_1_1SimulationInstance_a07ec1ef8fa6310acfb6441e2001f805b}} 
-void {\bfseries solve\+System} ()
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_af5bd306c689a278b4018afa7a0a14fd5}\label{classSIMULATOR_1_1SimulationInstance_af5bd306c689a278b4018afa7a0a14fd5}} 
-void {\bfseries permute\+Timestep} ()
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a4ac88257a125f1b6389ec5cab72822af}{build\+System}} ()
+\begin{DoxyCompactList}\small\item\em Fills in linearized system This function is the workhorse of the simulation. Must have computed every parameter beforehand; This only affects pbm and rhs. Fills in, element-\/by-\/element, first the 1D relational F\+DM equations. Then completes the 2D arterial blood eqns from Westin. Throughout, completes the final \char`\"{}blood pool row\char`\"{} for blood temp. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a07ec1ef8fa6310acfb6441e2001f805b}{solve\+System}} ()
+\begin{DoxyCompactList}\small\item\em Uses one of the P\+BM solvers to fill in T\+Nxt with realistic values. At present, uses Gauss-\/\+Seidel since it was indeed the fastest. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_af5bd306c689a278b4018afa7a0a14fd5}{permute\+Timestep}} ()
+\begin{DoxyCompactList}\small\item\em Copies values to previous timesteps in memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a7437a76f7d49975e05e46a4c8c69b208}\label{classSIMULATOR_1_1SimulationInstance_a7437a76f7d49975e05e46a4c8c69b208}} 
-int {\bfseries I\+Cconfig\+Mode} =0
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a59371afc7486982742a598e0b49a7513}\label{classSIMULATOR_1_1SimulationInstance_a59371afc7486982742a598e0b49a7513}} 
-double {\bfseries Tskm0} =N\+AN
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_afecef1544ee5764048bef0d806e392a8}\label{classSIMULATOR_1_1SimulationInstance_afecef1544ee5764048bef0d806e392a8}} 
-double {\bfseries Thy0} =N\+AN
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a0a80b8ddac8403ee3e2b8a9bd0066da1}\label{classSIMULATOR_1_1SimulationInstance_a0a80b8ddac8403ee3e2b8a9bd0066da1}} 
-double {\bfseries Viv0} =N\+AN
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a0f1a5c9a181c758e08eebe4f306a4927}\label{classSIMULATOR_1_1SimulationInstance_a0f1a5c9a181c758e08eebe4f306a4927}} 
-double {\bfseries Vrbc0} =N\+AN
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a6832afa5db94b2b54b502efb49605043}\label{classSIMULATOR_1_1SimulationInstance_a6832afa5db94b2b54b502efb49605043}} 
-double $\ast$ {\bfseries T0}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_afcb30758433bd44f61175a7311a94948}\label{classSIMULATOR_1_1SimulationInstance_afcb30758433bd44f61175a7311a94948}} 
-double $\ast$ {\bfseries beta0}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aaec3d35735cbfc973c87078f74d710f6}\label{classSIMULATOR_1_1SimulationInstance_aaec3d35735cbfc973c87078f74d710f6}} 
-double $\ast$ {\bfseries w0}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a89c6f49810fcdc748f03199bf93b2f03}\label{classSIMULATOR_1_1SimulationInstance_a89c6f49810fcdc748f03199bf93b2f03}} 
-double $\ast$ {\bfseries q0}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a38f4d479fb05c5fe8d8630c4ec7f23eb}\label{classSIMULATOR_1_1SimulationInstance_a38f4d479fb05c5fe8d8630c4ec7f23eb}} 
-double $\ast$ {\bfseries Tpp0}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a5581e98920845f3d05b662dcd472c82b}\label{classSIMULATOR_1_1SimulationInstance_a5581e98920845f3d05b662dcd472c82b}} 
-double {\bfseries M0}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a319e4567ee12f9dbeef83091ec9ab4fd}\label{classSIMULATOR_1_1SimulationInstance_a319e4567ee12f9dbeef83091ec9ab4fd}} 
-double {\bfseries Q\+Resp0}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a306c6f45fe2673264fd1bafd87149ce8}\label{classSIMULATOR_1_1SimulationInstance_a306c6f45fe2673264fd1bafd87149ce8}} 
-double {\bfseries H0}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a760f204775a2104523cc0bd6a9014e00}\label{classSIMULATOR_1_1SimulationInstance_a760f204775a2104523cc0bd6a9014e00}} 
-double {\bfseries Sh0}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_abe1e7aa4fade005bc71072be9c6458b5}\label{classSIMULATOR_1_1SimulationInstance_abe1e7aa4fade005bc71072be9c6458b5}} 
-double {\bfseries Cs0}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a5455592149ce3e82fb3d262857eb0cd3}\label{classSIMULATOR_1_1SimulationInstance_a5455592149ce3e82fb3d262857eb0cd3}} 
-double {\bfseries Dl0}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aad65a8a6ce263925140da569307efb39}\label{classSIMULATOR_1_1SimulationInstance_aad65a8a6ce263925140da569307efb39}} 
-double {\bfseries Sw0}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ac358aec1a085b26fcd500c2dab794ce9}\label{classSIMULATOR_1_1SimulationInstance_ac358aec1a085b26fcd500c2dab794ce9}} 
-double {\bfseries time}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ab0e80453615e2e350df5ff22a7fb72ba}\label{classSIMULATOR_1_1SimulationInstance_ab0e80453615e2e350df5ff22a7fb72ba}} 
-double $\ast$ {\bfseries rhs}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_acd3f484c97caeed5d9c181c813c50507}\label{classSIMULATOR_1_1SimulationInstance_acd3f484c97caeed5d9c181c813c50507}} 
-double {\bfseries Tskm}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a069cf65107a255caf97bab770e09a2b1}\label{classSIMULATOR_1_1SimulationInstance_a069cf65107a255caf97bab770e09a2b1}} 
-double {\bfseries Thy}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a9dbae70a199f5320f2609aef5a15d79e}\label{classSIMULATOR_1_1SimulationInstance_a9dbae70a199f5320f2609aef5a15d79e}} 
-double {\bfseries M}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a75edb219d7114b06444744c2dbbc89a1}\label{classSIMULATOR_1_1SimulationInstance_a75edb219d7114b06444744c2dbbc89a1}} 
-double {\bfseries H}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_acb84d9bcf74e316615a8d6fd07110d8d}\label{classSIMULATOR_1_1SimulationInstance_acb84d9bcf74e316615a8d6fd07110d8d}} 
-double {\bfseries Q\+Resp}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a82592399621eec7f9151cfd6cd808880}\label{classSIMULATOR_1_1SimulationInstance_a82592399621eec7f9151cfd6cd808880}} 
-double {\bfseries Tsk\+Error}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a0f84d5cd8e6a055eb5d449bf7e0c225a}\label{classSIMULATOR_1_1SimulationInstance_a0f84d5cd8e6a055eb5d449bf7e0c225a}} 
-double {\bfseries Thy\+Error}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ae5663ae683a9e2a349a447dde9f89bf0}\label{classSIMULATOR_1_1SimulationInstance_ae5663ae683a9e2a349a447dde9f89bf0}} 
-double {\bfseries Tsk\+Error\+Gradient}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a435a94bed4286b59686395c79172250c}\label{classSIMULATOR_1_1SimulationInstance_a435a94bed4286b59686395c79172250c}} 
-double {\bfseries Sh}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_acc1de28a39a2ad4ea40303c3fc7797af}\label{classSIMULATOR_1_1SimulationInstance_acc1de28a39a2ad4ea40303c3fc7797af}} 
-double {\bfseries Cs}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a2ced092b629ac2f0a3c9bf7d474cce2a}\label{classSIMULATOR_1_1SimulationInstance_a2ced092b629ac2f0a3c9bf7d474cce2a}} 
-double {\bfseries Dl}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a6a55ff72f9e1dd1cc4d5810a6c9de3ed}\label{classSIMULATOR_1_1SimulationInstance_a6a55ff72f9e1dd1cc4d5810a6c9de3ed}} 
-double {\bfseries Sw}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ada0894907a5a00a543762c5970a28d9f}\label{classSIMULATOR_1_1SimulationInstance_ada0894907a5a00a543762c5970a28d9f}} 
-double {\bfseries Viv}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a9a4eb425da03bfcae5b947330f3897ee}\label{classSIMULATOR_1_1SimulationInstance_a9a4eb425da03bfcae5b947330f3897ee}} 
-double {\bfseries Vrbc}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a01c5a0140a6fa992776d999d3777558d}\label{classSIMULATOR_1_1SimulationInstance_a01c5a0140a6fa992776d999d3777558d}} 
-double {\bfseries D\+Viv}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a379d87e5d6203f4da4506539d8c22a62}\label{classSIMULATOR_1_1SimulationInstance_a379d87e5d6203f4da4506539d8c22a62}} 
-double {\bfseries bvr}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a2149a737a6997923ab0f375fbb89c367}\label{classSIMULATOR_1_1SimulationInstance_a2149a737a6997923ab0f375fbb89c367}} 
-double {\bfseries svr}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a7f211b12ae01d5782c8f999879287607}\label{classSIMULATOR_1_1SimulationInstance_a7f211b12ae01d5782c8f999879287607}} 
-double {\bfseries Delta\+H\+CT}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_acf11385659333a75b831b55b62ba80ae}\label{classSIMULATOR_1_1SimulationInstance_acf11385659333a75b831b55b62ba80ae}} 
-double $\ast$ {\bfseries Flow\+E\+C\+M\+O\+Blood}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a2a438ffebd10957e403585981bc5a383}\label{classSIMULATOR_1_1SimulationInstance_a2a438ffebd10957e403585981bc5a383}} 
-double $\ast$ {\bfseries Flow\+E\+C\+M\+O\+Saline}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ae078a174c770c3f70a27e3a2f592cc2c}\label{classSIMULATOR_1_1SimulationInstance_ae078a174c770c3f70a27e3a2f592cc2c}} 
-double $\ast$ {\bfseries Cp}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ac8f735af61f94a8ec2c93fa119d70c5c}\label{classSIMULATOR_1_1SimulationInstance_ac8f735af61f94a8ec2c93fa119d70c5c}} 
-double $\ast$ {\bfseries Rho}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a3d607c4f8f2b2ce27296b2d069817eb9}\label{classSIMULATOR_1_1SimulationInstance_a3d607c4f8f2b2ce27296b2d069817eb9}} 
-double $\ast$ {\bfseries TblP}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a13ca3864ec800fb447aedd74da747494}\label{classSIMULATOR_1_1SimulationInstance_a13ca3864ec800fb447aedd74da747494}} 
-double $\ast$ {\bfseries Tbl\+P\+Nxt\+Ratio}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a0a67f0e09068bcc3ad12190cfd398c78}\label{classSIMULATOR_1_1SimulationInstance_a0a67f0e09068bcc3ad12190cfd398c78}} 
-double $\ast$ {\bfseries T}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a4ebc4d02cc73f886bffb8f2568e4d5aa}\label{classSIMULATOR_1_1SimulationInstance_a4ebc4d02cc73f886bffb8f2568e4d5aa}} 
-double $\ast$ {\bfseries Tpp}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a8aed9fa93d350b7f9c7d21360c5532d4}\label{classSIMULATOR_1_1SimulationInstance_a8aed9fa93d350b7f9c7d21360c5532d4}} 
-double $\ast$ {\bfseries q}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ab071c77aae53df7a1b1c6dd04e2cf8c9}\label{classSIMULATOR_1_1SimulationInstance_ab071c77aae53df7a1b1c6dd04e2cf8c9}} 
-double $\ast$ {\bfseries w}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ad7e42c553c3935ce1f00bb21bc865d49}\label{classSIMULATOR_1_1SimulationInstance_ad7e42c553c3935ce1f00bb21bc865d49}} 
-double $\ast$ {\bfseries beta}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a6578cd06ea598a676708d84c281a13a6}\label{classSIMULATOR_1_1SimulationInstance_a6578cd06ea598a676708d84c281a13a6}} 
-double $\ast$ {\bfseries BV}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_af3dd7c579c6694c1327c72087545b05a}\label{classSIMULATOR_1_1SimulationInstance_af3dd7c579c6694c1327c72087545b05a}} 
-double $\ast$ {\bfseries B\+VT}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a1cb55a9a2f3512b020ad56b0760c23b0}\label{classSIMULATOR_1_1SimulationInstance_a1cb55a9a2f3512b020ad56b0760c23b0}} 
-double $\ast$ {\bfseries B\+P\+R\+B\+P\+Cfactor}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a5ae3e5dc71a42e13dc6b1cea28bfab7d}\label{classSIMULATOR_1_1SimulationInstance_a5ae3e5dc71a42e13dc6b1cea28bfab7d}} 
-double $\ast$ {\bfseries Tbl\+Aoverlay\+Factor}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a76c96be21c647f9349622d2c932a22d6}\label{classSIMULATOR_1_1SimulationInstance_a76c96be21c647f9349622d2c932a22d6}} 
-double $\ast$ {\bfseries Tbl\+Aoverlay}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ad8cd48599a6cf42bc3232aff229bad93}\label{classSIMULATOR_1_1SimulationInstance_ad8cd48599a6cf42bc3232aff229bad93}} 
-double $\ast$ {\bfseries TblA}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aecbcb248d78f0affa8186010a28cb916}\label{classSIMULATOR_1_1SimulationInstance_aecbcb248d78f0affa8186010a28cb916}} 
-double {\bfseries CplC}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a992f6c7a47b96885c254a7de8cb4c4de}\label{classSIMULATOR_1_1SimulationInstance_a992f6c7a47b96885c254a7de8cb4c4de}} 
-double {\bfseries time\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ad392ddae7619ee696dbfa68f4116757d}\label{classSIMULATOR_1_1SimulationInstance_ad392ddae7619ee696dbfa68f4116757d}} 
-double {\bfseries Tskm\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a3b44779370f1cfeb4f1d7041269bf5fb}\label{classSIMULATOR_1_1SimulationInstance_a3b44779370f1cfeb4f1d7041269bf5fb}} 
-double {\bfseries M\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a6b548e240869e2673aa58f6fdfa4171d}\label{classSIMULATOR_1_1SimulationInstance_a6b548e240869e2673aa58f6fdfa4171d}} 
-double {\bfseries H\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a84cd737b23ff7f2b8b4a5e1877240611}\label{classSIMULATOR_1_1SimulationInstance_a84cd737b23ff7f2b8b4a5e1877240611}} 
-double {\bfseries Q\+Resp\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ac45464362c691b9f482658826cc2ae7a}\label{classSIMULATOR_1_1SimulationInstance_ac45464362c691b9f482658826cc2ae7a}} 
-double {\bfseries Tsk\+Error\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a59fa86ec146fc0f09d9b36632e48f90e}\label{classSIMULATOR_1_1SimulationInstance_a59fa86ec146fc0f09d9b36632e48f90e}} 
-double {\bfseries Thy\+Error\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a5b34bda7df44b3acfdcb8bd848547cfa}\label{classSIMULATOR_1_1SimulationInstance_a5b34bda7df44b3acfdcb8bd848547cfa}} 
-double {\bfseries Tsk\+Error\+Gradient\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a0bce83933eae474fe0e6aa45283c68f0}\label{classSIMULATOR_1_1SimulationInstance_a0bce83933eae474fe0e6aa45283c68f0}} 
-double {\bfseries Sh\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aba16bad0a1e287bf3ade456a9815a84c}\label{classSIMULATOR_1_1SimulationInstance_aba16bad0a1e287bf3ade456a9815a84c}} 
-double {\bfseries Cs\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ac378947fee1a38b164f69c96569a972f}\label{classSIMULATOR_1_1SimulationInstance_ac378947fee1a38b164f69c96569a972f}} 
-double {\bfseries Dl\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a5eeb7ad7d0be27a955c14c19931e7ff0}\label{classSIMULATOR_1_1SimulationInstance_a5eeb7ad7d0be27a955c14c19931e7ff0}} 
-double {\bfseries Sw\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ad1de807a26dff39322eee52120312226}\label{classSIMULATOR_1_1SimulationInstance_ad1de807a26dff39322eee52120312226}} 
-double {\bfseries Viv\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a8c0178568930cff13647e1cedb1c04bd}\label{classSIMULATOR_1_1SimulationInstance_a8c0178568930cff13647e1cedb1c04bd}} 
-double {\bfseries Vrbc\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a2e40d0f50ea2c93a9f6bc57deb0a5886}\label{classSIMULATOR_1_1SimulationInstance_a2e40d0f50ea2c93a9f6bc57deb0a5886}} 
-double {\bfseries D\+Viv\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a5430c5db478caa2ed2b4d805758ce8f5}\label{classSIMULATOR_1_1SimulationInstance_a5430c5db478caa2ed2b4d805758ce8f5}} 
-double {\bfseries bvr\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a93e77aff5a8b1bad89d57d8c1cf36593}\label{classSIMULATOR_1_1SimulationInstance_a93e77aff5a8b1bad89d57d8c1cf36593}} 
-double {\bfseries svr\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ad329b2f8dcc20b84726cec571f98c0d2}\label{classSIMULATOR_1_1SimulationInstance_ad329b2f8dcc20b84726cec571f98c0d2}} 
-double {\bfseries Delta\+H\+C\+T\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a5d66a7065abeff11be2c015bd85a7778}\label{classSIMULATOR_1_1SimulationInstance_a5d66a7065abeff11be2c015bd85a7778}} 
-double $\ast$ {\bfseries Flow\+E\+C\+M\+O\+Blood\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a5d55a092cc9592bea74469b3adc059ba}\label{classSIMULATOR_1_1SimulationInstance_a5d55a092cc9592bea74469b3adc059ba}} 
-double $\ast$ {\bfseries Flow\+E\+C\+M\+O\+Saline\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a7702b134c54b2fddcb8f16ee199ff068}\label{classSIMULATOR_1_1SimulationInstance_a7702b134c54b2fddcb8f16ee199ff068}} 
-double $\ast$ {\bfseries Cp\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ab82301f46cbcfd6060b25852d1d4d4b4}\label{classSIMULATOR_1_1SimulationInstance_ab82301f46cbcfd6060b25852d1d4d4b4}} 
-double $\ast$ {\bfseries Rho\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a05a70e5fa83da056dfa98c07189b7565}\label{classSIMULATOR_1_1SimulationInstance_a05a70e5fa83da056dfa98c07189b7565}} 
-double $\ast$ {\bfseries T\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ab2aeed1cdb0336bb34532638d6b4a637}\label{classSIMULATOR_1_1SimulationInstance_ab2aeed1cdb0336bb34532638d6b4a637}} 
-double $\ast$ {\bfseries Tpp\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_acedcd2b975ddad877d00215043644654}\label{classSIMULATOR_1_1SimulationInstance_acedcd2b975ddad877d00215043644654}} 
-double $\ast$ {\bfseries q\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a824b5692c809bab9ca3acb3ec2852518}\label{classSIMULATOR_1_1SimulationInstance_a824b5692c809bab9ca3acb3ec2852518}} 
-double $\ast$ {\bfseries w\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ab186dcb8bf738e82a8998875faf4d4b1}\label{classSIMULATOR_1_1SimulationInstance_ab186dcb8bf738e82a8998875faf4d4b1}} 
-double $\ast$ {\bfseries beta\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a07b35f21aaa811eefdcc3ed7d86aaf19}\label{classSIMULATOR_1_1SimulationInstance_a07b35f21aaa811eefdcc3ed7d86aaf19}} 
-double $\ast$ {\bfseries B\+V\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a6b0f0208d201a5743357976f3e7acc15}\label{classSIMULATOR_1_1SimulationInstance_a6b0f0208d201a5743357976f3e7acc15}} 
-double $\ast$ {\bfseries B\+P\+R\+B\+P\+Cfactor\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a9a6ef6c9bf298792166cff5516bc2c14}\label{classSIMULATOR_1_1SimulationInstance_a9a6ef6c9bf298792166cff5516bc2c14}} 
-double $\ast$ {\bfseries Tbl\+Aoverlay\+Factor\+Nxt}
-\item 
-\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ac74f73acddd8efbfb395c206f431e12f}\label{classSIMULATOR_1_1SimulationInstance_ac74f73acddd8efbfb395c206f431e12f}} 
-double $\ast$ {\bfseries Tbl\+Aoverlay\+Nxt}
-\end{DoxyCompactItemize}
+int \mbox{\hyperlink{classSIMULATOR_1_1SimulationInstance_a7437a76f7d49975e05e46a4c8c69b208}{I\+Cconfig\+Mode}} =0
+\begin{DoxyCompactList}\small\item\em Initial condition configuration mode. Only mode 0 is implemented. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__Steadys_ga59371afc7486982742a598e0b49a7513}{Tskm0}} =N\+AN
+\begin{DoxyCompactList}\small\item\em K, initial average skin temperature. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__Steadys_gafecef1544ee5764048bef0d806e392a8}{Thy0}} =N\+AN
+\begin{DoxyCompactList}\small\item\em K, initial hypothalamic temperature. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__Steadys_ga0a80b8ddac8403ee3e2b8a9bd0066da1}{Viv0}} =N\+AN
+\begin{DoxyCompactList}\small\item\em m$^\wedge$3, initial blood volume \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__Steadys_ga0f1a5c9a181c758e08eebe4f306a4927}{Vrbc0}} =N\+AN
+\begin{DoxyCompactList}\small\item\em m$^\wedge$3, initial red blood cell volume \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__Steadys_ga6832afa5db94b2b54b502efb49605043}{T0}}
+\begin{DoxyCompactList}\small\item\em K, initial node temperature values. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__Steadys_gaa2c96bb225008885e99b81e3ab5ded6f}{beta0}}
+\begin{DoxyCompactList}\small\item\em W/m$^\wedge$3/K, initial perfusion rate factor. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__Steadys_gaec77c6604fe06fd8e5470e0b48b8997f}{w0}}
+\begin{DoxyCompactList}\small\item\em 1/s, initial perfusion rate \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__Steadys_ga08e035c579640669a5e2322cc11147d0}{q0}}
+\begin{DoxyCompactList}\small\item\em W/m$^\wedge$3, initial metabolic heat gen. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__Steadys_gaaa6cea4c42f513623f9692473e00d63e}{Tpp0}}
+\begin{DoxyCompactList}\small\item\em K, initial projected temperatures (skin nodes only) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__Steadys_ga5581e98920845f3d05b662dcd472c82b}{M0}}
+\begin{DoxyCompactList}\small\item\em W, initial body-\/wide metabolism. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__Steadys_ga319e4567ee12f9dbeef83091ec9ab4fd}{Q\+Resp0}}
+\begin{DoxyCompactList}\small\item\em W, initial body-\/wide respiratory heat loss. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__Steadys_ga306c6f45fe2673264fd1bafd87149ce8}{H0}}
+\begin{DoxyCompactList}\small\item\em W, initial body-\/wide heat load. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__Steadys_ga760f204775a2104523cc0bd6a9014e00}{Sh0}}
+\begin{DoxyCompactList}\small\item\em W, initial body-\/wide shivering command. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__Steadys_gabe1e7aa4fade005bc71072be9c6458b5}{Cs0}}
+\begin{DoxyCompactList}\small\item\em -\/, initial vasoconstriction command \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__Steadys_ga5455592149ce3e82fb3d262857eb0cd3}{Dl0}}
+\begin{DoxyCompactList}\small\item\em W/K, initial vasodilation command. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__Steadys_gaad65a8a6ce263925140da569307efb39}{Sw0}}
+\begin{DoxyCompactList}\small\item\em g/min, initial sweating command \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_gac358aec1a085b26fcd500c2dab794ce9}{time}}
+\begin{DoxyCompactList}\small\item\em s, simulation time \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_gab0e80453615e2e350df5ff22a7fb72ba}{rhs}}
+\begin{DoxyCompactList}\small\item\em K, right hand of system. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_gacd3f484c97caeed5d9c181c813c50507}{Tskm}}
+\begin{DoxyCompactList}\small\item\em K, Mean skin temperature. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_ga069cf65107a255caf97bab770e09a2b1}{Thy}}
+\begin{DoxyCompactList}\small\item\em K, Hypothalamic temperature. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_ga9dbae70a199f5320f2609aef5a15d79e}{M}}
+\begin{DoxyCompactList}\small\item\em W, Total metabolism. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_ga75edb219d7114b06444744c2dbbc89a1}{H}}
+\begin{DoxyCompactList}\small\item\em W, Heat load. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_gacb84d9bcf74e316615a8d6fd07110d8d}{Q\+Resp}}
+\begin{DoxyCompactList}\small\item\em W, Respiratory cooling intake. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_ga82592399621eec7f9151cfd6cd808880}{Tsk\+Error}}
+\begin{DoxyCompactList}\small\item\em K, Mean skin temperature error. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_ga0f84d5cd8e6a055eb5d449bf7e0c225a}{Thy\+Error}}
+\begin{DoxyCompactList}\small\item\em K, Hypothalamic temperature error. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_gae5663ae683a9e2a349a447dde9f89bf0}{Tsk\+Error\+Gradient}}
+\begin{DoxyCompactList}\small\item\em K/s, Derivative of mean skin temperature error. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_ga435a94bed4286b59686395c79172250c}{Sh}}
+\begin{DoxyCompactList}\small\item\em W, Shivering power. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_gacc1de28a39a2ad4ea40303c3fc7797af}{Cs}}
+\begin{DoxyCompactList}\small\item\em -\/, Vasoconstriction ratio \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_ga2ced092b629ac2f0a3c9bf7d474cce2a}{Dl}}
+\begin{DoxyCompactList}\small\item\em W/K, Vasodilation capacitance. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_ga6a55ff72f9e1dd1cc4d5810a6c9de3ed}{Sw}}
+\begin{DoxyCompactList}\small\item\em g/min, Sweat output \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_gada0894907a5a00a543762c5970a28d9f}{Viv}}
+\begin{DoxyCompactList}\small\item\em Intravenous blood volume. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_ga9a4eb425da03bfcae5b947330f3897ee}{Vrbc}}
+\begin{DoxyCompactList}\small\item\em Red blood cell volume. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_ga01c5a0140a6fa992776d999d3777558d}{D\+Viv}}
+\begin{DoxyCompactList}\small\item\em Added non-\/blood volume. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_ga379d87e5d6203f4da4506539d8c22a62}{bvr}}
+\begin{DoxyCompactList}\small\item\em Blood volume / initial blood volume. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_ga2149a737a6997923ab0f375fbb89c367}{svr}}
+\begin{DoxyCompactList}\small\item\em Saline volume / initial blood volume. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_ga7f211b12ae01d5782c8f999879287607}{Delta\+H\+CT}}
+\begin{DoxyCompactList}\small\item\em Ratio of hematocrit, ability to carry oxygen. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_gacf11385659333a75b831b55b62ba80ae}{Flow\+E\+C\+M\+O\+Blood}}
+\begin{DoxyCompactList}\small\item\em m$^\wedge$3/s, Recirculated blood injection rate \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_ga2a438ffebd10957e403585981bc5a383}{Flow\+E\+C\+M\+O\+Saline}}
+\begin{DoxyCompactList}\small\item\em m$^\wedge$3/s, Saline injection rate \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_gae078a174c770c3f70a27e3a2f592cc2c}{Cp}}
+\begin{DoxyCompactList}\small\item\em J/kg/K, Blood specific heat capacity. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_gac8f735af61f94a8ec2c93fa119d70c5c}{Rho}}
+\begin{DoxyCompactList}\small\item\em kg/m$^\wedge$3, Blood density \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_ga3d607c4f8f2b2ce27296b2d069817eb9}{TblP}}
+\begin{DoxyCompactList}\small\item\em K, experienced blood pool temperature. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_ga13ca3864ec800fb447aedd74da747494}{Tbl\+P\+Nxt\+Ratio}}
+\begin{DoxyCompactList}\small\item\em K/K, future experienced blood pool temperature ratio. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_ga0a67f0e09068bcc3ad12190cfd398c78}{T}}
+\begin{DoxyCompactList}\small\item\em Temperature (K), to be solved for. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_ga4ebc4d02cc73f886bffb8f2568e4d5aa}{Tpp}}
+\begin{DoxyCompactList}\small\item\em Temperature (K), fictional forward skin node temperature. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_ga8aed9fa93d350b7f9c7d21360c5532d4}{q}}
+\begin{DoxyCompactList}\small\item\em W/m$^\wedge$3, Heat generation in tissue. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_gab071c77aae53df7a1b1c6dd04e2cf8c9}{w}}
+\begin{DoxyCompactList}\small\item\em -\/, Blood perfusion rate \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_gad7e42c553c3935ce1f00bb21bc865d49}{beta}}
+\begin{DoxyCompactList}\small\item\em W/m$^\wedge$3/K, Blood perfusion rate factor (rho$\ast$c$\ast$w) \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_ga6578cd06ea598a676708d84c281a13a6}{BV}}
+\begin{DoxyCompactList}\small\item\em -\/, beta$\ast$volume over all nodes \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_gaf3dd7c579c6694c1327c72087545b05a}{B\+VT}}
+\begin{DoxyCompactList}\small\item\em -\/, beta$\ast$volume$\ast$T over all nodes \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_ga1cb55a9a2f3512b020ad56b0760c23b0}{B\+P\+R\+B\+P\+Cfactor}}
+\begin{DoxyCompactList}\small\item\em Westin eqn 21 term 1 coefficient. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_ga5ae3e5dc71a42e13dc6b1cea28bfab7d}{Tbl\+Aoverlay\+Factor}}
+\begin{DoxyCompactList}\small\item\em Westin eqn 21 term 2 coefficient. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_ga76c96be21c647f9349622d2c932a22d6}{Tbl\+Aoverlay}}
+\begin{DoxyCompactList}\small\item\em Westin eqn 21 term 2. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__current_gad8cd48599a6cf42bc3232aff229bad93}{TblA}}
+\begin{DoxyCompactList}\small\item\em K, Arterial blood temperature, Westin eqn 21 resultant. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__current_gaecbcb248d78f0affa8186010a28cb916}{CplC}}
+\begin{DoxyCompactList}\small\item\em -\/, Blood pool timestep coupling coefficient (Bottom rightmost matrix entry) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_ga992f6c7a47b96885c254a7de8cb4c4de}{time\+Nxt}}
+\begin{DoxyCompactList}\small\item\em s, simulation time at next timestep \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_gad392ddae7619ee696dbfa68f4116757d}{Tskm\+Nxt}}
+\begin{DoxyCompactList}\small\item\em K, Mean skin temperature. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_ga3b44779370f1cfeb4f1d7041269bf5fb}{M\+Nxt}}
+\begin{DoxyCompactList}\small\item\em W, Total metabolism. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_ga6b548e240869e2673aa58f6fdfa4171d}{H\+Nxt}}
+\begin{DoxyCompactList}\small\item\em W, Heat load. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_ga84cd737b23ff7f2b8b4a5e1877240611}{Q\+Resp\+Nxt}}
+\begin{DoxyCompactList}\small\item\em W, Respiratory cooling intake. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_gac45464362c691b9f482658826cc2ae7a}{Tsk\+Error\+Nxt}}
+\begin{DoxyCompactList}\small\item\em K, Error in skin mean temperature. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_ga59fa86ec146fc0f09d9b36632e48f90e}{Thy\+Error\+Nxt}}
+\begin{DoxyCompactList}\small\item\em K, Error in hypothalamic mean temperature. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_ga5b34bda7df44b3acfdcb8bd848547cfa}{Tsk\+Error\+Gradient\+Nxt}}
+\begin{DoxyCompactList}\small\item\em K/s, Derivative of mean skin error. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_ga0bce83933eae474fe0e6aa45283c68f0}{Sh\+Nxt}}
+\begin{DoxyCompactList}\small\item\em W, Shivering power. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_gaba16bad0a1e287bf3ade456a9815a84c}{Cs\+Nxt}}
+\begin{DoxyCompactList}\small\item\em -\/, Vasoconstriction ratio \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_gac378947fee1a38b164f69c96569a972f}{Dl\+Nxt}}
+\begin{DoxyCompactList}\small\item\em W/K, Vasodilation capacitance. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_ga5eeb7ad7d0be27a955c14c19931e7ff0}{Sw\+Nxt}}
+\begin{DoxyCompactList}\small\item\em g/min, Sweat output \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_gad1de807a26dff39322eee52120312226}{Viv\+Nxt}}
+\begin{DoxyCompactList}\small\item\em Intravenous blood volume. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_ga8c0178568930cff13647e1cedb1c04bd}{Vrbc\+Nxt}}
+\begin{DoxyCompactList}\small\item\em Red blood cell volume. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_ga2e40d0f50ea2c93a9f6bc57deb0a5886}{D\+Viv\+Nxt}}
+\begin{DoxyCompactList}\small\item\em Added non-\/blood volume. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_ga5430c5db478caa2ed2b4d805758ce8f5}{bvr\+Nxt}}
+\begin{DoxyCompactList}\small\item\em Blood volume / initial blood volume. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_ga93e77aff5a8b1bad89d57d8c1cf36593}{svr\+Nxt}}
+\begin{DoxyCompactList}\small\item\em Saline volume / initial blood volume. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{group__future_gad329b2f8dcc20b84726cec571f98c0d2}{Delta\+H\+C\+T\+Nxt}}
+\begin{DoxyCompactList}\small\item\em Ratio of hematocrit, ability to carry oxygen. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__future_ga5d66a7065abeff11be2c015bd85a7778}{Flow\+E\+C\+M\+O\+Blood\+Nxt}}
+\begin{DoxyCompactList}\small\item\em m$^\wedge$3/s, Recirculated blood injection rate \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__future_ga5d55a092cc9592bea74469b3adc059ba}{Flow\+E\+C\+M\+O\+Saline\+Nxt}}
+\begin{DoxyCompactList}\small\item\em m$^\wedge$3/s, Saline injection rate \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__future_ga7702b134c54b2fddcb8f16ee199ff068}{Cp\+Nxt}}
+\begin{DoxyCompactList}\small\item\em J/kg/K, Blood specific heat capacity. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__future_gab82301f46cbcfd6060b25852d1d4d4b4}{Rho\+Nxt}}
+\begin{DoxyCompactList}\small\item\em kg/m$^\wedge$3, Blood density \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__future_ga05a70e5fa83da056dfa98c07189b7565}{T\+Nxt}}
+\begin{DoxyCompactList}\small\item\em Temperature (K), to be solved for. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__future_gab2aeed1cdb0336bb34532638d6b4a637}{Tpp\+Nxt}}
+\begin{DoxyCompactList}\small\item\em Temperature (K), fictional forward skin node temperature. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__future_gacedcd2b975ddad877d00215043644654}{q\+Nxt}}
+\begin{DoxyCompactList}\small\item\em W/m$^\wedge$3, Heat generation in tissue. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__future_ga824b5692c809bab9ca3acb3ec2852518}{w\+Nxt}}
+\begin{DoxyCompactList}\small\item\em -\/, Blood perfusion rate \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__future_gab186dcb8bf738e82a8998875faf4d4b1}{beta\+Nxt}}
+\begin{DoxyCompactList}\small\item\em W/m$^\wedge$3/K, Blood perfusion rate factor (rho$\ast$c$\ast$w) \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__future_ga07b35f21aaa811eefdcc3ed7d86aaf19}{B\+V\+Nxt}}
+\begin{DoxyCompactList}\small\item\em -\/, beta$\ast$volume over all nodes \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__future_ga6b0f0208d201a5743357976f3e7acc15}{B\+P\+R\+B\+P\+Cfactor\+Nxt}}
+\begin{DoxyCompactList}\small\item\em Westin eqn 21 term 1 coefficient. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__future_ga9a6ef6c9bf298792166cff5516bc2c14}{Tbl\+Aoverlay\+Factor\+Nxt}}
+\begin{DoxyCompactList}\small\item\em Westin eqn 21 term 2 coefficient. \end{DoxyCompactList}\item 
+double $\ast$ \mbox{\hyperlink{group__future_gac74f73acddd8efbfb395c206f431e12f}{Tbl\+Aoverlay\+Nxt}}
+\begin{DoxyCompactList}\small\item\em Westin eqn 21 term 2. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that performs one single simulation. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a115b2b61e8ffb0a14466ff5c9c87f776}\label{classSIMULATOR_1_1SimulationInstance_a115b2b61e8ffb0a14466ff5c9c87f776}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!SimulationInstance@{SimulationInstance}}
+\index{SimulationInstance@{SimulationInstance}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{SimulationInstance()}{SimulationInstance()}}
+{\footnotesize\ttfamily S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::\+Simulation\+Instance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$}]{tbody,  }\item[{\mbox{\hyperlink{classSIMMODEL_1_1SimModel}{S\+I\+M\+M\+O\+D\+E\+L\+::\+Sim\+Model}} $\ast$}]{tsim,  }\item[{\mbox{\hyperlink{classPSEUDOBLOCKMATRIX_1_1PseudoBlockMatrix}{P\+S\+E\+U\+D\+O\+B\+L\+O\+C\+K\+M\+A\+T\+R\+I\+X\+::\+Pseudo\+Block\+Matrix}} $\ast$}]{tpbm }\end{DoxyParamCaption})}
+
+
+
+Create simulation instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tbody} & Initialized bodymodel ptr \\
+\hline
+{\em tsim} & Initialized simmodel ptr \\
+\hline
+{\em tpbm} & Initialized pseudoblockmatrix ptr \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a7d9b1f05842bd888628598dd161fa604}\label{classSIMULATOR_1_1SimulationInstance_a7d9b1f05842bd888628598dd161fa604}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!BCvalues@{BCvalues}}
+\index{BCvalues@{BCvalues}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{BCvalues()}{BCvalues()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::\+B\+Cvalues (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Computes everything to do with simmodel. Updates simmodel\textquotesingle{}s temperatures, gets UQ values. 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_adb0c3b4c311ab986a00078b4958881b6}\label{classSIMULATOR_1_1SimulationInstance_adb0c3b4c311ab986a00078b4958881b6}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!bloodParams@{bloodParams}}
+\index{bloodParams@{bloodParams}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{bloodParams()}{bloodParams()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::blood\+Params (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Computes all blood volume parameters. 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a973bab7b1979187b2854ded74af72043}\label{classSIMULATOR_1_1SimulationInstance_a973bab7b1979187b2854ded74af72043}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!BVRSVR@{BVRSVR}}
+\index{BVRSVR@{BVRSVR}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{BVRSVR()}{BVRSVR()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::\+B\+V\+R\+S\+VR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets blood and saline volume ratios (Injury) 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aaad2665735ac1beabc1454a00f3c4078}\label{classSIMULATOR_1_1SimulationInstance_aaad2665735ac1beabc1454a00f3c4078}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!clearSystem@{clearSystem}}
+\index{clearSystem@{clearSystem}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{clearSystem()}{clearSystem()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::clear\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Clears the matrix and rhs. 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aa2eb3918c0436160d889ad62eca4802d}\label{classSIMULATOR_1_1SimulationInstance_aa2eb3918c0436160d889ad62eca4802d}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!computeActiveControls@{computeActiveControls}}
+\index{computeActiveControls@{computeActiveControls}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{computeActiveControls()}{computeActiveControls()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::compute\+Active\+Controls (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Computes active control outputs Computes Sh,Cs,Dl,Sw. 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ae93fc01fc4c0ad4039b539b1fea8b87f}\label{classSIMULATOR_1_1SimulationInstance_ae93fc01fc4c0ad4039b539b1fea8b87f}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!computeErrorSignals@{computeErrorSignals}}
+\index{computeErrorSignals@{computeErrorSignals}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{computeErrorSignals()}{computeErrorSignals()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::compute\+Error\+Signals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Computes active control signals Computes Tsk\+Error,Thy\+Error,Tsk\+Error\+Gradient. 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aa0653f5f1c6c416d4af39f1dad794f4b}\label{classSIMULATOR_1_1SimulationInstance_aa0653f5f1c6c416d4af39f1dad794f4b}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!computeHypothalamicTemp@{computeHypothalamicTemp}}
+\index{computeHypothalamicTemp@{computeHypothalamicTemp}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{computeHypothalamicTemp()}{computeHypothalamicTemp()}}
+{\footnotesize\ttfamily double S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::compute\+Hypothalamic\+Temp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Computes \char`\"{}hypothalamic temperature\char`\"{} Note\+: Brain resolution is small, so this is node 0 in the brain. 
+
+\begin{DoxyReturn}{Returns}
+double K, Thy 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a7227eaafa948d2d03ba8b3efd52abc53}\label{classSIMULATOR_1_1SimulationInstance_a7227eaafa948d2d03ba8b3efd52abc53}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!computeMeanSkinTemp@{computeMeanSkinTemp}}
+\index{computeMeanSkinTemp@{computeMeanSkinTemp}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{computeMeanSkinTemp()}{computeMeanSkinTemp()}}
+{\footnotesize\ttfamily double S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::compute\+Mean\+Skin\+Temp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Computes mean skin temperature. 
+
+\begin{DoxyReturn}{Returns}
+double K, Tskm 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aba813be1f896a117c1d81098046b5889}\label{classSIMULATOR_1_1SimulationInstance_aba813be1f896a117c1d81098046b5889}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!computeQresp@{computeQresp}}
+\index{computeQresp@{computeQresp}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{computeQresp()}{computeQresp()}}
+{\footnotesize\ttfamily double S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::compute\+Qresp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Computes Q\+Resp. 
+
+\begin{DoxyReturn}{Returns}
+double Q\+Resp 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a8eb7a47225318726a4bfe8baa43c05fa}\label{classSIMULATOR_1_1SimulationInstance_a8eb7a47225318726a4bfe8baa43c05fa}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!computeThermalLoadParameters@{computeThermalLoadParameters}}
+\index{computeThermalLoadParameters@{computeThermalLoadParameters}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{computeThermalLoadParameters()}{computeThermalLoadParameters()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::compute\+Thermal\+Load\+Parameters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Computes whole-\/body load parameters like M,H,Q\+Resp. 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ab65c9fbbfdfb553b993676adb829debf}\label{classSIMULATOR_1_1SimulationInstance_ab65c9fbbfdfb553b993676adb829debf}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!copyToInitials@{copyToInitials}}
+\index{copyToInitials@{copyToInitials}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{copyToInitials()}{copyToInitials()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::copy\+To\+Initials (\begin{DoxyParamCaption}\item[{double $\ast$}]{T0tmp,  }\item[{double $\ast$}]{beta0tmp,  }\item[{double $\ast$}]{w0tmp,  }\item[{double $\ast$}]{q0tmp,  }\item[{double $\ast$}]{Tpp0tmp }\end{DoxyParamCaption})}
+
+
+
+Copy initial values from external arrays. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em T0tmp} & \\
+\hline
+\mbox{\texttt{ in}}  & {\em beta0tmp} & \\
+\hline
+\mbox{\texttt{ in}}  & {\em w0tmp} & \\
+\hline
+\mbox{\texttt{ in}}  & {\em q0tmp} & \\
+\hline
+\mbox{\texttt{ in}}  & {\em Tpp0tmp} & ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a7425c4e2fbf45c95090e52b18d7ea0ca}\label{classSIMULATOR_1_1SimulationInstance_a7425c4e2fbf45c95090e52b18d7ea0ca}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!copyToSteadys@{copyToSteadys}}
+\index{copyToSteadys@{copyToSteadys}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{copyToSteadys()}{copyToSteadys()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::copy\+To\+Steadys (\begin{DoxyParamCaption}\item[{double $\ast$}]{T0tmp,  }\item[{double $\ast$}]{beta0tmp,  }\item[{double $\ast$}]{w0tmp,  }\item[{double $\ast$}]{q0tmp,  }\item[{double $\ast$}]{Tpp0tmp,  }\item[{double}]{M0tmp,  }\item[{double}]{Q\+Resp0tmp,  }\item[{double}]{Tskm0tmp,  }\item[{double}]{H0tmp,  }\item[{double}]{Sh0tmp,  }\item[{double}]{Cs0tmp,  }\item[{double}]{Dl0tmp,  }\item[{double}]{Sw0tmp }\end{DoxyParamCaption})}
+
+
+
+Copy steady values from external arrays. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em T0tmp} & \\
+\hline
+{\em beta0tmp} & \\
+\hline
+{\em w0tmp} & \\
+\hline
+{\em q0tmp} & \\
+\hline
+{\em Tpp0tmp} & \\
+\hline
+{\em M0tmp} & \\
+\hline
+{\em Q\+Resp0tmp} & \\
+\hline
+{\em Tskm0tmp} & \\
+\hline
+{\em H0tmp} & \\
+\hline
+{\em Sh0tmp} & \\
+\hline
+{\em Cs0tmp} & \\
+\hline
+{\em Dl0tmp} & \\
+\hline
+{\em Sw0tmp} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_afc608f07dc695417c1da84edbc5e31b4}\label{classSIMULATOR_1_1SimulationInstance_afc608f07dc695417c1da84edbc5e31b4}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!deltaHCT@{deltaHCT}}
+\index{deltaHCT@{deltaHCT}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{deltaHCT()}{deltaHCT()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::delta\+H\+CT (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Computes change in hematocrit Hematocrit is really relative concentration of red blood cells to steady state. Affects blood properties as well as oxygenation. Subject to future work. 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a6430f9af5893f4613c906ae3f02e73dd}\label{classSIMULATOR_1_1SimulationInstance_a6430f9af5893f4613c906ae3f02e73dd}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!deltaQMetabolic@{deltaQMetabolic}}
+\index{deltaQMetabolic@{deltaQMetabolic}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{deltaQMetabolic()}{deltaQMetabolic()}}
+{\footnotesize\ttfamily double S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::delta\+Q\+Metabolic (\begin{DoxyParamCaption}\item[{double}]{q,  }\item[{double}]{T,  }\item[{double}]{Tneut }\end{DoxyParamCaption})}
+
+
+
+Computes change in metabolism at a node, following Q10 law. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & W/m$^\wedge$3, basal metabolism \\
+\hline
+{\em T} & K, Actual node temperature \\
+\hline
+{\em Tneut} & K, Thermoneutral node temperature \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double W/m$^\wedge$3, q\+\_\+\+DM, change in q 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a36ec7d4d896ccf4d67bdcb9c671ba1a0}\label{classSIMULATOR_1_1SimulationInstance_a36ec7d4d896ccf4d67bdcb9c671ba1a0}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!ECMOtreatment@{ECMOtreatment}}
+\index{ECMOtreatment@{ECMOtreatment}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{ECMOtreatment()}{ECMOtreatment()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::\+E\+C\+M\+Otreatment (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Computes all E\+C\+MO parameters. 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_afd71b738323cc7a00b82154b3e9d4fe5}\label{classSIMULATOR_1_1SimulationInstance_afd71b738323cc7a00b82154b3e9d4fe5}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!elementValues@{elementValues}}
+\index{elementValues@{elementValues}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{elementValues()}{elementValues()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::element\+Values (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Computes element-\/level values like TblP, Rho, Cp. 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a5c43bea70b21796b23fac6b40b45b47f}\label{classSIMULATOR_1_1SimulationInstance_a5c43bea70b21796b23fac6b40b45b47f}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!fillInitials@{fillInitials}}
+\index{fillInitials@{fillInitials}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{fillInitials()}{fillInitials()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::fill\+Initials (\begin{DoxyParamCaption}\item[{double $\ast$}]{T0tmp,  }\item[{double $\ast$}]{beta0tmp,  }\item[{double $\ast$}]{w0tmp,  }\item[{double $\ast$}]{q0tmp,  }\item[{double $\ast$}]{Tpp0tmp,  }\item[{double}]{Tskm0 }\end{DoxyParamCaption})}
+
+
+
+Fill external arrays with initial values. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em T0tmp} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em beta0tmp} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em w0tmp} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em q0tmp} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em Tpp0tmp} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em Tskm0} & ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ae0f6b667e69f761963b494520fbf5376}\label{classSIMULATOR_1_1SimulationInstance_ae0f6b667e69f761963b494520fbf5376}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!fillSteadys@{fillSteadys}}
+\index{fillSteadys@{fillSteadys}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{fillSteadys()}{fillSteadys()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::fill\+Steadys (\begin{DoxyParamCaption}\item[{double $\ast$}]{T0tmp,  }\item[{double $\ast$}]{beta0tmp,  }\item[{double $\ast$}]{w0tmp,  }\item[{double $\ast$}]{q0tmp,  }\item[{double $\ast$}]{Tpp0tmp,  }\item[{double}]{M0tmp,  }\item[{double}]{Q\+Resp0tmp,  }\item[{double}]{Tskm0tmp,  }\item[{double}]{H0tmp,  }\item[{double}]{Sh0tmp,  }\item[{double}]{Cs0tmp,  }\item[{double}]{Dl0tmp,  }\item[{double}]{Sw0tmp }\end{DoxyParamCaption})}
+
+
+
+Fill external arrays with steady values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em T0tmp} & \\
+\hline
+{\em beta0tmp} & \\
+\hline
+{\em w0tmp} & \\
+\hline
+{\em q0tmp} & \\
+\hline
+{\em Tpp0tmp} & \\
+\hline
+{\em M0tmp} & \\
+\hline
+{\em Q\+Resp0tmp} & \\
+\hline
+{\em Tskm0tmp} & \\
+\hline
+{\em H0tmp} & \\
+\hline
+{\em Sh0tmp} & \\
+\hline
+{\em Cs0tmp} & \\
+\hline
+{\em Dl0tmp} & \\
+\hline
+{\em Sw0tmp} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aab19cd71218e0c551780be308e01d9f9}\label{classSIMULATOR_1_1SimulationInstance_aab19cd71218e0c551780be308e01d9f9}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!flowECMOBlood@{flowECMOBlood}}
+\index{flowECMOBlood@{flowECMOBlood}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{flowECMOBlood()}{flowECMOBlood()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::flow\+E\+C\+M\+O\+Blood (\begin{DoxyParamCaption}\item[{int}]{ele\+Idx }\end{DoxyParamCaption})}
+
+
+
+Gets blood flow at an element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ele\+Idx} & Element computed \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a0f30e1a9a3082bfae715aea782fda20f}\label{classSIMULATOR_1_1SimulationInstance_a0f30e1a9a3082bfae715aea782fda20f}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!flowECMOSaline@{flowECMOSaline}}
+\index{flowECMOSaline@{flowECMOSaline}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{flowECMOSaline()}{flowECMOSaline()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::flow\+E\+C\+M\+O\+Saline (\begin{DoxyParamCaption}\item[{int}]{ele\+Idx }\end{DoxyParamCaption})}
+
+
+
+Gets saline flow at an element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ele\+Idx} & Element computed \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a4e8649ab89996ffe3bf26a08728a3b01}\label{classSIMULATOR_1_1SimulationInstance_a4e8649ab89996ffe3bf26a08728a3b01}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!nodeValues@{nodeValues}}
+\index{nodeValues@{nodeValues}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{nodeValues()}{nodeValues()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::node\+Values (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Computes all nodal values. 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_af5bd306c689a278b4018afa7a0a14fd5}\label{classSIMULATOR_1_1SimulationInstance_af5bd306c689a278b4018afa7a0a14fd5}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!permuteTimestep@{permuteTimestep}}
+\index{permuteTimestep@{permuteTimestep}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{permuteTimestep()}{permuteTimestep()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::permute\+Timestep (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Copies values to previous timesteps in memory. 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a69f16505c35d486541ca0bcbb6530a0f}\label{classSIMULATOR_1_1SimulationInstance_a69f16505c35d486541ca0bcbb6530a0f}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!project@{project}}
+\index{project@{project}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{project()}{project()}}
+{\footnotesize\ttfamily double S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::project (\begin{DoxyParamCaption}\item[{double}]{cur,  }\item[{double}]{prv }\end{DoxyParamCaption})}
+
+
+
+Finite difference to get future value. Note\+: Will equal cur if steady state or initial. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cur} & Current value \\
+\hline
+{\em prv} & Previous value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double Next value 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a8465c93696a35d298f051b65f93cbe01}\label{classSIMULATOR_1_1SimulationInstance_a8465c93696a35d298f051b65f93cbe01}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!projectBodyValues@{projectBodyValues}}
+\index{projectBodyValues@{projectBodyValues}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{projectBodyValues()}{projectBodyValues()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::project\+Body\+Values (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get future body values. 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a5c7829d7ca2382905e1fdd6568f955b7}\label{classSIMULATOR_1_1SimulationInstance_a5c7829d7ca2382905e1fdd6568f955b7}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!projectTemperatures@{projectTemperatures}}
+\index{projectTemperatures@{projectTemperatures}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{projectTemperatures()}{projectTemperatures()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::project\+Temperatures (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+E\+S\+T\+I\+M\+A\+TE future temperature values. Very important for skin eqns and heat gen, both termperature reliant. 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ae685beaf39b9c57f5e813485802df0ef}\label{classSIMULATOR_1_1SimulationInstance_ae685beaf39b9c57f5e813485802df0ef}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!projectTpp@{projectTpp}}
+\index{projectTpp@{projectTpp}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{projectTpp()}{projectTpp()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::project\+Tpp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Project fictinal outer-\/skin temperatures. 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ac9836dd268ac1a916d95075822ba3e2e}\label{classSIMULATOR_1_1SimulationInstance_ac9836dd268ac1a916d95075822ba3e2e}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!qwbeta@{qwbeta}}
+\index{qwbeta@{qwbeta}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{qwbeta()}{qwbeta()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::qwbeta (\begin{DoxyParamCaption}\item[{double $\ast$}]{qs,  }\item[{double $\ast$}]{ws,  }\item[{double $\ast$}]{betas,  }\item[{double $\ast$}]{cps,  }\item[{double $\ast$}]{rhos,  }\item[{double $\ast$}]{Ts }\end{DoxyParamCaption})}
+
+
+
+Computes q,w,beta at all nodes at one timestep. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em qs} & W/m$^\wedge$3, volumetric heat gen \\
+\hline
+\mbox{\texttt{ out}}  & {\em ws} & 1/s, perfusion rate \\
+\hline
+\mbox{\texttt{ out}}  & {\em betas} & W/m$^\wedge$3/K, blood perfusion rate factor \\
+\hline
+\mbox{\texttt{ in}}  & {\em cps} & W/kg/K, blood experienced specific heat capacity \\
+\hline
+\mbox{\texttt{ in}}  & {\em rhos} & kg/m$^\wedge$3, blood experienced density \\
+\hline
+\mbox{\texttt{ in}}  & {\em Ts} & K, temperatures at this timestep \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_aac1c71f35f57750da78a086d683a33fd}\label{classSIMULATOR_1_1SimulationInstance_aac1c71f35f57750da78a086d683a33fd}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!rhocp@{rhocp}}
+\index{rhocp@{rhocp}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{rhocp()}{rhocp()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::rhocp (\begin{DoxyParamCaption}\item[{int}]{ele\+Idx }\end{DoxyParamCaption})}
+
+
+
+Computes blood density and specific heat capacity at an element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ele\+Idx} & Element to compute \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_ae040df2088d04a4801fc90145f75d577}\label{classSIMULATOR_1_1SimulationInstance_ae040df2088d04a4801fc90145f75d577}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!runSim@{runSim}}
+\index{runSim@{runSim}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{runSim()}{runSim()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::run\+Sim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Run the simulation. 
+
+Performs fixed-\/timestep iteration until the simmodel\textquotesingle{}s end condition hits or 3600s is achieved. Uses P\+BM\textquotesingle{}s version of Gauss-\/\+Seidel solving. May be modified to produce iterative updates to the terminal. \mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a07ec1ef8fa6310acfb6441e2001f805b}\label{classSIMULATOR_1_1SimulationInstance_a07ec1ef8fa6310acfb6441e2001f805b}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!solveSystem@{solveSystem}}
+\index{solveSystem@{solveSystem}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{solveSystem()}{solveSystem()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::solve\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Uses one of the P\+BM solvers to fill in T\+Nxt with realistic values. At present, uses Gauss-\/\+Seidel since it was indeed the fastest. 
+
+\mbox{\Hypertarget{classSIMULATOR_1_1SimulationInstance_a814d41137afdcbf3007afa85b5308b2d}\label{classSIMULATOR_1_1SimulationInstance_a814d41137afdcbf3007afa85b5308b2d}} 
+\index{SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}!tblp@{tblp}}
+\index{tblp@{tblp}!SIMULATOR::SimulationInstance@{SIMULATOR::SimulationInstance}}
+\doxysubsubsection{\texorpdfstring{tblp()}{tblp()}}
+{\footnotesize\ttfamily void S\+I\+M\+U\+L\+A\+T\+O\+R\+::\+Simulation\+Instance\+::tblp (\begin{DoxyParamCaption}\item[{int}]{ele\+Idx }\end{DoxyParamCaption})}
+
+
+
+Computes E\+X\+P\+E\+R\+I\+E\+N\+C\+ED blood pool temperature. Differs from T\mbox{[}body-\/$>$N-\/1\mbox{]} when E\+C\+MO introduced. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ele\+Idx} & Element to compute \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
