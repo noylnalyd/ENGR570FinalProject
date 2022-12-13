@@ -5,35 +5,8 @@
 
 namespace BODYMODEL
 {
-    void controlSignals(
-        double* Sh,
-        double* Cs,
-        double* Dl,
-        double* Sw,
-        double TskError,
-        double ThyError,
-        double TskErrorGradient,
-        double bvr,
-        double svr)
-        {
-            double TskErrorDot = 0;
-            if(TskError <=0 && TskErrorGradient <=0){
-                TskErrorDot = TskError*TskErrorGradient;
-            }
-            *Sh = 10*(tanh(.48*TskError+3.62)-1)*TskError
-                -27.9*ThyError
-                +1.7*TskErrorDot
-                -28.6; // W
-            *Cs = 35*(tanh(.34*TskError+1.07)-1)*TskError
-                +3.9*TskErrorDot; // -
-            *Dl = 21*(tanh(.79*TskError-.70)+1)*TskError
-                +32*(tanh(3.29*ThyError-1.46)+1)*ThyError; // W/K
-            *Sw = (.8*tanh(.59*TskError-.19)+1.2)*TskError
-                +(5.7*tanh(1.98*ThyError-1.03)+6.3)*ThyError; // g/min
-            *Sh = min(350.0*(svr+bvr),max(0.0,*Sh)); // W      
-            *Sw = min(30.0,max(*Sw,0.0)); // g/min
-        }
 
+    /** \copydoc head */
     ELEMENT::Element* head(){
         ELEMENT::Element* head = new ELEMENT::SphereElement(13,2);
 
@@ -114,6 +87,7 @@ namespace BODYMODEL
         assert(head->getState()==ELEMENT::wsAdded);
         return head;
     }
+    /** \copydoc face */
     ELEMENT::Element* face(){
         ELEMENT::Element* face = new ELEMENT::CylinderElement(7,1);
 
@@ -199,6 +173,7 @@ namespace BODYMODEL
         assert(face->getState()==ELEMENT::wsAdded);
         return face;
     }
+    /** \copydoc neck */
     ELEMENT::Element* neck(){
         ELEMENT::Element* neck = new ELEMENT::CylinderElement(11,2);
 
@@ -279,6 +254,7 @@ namespace BODYMODEL
         assert(neck->getState()==ELEMENT::wsAdded);
         return neck;
     }
+    /** \copydoc shoulders */
     ELEMENT::Element* shoulders(){
         ELEMENT::Element* shoulders = new ELEMENT::CylinderElement(7,1);
 
@@ -353,6 +329,7 @@ namespace BODYMODEL
         assert(shoulders->getState()==ELEMENT::wsAdded);
         return shoulders;
     }
+    /** \copydoc thorax */
     ELEMENT::Element* thorax(){
         ELEMENT::Element* thorax = new ELEMENT::CylinderElement(19,3);
 
@@ -451,6 +428,7 @@ namespace BODYMODEL
         assert(thorax->getState()==ELEMENT::wsAdded);
         return thorax;
     }
+    /** \copydoc abdomen */
     ELEMENT::Element* abdomen(){
         ELEMENT::Element* abdomen = new ELEMENT::CylinderElement(19,3);
 
@@ -549,6 +527,7 @@ namespace BODYMODEL
         assert(abdomen->getState()==ELEMENT::wsAdded);
         return abdomen;
     }
+    /** \copydoc arms */
     ELEMENT::Element* arms(){
         ELEMENT::Element* arms = new ELEMENT::CylinderElement(16,3);
 
@@ -636,6 +615,7 @@ namespace BODYMODEL
         assert(arms->getState()==ELEMENT::wsAdded);
         return arms;
     }
+    /** \copydoc hands */
     ELEMENT::Element* hands(){
         ELEMENT::Element* hands = new ELEMENT::CylinderElement(9,2);
 
@@ -716,6 +696,7 @@ namespace BODYMODEL
         assert(hands->getState()==ELEMENT::wsAdded);
         return hands;
     }
+    /** \copydoc legs */
     ELEMENT::Element* legs(){
         ELEMENT::Element* legs = new ELEMENT::CylinderElement(19,3);
 
@@ -802,6 +783,7 @@ namespace BODYMODEL
         assert(legs->getState()==ELEMENT::wsAdded);
         return legs;
     }
+    /** \copydoc feet */
     ELEMENT::Element* feet(){
         ELEMENT::Element* feet = new ELEMENT::CylinderElement(11,2);
 
@@ -882,7 +864,7 @@ namespace BODYMODEL
         assert(feet->getState()==ELEMENT::wsAdded);
         return feet;
     }
-
+    /** \copydoc addElement */
     void BodyModel::addElement( ELEMENT::Element* element )
     {
         // Must have been allocated!
@@ -894,7 +876,7 @@ namespace BODYMODEL
         if(elemIdx == nElements)
             _state = elementsAdded;
     }
-
+    /** \copydoc computeN */
     void BodyModel::computeN()
     {
         assert(_state==elementsAdded);
@@ -904,7 +886,7 @@ namespace BODYMODEL
             N += elements[i]->N;
         }
     }
-
+    /** \copydoc Compute */
     void BodyModel::Compute()
     {
         assert(_state==elementsAdded);
@@ -937,6 +919,7 @@ namespace BODYMODEL
         }
         _state = computed;
     }
+    /** \copydoc defaultBody */
     BODYMODEL::BodyModel* defaultBody(){
         
         BodyModel* body = new BodyModel(10);
