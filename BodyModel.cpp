@@ -864,7 +864,7 @@ namespace BODYMODEL
         assert(feet->getState()==ELEMENT::wsAdded);
         return feet;
     }
-    /** \copydoc addElement */
+
     void BodyModel::addElement( ELEMENT::Element* element )
     {
         // Must have been allocated!
@@ -876,7 +876,7 @@ namespace BODYMODEL
         if(elemIdx == nElements)
             _state = elementsAdded;
     }
-    /** \copydoc computeN */
+    
     void BodyModel::computeN()
     {
         assert(_state==elementsAdded);
@@ -886,7 +886,7 @@ namespace BODYMODEL
             N += elements[i]->N;
         }
     }
-    /** \copydoc Compute */
+    
     void BodyModel::Compute()
     {
         assert(_state==elementsAdded);
@@ -919,7 +919,7 @@ namespace BODYMODEL
         }
         _state = computed;
     }
-    /** \copydoc defaultBody */
+
     BODYMODEL::BodyModel* defaultBody(){
         
         BodyModel* body = new BodyModel(10);

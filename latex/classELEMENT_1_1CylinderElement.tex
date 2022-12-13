@@ -1,0 +1,213 @@
+\hypertarget{classELEMENT_1_1CylinderElement}{}\doxysection{E\+L\+E\+M\+E\+NT\+::Cylinder\+Element Class Reference}
+\label{classELEMENT_1_1CylinderElement}\index{ELEMENT::CylinderElement@{ELEMENT::CylinderElement}}
+
+
+Cylindrical element concrete subclass.  
+
+
+
+
+{\ttfamily \#include $<$element.\+hpp$>$}
+
+
+
+Inheritance diagram for E\+L\+E\+M\+E\+NT\+::Cylinder\+Element\+:
+% FIG 0
+
+
+Collaboration diagram for E\+L\+E\+M\+E\+NT\+::Cylinder\+Element\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classELEMENT_1_1CylinderElement_a7d94df8c454cc10ac65ed3ee41a88497}{Cylinder\+Element}} ()
+\begin{DoxyCompactList}\small\item\em Blank constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classELEMENT_1_1CylinderElement_ab5aba67a15609f80dee818c9ec32ab42}{Cylinder\+Element}} (int n\+Wash, int n\+Sect)
+\begin{DoxyCompactList}\small\item\em Constructor with allocated arrays. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classELEMENT_1_1CylinderElement_a622898d6be7b058968bc435b8d93206a}{sub\+Compute}} (double $\ast$total\+Skin\+Area)
+\begin{DoxyCompactList}\small\item\em Compute skin area, add to total\+Skin\+Area. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classELEMENT_1_1CylinderElement_aa8f17e1329ed4a08f5a12df8452195b4}{handlearesp}} (double tresp, double ricur, double rocur, double ri, double ro) override
+\begin{DoxyCompactList}\small\item\em Find resp share of washer vs. element share. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classELEMENT_1_1CylinderElement_a856b86b84244de4b402085770429feb9}{compute\+Volume}} (\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$cur) override
+\begin{DoxyCompactList}\small\item\em Compute this washer\textquotesingle{}s volume. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classELEMENT_1_1CylinderElement_a8beaf19987f1f7fd694b2ab1bba6efc3}{compute\+A\+Forward}} (\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$cur, \mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$nxt) override
+\begin{DoxyCompactList}\small\item\em Compute this washer\textquotesingle{}s A\+Forward coefficients. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classELEMENT_1_1CylinderElement_a76315dac0700ccdea8d9a1ef2012b1a6}{compute\+A\+Forward\+Skin}} (\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$cur) override
+\begin{DoxyCompactList}\small\item\em Compute this washer\textquotesingle{}s A\+Forward coefficients (skin only!) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classELEMENT_1_1CylinderElement_af8b147fb5d3ea163e9caf07a77efb2f4}{compute\+A\+Backward}} (\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$cur, \mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$prv) override
+\begin{DoxyCompactList}\small\item\em Compute this washer\textquotesingle{}s A\+Backward coefficients. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1CylinderElement_af0db27f731798dbbf1c75e8ba2b39e05}\label{classELEMENT_1_1CylinderElement_af0db27f731798dbbf1c75e8ba2b39e05}} 
+void \mbox{\hyperlink{classELEMENT_1_1CylinderElement_af0db27f731798dbbf1c75e8ba2b39e05}{compute\+Theta}} () override
+\begin{DoxyCompactList}\small\item\em Computes theta, core washer coefficient. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Cylindrical element concrete subclass. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classELEMENT_1_1CylinderElement_a7d94df8c454cc10ac65ed3ee41a88497}\label{classELEMENT_1_1CylinderElement_a7d94df8c454cc10ac65ed3ee41a88497}} 
+\index{ELEMENT::CylinderElement@{ELEMENT::CylinderElement}!CylinderElement@{CylinderElement}}
+\index{CylinderElement@{CylinderElement}!ELEMENT::CylinderElement@{ELEMENT::CylinderElement}}
+\doxysubsubsection{\texorpdfstring{CylinderElement()}{CylinderElement()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily E\+L\+E\+M\+E\+N\+T\+::\+Cylinder\+Element\+::\+Cylinder\+Element (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Blank constructor. 
+
+\mbox{\Hypertarget{classELEMENT_1_1CylinderElement_ab5aba67a15609f80dee818c9ec32ab42}\label{classELEMENT_1_1CylinderElement_ab5aba67a15609f80dee818c9ec32ab42}} 
+\index{ELEMENT::CylinderElement@{ELEMENT::CylinderElement}!CylinderElement@{CylinderElement}}
+\index{CylinderElement@{CylinderElement}!ELEMENT::CylinderElement@{ELEMENT::CylinderElement}}
+\doxysubsubsection{\texorpdfstring{CylinderElement()}{CylinderElement()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily E\+L\+E\+M\+E\+N\+T\+::\+Cylinder\+Element\+::\+Cylinder\+Element (\begin{DoxyParamCaption}\item[{int}]{n\+Wash,  }\item[{int}]{n\+Sect }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor with allocated arrays. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+Wash} & Number of washers \\
+\hline
+{\em n\+Sect} & Number of sectors \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classELEMENT_1_1CylinderElement_af8b147fb5d3ea163e9caf07a77efb2f4}\label{classELEMENT_1_1CylinderElement_af8b147fb5d3ea163e9caf07a77efb2f4}} 
+\index{ELEMENT::CylinderElement@{ELEMENT::CylinderElement}!computeABackward@{computeABackward}}
+\index{computeABackward@{computeABackward}!ELEMENT::CylinderElement@{ELEMENT::CylinderElement}}
+\doxysubsubsection{\texorpdfstring{computeABackward()}{computeABackward()}}
+{\footnotesize\ttfamily void E\+L\+E\+M\+E\+N\+T\+::\+Cylinder\+Element\+::compute\+A\+Backward (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$}]{cur,  }\item[{\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$}]{prv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Compute this washer\textquotesingle{}s A\+Backward coefficients. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cur} & Washer to evaluate \\
+\hline
+{\em prv} & Washer to compare to \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classELEMENT_1_1Element_a97650ac50c7494cabda572a30dd8006f}{E\+L\+E\+M\+E\+N\+T\+::\+Element}}.
+
+\mbox{\Hypertarget{classELEMENT_1_1CylinderElement_a8beaf19987f1f7fd694b2ab1bba6efc3}\label{classELEMENT_1_1CylinderElement_a8beaf19987f1f7fd694b2ab1bba6efc3}} 
+\index{ELEMENT::CylinderElement@{ELEMENT::CylinderElement}!computeAForward@{computeAForward}}
+\index{computeAForward@{computeAForward}!ELEMENT::CylinderElement@{ELEMENT::CylinderElement}}
+\doxysubsubsection{\texorpdfstring{computeAForward()}{computeAForward()}}
+{\footnotesize\ttfamily void E\+L\+E\+M\+E\+N\+T\+::\+Cylinder\+Element\+::compute\+A\+Forward (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$}]{cur,  }\item[{\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$}]{nxt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Compute this washer\textquotesingle{}s A\+Forward coefficients. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cur} & Washer to evaluate \\
+\hline
+{\em nxt} & Washer to compare to \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classELEMENT_1_1Element_a73ef0b3a1daaef2a6d5c648ddb50efb6}{E\+L\+E\+M\+E\+N\+T\+::\+Element}}.
+
+\mbox{\Hypertarget{classELEMENT_1_1CylinderElement_a76315dac0700ccdea8d9a1ef2012b1a6}\label{classELEMENT_1_1CylinderElement_a76315dac0700ccdea8d9a1ef2012b1a6}} 
+\index{ELEMENT::CylinderElement@{ELEMENT::CylinderElement}!computeAForwardSkin@{computeAForwardSkin}}
+\index{computeAForwardSkin@{computeAForwardSkin}!ELEMENT::CylinderElement@{ELEMENT::CylinderElement}}
+\doxysubsubsection{\texorpdfstring{computeAForwardSkin()}{computeAForwardSkin()}}
+{\footnotesize\ttfamily void E\+L\+E\+M\+E\+N\+T\+::\+Cylinder\+Element\+::compute\+A\+Forward\+Skin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$}]{cur }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Compute this washer\textquotesingle{}s A\+Forward coefficients (skin only!) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cur} & Washer to evaluate \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classELEMENT_1_1Element_a8d768cca4d50c736f618ffd73735549f}{E\+L\+E\+M\+E\+N\+T\+::\+Element}}.
+
+\mbox{\Hypertarget{classELEMENT_1_1CylinderElement_a856b86b84244de4b402085770429feb9}\label{classELEMENT_1_1CylinderElement_a856b86b84244de4b402085770429feb9}} 
+\index{ELEMENT::CylinderElement@{ELEMENT::CylinderElement}!computeVolume@{computeVolume}}
+\index{computeVolume@{computeVolume}!ELEMENT::CylinderElement@{ELEMENT::CylinderElement}}
+\doxysubsubsection{\texorpdfstring{computeVolume()}{computeVolume()}}
+{\footnotesize\ttfamily void E\+L\+E\+M\+E\+N\+T\+::\+Cylinder\+Element\+::compute\+Volume (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$}]{cur }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Compute this washer\textquotesingle{}s volume. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cur} & Washer to evaluate \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classELEMENT_1_1Element_ad4a449098cd72318880f26ea09e86358}{E\+L\+E\+M\+E\+N\+T\+::\+Element}}.
+
+\mbox{\Hypertarget{classELEMENT_1_1CylinderElement_aa8f17e1329ed4a08f5a12df8452195b4}\label{classELEMENT_1_1CylinderElement_aa8f17e1329ed4a08f5a12df8452195b4}} 
+\index{ELEMENT::CylinderElement@{ELEMENT::CylinderElement}!handlearesp@{handlearesp}}
+\index{handlearesp@{handlearesp}!ELEMENT::CylinderElement@{ELEMENT::CylinderElement}}
+\doxysubsubsection{\texorpdfstring{handlearesp()}{handlearesp()}}
+{\footnotesize\ttfamily double E\+L\+E\+M\+E\+N\+T\+::\+Cylinder\+Element\+::handlearesp (\begin{DoxyParamCaption}\item[{double}]{tresp,  }\item[{double}]{ricur,  }\item[{double}]{rocur,  }\item[{double}]{ri,  }\item[{double}]{ro }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Find resp share of washer vs. element share. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tresp} & \mbox{\hyperlink{classELEMENT_1_1Element}{Element}} resp share \\
+\hline
+{\em ricur} & inner radius of washer \\
+\hline
+{\em rocur} & outer radius of washer \\
+\hline
+{\em ri} & inner radius of washer set \\
+\hline
+{\em ro} & outer radius of washer set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a\+\_\+resp for one washer 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classELEMENT_1_1Element_afb79bdb99517f5f7771ff26aa09395da}{E\+L\+E\+M\+E\+N\+T\+::\+Element}}.
+
+\mbox{\Hypertarget{classELEMENT_1_1CylinderElement_a622898d6be7b058968bc435b8d93206a}\label{classELEMENT_1_1CylinderElement_a622898d6be7b058968bc435b8d93206a}} 
+\index{ELEMENT::CylinderElement@{ELEMENT::CylinderElement}!subCompute@{subCompute}}
+\index{subCompute@{subCompute}!ELEMENT::CylinderElement@{ELEMENT::CylinderElement}}
+\doxysubsubsection{\texorpdfstring{subCompute()}{subCompute()}}
+{\footnotesize\ttfamily void E\+L\+E\+M\+E\+N\+T\+::\+Cylinder\+Element\+::sub\+Compute (\begin{DoxyParamCaption}\item[{double $\ast$}]{total\+Skin\+Area }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Compute skin area, add to total\+Skin\+Area. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em total\+Skin\+Area} & Ptr to body skin area. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classELEMENT_1_1Element_a34d371a30797db4c9a598948151586f4}{E\+L\+E\+M\+E\+N\+T\+::\+Element}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+element.\+hpp\item 
+element.\+cpp\end{DoxyCompactItemize}

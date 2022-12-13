@@ -1,0 +1,416 @@
+\hypertarget{classELEMENT_1_1Element}{}\doxysection{E\+L\+E\+M\+E\+NT\+::Element Class Reference}
+\label{classELEMENT_1_1Element}\index{ELEMENT::Element@{ELEMENT::Element}}
+
+
+Abstract class for a Fiala element.  
+
+
+
+
+{\ttfamily \#include $<$element.\+hpp$>$}
+
+
+
+Inheritance diagram for E\+L\+E\+M\+E\+NT\+::Element\+:
+% FIG 0
+
+
+Collaboration diagram for E\+L\+E\+M\+E\+NT\+::Element\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classELEMENT_1_1Element_a34d371a30797db4c9a598948151586f4}{sub\+Compute}} (double $\ast$total\+Skin\+Area)=0
+\begin{DoxyCompactList}\small\item\em Compute skin area, add to total\+Skin\+Area. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classELEMENT_1_1Element_a8f6ec72d1e6081be932d6e52d5d57fc8}{compute}} (double total\+Skin\+Area)
+\begin{DoxyCompactList}\small\item\em Compute element subparameters. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classELEMENT_1_1Element_ad4a449098cd72318880f26ea09e86358}{compute\+Volume}} (\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$cur)=0
+\begin{DoxyCompactList}\small\item\em Compute this washer\textquotesingle{}s volume. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classELEMENT_1_1Element_a73ef0b3a1daaef2a6d5c648ddb50efb6}{compute\+A\+Forward}} (\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$cur, \mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$nxt)=0
+\begin{DoxyCompactList}\small\item\em Compute this washer\textquotesingle{}s A\+Forward coefficients. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classELEMENT_1_1Element_a97650ac50c7494cabda572a30dd8006f}{compute\+A\+Backward}} (\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$cur, \mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$prv)=0
+\begin{DoxyCompactList}\small\item\em Compute this washer\textquotesingle{}s A\+Backward coefficients. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classELEMENT_1_1Element_a8d768cca4d50c736f618ffd73735549f}{compute\+A\+Forward\+Skin}} (\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$cur)=0
+\begin{DoxyCompactList}\small\item\em Compute this washer\textquotesingle{}s A\+Forward coefficients (skin only!) \end{DoxyCompactList}\item 
+virtual double \mbox{\hyperlink{classELEMENT_1_1Element_afb79bdb99517f5f7771ff26aa09395da}{handlearesp}} (double tresp, double ricur, double rocur, double ri, double ro)=0
+\begin{DoxyCompactList}\small\item\em Find resp share of washer vs. element share. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classELEMENT_1_1Element_ae00baa71830d6b409512fd5b0e16b56d}{compute\+Gamma}} (\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$cur)
+\begin{DoxyCompactList}\small\item\em Computes gamma coefficient, coefficient of shearflow. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_ac1c9fb805be485a43a047104a8ccdac1}\label{classELEMENT_1_1Element_ac1c9fb805be485a43a047104a8ccdac1}} 
+virtual void \mbox{\hyperlink{classELEMENT_1_1Element_ac1c9fb805be485a43a047104a8ccdac1}{compute\+Theta}} ()=0
+\begin{DoxyCompactList}\small\item\em Computes theta, core washer coefficient. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classELEMENT_1_1Element_a30576fe5140658ee1c254a89e803181e}{allocate}} (int n\+Wash, int n\+Sect)
+\begin{DoxyCompactList}\small\item\em Allocates element arrays. \end{DoxyCompactList}\item 
+Element\+State \mbox{\hyperlink{classELEMENT_1_1Element_a02a422928ac89be37c87a7671f802aa6}{get\+State}} ()
+\begin{DoxyCompactList}\small\item\em Allows access to protected \+\_\+\+\_\+state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classELEMENT_1_1Element_a747b16177813a8165f08fa31692ccbc1}{add\+Washers}} (int n\+Add, double r0, double rf, double k, double rho, double c, double w\+\_\+bl, double q\+\_\+m, double muscle, double resp)
+\begin{DoxyCompactList}\small\item\em Adds a block of washers to avoid redundancy. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classELEMENT_1_1Element_a61346742216dc337e0e542f9ec7768fa}{add\+Sector}} (\mbox{\hyperlink{classSECTOR_1_1Sector}{S\+E\+C\+T\+O\+R\+::\+Sector}} $\ast$sec)
+\begin{DoxyCompactList}\small\item\em Adds a Sector to this element. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a747b57b3b2196813694a21eed8d5d005}\label{classELEMENT_1_1Element_a747b57b3b2196813694a21eed8d5d005}} 
+\mbox{\hyperlink{classELEMENT_1_1Element_a747b57b3b2196813694a21eed8d5d005}{Element}} ()
+\begin{DoxyCompactList}\small\item\em Blank constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classELEMENT_1_1Element_a1d7f3bca22defe14f24d8ff74f84b58f}{Element}} (int n\+Wash, int n\+Sect)
+\begin{DoxyCompactList}\small\item\em Constructor with allocated arrays. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a82e5141fd8d5a98835094c39402dc163}\label{classELEMENT_1_1Element_a82e5141fd8d5a98835094c39402dc163}} 
+\mbox{\hyperlink{classELEMENT_1_1Element_a82e5141fd8d5a98835094c39402dc163}{$\sim$\+Element}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a0475ab7a315fef50c71fb80dcc4dfcdd}\label{classELEMENT_1_1Element_a0475ab7a315fef50c71fb80dcc4dfcdd}} 
+bool \mbox{\hyperlink{classELEMENT_1_1Element_a0475ab7a315fef50c71fb80dcc4dfcdd}{is\+Cylinder}}
+\begin{DoxyCompactList}\small\item\em Is a cylinder (Used sparingly!) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a94854f686736c215407b54b0082ca114}\label{classELEMENT_1_1Element_a94854f686736c215407b54b0082ca114}} 
+int \mbox{\hyperlink{classELEMENT_1_1Element_a94854f686736c215407b54b0082ca114}{N}}
+\begin{DoxyCompactList}\small\item\em Number of distinct T nodes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a9da06d48db095bad38cb2ef20176c577}\label{classELEMENT_1_1Element_a9da06d48db095bad38cb2ef20176c577}} 
+int \mbox{\hyperlink{classELEMENT_1_1Element_a9da06d48db095bad38cb2ef20176c577}{n\+Washers}}
+\begin{DoxyCompactList}\small\item\em Number of washers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a4f7c0b5841f2bca3c18b27908d47a483}\label{classELEMENT_1_1Element_a4f7c0b5841f2bca3c18b27908d47a483}} 
+int \mbox{\hyperlink{classELEMENT_1_1Element_a4f7c0b5841f2bca3c18b27908d47a483}{washer\+Idx}} =0
+\begin{DoxyCompactList}\small\item\em index of free washer \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a7ba4387913a6be5c906d7e3a49b13b77}\label{classELEMENT_1_1Element_a7ba4387913a6be5c906d7e3a49b13b77}} 
+int \mbox{\hyperlink{classELEMENT_1_1Element_a7ba4387913a6be5c906d7e3a49b13b77}{n\+Sectors}}
+\begin{DoxyCompactList}\small\item\em Number of sectors. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a5c472ae9909c94fb5ae86d8bb5029305}\label{classELEMENT_1_1Element_a5c472ae9909c94fb5ae86d8bb5029305}} 
+int \mbox{\hyperlink{classELEMENT_1_1Element_a5c472ae9909c94fb5ae86d8bb5029305}{sector\+Idx}} =0
+\begin{DoxyCompactList}\small\item\em index of free sector \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a38e263270af50964e4edbef3db7d4f9a}\label{classELEMENT_1_1Element_a38e263270af50964e4edbef3db7d4f9a}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_a38e263270af50964e4edbef3db7d4f9a}{length}} = -\/2
+\begin{DoxyCompactList}\small\item\em m, length of element iff cylinder \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a5d06bfd30109a0c7a62e40cfd4ac66cb}\label{classELEMENT_1_1Element_a5d06bfd30109a0c7a62e40cfd4ac66cb}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_a5d06bfd30109a0c7a62e40cfd4ac66cb}{hx}}
+\begin{DoxyCompactList}\small\item\em W/K, countercurrent heat transfer coefficient. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a6cb13fc7a009eb25c045e1027e7a0c3d}\label{classELEMENT_1_1Element_a6cb13fc7a009eb25c045e1027e7a0c3d}} 
+int \mbox{\hyperlink{classELEMENT_1_1Element_a6cb13fc7a009eb25c045e1027e7a0c3d}{n\+\_\+j}}
+\begin{DoxyCompactList}\small\item\em -\/, number of equivalent clothing layers \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classELEMENT_1_1Element_a0922e969b121bb5f5cf51c1b8690795a}{omega}} = -\/1
+\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a9e2784b2337773b478350811e520ce91}\label{classELEMENT_1_1Element_a9e2784b2337773b478350811e520ce91}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_a9e2784b2337773b478350811e520ce91}{sum\+Phi}} = 0
+\begin{DoxyCompactList}\small\item\em rad, sum of sector angles \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a36ffef010b1a53bc1b62bc6c52a83599}\label{classELEMENT_1_1Element_a36ffef010b1a53bc1b62bc6c52a83599}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_a36ffef010b1a53bc1b62bc6c52a83599}{theta}} = 0
+\begin{DoxyCompactList}\small\item\em 1/rad, geometry parameter \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_ac3054cd27949021175ded0c595c70916}\label{classELEMENT_1_1Element_ac3054cd27949021175ded0c595c70916}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_ac3054cd27949021175ded0c595c70916}{Vmuscle}} = 0
+\begin{DoxyCompactList}\small\item\em m$^\wedge$3, volume of muscle \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a577a61eed2ddea5c8ee7df37251cb648}\label{classELEMENT_1_1Element_a577a61eed2ddea5c8ee7df37251cb648}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_a577a61eed2ddea5c8ee7df37251cb648}{Vresp}} = 0
+\begin{DoxyCompactList}\small\item\em m$^\wedge$3, volume of respiratory exposure \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a0a2d85cfc08e7596be75590f6690e94f}\label{classELEMENT_1_1Element_a0a2d85cfc08e7596be75590f6690e94f}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_a0a2d85cfc08e7596be75590f6690e94f}{a\+\_\+nat}}
+\begin{DoxyCompactList}\small\item\em Share of natural convection. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a8cfdd21901cd9cf6cb7958573abe131c}\label{classELEMENT_1_1Element_a8cfdd21901cd9cf6cb7958573abe131c}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_a8cfdd21901cd9cf6cb7958573abe131c}{a\+\_\+frc}}
+\begin{DoxyCompactList}\small\item\em Share of forced convection. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a24aec068872c2afef995136603ec7fc0}\label{classELEMENT_1_1Element_a24aec068872c2afef995136603ec7fc0}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_a24aec068872c2afef995136603ec7fc0}{a\+\_\+mix}}
+\begin{DoxyCompactList}\small\item\em Share of mixed convection. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_af9142a76c30cb8c4d28a6ba4168ebfc8}\label{classELEMENT_1_1Element_af9142a76c30cb8c4d28a6ba4168ebfc8}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_af9142a76c30cb8c4d28a6ba4168ebfc8}{a\+\_\+sk}}
+\begin{DoxyCompactList}\small\item\em Share of skin area. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_ae893992d203e6a2d98d0f1f6c8d8e71c}\label{classELEMENT_1_1Element_ae893992d203e6a2d98d0f1f6c8d8e71c}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_ae893992d203e6a2d98d0f1f6c8d8e71c}{a\+\_\+sed}}
+\begin{DoxyCompactList}\small\item\em Share of sedentary load. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a2c118ecfcabbc5ef8c8aedf99dd41fa2}\label{classELEMENT_1_1Element_a2c118ecfcabbc5ef8c8aedf99dd41fa2}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_a2c118ecfcabbc5ef8c8aedf99dd41fa2}{a\+\_\+stnd}}
+\begin{DoxyCompactList}\small\item\em Share of standard load. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a231347dbf9b18ce569dca2c038551205}\label{classELEMENT_1_1Element_a231347dbf9b18ce569dca2c038551205}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_a231347dbf9b18ce569dca2c038551205}{a\+\_\+sw}}
+\begin{DoxyCompactList}\small\item\em Share of sweat. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a5effd73d17fc5f723fdc3d54e46b7786}\label{classELEMENT_1_1Element_a5effd73d17fc5f723fdc3d54e46b7786}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_a5effd73d17fc5f723fdc3d54e46b7786}{a\+\_\+dl}}
+\begin{DoxyCompactList}\small\item\em Share of vasodilation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a072fa5cd75658491d7403dba24c32139}\label{classELEMENT_1_1Element_a072fa5cd75658491d7403dba24c32139}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_a072fa5cd75658491d7403dba24c32139}{a\+\_\+cs}}
+\begin{DoxyCompactList}\small\item\em Share of vasoconstriction. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a29058f8c0bf55c7c830e8b3fa79877d3}\label{classELEMENT_1_1Element_a29058f8c0bf55c7c830e8b3fa79877d3}} 
+double \mbox{\hyperlink{classELEMENT_1_1Element_a29058f8c0bf55c7c830e8b3fa79877d3}{a\+\_\+sh}}
+\begin{DoxyCompactList}\small\item\em Share of shivering. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a41561d871e707383ce1cf772c1bfe8c7}\label{classELEMENT_1_1Element_a41561d871e707383ce1cf772c1bfe8c7}} 
+\mbox{\hyperlink{classSECTOR_1_1Sector}{S\+E\+C\+T\+O\+R\+::\+Sector}} $\ast$$\ast$ \mbox{\hyperlink{classELEMENT_1_1Element_a41561d871e707383ce1cf772c1bfe8c7}{sectors}}
+\begin{DoxyCompactList}\small\item\em Array of Sector ptrs. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classELEMENT_1_1Element_a61c18ac85c50659ecc133ba0acc49784}\label{classELEMENT_1_1Element_a61c18ac85c50659ecc133ba0acc49784}} 
+\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$$\ast$ \mbox{\hyperlink{classELEMENT_1_1Element_a61c18ac85c50659ecc133ba0acc49784}{washers}}
+\begin{DoxyCompactList}\small\item\em Array of Washer ptrs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstract class for a Fiala element. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classELEMENT_1_1Element_a1d7f3bca22defe14f24d8ff74f84b58f}\label{classELEMENT_1_1Element_a1d7f3bca22defe14f24d8ff74f84b58f}} 
+\index{ELEMENT::Element@{ELEMENT::Element}!Element@{Element}}
+\index{Element@{Element}!ELEMENT::Element@{ELEMENT::Element}}
+\doxysubsubsection{\texorpdfstring{Element()}{Element()}}
+{\footnotesize\ttfamily E\+L\+E\+M\+E\+N\+T\+::\+Element\+::\+Element (\begin{DoxyParamCaption}\item[{int}]{n\+Wash,  }\item[{int}]{n\+Sect }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor with allocated arrays. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+Wash} & Number of washers \\
+\hline
+{\em n\+Sect} & Number of sectors \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classELEMENT_1_1Element_a61346742216dc337e0e542f9ec7768fa}\label{classELEMENT_1_1Element_a61346742216dc337e0e542f9ec7768fa}} 
+\index{ELEMENT::Element@{ELEMENT::Element}!addSector@{addSector}}
+\index{addSector@{addSector}!ELEMENT::Element@{ELEMENT::Element}}
+\doxysubsubsection{\texorpdfstring{addSector()}{addSector()}}
+{\footnotesize\ttfamily void E\+L\+E\+M\+E\+N\+T\+::\+Element\+::add\+Sector (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classSECTOR_1_1Sector}{S\+E\+C\+T\+O\+R\+::\+Sector}} $\ast$}]{sec }\end{DoxyParamCaption})}
+
+
+
+Adds a Sector to this element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sec} & Sector to add. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classELEMENT_1_1Element_a747b16177813a8165f08fa31692ccbc1}\label{classELEMENT_1_1Element_a747b16177813a8165f08fa31692ccbc1}} 
+\index{ELEMENT::Element@{ELEMENT::Element}!addWashers@{addWashers}}
+\index{addWashers@{addWashers}!ELEMENT::Element@{ELEMENT::Element}}
+\doxysubsubsection{\texorpdfstring{addWashers()}{addWashers()}}
+{\footnotesize\ttfamily void E\+L\+E\+M\+E\+N\+T\+::\+Element\+::add\+Washers (\begin{DoxyParamCaption}\item[{int}]{n\+Add,  }\item[{double}]{r0,  }\item[{double}]{rf,  }\item[{double}]{k,  }\item[{double}]{rho,  }\item[{double}]{c,  }\item[{double}]{w\+\_\+bl,  }\item[{double}]{q\+\_\+m,  }\item[{double}]{muscle,  }\item[{double}]{resp }\end{DoxyParamCaption})}
+
+
+
+Adds a block of washers to avoid redundancy. 
+
+-\/, ratio of respiratory exposure 
+\begin{DoxyParams}{Parameters}
+{\em n\+Add} & Number of washers to add \\
+\hline
+{\em r0} & m, inner radius of block \\
+\hline
+{\em rf} & m, outer radius of block \\
+\hline
+{\em k} & W/m$^\wedge$2, conductivity \\
+\hline
+{\em rho} & kg/m$^\wedge$3, density \\
+\hline
+{\em c} & J/kg/K, specific heat capacity \\
+\hline
+{\em w\+\_\+bl} & 1/s, tissue permeability \\
+\hline
+{\em q\+\_\+m} & W/m$^\wedge$3, specific basal metabolism \\
+\hline
+{\em muscle} & -\/, ratio of muscle (usually 0 or 1) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classELEMENT_1_1Element_a30576fe5140658ee1c254a89e803181e}\label{classELEMENT_1_1Element_a30576fe5140658ee1c254a89e803181e}} 
+\index{ELEMENT::Element@{ELEMENT::Element}!allocate@{allocate}}
+\index{allocate@{allocate}!ELEMENT::Element@{ELEMENT::Element}}
+\doxysubsubsection{\texorpdfstring{allocate()}{allocate()}}
+{\footnotesize\ttfamily void E\+L\+E\+M\+E\+N\+T\+::\+Element\+::allocate (\begin{DoxyParamCaption}\item[{int}]{n\+Wash,  }\item[{int}]{n\+Sect }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Allocates element arrays. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+Wash} & Number of washers \\
+\hline
+{\em n\+Sect} & Number of sectors \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classELEMENT_1_1Element_a8f6ec72d1e6081be932d6e52d5d57fc8}\label{classELEMENT_1_1Element_a8f6ec72d1e6081be932d6e52d5d57fc8}} 
+\index{ELEMENT::Element@{ELEMENT::Element}!compute@{compute}}
+\index{compute@{compute}!ELEMENT::Element@{ELEMENT::Element}}
+\doxysubsubsection{\texorpdfstring{compute()}{compute()}}
+{\footnotesize\ttfamily void E\+L\+E\+M\+E\+N\+T\+::\+Element\+::compute (\begin{DoxyParamCaption}\item[{double}]{total\+Skin\+Area }\end{DoxyParamCaption})}
+
+
+
+Compute element subparameters. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em total\+Skin\+Area} & Body total skin area. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classELEMENT_1_1Element_a97650ac50c7494cabda572a30dd8006f}\label{classELEMENT_1_1Element_a97650ac50c7494cabda572a30dd8006f}} 
+\index{ELEMENT::Element@{ELEMENT::Element}!computeABackward@{computeABackward}}
+\index{computeABackward@{computeABackward}!ELEMENT::Element@{ELEMENT::Element}}
+\doxysubsubsection{\texorpdfstring{computeABackward()}{computeABackward()}}
+{\footnotesize\ttfamily virtual void E\+L\+E\+M\+E\+N\+T\+::\+Element\+::compute\+A\+Backward (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$}]{cur,  }\item[{\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$}]{prv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Compute this washer\textquotesingle{}s A\+Backward coefficients. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cur} & Washer to evaluate \\
+\hline
+{\em prv} & Washer to compare to \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classELEMENT_1_1SphereElement_a62865cea0726a1211781ac1782f291f4}{E\+L\+E\+M\+E\+N\+T\+::\+Sphere\+Element}}, and \mbox{\hyperlink{classELEMENT_1_1CylinderElement_af8b147fb5d3ea163e9caf07a77efb2f4}{E\+L\+E\+M\+E\+N\+T\+::\+Cylinder\+Element}}.
+
+\mbox{\Hypertarget{classELEMENT_1_1Element_a73ef0b3a1daaef2a6d5c648ddb50efb6}\label{classELEMENT_1_1Element_a73ef0b3a1daaef2a6d5c648ddb50efb6}} 
+\index{ELEMENT::Element@{ELEMENT::Element}!computeAForward@{computeAForward}}
+\index{computeAForward@{computeAForward}!ELEMENT::Element@{ELEMENT::Element}}
+\doxysubsubsection{\texorpdfstring{computeAForward()}{computeAForward()}}
+{\footnotesize\ttfamily virtual void E\+L\+E\+M\+E\+N\+T\+::\+Element\+::compute\+A\+Forward (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$}]{cur,  }\item[{\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$}]{nxt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Compute this washer\textquotesingle{}s A\+Forward coefficients. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cur} & Washer to evaluate \\
+\hline
+{\em nxt} & Washer to compare to \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classELEMENT_1_1SphereElement_aedfd81f7a631d32af665d08e3ae34644}{E\+L\+E\+M\+E\+N\+T\+::\+Sphere\+Element}}, and \mbox{\hyperlink{classELEMENT_1_1CylinderElement_a8beaf19987f1f7fd694b2ab1bba6efc3}{E\+L\+E\+M\+E\+N\+T\+::\+Cylinder\+Element}}.
+
+\mbox{\Hypertarget{classELEMENT_1_1Element_a8d768cca4d50c736f618ffd73735549f}\label{classELEMENT_1_1Element_a8d768cca4d50c736f618ffd73735549f}} 
+\index{ELEMENT::Element@{ELEMENT::Element}!computeAForwardSkin@{computeAForwardSkin}}
+\index{computeAForwardSkin@{computeAForwardSkin}!ELEMENT::Element@{ELEMENT::Element}}
+\doxysubsubsection{\texorpdfstring{computeAForwardSkin()}{computeAForwardSkin()}}
+{\footnotesize\ttfamily virtual void E\+L\+E\+M\+E\+N\+T\+::\+Element\+::compute\+A\+Forward\+Skin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$}]{cur }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Compute this washer\textquotesingle{}s A\+Forward coefficients (skin only!) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cur} & Washer to evaluate \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classELEMENT_1_1SphereElement_a8eba1618beda95f30c89db1d7a803128}{E\+L\+E\+M\+E\+N\+T\+::\+Sphere\+Element}}, and \mbox{\hyperlink{classELEMENT_1_1CylinderElement_a76315dac0700ccdea8d9a1ef2012b1a6}{E\+L\+E\+M\+E\+N\+T\+::\+Cylinder\+Element}}.
+
+\mbox{\Hypertarget{classELEMENT_1_1Element_ae00baa71830d6b409512fd5b0e16b56d}\label{classELEMENT_1_1Element_ae00baa71830d6b409512fd5b0e16b56d}} 
+\index{ELEMENT::Element@{ELEMENT::Element}!computeGamma@{computeGamma}}
+\index{computeGamma@{computeGamma}!ELEMENT::Element@{ELEMENT::Element}}
+\doxysubsubsection{\texorpdfstring{computeGamma()}{computeGamma()}}
+{\footnotesize\ttfamily void E\+L\+E\+M\+E\+N\+T\+::\+Element\+::compute\+Gamma (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$}]{cur }\end{DoxyParamCaption})}
+
+
+
+Computes gamma coefficient, coefficient of shearflow. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cur} & Washer to evaluate \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classELEMENT_1_1Element_ad4a449098cd72318880f26ea09e86358}\label{classELEMENT_1_1Element_ad4a449098cd72318880f26ea09e86358}} 
+\index{ELEMENT::Element@{ELEMENT::Element}!computeVolume@{computeVolume}}
+\index{computeVolume@{computeVolume}!ELEMENT::Element@{ELEMENT::Element}}
+\doxysubsubsection{\texorpdfstring{computeVolume()}{computeVolume()}}
+{\footnotesize\ttfamily virtual void E\+L\+E\+M\+E\+N\+T\+::\+Element\+::compute\+Volume (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classWASHER_1_1Washer}{W\+A\+S\+H\+E\+R\+::\+Washer}} $\ast$}]{cur }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Compute this washer\textquotesingle{}s volume. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cur} & Washer to evaluate \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classELEMENT_1_1SphereElement_a47a5ba18ece55b96a9961e632b37e152}{E\+L\+E\+M\+E\+N\+T\+::\+Sphere\+Element}}, and \mbox{\hyperlink{classELEMENT_1_1CylinderElement_a856b86b84244de4b402085770429feb9}{E\+L\+E\+M\+E\+N\+T\+::\+Cylinder\+Element}}.
+
+\mbox{\Hypertarget{classELEMENT_1_1Element_a02a422928ac89be37c87a7671f802aa6}\label{classELEMENT_1_1Element_a02a422928ac89be37c87a7671f802aa6}} 
+\index{ELEMENT::Element@{ELEMENT::Element}!getState@{getState}}
+\index{getState@{getState}!ELEMENT::Element@{ELEMENT::Element}}
+\doxysubsubsection{\texorpdfstring{getState()}{getState()}}
+{\footnotesize\ttfamily Element\+State E\+L\+E\+M\+E\+N\+T\+::\+Element\+::get\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Allows access to protected \+\_\+\+\_\+state. 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+\+\_\+state 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classELEMENT_1_1Element_afb79bdb99517f5f7771ff26aa09395da}\label{classELEMENT_1_1Element_afb79bdb99517f5f7771ff26aa09395da}} 
+\index{ELEMENT::Element@{ELEMENT::Element}!handlearesp@{handlearesp}}
+\index{handlearesp@{handlearesp}!ELEMENT::Element@{ELEMENT::Element}}
+\doxysubsubsection{\texorpdfstring{handlearesp()}{handlearesp()}}
+{\footnotesize\ttfamily virtual double E\+L\+E\+M\+E\+N\+T\+::\+Element\+::handlearesp (\begin{DoxyParamCaption}\item[{double}]{tresp,  }\item[{double}]{ricur,  }\item[{double}]{rocur,  }\item[{double}]{ri,  }\item[{double}]{ro }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Find resp share of washer vs. element share. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tresp} & \mbox{\hyperlink{classELEMENT_1_1Element}{Element}} resp share \\
+\hline
+{\em ricur} & inner radius of washer \\
+\hline
+{\em rocur} & outer radius of washer \\
+\hline
+{\em ri} & inner radius of washer set \\
+\hline
+{\em ro} & outer radius of washer set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a\+\_\+resp for one washer 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classELEMENT_1_1SphereElement_a3612fb4756c092c0e2820824a184bd99}{E\+L\+E\+M\+E\+N\+T\+::\+Sphere\+Element}}, and \mbox{\hyperlink{classELEMENT_1_1CylinderElement_aa8f17e1329ed4a08f5a12df8452195b4}{E\+L\+E\+M\+E\+N\+T\+::\+Cylinder\+Element}}.
+
+\mbox{\Hypertarget{classELEMENT_1_1Element_a34d371a30797db4c9a598948151586f4}\label{classELEMENT_1_1Element_a34d371a30797db4c9a598948151586f4}} 
+\index{ELEMENT::Element@{ELEMENT::Element}!subCompute@{subCompute}}
+\index{subCompute@{subCompute}!ELEMENT::Element@{ELEMENT::Element}}
+\doxysubsubsection{\texorpdfstring{subCompute()}{subCompute()}}
+{\footnotesize\ttfamily virtual void E\+L\+E\+M\+E\+N\+T\+::\+Element\+::sub\+Compute (\begin{DoxyParamCaption}\item[{double $\ast$}]{total\+Skin\+Area }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Compute skin area, add to total\+Skin\+Area. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em total\+Skin\+Area} & Ptr to body skin area. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classELEMENT_1_1SphereElement_afc42ca4e611f9ace1fb59e0c19536d18}{E\+L\+E\+M\+E\+N\+T\+::\+Sphere\+Element}}, and \mbox{\hyperlink{classELEMENT_1_1CylinderElement_a622898d6be7b058968bc435b8d93206a}{E\+L\+E\+M\+E\+N\+T\+::\+Cylinder\+Element}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classELEMENT_1_1Element_a0922e969b121bb5f5cf51c1b8690795a}\label{classELEMENT_1_1Element_a0922e969b121bb5f5cf51c1b8690795a}} 
+\index{ELEMENT::Element@{ELEMENT::Element}!omega@{omega}}
+\index{omega@{omega}!ELEMENT::Element@{ELEMENT::Element}}
+\doxysubsubsection{\texorpdfstring{omega}{omega}}
+{\footnotesize\ttfamily double E\+L\+E\+M\+E\+N\+T\+::\+Element\+::omega = -\/1}
+
+
+\begin{DoxyItemize}
+\item , shape parameter (-\/1 for undefined) 
+\end{DoxyItemize}
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+element.\+hpp\item 
+element.\+cpp\end{DoxyCompactItemize}

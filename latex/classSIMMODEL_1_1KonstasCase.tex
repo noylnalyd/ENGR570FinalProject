@@ -1,0 +1,54 @@
+\hypertarget{classSIMMODEL_1_1KonstasCase}{}\doxysection{S\+I\+M\+M\+O\+D\+EL\+::Konstas\+Case Class Reference}
+\label{classSIMMODEL_1_1KonstasCase}\index{SIMMODEL::KonstasCase@{SIMMODEL::KonstasCase}}
+
+
+Inheritance diagram for S\+I\+M\+M\+O\+D\+EL\+::Konstas\+Case\+:
+% FIG 0
+
+
+Collaboration diagram for S\+I\+M\+M\+O\+D\+EL\+::Konstas\+Case\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1KonstasCase_a226c01f7f9b3af056bd97838abfd188e}\label{classSIMMODEL_1_1KonstasCase_a226c01f7f9b3af056bd97838abfd188e}} 
+void {\bfseries rhocp} (double $\ast$Rho, double $\ast$Cp, \mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$body, int ele\+Idx, double Viv, double D\+Viv, double f\+EB, double f\+ES, double time) override
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1KonstasCase_a2a9c5ad2549a56d786e84de3500fc963}\label{classSIMMODEL_1_1KonstasCase_a2a9c5ad2549a56d786e84de3500fc963}} 
+void {\bfseries set\+Tair\+Tsrm} (double time) override
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1KonstasCase_a54efd6627641aa97124eac3ce6142112}\label{classSIMMODEL_1_1KonstasCase_a54efd6627641aa97124eac3ce6142112}} 
+void {\bfseries B\+V\+R\+S\+VR} (double $\ast$bvr, double $\ast$svr, double time) override
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1KonstasCase_af221b299d638bd2e834e4ddf25c3c258}\label{classSIMMODEL_1_1KonstasCase_af221b299d638bd2e834e4ddf25c3c258}} 
+void {\bfseries ecmo\+Blood} (double $\ast$f\+EB, \mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$body, int ele\+Idx, double Viv, double time) override
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1KonstasCase_a06a04c5ffc5dbd4c1caa2592a86833cf}\label{classSIMMODEL_1_1KonstasCase_a06a04c5ffc5dbd4c1caa2592a86833cf}} 
+void {\bfseries ecmo\+Saline} (double $\ast$f\+ES, \mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$body, int ele\+Idx, double Viv, double bvr, double time) override
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1KonstasCase_a2ce83a52eb6ff56046790abcafe2c6c8}\label{classSIMMODEL_1_1KonstasCase_a2ce83a52eb6ff56046790abcafe2c6c8}} 
+void {\bfseries tblp} (double $\ast$tblp, double $\ast$tblp\+Nxt\+Ratio, \mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$body, int ele\+Idx, double tblp\+Cur, double Viv, double D\+Viv, double f\+EB, double f\+ES, double time) override
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1KonstasCase_ad25aad71d621a53d20ea4ad111a8f8ad}\label{classSIMMODEL_1_1KonstasCase_ad25aad71d621a53d20ea4ad111a8f8ad}} 
+void {\bfseries shiver\+Drugs} (double $\ast$Sh, double time) override
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1KonstasCase_aa3435da0815f5b3a8454b91109974644}\label{classSIMMODEL_1_1KonstasCase_aa3435da0815f5b3a8454b91109974644}} 
+bool {\bfseries end\+Condition} (double Thy) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1KonstasCase_a922b7d06eae11bcbc128d2297daf001f}\label{classSIMMODEL_1_1KonstasCase_a922b7d06eae11bcbc128d2297daf001f}} 
+double {\bfseries tinjury} = 300
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1KonstasCase_ab3d092f037972bc4584ecbb9d60cedef}\label{classSIMMODEL_1_1KonstasCase_ab3d092f037972bc4584ecbb9d60cedef}} 
+double {\bfseries bvr\+Rate} = -\/.\+4/tinjury
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1KonstasCase_aa1193c8660616b12190d56c8cb41c303}\label{classSIMMODEL_1_1KonstasCase_aa1193c8660616b12190d56c8cb41c303}} 
+double {\bfseries trestore} = 120
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Sim\+Model.\+hpp\end{DoxyCompactItemize}
