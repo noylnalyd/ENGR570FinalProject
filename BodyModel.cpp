@@ -2,69 +2,11 @@
 #define _BODYMODEL_CPP_
 
 #include "BodyModel.hpp"
-using namespace std;
 
 namespace BODYMODEL
 {
-    BodyModel* defaultBody(){
-        BodyModel* body = new BodyModel(10);
-        
-        // Check allocation status
-        assert(body->getState() == BODYMODEL::allocated);
 
-        // Add elements
-        body->addElement(head());
-        body->addElement(face());
-        body->addElement(neck());
-        body->addElement(shoulders());
-        body->addElement(thorax());
-        body->addElement(abdomen());
-        body->addElement(arms());
-        body->addElement(hands());
-        body->addElement(legs());
-        body->addElement(feet());
-
-        // Check status now
-        assert(body->getState() == BODYMODEL::elementsAdded);
-
-        // Compute body parameters
-        body->compute();
-
-        // Check status again
-        assert(body->getState() == BODYMODEL::computed);
-
-        
-    }
-    
-    void controlSignals(
-        double* Sh,
-        double* Cs,
-        double* Dl,
-        double* Sw,
-        double TskError,
-        double ThyError,
-        double TskErrorGradient,
-        double bvr,
-        double svr)
-        {
-            double TskErrorDot = 0;
-            if(TskError <=0 && TskErrorGradient <=0){
-                TskErrorDot = TskError*TskErrorGradient;
-            }
-            *Sh = 10*(tanh(.48*TskError+3.62)-1)*TskError
-                -27.9*ThyError
-                +1.7*TskErrorDot
-                -28.6; // W
-            *Cs = 35*(tanh(.34*TskError+1.07)-1)*TskError
-                +3.9*TskErrorDot; // -
-            *Dl = 21*(tanh(.79*TskError-.70)+1)*TskError
-                +32*(tanh(3.29*ThyError-1.46)+1)*ThyError; // W/K
-            *Sw = (.8*tanh(.59*TskError-.19)+1.2)*TskError
-                +(5.7*tanh(1.98*ThyError-1.03)+6.3)*ThyError; // g/min
-            *Sh = min(350.0*(svr+bvr),max(0.0,*Sh)); // W      
-            *Sw = min(30.0,max(*Sw,0.0)); // g/min
-        }
-
+    /** \copydoc head */
     ELEMENT::Element* head(){
         ELEMENT::Element* head = new ELEMENT::SphereElement(13,2);
 
@@ -92,7 +34,8 @@ namespace BODYMODEL
             3850,   // J/kg/K, specific heat capacity
             10.1320e-3,// 1/s, tissue permeability
             13400, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         head->addWashers(
             2,   // Number of washers to add
             0.0860,  // m, inner radius
@@ -102,7 +45,8 @@ namespace BODYMODEL
             1591,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         head->addWashers(
             2,   // Number of washers to add
             0.1005,  // m, inner radius
@@ -112,7 +56,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             .0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         head->addWashers(
             4,   // Number of washers to add
             0.1020,  // m, inner radius
@@ -122,7 +67,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             5.4800e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *forehead = new SECTOR::Sector();
         forehead->phi = 10*M_PI/180.0; // rad, interior angle of sector
@@ -136,11 +82,12 @@ namespace BODYMODEL
         headBack->psiStnd = 0.90; // -, standard view factor
         headBack->echelon = 0.80; // -, emission coefficient
         head->addSector(headBack);
-
+        
         // Make sure totally filled!
         assert(head->getState()==ELEMENT::wsAdded);
         return head;
     }
+    /** \copydoc face */
     ELEMENT::Element* face(){
         ELEMENT::Element* face = new ELEMENT::CylinderElement(7,1);
 
@@ -168,7 +115,8 @@ namespace BODYMODEL
             3768,   // J/kg/K, specific heat capacity
             0.538e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            .2); // respiratory
         face->addWashers(
             1,   // Number of washers to add
             0.0268,  // m, inner radius
@@ -178,7 +126,8 @@ namespace BODYMODEL
             1591,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         face->addWashers(
             1,   // Number of washers to add
             0.0542,  // m, inner radius
@@ -188,7 +137,8 @@ namespace BODYMODEL
             3768,   // J/kg/K, specific heat capacity
             0.538e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            .25); // respiratory
         face->addWashers(
             2,   // Number of washers to add
             0.0680,  // m, inner radius
@@ -197,8 +147,9 @@ namespace BODYMODEL
             850, // kg/m^3, density
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
-            588, // W/m^3, specific basal metabolism
-            0); // not muscle
+            58, // W/m^3, specific basal metabolism
+            0, // not muscle
+            0); // not respiratory
         face->addWashers(
             2,   // Number of washers to add
             0.0760,  // m, inner radius
@@ -208,7 +159,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             11.17e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *faceFront = new SECTOR::Sector();
         faceFront->phi = 210*M_PI/180.0; // rad, interior angle of sector
@@ -221,6 +173,7 @@ namespace BODYMODEL
         assert(face->getState()==ELEMENT::wsAdded);
         return face;
     }
+    /** \copydoc neck */
     ELEMENT::Element* neck(){
         ELEMENT::Element* neck = new ELEMENT::CylinderElement(11,2);
 
@@ -248,7 +201,8 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         neck->addWashers(
             4,   // Number of washers to add
             0.0190,  // m, inner radius
@@ -258,7 +212,8 @@ namespace BODYMODEL
             3768,   // J/kg/K, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            .25); // not respiratory
         neck->addWashers(
             2,   // Number of washers to add
             0.0546,  // m, inner radius
@@ -268,7 +223,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         neck->addWashers(
             4,   // Number of washers to add
             0.0556,  // m, inner radius
@@ -278,7 +234,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             6.8e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *neckAnterior = new SECTOR::Sector();
         neckAnterior->phi = 180*M_PI/180.0; // rad, interior angle of sector
@@ -297,6 +254,7 @@ namespace BODYMODEL
         assert(neck->getState()==ELEMENT::wsAdded);
         return neck;
     }
+    /** \copydoc shoulders */
     ELEMENT::Element* shoulders(){
         ELEMENT::Element* shoulders = new ELEMENT::CylinderElement(7,1);
 
@@ -324,7 +282,8 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         shoulders->addWashers(
             2,   // Number of washers to add
             0.0370,  // m, inner radius
@@ -334,7 +293,8 @@ namespace BODYMODEL
             3768,   // J/kg/K, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         shoulders->addWashers(
             2,   // Number of washers to add
             0.0390,  // m, inner radius
@@ -344,7 +304,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         shoulders->addWashers(
             2,   // Number of washers to add
             0.0440,  // m, inner radius
@@ -354,7 +315,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             1.01e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *shouldersTop = new SECTOR::Sector();
         shouldersTop->phi = 130*M_PI/180.0; // rad, interior angle of sector
@@ -367,6 +329,7 @@ namespace BODYMODEL
         assert(shoulders->getState()==ELEMENT::wsAdded);
         return shoulders;
     }
+    /** \copydoc thorax */
     ELEMENT::Element* thorax(){
         ELEMENT::Element* thorax = new ELEMENT::CylinderElement(19,3);
 
@@ -394,7 +357,8 @@ namespace BODYMODEL
             3718,   // J/kg/K, specific heat capacity
             (4.9e-3)/60/5.744209713,// 1/s, tissue permeability. Note: Respiratory!
             600, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            .3); // respiratory
         thorax->addWashers(
             3,   // Number of washers to add
             0.0773,  // m, inner radius
@@ -404,7 +368,8 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         thorax->addWashers(
             3,   // Number of washers to add
             0.0891,  // m, inner radius
@@ -414,7 +379,8 @@ namespace BODYMODEL
             3768,   // J/kg/K, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         thorax->addWashers(
             6,   // Number of washers to add
             0.1234,  // m, inner radius
@@ -424,7 +390,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         thorax->addWashers(
             6,   // Number of washers to add
             0.1268,  // m, inner radius
@@ -434,7 +401,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             1.58e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *thoraxAnterior = new SECTOR::Sector();
         thoraxAnterior->phi = 150*M_PI/180.0; // rad, interior angle of sector
@@ -460,6 +428,7 @@ namespace BODYMODEL
         assert(thorax->getState()==ELEMENT::wsAdded);
         return thorax;
     }
+    /** \copydoc abdomen */
     ELEMENT::Element* abdomen(){
         ELEMENT::Element* abdomen = new ELEMENT::CylinderElement(19,3);
 
@@ -487,7 +456,8 @@ namespace BODYMODEL
             3697,   // J/kg/K, specific heat capacity
             4.31e-3,// 1/s, tissue permeability. Note: Respiratory!
             4100, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         abdomen->addWashers(
             3,   // Number of washers to add
             0.0785,  // m, inner radius
@@ -497,7 +467,8 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         abdomen->addWashers(
             3,   // Number of washers to add
             0.0834,  // m, inner radius
@@ -507,7 +478,8 @@ namespace BODYMODEL
             3768,   // J/kg/PosteriorK, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         abdomen->addWashers(
             6,   // Number of washers to add
             0.1090,  // m, inner radius
@@ -517,7 +489,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         abdomen->addWashers(
             6,   // Number of washers to add
             0.1244,  // m, inner radius
@@ -527,7 +500,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             1.44e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *abdomenAnterior = new SECTOR::Sector();
         abdomenAnterior->phi = 150*M_PI/180.0; // rad, interior angle of sector
@@ -553,6 +527,7 @@ namespace BODYMODEL
         assert(abdomen->getState()==ELEMENT::wsAdded);
         return abdomen;
     }
+    /** \copydoc arms */
     ELEMENT::Element* arms(){
         ELEMENT::Element* arms = new ELEMENT::CylinderElement(16,3);
 
@@ -580,7 +555,8 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         arms->addWashers(
             3,   // Number of washers to add
             0.0153,  // m, inner radius
@@ -590,7 +566,8 @@ namespace BODYMODEL
             3768,   // J/kg/PosteriorK, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         arms->addWashers(
             6,   // Number of washers to add
             0.0343,  // m, inner radius
@@ -600,7 +577,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         arms->addWashers(
             6,   // Number of washers to add
             0.0401,  // m, inner radius
@@ -610,7 +588,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             1.1e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *armsAnterior = new SECTOR::Sector();
         armsAnterior->phi = 135*M_PI/180.0; // rad, interior angle of sector
@@ -636,6 +615,7 @@ namespace BODYMODEL
         assert(arms->getState()==ELEMENT::wsAdded);
         return arms;
     }
+    /** \copydoc hands */
     ELEMENT::Element* hands(){
         ELEMENT::Element* hands = new ELEMENT::CylinderElement(9,2);
 
@@ -663,7 +643,8 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         hands->addWashers(
             2,   // Number of washers to add
             0.0070,  // m, inner radius
@@ -673,7 +654,8 @@ namespace BODYMODEL
             3768,   // J/kg/PosteriorK, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         hands->addWashers(
             2,   // Number of washers to add
             0.0174,  // m, inner radius
@@ -683,7 +665,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         hands->addWashers(
             4,   // Number of washers to add
             0.0204,  // m, inner radius
@@ -693,7 +676,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             4.54e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *handsHandback = new SECTOR::Sector();
         handsHandback->phi = 180*M_PI/180.0; // rad, interior angle of sector
@@ -712,6 +696,7 @@ namespace BODYMODEL
         assert(hands->getState()==ELEMENT::wsAdded);
         return hands;
     }
+    /** \copydoc legs */
     ELEMENT::Element* legs(){
         ELEMENT::Element* legs = new ELEMENT::CylinderElement(19,3);
 
@@ -739,7 +724,8 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         legs->addWashers(
             6,   // Number of washers to add
             0.0220,  // m, inner radius
@@ -749,7 +735,8 @@ namespace BODYMODEL
             3768,   // J/kg/PosteriorK, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         legs->addWashers(
             6,   // Number of washers to add
             0.0480,  // m, inner radius
@@ -759,7 +746,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         legs->addWashers(
             6,   // Number of washers to add
             0.0533,  // m, inner radius
@@ -769,7 +757,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             1.05e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *legsAnterior = new SECTOR::Sector();
         legsAnterior->phi = 150*M_PI/180.0; // rad, interior angle of sector
@@ -794,6 +783,7 @@ namespace BODYMODEL
         assert(legs->getState()==ELEMENT::wsAdded);
         return legs;
     }
+    /** \copydoc feet */
     ELEMENT::Element* feet(){
         ELEMENT::Element* feet = new ELEMENT::CylinderElement(11,2);
 
@@ -821,17 +811,19 @@ namespace BODYMODEL
             1700,   // J/kg/K, specific heat capacity
             0e-3,// 1/s, tissue permeability
             0, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         feet->addWashers(
             2,   // Number of washers to add
             0.0200,  // m, inner radius
             0.0250,  // m, outer radius
             0.42,   // W/m^2, conductivity
             1085, // kg/m^3, density
-            3768,   // J/kg/PosteriorK, specific heat capacity
+            3768,   // J/kg/K, specific heat capacity
             0.5380e-3,// 1/s, tissue permeability
             684, // W/m^3, specific basal metabolism
-            1); // muscle
+            1, // muscle
+            0); // not respiratory
         feet->addWashers(
             4,   // Number of washers to add
             0.0250,  // m, inner radius
@@ -841,7 +833,8 @@ namespace BODYMODEL
             2300,   // J/kg/K, specific heat capacity
             0.0036e-3,// 1/s, tissue permeability
             58, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         feet->addWashers(
             4,   // Number of washers to add
             0.0326,  // m, inner radius
@@ -851,7 +844,8 @@ namespace BODYMODEL
             3680,   // J/kg/K, specific heat capacity
             1.5e-3,// 1/s, tissue permeability
             368, // W/m^3, specific basal metabolism
-            0); // not muscle
+            0, // not muscle
+            0); // not respiratory
         
         SECTOR::Sector *feetInstep = new SECTOR::Sector();
         feetInstep->phi = 180*M_PI/180.0; // rad, interior angle of sector
@@ -869,6 +863,92 @@ namespace BODYMODEL
         // Make sure totally filled!
         assert(feet->getState()==ELEMENT::wsAdded);
         return feet;
+    }
+
+    void BodyModel::addElement( ELEMENT::Element* element )
+    {
+        // Must have been allocated!
+        assert(_state==allocated);
+        // Must have space remaining!
+        assert(elemIdx<nElements);
+
+        elements[elemIdx++] = element;
+        if(elemIdx == nElements)
+            _state = elementsAdded;
+    }
+    
+    void BodyModel::computeN()
+    {
+        assert(_state==elementsAdded);
+
+        N = 1;
+        for(int i=0;i<nElements;i++){
+            N += elements[i]->N;
+        }
+    }
+    
+    void BodyModel::Compute()
+    {
+        assert(_state==elementsAdded);
+        
+        // Subcompute (left DFS)
+        for(int i=0;i<nElements;i++)
+            elements[i]->subCompute(&(skinSurfaceArea));
+        
+        // Compute sub attributes (right DFS)
+        for(int i=0;i<nElements;i++)
+            elements[i]->compute((skinSurfaceArea));
+
+        // Compute node attributes
+        computeN();
+        
+        V = new double[N];
+        V[N-1] = NAN; // Blood has no tangible volume
+        int idx = 0;
+        for(int elementIdx = 0; elementIdx < nElements; ++elementIdx){
+            V[idx] = elements[elementIdx]->washers[0]->volume*elements[elementIdx]->sumPhi/(2*M_PI);
+            idx++;
+            for(int sectIdx = 0; sectIdx < elements[elementIdx]->nSectors; ++sectIdx){
+                // Loop thru washers
+                for(int washIdx = 1; washIdx < elements[elementIdx]->nWashers; ++washIdx){
+                    V[idx] = elements[elementIdx]->washers[washIdx]->volume
+                            *elements[elementIdx]->sectors[sectIdx]->phi/(2*M_PI);
+                    idx++;
+                }
+            }
+        }
+        _state = computed;
+    }
+
+    BODYMODEL::BodyModel* defaultBody(){
+        
+        BodyModel* body = new BodyModel(10);
+        
+        // Check allocation status
+        assert(body->getState() == BODYMODEL::allocated);
+
+        // Add elements
+        body->addElement(head());
+        body->addElement(face());
+        body->addElement(neck());
+        body->addElement(shoulders());
+        body->addElement(thorax());
+        body->addElement(abdomen());
+        body->addElement(arms());
+        body->addElement(hands());
+        body->addElement(legs());
+        body->addElement(feet());
+        
+        // Check status now
+        assert(body->getState() == BODYMODEL::elementsAdded);
+
+        // Compute body parameters
+        body->Compute();
+
+        // Check status again
+        assert(body->getState() == BODYMODEL::computed);
+
+        return body;
     }
 }
 

@@ -1,0 +1,175 @@
+\hypertarget{classBODYMODEL_1_1BodyModel}{}\doxysection{B\+O\+D\+Y\+M\+O\+D\+EL\+::Body\+Model Class Reference}
+\label{classBODYMODEL_1_1BodyModel}\index{BODYMODEL::BodyModel@{BODYMODEL::BodyModel}}
+
+
+Class for a body.  
+
+
+
+
+{\ttfamily \#include $<$Body\+Model.\+hpp$>$}
+
+
+
+Collaboration diagram for B\+O\+D\+Y\+M\+O\+D\+EL\+::Body\+Model\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Body\+State \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_ae5faa0cef161a7cd438618001b006944}{get\+State}} ()
+\begin{DoxyCompactList}\small\item\em Access protected state object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a2977505c2a03e7409642f43ad84b9d2c}{add\+Element}} (\mbox{\hyperlink{classELEMENT_1_1Element}{E\+L\+E\+M\+E\+N\+T\+::\+Element}} $\ast$element)
+\begin{DoxyCompactList}\small\item\em Add element to the bodymodel. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a5ddb1bf0b04d04bf849b217feb21adf7}\label{classBODYMODEL_1_1BodyModel_a5ddb1bf0b04d04bf849b217feb21adf7}} 
+void \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a5ddb1bf0b04d04bf849b217feb21adf7}{Compute}} ()
+\begin{DoxyCompactList}\small\item\em Computes all subparameters of \mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{Body\+Model}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a09e3b19d48369a7921d453d2604d049b}\label{classBODYMODEL_1_1BodyModel_a09e3b19d48369a7921d453d2604d049b}} 
+\mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a09e3b19d48369a7921d453d2604d049b}{Body\+Model}} ()
+\begin{DoxyCompactList}\small\item\em Blank constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a2fb8958036c7486ea7bbe05ee8b62205}{Body\+Model}} (int tn\+Elements)
+\begin{DoxyCompactList}\small\item\em Constructor for fixed number of elements. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a553b3a4d0bf9305bfb9f3908d5d1fc2a}\label{classBODYMODEL_1_1BodyModel_a553b3a4d0bf9305bfb9f3908d5d1fc2a}} 
+\mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a553b3a4d0bf9305bfb9f3908d5d1fc2a}{$\sim$\+Body\+Model}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a52a04c01c3967c0009ca120e3598d11e}{n\+Elements}}
+\begin{DoxyCompactList}\small\item\em Model attributes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_abb6ba1a43781f320a517f04cbeda4e56}\label{classBODYMODEL_1_1BodyModel_abb6ba1a43781f320a517f04cbeda4e56}} 
+\mbox{\hyperlink{classELEMENT_1_1Element}{E\+L\+E\+M\+E\+N\+T\+::\+Element}} $\ast$$\ast$ \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_abb6ba1a43781f320a517f04cbeda4e56}{elements}}
+\begin{DoxyCompactList}\small\item\em Body elements ptr array. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a147ef73d3a9471797899a9b5cbfe6fa9}\label{classBODYMODEL_1_1BodyModel_a147ef73d3a9471797899a9b5cbfe6fa9}} 
+int \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a147ef73d3a9471797899a9b5cbfe6fa9}{N}}
+\begin{DoxyCompactList}\small\item\em Number of nodes in whole-\/body model. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a9fff3bb3f2b491b70d52b10a017d3d0b}\label{classBODYMODEL_1_1BodyModel_a9fff3bb3f2b491b70d52b10a017d3d0b}} 
+double $\ast$ \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a9fff3bb3f2b491b70d52b10a017d3d0b}{V}}
+\begin{DoxyCompactList}\small\item\em m$^\wedge$3, volume of each node (N entries) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a4bb193f11417b29b6b55f218218981e7}\label{classBODYMODEL_1_1BodyModel_a4bb193f11417b29b6b55f218218981e7}} 
+int \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a4bb193f11417b29b6b55f218218981e7}{elem\+Idx}} =0
+\begin{DoxyCompactList}\small\item\em Index of first free element. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a0f182a893645337bc2236da6796412f5}\label{classBODYMODEL_1_1BodyModel_a0f182a893645337bc2236da6796412f5}} 
+\mbox{\hyperlink{classPSEUDOBLOCKMATRIX_1_1PseudoBlockMatrix}{P\+S\+E\+U\+D\+O\+B\+L\+O\+C\+K\+M\+A\+T\+R\+I\+X\+::\+Pseudo\+Block\+Matrix}} \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a0f182a893645337bc2236da6796412f5}{static\+P\+BM}}
+\begin{DoxyCompactList}\small\item\em Constant entries in P\+BM. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a24324dd6ca79210b1b338a97107cfe44}\label{classBODYMODEL_1_1BodyModel_a24324dd6ca79210b1b338a97107cfe44}} 
+double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a24324dd6ca79210b1b338a97107cfe44}{Mbas0}}
+\begin{DoxyCompactList}\small\item\em W, Whole body basal metabolism. 58.\+2 by default. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a1d1c21fdb2484a17eee7e277767c9137}\label{classBODYMODEL_1_1BodyModel_a1d1c21fdb2484a17eee7e277767c9137}} 
+const double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a1d1c21fdb2484a17eee7e277767c9137}{act\+Bas}} = 0.\+8
+\begin{DoxyCompactList}\small\item\em M\+ET, basal activity fraction of effort. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_aa5617ef415d9c4506e1b94fb06a98e85}\label{classBODYMODEL_1_1BodyModel_aa5617ef415d9c4506e1b94fb06a98e85}} 
+const double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_aa5617ef415d9c4506e1b94fb06a98e85}{b0}} = -\/0.\+60
+\begin{DoxyCompactList}\small\item\em 1/\+M\+ET, linear slope of act\+Bas \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a7224e00edda7a2623f034f4ca6ffc684}\label{classBODYMODEL_1_1BodyModel_a7224e00edda7a2623f034f4ca6ffc684}} 
+const double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a7224e00edda7a2623f034f4ca6ffc684}{b1}} = 0.\+39
+\begin{DoxyCompactList}\small\item\em M\+E\+T/\+M\+ET, y intercept of act\+Bas. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_aedd835d12aab867ded3009cee02b7a9e}\label{classBODYMODEL_1_1BodyModel_aedd835d12aab867ded3009cee02b7a9e}} 
+double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_aedd835d12aab867ded3009cee02b7a9e}{eta\+Work}} = 0.\+05
+\begin{DoxyCompactList}\small\item\em J/J, work efficiency. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_af3c1569d6db39f9e77e51fa4e4b6a31a}\label{classBODYMODEL_1_1BodyModel_af3c1569d6db39f9e77e51fa4e4b6a31a}} 
+double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_af3c1569d6db39f9e77e51fa4e4b6a31a}{skin\+Surface\+Area}} = 0
+\begin{DoxyCompactList}\small\item\em m$^\wedge$2, total skin surface area \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a561c81b1ff51a1288daa0f4045dc1d80}\label{classBODYMODEL_1_1BodyModel_a561c81b1ff51a1288daa0f4045dc1d80}} 
+const double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a561c81b1ff51a1288daa0f4045dc1d80}{Stefan\+Boltzmann}} = 5.\+670374419e-\/8
+\begin{DoxyCompactList}\small\item\em W/m$^\wedge$2/\+K$^\wedge$4. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_aaf8fd39e416605853dba2996cb321022}\label{classBODYMODEL_1_1BodyModel_aaf8fd39e416605853dba2996cb321022}} 
+const double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_aaf8fd39e416605853dba2996cb321022}{Icl}} = 0.\+093
+\begin{DoxyCompactList}\small\item\em W/m$^\wedge$2/K, clothing thermal resistance. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_af81ff221c91c653a2d0083df27c11dd4}\label{classBODYMODEL_1_1BodyModel_af81ff221c91c653a2d0083df27c11dd4}} 
+const double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_af81ff221c91c653a2d0083df27c11dd4}{icl}} = 0.\+34
+\begin{DoxyCompactList}\small\item\em -\/, effective clothing resistance \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_acb12a72cf5e0b973bb61e4d97b7ba938}\label{classBODYMODEL_1_1BodyModel_acb12a72cf5e0b973bb61e4d97b7ba938}} 
+const double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_acb12a72cf5e0b973bb61e4d97b7ba938}{Rinverse}} = 0.\+003
+\begin{DoxyCompactList}\small\item\em W$\ast$\+Pa/m$^\wedge$2, vapor resistivity. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a8fcb2d381c4b812132495fe3aa99c732}\label{classBODYMODEL_1_1BodyModel_a8fcb2d381c4b812132495fe3aa99c732}} 
+const double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a8fcb2d381c4b812132495fe3aa99c732}{Lambda\+H20}} = 2256e3
+\begin{DoxyCompactList}\small\item\em J/kg, latent heat of water. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a9297dfeee716fb4ca153135a7e11de67}\label{classBODYMODEL_1_1BodyModel_a9297dfeee716fb4ca153135a7e11de67}} 
+const double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a9297dfeee716fb4ca153135a7e11de67}{Lewis\+Constant}} = 0.\+0165
+\begin{DoxyCompactList}\small\item\em K/\+Pa. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_adb47a821b63ca0bedf538a2abf8d22a6}\label{classBODYMODEL_1_1BodyModel_adb47a821b63ca0bedf538a2abf8d22a6}} 
+const double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_adb47a821b63ca0bedf538a2abf8d22a6}{p}} = 0.\+33
+\begin{DoxyCompactList}\small\item\em -\/, R\+BC fraction of blood \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a2b5ce2eb383dd39ec169ad83a649fa43}\label{classBODYMODEL_1_1BodyModel_a2b5ce2eb383dd39ec169ad83a649fa43}} 
+const double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_a2b5ce2eb383dd39ec169ad83a649fa43}{Viv0}} = 5.\+0e-\/3
+\begin{DoxyCompactList}\small\item\em m$^\wedge$3, initial blood plasma volume \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_aa971cbdbf9bd1128ef786cc0b2227c19}\label{classBODYMODEL_1_1BodyModel_aa971cbdbf9bd1128ef786cc0b2227c19}} 
+const double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_aa971cbdbf9bd1128ef786cc0b2227c19}{Vrbc0}} = 2.\+1e-\/3
+\begin{DoxyCompactList}\small\item\em m$^\wedge$3, initial R\+BC volume \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_abd8b8d2766308426874d291bb6ec96ab}\label{classBODYMODEL_1_1BodyModel_abd8b8d2766308426874d291bb6ec96ab}} 
+const double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_abd8b8d2766308426874d291bb6ec96ab}{rho\+Blood}} = 1069.\+0
+\begin{DoxyCompactList}\small\item\em kg/m$^\wedge$3, nominal blood density \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_ab30306a5dec0723bacff1a1f6b16b16e}\label{classBODYMODEL_1_1BodyModel_ab30306a5dec0723bacff1a1f6b16b16e}} 
+const double \mbox{\hyperlink{classBODYMODEL_1_1BodyModel_ab30306a5dec0723bacff1a1f6b16b16e}{cp\+Blood}} = 3650.\+0
+\begin{DoxyCompactList}\small\item\em J/kg/K, nominal blood constant pressure specific heat capacity. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for a body. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a2fb8958036c7486ea7bbe05ee8b62205}\label{classBODYMODEL_1_1BodyModel_a2fb8958036c7486ea7bbe05ee8b62205}} 
+\index{BODYMODEL::BodyModel@{BODYMODEL::BodyModel}!BodyModel@{BodyModel}}
+\index{BodyModel@{BodyModel}!BODYMODEL::BodyModel@{BODYMODEL::BodyModel}}
+\doxysubsubsection{\texorpdfstring{BodyModel()}{BodyModel()}}
+{\footnotesize\ttfamily B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model\+::\+Body\+Model (\begin{DoxyParamCaption}\item[{int}]{tn\+Elements }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for fixed number of elements. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tn\+Elements} & Total number of elements. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a2977505c2a03e7409642f43ad84b9d2c}\label{classBODYMODEL_1_1BodyModel_a2977505c2a03e7409642f43ad84b9d2c}} 
+\index{BODYMODEL::BodyModel@{BODYMODEL::BodyModel}!addElement@{addElement}}
+\index{addElement@{addElement}!BODYMODEL::BodyModel@{BODYMODEL::BodyModel}}
+\doxysubsubsection{\texorpdfstring{addElement()}{addElement()}}
+{\footnotesize\ttfamily void B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model\+::add\+Element (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classELEMENT_1_1Element}{E\+L\+E\+M\+E\+N\+T\+::\+Element}} $\ast$}]{element }\end{DoxyParamCaption})}
+
+
+
+Add element to the bodymodel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em element} & Element to add \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_ae5faa0cef161a7cd438618001b006944}\label{classBODYMODEL_1_1BodyModel_ae5faa0cef161a7cd438618001b006944}} 
+\index{BODYMODEL::BodyModel@{BODYMODEL::BodyModel}!getState@{getState}}
+\index{getState@{getState}!BODYMODEL::BodyModel@{BODYMODEL::BodyModel}}
+\doxysubsubsection{\texorpdfstring{getState()}{getState()}}
+{\footnotesize\ttfamily Body\+State B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model\+::get\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Access protected state object. 
+
+\begin{DoxyReturn}{Returns}
+The body\textquotesingle{}s \+\_\+state 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classBODYMODEL_1_1BodyModel_a52a04c01c3967c0009ca120e3598d11e}\label{classBODYMODEL_1_1BodyModel_a52a04c01c3967c0009ca120e3598d11e}} 
+\index{BODYMODEL::BodyModel@{BODYMODEL::BodyModel}!nElements@{nElements}}
+\index{nElements@{nElements}!BODYMODEL::BodyModel@{BODYMODEL::BodyModel}}
+\doxysubsubsection{\texorpdfstring{nElements}{nElements}}
+{\footnotesize\ttfamily int B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model\+::n\+Elements}
+
+
+
+Model attributes. 
+
+Number of body elements 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Body\+Model.\+hpp\item 
+Body\+Model.\+cpp\end{DoxyCompactItemize}

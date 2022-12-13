@@ -1,0 +1,152 @@
+\hypertarget{classSIMMODEL_1_1SimModel}{}\doxysection{S\+I\+M\+M\+O\+D\+EL\+::Sim\+Model Class Reference}
+\label{classSIMMODEL_1_1SimModel}\index{SIMMODEL::SimModel@{SIMMODEL::SimModel}}
+
+
+Inheritance diagram for S\+I\+M\+M\+O\+D\+EL\+::Sim\+Model\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_aa99dc9d057f15d205578630afeec0c9e}\label{classSIMMODEL_1_1SimModel_aa99dc9d057f15d205578630afeec0c9e}} 
+Sim\+Model\+State {\bfseries get\+State} ()
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a7c013a6f70a31dab85fc97833c6ea1e0}\label{classSIMMODEL_1_1SimModel_a7c013a6f70a31dab85fc97833c6ea1e0}} 
+double {\bfseries skin\+Heat} (\mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$body, \mbox{\hyperlink{classELEMENT_1_1Element}{E\+L\+E\+M\+E\+N\+T\+::\+Element}} $\ast$elem, \mbox{\hyperlink{classSECTOR_1_1Sector}{S\+E\+C\+T\+O\+R\+::\+Sector}} $\ast$sect, int elem\+Idx, int sect\+Idx, double Sw, double Tsf\+Assumed, double Tsf0, int nj\+Actual, double psi\+Actual)
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a165afdbfee4fff04e3e2c3f61e600e15}\label{classSIMMODEL_1_1SimModel_a165afdbfee4fff04e3e2c3f61e600e15}} 
+virtual void {\bfseries rhocp} (double $\ast$Rho, double $\ast$Cp, \mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$body, int ele\+Idx, double Viv, double D\+Viv, double f\+EB, double f\+ES, double time)
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_ad095914e505ec9c9008eb35e3906a1f5}\label{classSIMMODEL_1_1SimModel_ad095914e505ec9c9008eb35e3906a1f5}} 
+virtual void {\bfseries skin\+BC} (double $\ast$Tpp, \mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$body, double $\ast$T, double $\ast$T0, double Sw, double time)
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a5703ce544867c51e6a7a8d8e619dfdb9}\label{classSIMMODEL_1_1SimModel_a5703ce544867c51e6a7a8d8e619dfdb9}} 
+void {\bfseries set\+U\+Qs} (double args\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a3129d11c646c90288dd79a1caee750e1}\label{classSIMMODEL_1_1SimModel_a3129d11c646c90288dd79a1caee750e1}} 
+virtual void {\bfseries set\+Tair\+Tsrm} (double time)
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a7d971324eedbacec2772a59fa7679bc8}\label{classSIMMODEL_1_1SimModel_a7d971324eedbacec2772a59fa7679bc8}} 
+virtual void {\bfseries ecmo\+Blood} (double $\ast$f\+EB, \mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$body, int ele\+Idx, double Viv, double time)
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a0dc8e2f8ddd1ef72f227ae4b9ee72297}\label{classSIMMODEL_1_1SimModel_a0dc8e2f8ddd1ef72f227ae4b9ee72297}} 
+virtual void {\bfseries ecmo\+Saline} (double $\ast$f\+ES, \mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$body, int ele\+Idx, double Viv, double bvr, double time)
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a29c469c4efb8b2780f8cc8f8f09562e1}\label{classSIMMODEL_1_1SimModel_a29c469c4efb8b2780f8cc8f8f09562e1}} 
+virtual void {\bfseries tblp} (double $\ast$tblp, double $\ast$tblp\+Nxt\+Ratio, \mbox{\hyperlink{classBODYMODEL_1_1BodyModel}{B\+O\+D\+Y\+M\+O\+D\+E\+L\+::\+Body\+Model}} $\ast$body, int ele\+Idx, double tblp\+Cur, double Viv, double D\+Viv, double f\+EB, double f\+ES, double time)
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_af8ab961261cd1251069cc7f407c0c1db}\label{classSIMMODEL_1_1SimModel_af8ab961261cd1251069cc7f407c0c1db}} 
+virtual void {\bfseries shiver\+Drugs} (double $\ast$Sh, double time)
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a839335827649bab37c2fdf30c155cef5}\label{classSIMMODEL_1_1SimModel_a839335827649bab37c2fdf30c155cef5}} 
+virtual void {\bfseries B\+V\+R\+S\+VR} (double $\ast$bvr, double $\ast$svr, double time)
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_ab8454027fcb5d73ae48b835aa79a8d2a}\label{classSIMMODEL_1_1SimModel_ab8454027fcb5d73ae48b835aa79a8d2a}} 
+virtual bool {\bfseries end\+Condition} (double Thy)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a9028aeb6f1d807b6dcdff04211e8b87d}\label{classSIMMODEL_1_1SimModel_a9028aeb6f1d807b6dcdff04211e8b87d}} 
+const double {\bfseries t\+Initial} = 0.\+0
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_ab047090b8b66a97c277fa350d9c8c736}\label{classSIMMODEL_1_1SimModel_ab047090b8b66a97c277fa350d9c8c736}} 
+double {\bfseries t\+Final}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a18429459b381bb6070e9ff4fa27505b4}\label{classSIMMODEL_1_1SimModel_a18429459b381bb6070e9ff4fa27505b4}} 
+double {\bfseries dt}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_ad0e5b5797912f78acabee2f9a78cf1fd}\label{classSIMMODEL_1_1SimModel_ad0e5b5797912f78acabee2f9a78cf1fd}} 
+int {\bfseries n\+Steps}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a1a346de94bc967219a6d0e505e617046}\label{classSIMMODEL_1_1SimModel_a1a346de94bc967219a6d0e505e617046}} 
+int {\bfseries model\+Case}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_ac7c918253062dd331ddacdd6e22b8903}\label{classSIMMODEL_1_1SimModel_ac7c918253062dd331ddacdd6e22b8903}} 
+double {\bfseries thermovariant}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_abb949c5b163c73a56a9e6f8f387c6d8e}\label{classSIMMODEL_1_1SimModel_abb949c5b163c73a56a9e6f8f387c6d8e}} 
+double {\bfseries transient}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_ade7dc57404e319b534d495c71a9bfed8}\label{classSIMMODEL_1_1SimModel_ade7dc57404e319b534d495c71a9bfed8}} 
+double {\bfseries Q10} = 3
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a86e9b7f5d06057debb95878d3e3a21ce}\label{classSIMMODEL_1_1SimModel_a86e9b7f5d06057debb95878d3e3a21ce}} 
+const double {\bfseries Konstas\+Beta} = 0.\+08401
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_ae69d90352d7f239e835433d6b4933b80}\label{classSIMMODEL_1_1SimModel_ae69d90352d7f239e835433d6b4933b80}} 
+const double {\bfseries Konstas\+Gamma} = 2.\+245
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a89b79825c483400ade03aac63032982a}\label{classSIMMODEL_1_1SimModel_a89b79825c483400ade03aac63032982a}} 
+const double {\bfseries Konstas\+Alpha} = 2.\+961
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_adfbac63e48bbcab9ed0f519b923e8f55}\label{classSIMMODEL_1_1SimModel_adfbac63e48bbcab9ed0f519b923e8f55}} 
+const double {\bfseries saline\+Rho} = 1004.\+6
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a66bc9053b0a22ff3f72e33eeaa2cc011}\label{classSIMMODEL_1_1SimModel_a66bc9053b0a22ff3f72e33eeaa2cc011}} 
+const double {\bfseries saline\+Cp} = 4180
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a846f0e57925d0f6ddfdcabbeb0dcd9b4}\label{classSIMMODEL_1_1SimModel_a846f0e57925d0f6ddfdcabbeb0dcd9b4}} 
+const double {\bfseries Pair} = 2300
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a21d8366ebc13ac80ee4dc5ea4072d246}\label{classSIMMODEL_1_1SimModel_a21d8366ebc13ac80ee4dc5ea4072d246}} 
+const double {\bfseries v\+Air\+Eff} = 0.\+05
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_af410da9489be432ecdc76b689c670aa8}\label{classSIMMODEL_1_1SimModel_af410da9489be432ecdc76b689c670aa8}} 
+const double {\bfseries echelon\+Sr\+Outdoors} = 0.\+46
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_ae2dca645cca9d75d17c4cb548af2ebdb}\label{classSIMMODEL_1_1SimModel_ae2dca645cca9d75d17c4cb548af2ebdb}} 
+const double {\bfseries echelon\+Sr\+Indoors} = 0.\+93
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_af9eb215b559cbd4979ba13b1677d4937}\label{classSIMMODEL_1_1SimModel_af9eb215b559cbd4979ba13b1677d4937}} 
+const double {\bfseries alpha\+Sr\+Outdoors} = 0.\+3
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a820eec11895f5d3571f727ba85009ad2}\label{classSIMMODEL_1_1SimModel_a820eec11895f5d3571f727ba85009ad2}} 
+const double {\bfseries alpha\+Sr\+Indoors} = 0.\+8
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_aa465f1c9c3c9e6f0ee7e48b0da05b23e}\label{classSIMMODEL_1_1SimModel_aa465f1c9c3c9e6f0ee7e48b0da05b23e}} 
+const double {\bfseries s\+Outdoors} = 10752/126.\+7
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a9f82fb2d167abea669272130feeaf3d1}\label{classSIMMODEL_1_1SimModel_a9f82fb2d167abea669272130feeaf3d1}} 
+const double {\bfseries s\+Indoors} = 500/50
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a88a50b14be65a719dc150e4ddd7c7a9e}\label{classSIMMODEL_1_1SimModel_a88a50b14be65a719dc150e4ddd7c7a9e}} 
+const double {\bfseries Tmelt} = 273.\+15
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a743ecc81629b898ab60806f34a6f59aa}\label{classSIMMODEL_1_1SimModel_a743ecc81629b898ab60806f34a6f59aa}} 
+double {\bfseries Tsrm\+Indoors}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_af0bac0e4cd223f937a920a752d89544d}\label{classSIMMODEL_1_1SimModel_af0bac0e4cd223f937a920a752d89544d}} 
+double {\bfseries Tsrm\+Outdoors}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a600ec71a1bbcfc5a1571a5ef01832a7c}\label{classSIMMODEL_1_1SimModel_a600ec71a1bbcfc5a1571a5ef01832a7c}} 
+double {\bfseries trecovery}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a01548bd7b93c374a2135cf728af24601}\label{classSIMMODEL_1_1SimModel_a01548bd7b93c374a2135cf728af24601}} 
+double {\bfseries T\+E\+C\+MO}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a1a822ceacbab6782518275dcc6230e98}\label{classSIMMODEL_1_1SimModel_a1a822ceacbab6782518275dcc6230e98}} 
+double {\bfseries Tair\+Indoors}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_ac32f3104cfaa0d7afbe2f06cd12dc19f}\label{classSIMMODEL_1_1SimModel_ac32f3104cfaa0d7afbe2f06cd12dc19f}} 
+double {\bfseries Tair\+Outdoors}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_ac7b864e70f678457bbbbf3545455ac4f}\label{classSIMMODEL_1_1SimModel_ac7b864e70f678457bbbbf3545455ac4f}} 
+double {\bfseries Tsrm}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a7576320dd1ac38a1c9ea32fb377b3670}\label{classSIMMODEL_1_1SimModel_a7576320dd1ac38a1c9ea32fb377b3670}} 
+double {\bfseries Tair}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a10cbc21ee24e23304c20d7eff143f71c}\label{classSIMMODEL_1_1SimModel_a10cbc21ee24e23304c20d7eff143f71c}} 
+double {\bfseries echelon\+Srm}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_aff34da121eee418335771a492c45cdf7}\label{classSIMMODEL_1_1SimModel_aff34da121eee418335771a492c45cdf7}} 
+double {\bfseries alpha\+Srm}
+\item 
+\mbox{\Hypertarget{classSIMMODEL_1_1SimModel_a1e28db0709639e1139f29063f4dcc05b}\label{classSIMMODEL_1_1SimModel_a1e28db0709639e1139f29063f4dcc05b}} 
+double {\bfseries s}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Sim\+Model.\+hpp\end{DoxyCompactItemize}
