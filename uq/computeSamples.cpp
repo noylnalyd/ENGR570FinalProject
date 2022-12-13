@@ -6,6 +6,13 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include "../Simulator.cpp"
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
+#include <chrono>
 
 /// @brief Script that runs a given set of rows from A and B matrices and computes model outputs.
 int main(int argc, char *argv[]){
@@ -37,6 +44,14 @@ int main(int argc, char *argv[]){
         std::cout << "iStart must be <= iStop!\n";
         exit(EXIT_FAILURE);
     }
+
+    // initializing the data structures for solver
+    BODYMODEL::BodyModel* body = BODYMODEL::defaultBody();
+    SIMMODEL::SimModel* sim = new SIMMODEL::KonstasCase();
+    SIMULATOR::Simulator* simulator = new SIMULATOR::Simulator(body,sim);
+    simulator->initializer();
+    double *outs = new double[1]; // this will hold the model output for each run
+    double *args = new double[4]; // this will hold the model inputs for each run
 
     // creating A matrix
     double* A[nrows];
@@ -177,11 +192,6 @@ int main(int argc, char *argv[]){
         }
     }
 
-    // initialize Simulator, BodyModel, and SimModel structures
-    //Simulator* mySim = new Simulator();
-    //BodyModel* myBody = defaultBody();
-    //SimModel* mySimModel = new SimModel();
-    //mySim->initializer();
     double outputs[nrows];
     // run each case, starting with matrix A
     // writing out A matrix to correct directory
@@ -195,8 +205,9 @@ int main(int argc, char *argv[]){
         exit(EXIT_FAILURE);
     }
     for (int in=0; in<nrows; in++) {
-        //mysim->runSim(A[in],outputs);
-        outputs[in]=std::sqrt(A[in][0]+A[in][1]+A[in][2]+A[in][3]); // fake function, for now
+        args[0]=A[in][0]; args[1]=A[in][1]; args[2]=A[in][2]; args[3]=A[in][3];
+        simulator->runSim(args,outs);
+        outputs[in] = outs[0];
         fprintf(foutA, "%.17g\n", outputs[in]);
         std::cout << outputs[in] << ' ';
     }
@@ -213,8 +224,9 @@ int main(int argc, char *argv[]){
         exit(EXIT_FAILURE);
     }
     for (int in=0; in<nrows; in++) {
-        //mysim->runSim(A[in],outputs);
-        outputs[in]=std::sqrt(B[in][0]+B[in][1]+B[in][2]+B[in][3]); // fake function, for now
+        args[0]=B[in][0]; args[1]=B[in][1]; args[2]=B[in][2]; args[3]=B[in][3];
+        simulator->runSim(args,outs);
+        outputs[in] = outs[0];
         fprintf(foutB, "%.17g\n", outputs[in]);
         std::cout << outputs[in] << ' ';
     }
@@ -233,8 +245,9 @@ int main(int argc, char *argv[]){
         }
             fprintf(foutAB, "");
             for (int in=0; in<nrows; in++) {
-                //mysim->runSim(A[in],outputs[in]]);
-                outputs[in]=std::sqrt(AB[in][0][id]+AB[in][1][id]+AB[in][2][id]+AB[in][3][id]); // fake function, for now
+                args[0]=AB[in][0][id]; args[1]=AB[in][1][id]; args[2]=AB[in][2][id]; args[3]=AB[in][3][id];
+                simulator->runSim(args,outs);
+                outputs[in] = outs[0];
                 fprintf(foutAB, "%.17g\n", outputs[in]);
                 std::cout << outputs[in] << ' ';
             }
@@ -254,8 +267,9 @@ int main(int argc, char *argv[]){
         }
             fprintf(foutBA, "");
             for (int in=0; in<nrows; in++) {
-                //mysim->runSim(A[in],outputs[in]]);
-                outputs[in]=std::sqrt(BA[in][0][id]+BA[in][1][id]+BA[in][2][id]+BA[in][3][id]); // fake function, for now
+                args[0]=BA[in][0][id]; args[1]=BA[in][1][id]; args[2]=BA[in][2][id]; args[3]=BA[in][3][id];
+                simulator->runSim(args,outs);
+                outputs[in] = outs[0];
                 fprintf(foutBA, "%.17g\n", outputs[in]);
                 std::cout << outputs[in] << ' ';
             }
@@ -273,4 +287,8 @@ int main(int argc, char *argv[]){
         free(BA[i]);
     }
 
+    delete simulator;
+    delete sim;
+    delete [] outs;
+    delete [] args;
 }
