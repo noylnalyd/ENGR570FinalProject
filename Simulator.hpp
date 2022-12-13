@@ -103,7 +103,6 @@ namespace SIMULATOR
          */
         void runSim( double args[], double outs[] );
 
-
     };
 
     /// @brief Class that performs one single simulation.

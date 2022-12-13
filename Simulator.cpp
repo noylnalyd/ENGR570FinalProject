@@ -51,19 +51,19 @@ namespace SIMULATOR
     void Simulator::findICs( double args[]){
         for(int i=0;i<body->N;i++){
             T0[i] = 34.8+273.15; // K
-            Tpp0[i] = NAN;// 30+273.15; // K
+            Tpp0[i] = NAN; // K
             q0[i] = NAN; // W/m^3
             w0[i] = NAN; // m^3/m^3
-            beta0[i] = NAN; // W/kgK
+            beta0[i] = NAN; // W/kg/K
         }
         Sh0 = NAN; // W
         H0 = NAN; // W
-        M0 = NAN;
-        QResp0 = NAN;
-        Tskm0 = NAN;
-        Cs0 = NAN;
-        Dl0 = NAN;
-        Sw0 = NAN;
+        M0 = NAN; // W
+        QResp0 = NAN; // W
+        Tskm0 = NAN; // K
+        Cs0 = NAN; // -
+        Dl0 = NAN; // W/K
+        Sw0 = NAN; // g/min
 
         Tskm0 = 23+273.15; // K
         // Populate beta, q, and prvs for steady case
@@ -82,27 +82,12 @@ namespace SIMULATOR
         siSteady->runSim();
         siSteady->copyToSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
 
-        
-        
-        
-        // // Now normalize by using the transient, no injury case with active controls
-        // SIMMODEL::TransientCase* simTransient = new SIMMODEL::TransientCase();
-        // simTransient->setUQs(args);
-        // SimulationInstance* siTransient = new SimulationInstance(body,simTransient,pbm);
-        // siTransient->fillSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
-        // siTransient->runSim();
-        // //siTransient->copyToSteadys(T0,beta0,w0,q0,Tpp0,M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0);
-        
-        
-
         // // Free vars
         delete simInit;
         delete simSteady;
-        // delete simTransient;
         
         delete siInit;
         delete siSteady;
-        // delete siTransient;
     }
 
     void Simulator::runSim( double args[], double outs[] )
@@ -119,11 +104,9 @@ namespace SIMULATOR
         // Run si
         si->runSim();
         // Fill outputs
-        
         outs[0] = si->time;
         si->~SimulationInstance();
     }
-
 
     SimulationInstance::SimulationInstance(BODYMODEL::BodyModel* tbody,SIMMODEL::SimModel* tsim, PSEUDOBLOCKMATRIX::PseudoBlockMatrix* tpbm)
     {
@@ -394,14 +377,8 @@ namespace SIMULATOR
         
     }
     void SimulationInstance::projectBodyValues(){
-        // MNxt = project(M,MPrv);
-        // HNxt = project(H,HPrv);
-        // QRespNxt = project(QResp,QRespPrv);
-        // TskmNxt = project(Tskm,TskmPrv);
-        // ShNxt = project(Sh,ShPrv);
-        // CsNxt = project(Cs,CsPrv);
-        // DlNxt = project(Dl,DlPrv);
-        // SwNxt = project(Sw,SwPrv);
+        // Note: Empty for simple cooling devices.
+        //  May need to project body values for H,M,Sh for more advanced simmodels.
     }
     void SimulationInstance::projectTemperatures(){
         for(idx=0;idx<body->N;idx++){
@@ -596,7 +573,6 @@ namespace SIMULATOR
                         assert(!isnan(abs(DViv)));
                         betas[idx] = min((386.9-.32*.932*H)*(Viv+DViv)/body->Viv0,betas[idx]);
                     }
-                    // cout<<idx<<" "<<(washer->w_bl*body->rhoBlood*body->cpBlood+0.932*(qDm+qSh+qW))<<" "<<ws[idx]<<" "<<qs[idx]<<endl;
                     assert(!isnan(abs(betas[idx])));
                     idx++;
                 }
@@ -816,7 +792,6 @@ namespace SIMULATOR
                     // Skin nodes use the virtual temperature Tpp instead
                     else{
                         // Westin eqn 68 rhs term 3
-                        // cout << Tpp[idx] << " " << idx << endl;
                         assert(!isnan(abs(Tpp[idx])));
                         safeAdd(rhs,idx,(1+washer->gamma)*washer->AForwardNxt*(Tpp[idx]+TppNxt[idx]*sim->thermovariant*sim->transient));
                     }
@@ -881,15 +856,11 @@ namespace SIMULATOR
     }
 
     void SimulationInstance::solveSystem(){
+        // Use only one of the two following lines:
         // pbm->directsolve(rhs,TNxt);
         pbm->GaussSeidel(rhs,T,1e-5,1e-5,TNxt);
     }
     void SimulationInstance::permuteTimestep(){
-        // Initial values
-        // *T0,*beta0,*w0,*q0,*Tpp0;
-        // Steady values
-        // M0,QResp0,Tskm0,H0,Sh0,Cs0,Dl0,Sw0;
-
         // Overwrite Prv
         for(idx=0;idx<body->N;idx++){
             TPrv[idx] = T[idx];
@@ -965,14 +936,8 @@ namespace SIMULATOR
 
             // Build system
             buildSystem();
-            // pbm->Print();
-            //cout << "rhs " << rhs[210] << endl;
             
             // Solve system
-            //pbm->Print();
-            // for(int i=25;i<35;++i){
-            //     cout << rhs[i]<<endl;
-            // }
             solveSystem();
             
             // Overwrite values with "Prv"
@@ -1008,7 +973,6 @@ namespace SIMULATOR
                                 maxb=elemIdx;
                                 maxwidx=washIdx;
                             }
-                            // cout << idx << "\tgamma"<< washer->AForwardNxt << "\tbeta" << beta[idx]<<"\tq" << q[idx]<< "\tqNxt" << qNxt[idx]  << "\tSrDelta" << pbm->SumRow(idx)*T[idx]/rhs[idx] <<"\tT0"<<T0[idx] << "Tpp" << Tpp[idx] <<endl;
                             idx++;
                         }
                         
@@ -1022,12 +986,6 @@ namespace SIMULATOR
             if(sim->endCondition(Thy))
                 break;
         }
-        // cout << "TblA " << TblA[0] << endl;
-        // cout << "TblP " << TblP[0] << endl;
-        // for(int i=0;i<body->N;++i){
-        //     cout << i << "\tT"<<T[i] << "\trhs" << rhs[i]<<"\tq" << q[i]<< "\tw" << w[i]  << "\tbeta" << beta[i] <<"\tT0"<<T0[i] << "Tpp" << Tpp[i] <<endl;
-        // }
-        // pbm->Print();
     }
 }
 #endif

@@ -499,13 +499,7 @@ namespace PSEUDOBLOCKMATRIX
                 rhsv[row2] -= srat*rhsv[row];
             }
         }
-        // for(row=0;row<N;row++){
-        //         for(col=0;col<M;col++){
-        //             cout << A[row][col] << "\t";
-        //         }
-        //         cout << "\tRHS" << rhsv[row] << endl;
 
-        // }
         for(row=N-1;row>=0;row--){
             x[row] = rhsv[row];
             for(col=row+1;col<M;col++){
@@ -514,7 +508,6 @@ namespace PSEUDOBLOCKMATRIX
             x[row] /= A[row][row];
         }
         res = checkRes(x,rhs);
-        // cout << res  << "RES" << endl;
         assert(res<1e-1);
         
         delete [] rhsv;
@@ -625,16 +618,14 @@ namespace PSEUDOBLOCKMATRIX
 
             // Check residual
             res = checkRes(x,rhs);
-            // cout << res << endl;
         }
         assert(iter<maxIter-1);
-        // cout << res  << "RES" << endl;
 
         delete [] rhsv;
         delete [] norms;
         return iter<maxIter && res<resTol && conv<convTol;
     }
-    // bool GaussElim( const double *rhs, double *x, PseudoBlockMatrix tmp );
+
     bool PseudoBlockMatrix::GaussSeidel(double *rhs, const double *x0, double resTol, double convTol, double *x )
     {
         // Iterators
@@ -754,7 +745,6 @@ namespace PSEUDOBLOCKMATRIX
             // Check residual
             res = checkRes(x,rhs);
         }
-        // cout << res  << "RES" << endl;
         assert(iter<maxIter-1);
         return iter<maxIter && res<resTol && conv<convTol;
     }

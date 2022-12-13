@@ -317,10 +317,7 @@ namespace SIMMODEL
         double Tweight = (hcmix*TairAbs + hR*(TsrmAbs) + qsR)/(hcmix + hR);
         double Posksat = 100.0*exp(18.956-4030.0/(TsfC+235));
         
-        double Ue = body->LewisConstant/(
-            njActual*body->Icl/body->icl
-            +1/(f*hcmix)
-        );
+        double Ue = body->LewisConstant/(njActual*body->Icl/body->icl+1/(f*hcmix));
         double dsweat = elem->a_sw*sect->areaShare*Sw*pow(2,(TsfAssumed-Tsf0)*transient/Q10) * 1e-3/60;
         double Psk = (body->LambdaH20*dsweat + Posksat*body->Rinverse + Ue*Pair)/
                 (Ue + body->Rinverse);
@@ -413,6 +410,12 @@ namespace SIMMODEL
                 double fES,
                 double time
             ) override {
+                /**
+                 * In Konstas case, saline injection into the intracarotid artery begins at time trecovery.
+                 *  This affects the incoming (Element-localized) blood pool density and specific heat.
+                 *  In the Head, Face, and Neck elements, this inflow is used instead of the default pooled values.
+                 * See Lyon eqns 45 and 46
+                 */
                 if(eleIdx<3 && time>=trecovery){
                     Rho[eleIdx] = (salineRho*(DViv/(Viv+DViv)*fEB+fES)+
                             body->rhoBlood*(Viv/(Viv+DViv)*fEB))/
@@ -426,8 +429,8 @@ namespace SIMMODEL
                     Cp[eleIdx] = (salineRho*salineCp*(DViv/(Viv+DViv))+body->rhoBlood*body->cpBlood*(Viv/(Viv+DViv)))/
                             salineRho*(DViv/(Viv+DViv))+body->rhoBlood*(Viv/(Viv+DViv));
                 }
-                // cout << "ElemIdx" << eleIdx << " Rho " << Rho[eleIdx] << " Cp " << Cp[eleIdx] << endl;
             }
+
             void setTairTsrm(double time) override
             {
                 if(time < trecovery){
