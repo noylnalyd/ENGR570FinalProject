@@ -8,58 +8,284 @@
 
 namespace PSEUDOBLOCKMATRIX
 {
+    /// @brief Enum for state of the PBM
     enum PBMState { undefined, initialized, allocated };
 
+    /// @brief PseudoBlockMatrix (PBM) Class
     class PseudoBlockMatrix
     {
     private:
+        /// @brief State of this PBM
         PBMState _state = undefined;
-        double*** blocks; // 2D dense blocks
-        double *denseRow; // 1D dense final row
-        double *denseCol; // 1D dense final column
-        double denseCorner; // 0D final corner value
-        double **A; // Full size matrix for direct solve
-        int *rowStart, *colStart; // Indices of first row/col per block. For binsearch of get/add/set
+        double*** blocks; //!< Ptr array of dense blocks
+        double *denseRow; //!< 1D dense final row
+        double *denseCol; //!< 1D dense final column
+        double denseCorner; //!< 0D final corner value
+        double **A; //!< Full size matrix for direct solve (Allocated but otherwise unused)
+        int *rowStart; //!< Indices of first row per block.
+        int *colStart; //!< Indices of first col per block.
 
     public:
-        int N,M; // Number of rows and cols
-        int *blockN, *blockM; // Number of rows and cols per block
-        int *blockPicker; // Finds block given row address
-        int Nblocks; // Number of blocks
+        int N; //!< Number of rows
+        int M; //!< Number of cols
+        int *blockN; //!< Number of rows per block
+        int *blockM; //!< Number of cols per block
+        int *blockPicker; //!< Finds block given row address
+        int Nblocks; //!< Number of blocks
 
+        /// @brief Prints the entire matrix.
         void Print();
+
+        /**
+         * @brief Prints one row of the matrix
+         * @param[in] row
+         */
         void PrintRow( int row );
+        
+        /**
+         * @brief Sums one row of the matrix
+         * @param[in] row
+         * @return double Sum of the row
+         */
         double SumRow( int row );
+
+        /**
+         * @brief Allocates space for this PBM
+         * 
+         * @param tNblocks Number of blocks
+         * @param tblockN Ptr array of block row sizes
+         * @param tblockM Ptr array of block col sizes
+         */
         void allocate(int tNblocks, int* tblockN, int* tblockM);
+
+        /**
+         * @brief Get a matrix entry over dense blocks only
+         * 
+         * @param i Row
+         * @param j Column
+         * @return double A_ij
+         */
         double getOverBlocks( int i, int j );
+
+        /**
+         * @brief Get a matrix entry located within one known block
+         * 
+         * @param[in] b Block index
+         * @param[in] i Row from block start
+         * @param[in] j Column from block start
+         * @return double B_ij
+         */
         double getFromBlock( int b, int i, int j );
+
+        /**
+         * @brief Get a matrix entry over denseRow/Col/Corner
+         * 
+         * @param i Row
+         * @param j Column
+         * @return double A_ij
+         */
         double getOverDense( int i, int j );
+        
+        /**
+         * @brief Get any matrix entry
+         * 
+         * @param i Row
+         * @param j Column
+         * @return double A_ij
+         */
         double get( int i , int j );
+
+        /**
+         * @brief Set a matrix entry over dense blocks
+         * 
+         * @param i Row
+         * @param j Column
+         * @param val Value to set
+         * @return true Valid i/j pair
+         * @return false Invalid i/j pair
+         */
         bool setOverBlocks( int i, int j, double val );
+
+        /**
+         * @brief Set a matrix entry in a known block
+         * 
+         * @param b Block index
+         * @param i Row from row start
+         * @param j Column from column start
+         * @param val Value to set
+         * @return true Valid i/j pair
+         * @return false Invalid i/j pair
+         */
         bool setFromBlock( int b, int i, int j, double val );
+        
+        /**
+         * @brief Set a matrix entry over denseRow/Col/Corner
+         * 
+         * @param i Row
+         * @param j Column
+         * @param val Value to set
+         * @return true Valid i/j pair
+         * @return false Invalid i/j pair
+         */
         bool setOverDense( int i, int j, double val );
+        
+        /**
+         * @brief Set any matrix entry
+         * 
+         * @param i Row
+         * @param j Column
+         * @param val Value to set
+         * @return true Valid i/j pair
+         * @return false Invalid i/j pair
+         */
         bool set( int i , int j, double val );
+
+        /**
+         * @brief Set a matrix entry over dense blocks
+         * 
+         * @param i Row
+         * @param j Column
+         * @param val Value to set
+         * @return true Valid i/j pair
+         * @return false Invalid i/j pair
+         */
         bool addOverBlocks( int i, int j, double val );
+
+        /**
+         * @brief Set a matrix entry in a known block
+         * 
+         * @param b Block index
+         * @param i Row from row start
+         * @param j Column from column start
+         * @param val Value to set
+         * @return true Valid i/j pair
+         * @return false Invalid i/j pair
+         */
         bool addFromBlock( int b, int i, int j, double val );
+
+        /**
+         * @brief Set a matrix entry over denseRow/Col/Corner
+         * 
+         * @param i Row
+         * @param j Column
+         * @param val Value to set
+         * @return true Valid i/j pair
+         * @return false Invalid i/j pair
+         */
         bool addOverDense( int i, int j, double val );
+
+        /**
+         * @brief Set any matrix entry
+         * 
+         * @param i Row
+         * @param j Column
+         * @param val Value to set
+         * @return true Valid i/j pair
+         * @return false Invalid i/j pair
+         */
         bool add( int i , int j, double val );
+
+        /**
+         * @brief Fill the entire PBM with a value
+         * 
+         * @param val Value to fill
+         */
         void fill( double val );
+
+        /**
+         * @brief Fill the entire matrix with random values up to mag
+         * Uniformly distributed up to value mag
+         * 
+         * @param mag Max magnitude
+         */
         void fillRand( double mag );
+
+        /**
+         * @brief Fill the entire matrix with random values up to mag, assert diagonal dominance
+         * Asserts diagonal dominance by adding absolute value of row i to A_ii
+         * 
+         * @param mag Max magnitude
+         */
         void fillRandDD( double mag );
+
+        /**
+         * @brief Check residual via L2{ A*x-B }
+         * 
+         * @param x Prospective solution to Ax-B
+         * @param B Right-hand side of Ax=B
+         * @return double L2 norm of residual vector
+         */
         double checkRes( const double *x, const double *B );
+
+        /**
+         * @brief Returns a PBM of same size as this PBM (Should never be used.)
+         * 
+         * @return PseudoBlockMatrix Shallow copy.
+         */
         PseudoBlockMatrix shallowCopy( PseudoBlockMatrix );
+
+        /**
+         * @brief PseudoBlockMatrix Vector Multiplication
+         * Computes B in Ax=B
+         * 
+         * @param[in] x 
+         * @param[out] b 
+         */
         void PBMVM( const double *x, double *b );
-        // bool GaussElim( const double *rhs, double *x, PseudoBlockMatrix tmp );
+        
+        /**
+         * @brief Solve the matrix equation directly with Gaussian Elimination
+         * 
+         * @param[in] rhs The B vector in Ax=B
+         * @param[out] x The solution to Ax=B
+         * @return true Residual check passed
+         * @return false Residual check failed
+         */
         bool directsolve( const double *rhs, double *x);
+
+        /**
+         * @brief Solve the matrix equation using PBM-structured Gauss-Seidel iteration
+         * 
+         * @param[in] rhs The B vector in Ax=B
+         * @param[in] x0 Initial guess for x
+         * @param[in] resTol Absolute L2 norm residual tolerance
+         * @param[in] convTol Absolute iterative convergence tolerance
+         * @param[out] x The solution to Ax=B
+         * @return true Tolerances met in less than max iterations
+         * @return false Tolerances not met in less than max iterations
+         */
         bool GaussSeidel( double *rhs, const double *x0, double resTol, double convTol, double *x );
+
+        /**
+         * @brief Solve the matrix equation using Gauss-Seidel iteration on the dense 2D matrix A
+         * 
+         * @param[in] rhs The B vector in Ax=B
+         * @param[in] x0 Initial guess for x
+         * @param[in] resTol Absolute L2 norm residual tolerance
+         * @param[in] convTol Absolute iterative convergence tolerance
+         * @param[out] x The solution to Ax=B
+         * @return true Tolerances met in less than max iterations
+         * @return false Tolerances not met in less than max iterations
+         */
         bool denseGaussSeidel( double *rhs, const double *x0, double resTol, double convTol, double *x );
 
+        /**
+         * @brief Construct a new PseudoBlockMatrix object
+         * 
+         */
         PseudoBlockMatrix()
         {
             srand(time(NULL));
             _state = initialized;
         }
 
+        /**
+         * @brief Construct a new PseudoBlockMatrix object
+         * 
+         * @param tNblocks Number of blocks
+         * @param tblockN Ptr array of block row sizes
+         * @param tblockM Ptr array of block col sizes
+         */
         PseudoBlockMatrix(
             int tNblocks,
             int* tblockN,
@@ -68,6 +294,9 @@ namespace PSEUDOBLOCKMATRIX
             allocate( tNblocks, tblockN, tblockM );
         }
 
+        /**
+         * @brief Destroy the PseudoBlockMatrix object
+         */
         ~PseudoBlockMatrix()
         {
             if(_state==allocated){
@@ -92,10 +321,6 @@ namespace PSEUDOBLOCKMATRIX
             delete [] blockM;
             }
         }
-
-        
-
-
     };
 
     void PseudoBlockMatrix::allocate(
@@ -289,6 +514,7 @@ namespace PSEUDOBLOCKMATRIX
             denseRow[j] = val;
         denseCorner = val;
     }
+
     void PseudoBlockMatrix::fillRand( double mag )
     {
         for(int b=0;b<Nblocks;b++){
@@ -304,6 +530,7 @@ namespace PSEUDOBLOCKMATRIX
             denseRow[j] = (double)rand() / RAND_MAX*mag;
         denseCorner = (double)rand() / RAND_MAX*mag;
     }
+
     void PseudoBlockMatrix::fillRandDD( double mag )
     {
         for(int b=0;b<Nblocks;b++){
@@ -320,6 +547,7 @@ namespace PSEUDOBLOCKMATRIX
             denseRow[j] = (double)rand() / RAND_MAX*mag;
         denseCorner = (double)rand() / RAND_MAX*mag + mag*(N+1);
     }
+
     PseudoBlockMatrix PseudoBlockMatrix::shallowCopy( PseudoBlockMatrix )
     {
         return PseudoBlockMatrix(Nblocks,blockN,blockM);
@@ -347,6 +575,7 @@ namespace PSEUDOBLOCKMATRIX
         res += tres*tres;
         return sqrt(res);
     }
+
     void PseudoBlockMatrix::Print(){
         int rs,cs,b,i,j;
         for(b=0;b<Nblocks;b++){
@@ -366,6 +595,7 @@ namespace PSEUDOBLOCKMATRIX
         cout << endl << "DenseCorner" << endl;
         cout << denseCorner << endl;
     }
+
     void PseudoBlockMatrix::PrintRow(int row){
         if(row != N-1){
             int b = blockPicker[row];
@@ -381,6 +611,7 @@ namespace PSEUDOBLOCKMATRIX
             cout << denseCorner << endl;
         }
     }
+
     double PseudoBlockMatrix::SumRow(int row){
         double sum = 0;
         if(row != N-1){
@@ -398,6 +629,7 @@ namespace PSEUDOBLOCKMATRIX
         }
         return sum;
     }
+
     void PseudoBlockMatrix::PBMVM( const double *x, double *B )
     {
         int rs,cs,b,i,j;
@@ -418,6 +650,7 @@ namespace PSEUDOBLOCKMATRIX
             B[N-1] += denseRow[j]*x[j];
         B[N-1] += denseCorner*x[M-1];
     }
+
     bool PseudoBlockMatrix::directsolve( const double *rhs, double *x )
     {
         // Iterators
@@ -514,6 +747,7 @@ namespace PSEUDOBLOCKMATRIX
         delete [] norms;
         return res<1e-1;
     }
+    
     bool PseudoBlockMatrix::denseGaussSeidel(double *rhs, const double *x0, double resTol, double convTol, double *x )
     {
         // Iterators
