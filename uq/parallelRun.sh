@@ -19,10 +19,9 @@ pID=0
 while read -r line; do
     ((pID = pID + 1))
     mkdir -p $pID 
-    cp ../computeSamples.exe ./$pID
     cd $pID
     echo $line
-    ./computeSamples.exe $line ../../$aFile ../../$bFile $pID > textout.txt &
+    ../../computeSamples.exe $line ../../$aFile ../../$bFile $pID > textout.txt &
     cd ..
 done < "$FILE"
 wait
