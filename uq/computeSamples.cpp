@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <fstream>
 #include <string>
+#include <string.h>
 #include <sstream>
 #include "../Simulator.cpp"
 #ifdef _WIN32

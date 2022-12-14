@@ -25,13 +25,13 @@ int main(int argc, char *argv[]){
 
     // distribution constants for UQ parameters
     static const double meanTsrmIndoors  = 295;
-    static const double stdTsrmIndoors   = 3;
+    static const double stdTsrmIndoors   = 1.0;//5.000;
     static const double meanTsrmOutdoors = 285.928;
-    static const double stdTsrmOutdoors  = 6.000;
+    static const double stdTsrmOutdoors  = 1.0;//8.000;
     static const double meanTToRecovery  = 5.6;
-    static const double stdTToRecovery   = 0.4;
+    static const double stdTToRecovery   = 0.01;//0.2;
     static const double meanTMachine     = 5+273.15;
-    static const double stdTMachine      = 0.5;
+    static const double stdTMachine      = 0.5;//1;
 
     // creating first experiment matrix A
     double A[d][n];
