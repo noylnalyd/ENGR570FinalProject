@@ -27,6 +27,22 @@
 ```
 code blocks for commands
 ```
+## Running Global Sensitivity Analysis Example
+
+### Dependencies
+
+* Python3 and related modules (pandas, scipy, numpy, and matplotlib
+* C++ libraries (math.h, cmath, fstream, string, string.h, sstream)
+
+### Executing Program
+
+* Navigate to 'uq' subdirectory
+* In terminal:
+```
+bash parallelRun.sh nProcesses nSamples
+```
+(nProcesses is the number of parallel processes to run on) 
+(nSamples is the size of each Monte Carlo sum; total computational cost is 2*nSamples*D, where D=4 parameters in this example)
 
 ## Help
 
