@@ -134,8 +134,8 @@ for i in range(nParam):
         numT=numT+(fA.loc[j]["Time to Stable Temp"]-fAB.loc[j]["Time to Stable Temp"])**2
     for j in range(2*nSamples):
         denom=denom+(fC.loc[j]["Time to Stable Temp"]**2)
-    num=num/nSamples
-    numT=numT/(2*nSamples)
+    num=abs(num)/nSamples
+    numT=abs(numT)/(2*nSamples)
     denom=denom/(2*nSamples)
     denom=denom-(meanC)**2
     sT[i]=numT/denom
