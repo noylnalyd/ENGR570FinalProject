@@ -42,7 +42,7 @@ code blocks for commands
 bash parallelRun.sh nProcesses nSamples
 ```
 (nProcesses is the number of parallel processes to run on) 
-(nSamples is the size of each Monte Carlo sum; total computational cost is 2*nSamples*D, where D=4 parameters in this example)
+(nSamples is the size of each Monte Carlo sum; total computational cost is 2 x nSamples x D, where D=4 parameters in this example)
 
 ## Help
 
