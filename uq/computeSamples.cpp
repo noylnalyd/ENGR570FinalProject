@@ -207,6 +207,10 @@ int main(int argc, char *argv[]){
     }
     for (int in=0; in<nrows; in++) {
         args[0]=A[in][0]; args[1]=A[in][1]; args[2]=A[in][2]; args[3]=A[in][3];
+        BODYMODEL::BodyModel* body = BODYMODEL::defaultBody();
+        SIMMODEL::SimModel* sim = new SIMMODEL::KonstasCase();
+        SIMULATOR::Simulator* simulator = new SIMULATOR::Simulator(body,sim);
+        simulator->initializer();
         simulator->runSim(args,outs);
         outputs[in] = outs[0];
         fprintf(foutA, "%.17g\n", outputs[in]);
@@ -226,6 +230,10 @@ int main(int argc, char *argv[]){
     }
     for (int in=0; in<nrows; in++) {
         args[0]=B[in][0]; args[1]=B[in][1]; args[2]=B[in][2]; args[3]=B[in][3];
+        BODYMODEL::BodyModel* body = BODYMODEL::defaultBody();
+        SIMMODEL::SimModel* sim = new SIMMODEL::KonstasCase();
+        SIMULATOR::Simulator* simulator = new SIMULATOR::Simulator(body,sim);
+        simulator->initializer();
         simulator->runSim(args,outs);
         outputs[in] = outs[0];
         fprintf(foutB, "%.17g\n", outputs[in]);
@@ -247,6 +255,10 @@ int main(int argc, char *argv[]){
             fprintf(foutAB, "");
             for (int in=0; in<nrows; in++) {
                 args[0]=AB[in][0][id]; args[1]=AB[in][1][id]; args[2]=AB[in][2][id]; args[3]=AB[in][3][id];
+                BODYMODEL::BodyModel* body = BODYMODEL::defaultBody();
+                SIMMODEL::SimModel* sim = new SIMMODEL::KonstasCase();
+                SIMULATOR::Simulator* simulator = new SIMULATOR::Simulator(body,sim);
+                simulator->initializer();
                 simulator->runSim(args,outs);
                 outputs[in] = outs[0];
                 fprintf(foutAB, "%.17g\n", outputs[in]);
@@ -269,6 +281,10 @@ int main(int argc, char *argv[]){
             fprintf(foutBA, "");
             for (int in=0; in<nrows; in++) {
                 args[0]=BA[in][0][id]; args[1]=BA[in][1][id]; args[2]=BA[in][2][id]; args[3]=BA[in][3][id];
+                BODYMODEL::BodyModel* body = BODYMODEL::defaultBody();
+                SIMMODEL::SimModel* sim = new SIMMODEL::KonstasCase();
+                SIMULATOR::Simulator* simulator = new SIMULATOR::Simulator(body,sim);
+                simulator->initializer();
                 simulator->runSim(args,outs);
                 outputs[in] = outs[0];
                 fprintf(foutBA, "%.17g\n", outputs[in]);
