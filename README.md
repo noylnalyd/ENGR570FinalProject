@@ -44,10 +44,9 @@ bash parallelRun.sh nProcesses nSamples
 
 ## Authors
 
-Contributors names and contact info
+Dylan Lyon [@noylnalyd](https://github.com/noylnalyd)
 
-ex. Dylan Lyon [@noylnalyd](https://github.com/noylnalyd)
-ex. Thomas Coons[@tcoonsUM](https://github.com/tcoonsUM)
+Thomas Coons[@tcoonsUM](https://github.com/tcoonsUM)
 
 
 ## License
